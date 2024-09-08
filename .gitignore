@@ -5,6 +5,7 @@ __pycache__/
 
 #data
 data/
+*.mp3
 
 # PDFs
 BOOK_*.pdf
