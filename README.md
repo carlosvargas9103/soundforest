@@ -9,14 +9,14 @@ Carlos VARGAS
   - [x] CR
   - [x] 2
   - [x] 3
-  - [ ] 4
-  - [ ] 5
-  - [ ] 6
-  - [ ] 7
+  - [ ] Giacomo
+  - [ ] Roadmap
+  - [ ] Music
+  - [ ] Images for Music
   - [ ] 8
   - [ ] 9
 - [x] Install environment
-- [ ] DEA Soundscapes using (testing):
+- [ ] DEA Soundscapes using (in progress => among all regions):
   - [ ] [soundecology](https://cran.r-project.org/web/packages/soundecology/soundecology.pdf)
   - [ ] [soundscapeR](https://github.com/ThomasLuypaert/soundscapeR)
   - [ ] [seewave](https://cran.r-project.org/web/packages/seewave/index.html)
