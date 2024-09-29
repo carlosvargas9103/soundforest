@@ -6,21 +6,21 @@ from glob import glob
 
 from itertools import cycle
 
-# from scipy.io import wavfile
-# import soundfile as sf
+from scipy.io import wavfile
+import soundfile as sf
 import librosa
-# import librosa.display
-# import IPython
-# import IPython.display as ipd
-# import noisereduce as nr
-# from noisereduce.generate_noise import band_limited_noise
+import librosa.display
+import IPython
+import IPython.display as ipd
+import noisereduce as nr
+from noisereduce.generate_noise import band_limited_noise
 
 import pandas as pd
 import numpy as np
-# from numpy.lib.stride_tricks import sliding_window_view
-# from mpl_toolkits.mplot3d import Axes3D
-# import matplotlib.pylab as plt
-# import seaborn as sns
+from numpy.lib.stride_tricks import sliding_window_view
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pylab as plt
+import seaborn as sns
 
 import time
 

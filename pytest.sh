@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=slurm_conda_python_example
-#SBATCH --nodes=2
+#SBATCH --nodes=1
 #SBATCH --time=00-00:05:00
 #SBATCH --ntasks=2
 #SBATCH --ntasks-per-node=2
