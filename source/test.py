@@ -28,9 +28,9 @@ t0 = time.time()
 
 cwd = os.getcwd()
 
-path = "../out/"
+path = f"{cwd}/out/"
 job_id = os.environ.get('SLURM_JOB_ID')
-outfile_name = "cities_" + job_id + "_.txt"
+outfile_name = "cities_" + job_id + ".txt"
 
 data = ['cali',
         'thornbury',
@@ -41,13 +41,13 @@ data = ['cali',
         'rapperswil'
         ]
 
-# with open(path + outfile_name, 'w') as file:
-#     time.sleep(0.3)  # Sleep for 3 seconds
-#     t1 = time.time()
-#     t_diff = t1 - t0
-#     file.write('\n'.join('city: ' + data + f' time: {t_diff}') + '\n')
-#
-# file.close()
+with open(path + outfile_name, 'w') as file:
+    time.sleep(0.3)  # Sleep for 0.3 seconds
+    t1 = time.time()
+    t_diff = t1 - t0
+    file.write('\n'.join(data) + '\n')
+
+file.close()
 
 t1 = time.time()
 t_diff = t1 - t0
