@@ -1,6 +1,5 @@
-/home/fs72552/vargas/.conda/envs/py311f/bin/python
-Sun Sep 29 02:17:36 CEST 2024
-n4908-034
-Python 3.11.9
-0
-this is the content of the host machines file
+Traceback (most recent call last):
+  File "/home/fs72552/vargas/forests-sounds-vargas/./source/test.py", line 42, in <module>
+    with open(path + outfile_name, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../out/cities_1476062_.txt'
