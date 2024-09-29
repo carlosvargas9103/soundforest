@@ -1,0 +1,6 @@
+/home/fs72552/vargas/.conda/envs/py311f/bin/python
+Sun Sep 29 02:17:36 CEST 2024
+n4908-034
+Python 3.11.9
+0
+this is the content of the host machines file

@@ -1,20 +1,17 @@
-name: pyforest
+---
+name: forest
 channels:
   - conda-forge
   - defaults
 dependencies:
-  - # base
-  - python=3.11
-  # frameworks
+  - python=3.11.9
   - pip=24.2
-  - pip-chill=1.0.3
   - pandas=2.2.2
   - librosa=0.10.2.post1
   - audioread=3.0.1
-  - noisereduce=3.0.2
+  - IPython
   - numpy
   - scipy
   - seaborn
   - matplotlib
-  - ipykernel
-  - black
+
