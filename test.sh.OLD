@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#SBATCH --job-name=slurm_conda_example
+#SBATCH --time=00-00:05:00
+#SBATCH --ntasks=2
+#SBATCH --N=4
+#SBATCH --mem=2GB
+#SBATCH --output=./out/test.txt
+
+# modify SBATCH options according to needs
+
+# see "Setup Conda" above or consult "module avail miniconda3" to get the right package name
+module load miniconda3
+eval "$(conda shell.bash hook)"
+conda activate py311f
+
+# print out some info of the python executable in use
+# this should point to the python version from "myenv"
+which python
+sleep 1
+date
+hostname
+python --version
+ps | grep test|grep -v grep | wc -l
+echo "this is the content of the host machines file"
