@@ -24,8 +24,12 @@ import seaborn as sns
 
 import dask
 from dask import delayed
+import dask.config
 import dask.dataframe as dd
 import dask.array as da
+
+from dask.distributed import Client
+from dask_jobqueue import SLURMCluster
 
 import time
 
@@ -34,7 +38,7 @@ t0 = time.time()
 cwd = os.getcwd()
 
 path = f"{cwd}/out/"
-job_id = os.environ.get('SLURM_JOB_ID')
+job_id = os.environ.get('SLURM_JOB_ID') or ""
 outfile_name = "cities_" + job_id + ".txt"
 
 data = ['cali',
