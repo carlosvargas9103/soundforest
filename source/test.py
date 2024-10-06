@@ -1,10 +1,11 @@
 import os
 import io
+import time
+
+from itertools import cycle
 from typing import List
 import urllib.request
 from glob import glob
-
-from itertools import cycle
 
 from scipy.io import wavfile
 import soundfile as sf
@@ -31,15 +32,16 @@ import dask.array as da
 from dask.distributed import Client
 from dask_jobqueue import SLURMCluster
 
-import time
-
 t0 = time.time()
 
 cwd = os.getcwd()
 
 path = f"{cwd}/out/"
-job_id = os.environ.get('SLURM_JOB_ID') or ""
+
+job_id = os.environ.get('SLURM_JOB_ID') or "NULL"
 outfile_name = "cities_" + job_id + ".txt"
+
+
 
 data = ['cali',
         'thornbury',
