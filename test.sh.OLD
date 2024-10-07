@@ -2,8 +2,9 @@
 
 #SBATCH --job-name=slurm_conda_example
 #SBATCH --time=00-00:01:00
+#SBATCH --nodes=4
 #SBATCH --ntasks=2
-#SBATCH --N=4
+#SBATCH --cpus-per-task=2
 #SBATCH --mem=2GB
 #SBATCH --output=./out/test.txt
 
