@@ -9,7 +9,7 @@ Carlos VARGAS
   - [x] CR
   - [x] 2
   - [x] 3
-  - [ ] Giacomo
+  - [ ] 1/2 Giacomo
   - [ ] Roadmap
   - [ ] Music
   - [ ] Images for Music
