@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #SBATCH --job-name=slurm_conda_python_example
-#SBATCH --nodes=4
+#SBATCH --nodes=10
 #SBATCH --time=00-00:05:00
-#SBATCH --ntasks=2
+#SBATCH --ntasks=20
 #SBATCH --ntasks-per-node=2
 #SBATCH --mem=2GB
 #SBATCH --output=./out/test.txt
