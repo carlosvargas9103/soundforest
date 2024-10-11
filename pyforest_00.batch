@@ -1,0 +1,23 @@
+#!/bin/bash -l
+#SBATCH --job-name=slurm_venv_python_pyforest_00
+#SBATCH --chdir /scratch/izar/vargas/repos/forests-sounds-vargas
+#SBATCH --nodes=4
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=32GB
+#SBATCH --output=/out/test.txt
+#SBATCH --time=00:10:00
+#SBATCH --qos=debug
+#SBATCH --reservation=
+
+
+# --ntasks-per-node=2
+# --gres=gpu:1
+# The --reservation line only works during the two 1-week periods
+# when 80 GPUs are available. Remove otherwise.
+
+module load gcc python
+
+source ~/repos/forests-sounds-vargas/venvs/py310f/bin/activate
+
+cd ~/repos/forests-sounds-vargas/source && python3 script_dea_region_parallel_00.py

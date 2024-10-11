@@ -41,13 +41,14 @@ cwd = os.getcwd()
 # TODO: define all the environment variables
 global job_id, N_JOBS, sreg, si, bandas, sr, b_band, u_band, bandwidth
 job_id = os.environ.get('SLURM_JOB_ID') or "NULL"
-N_JOBS = 16  # os.environ.get('N_JOBS') or 4
+N_JOBS = 8  # os.environ.get('N_JOBS') or 4
 sreg, si, bandas = 0, 0, 10
 b_band, u_band, bandwidth = 0, 10000, 1000
 
 ### LOAD AUDIO FILES ###
 cwd = os.getcwd()  # cwd: /home/fs72552/vargas/forests-sounds-vargas/source
-cwd = str(Path(cwd).parents[0])
+cwd = str(Path(cwd).parents[0]) if cwd.endswith("/source") else cwd
+# cwd = str(Path(cwd).parents[0])
 print(cwd)
 path_data = f"{cwd}/data/"
 path_out = f"{cwd}/out/"
