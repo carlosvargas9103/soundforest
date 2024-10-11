@@ -1,6 +1,6 @@
 #!/bin/bash -l
 #SBATCH --job-name=slurm_venv_python_pyforest_00
-#SBATCH --chdir /scratch/izar/vargas/repos/forests-sounds-vargas
+#SBATCH --chdir ~/repos/forests-sounds-vargas
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
