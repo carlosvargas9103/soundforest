@@ -1,0 +1,41 @@
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+/home/vargas/repos/forests-sounds-vargas
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+#### #### HOI FOREST #### ####
+Starting with parallel jobs: 57 time: 1728697252
+0 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3
+y: [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
+  0.00836801  0.01314615  0.01415004]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+### ORIGINAL Y_C 86400000 [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
+  0.00836801  0.01314615  0.01415004] <class 'numpy.ndarray'>
+### CHUNKS Y_C total_chunks: 180 chunk_size: 480000 <class 'list'> <class 'numpy.ndarray'>
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    5.1s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    1.6s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.9s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.9s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.1s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.2s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+### PARALLEL split_freq_band
+#### PARALLEL SPLIT DENOISE Y_C SPLIT PER FREQUENCY 180 10 10000 [-1.66543206e-03  7.13930043e-06  3.85412810e-05  4.81999272e-05
+  5.28009634e-05  5.54476346e-05  5.71415517e-05  5.82967849e-05
+  5.91191086e-05] 2.1450657844543457
+#### TIMES #### List comprehension
+#### TIMES #### List comprehension: 0.11662960052490234
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 10 <class 'numpy.ndarray'> 1800000
+### COMPUTE SLIDING WINDOW WITH SUM
+#### RUNNING #### sum_this_sliding_window
+#### TIMES #### sum_this_sliding_window 0.48769497871398926
+#### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
+Traceback (most recent call last):
+  File "/home/vargas/repos/forests-sounds-vargas/source/script_dea_region_parallel_00.py", line 476, in <module>
+    file.write('\n'.join(f_progress) + '\n')
+TypeError: sequence item 0: expected str instance, tuple found

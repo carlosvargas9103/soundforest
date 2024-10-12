@@ -461,7 +461,7 @@ print('#### #### HOI FOREST #### ####')
 
 # This function is meant to be used in a parallel fashion
 print(f'Starting with parallel jobs: {len(configfiles)} time: {int(time.time())}')
-for i, f in enumerate(configfiles[:2]):
+for i, f in enumerate(configfiles):
     t11 = time.time()
     f_progress.append(f'{i} - {f} -  {t11}')
     print(i, 'REGION:', '====>>>>', f[0], '#### RUNNING #### AUDIO:', '====>>>>', f[1])

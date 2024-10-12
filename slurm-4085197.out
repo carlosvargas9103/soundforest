@@ -1,0 +1,111 @@
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+/home/vargas/repos/forests-sounds-vargas
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_00_PSA0010-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_18_PSA0373-2011.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_16_PSA0292-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/PSA0025-2015.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_21_PSA0429-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_11_PSA0192-2009.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_01_PSA0022-2015.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_02_PSA0077-2013.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_12_PSA0254-2011.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_01_Pasture11.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_09_Pasture8.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_00_Pasture10.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3'), ('Pasture', '/home/vargas/repos/forests-sounds-vargas/data/Pasture/3_02_Pasture12.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_05_PSA0074-2020.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_13_PSA0165-2021.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_17_PSA0193-2013.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_12_PSA0161-2016.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_16_PSA0183-2017.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_10_PSA0152-2013.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_00_PSA0004-2017.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_09_PSA0151-2016.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_15_PSA0179-2013.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_06_PSA0093-2018.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_02_PSA0026-2020.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_14_PSA0168-2016.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_20_PSA0431-2013.mp3'), ('NaturalRegeneration', '/home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_07_PSA0099-2019.mp3'), ('RefForest', '/home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3'), ('RefForest', '/home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3'), ('RefForest', '/home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3')]
+['/home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3', '/home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3', '/home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3']
+RefForest => 3
+Starting with parallel jobs: 3 time: 1728691098
+#### #### HOI FOREST #### ####
+0 #### RUNNING #### process_soundscape
+y: [ 0.01103865  0.01176985  0.00412414 -0.00774774 -0.01663554 -0.01605902
+ -0.00705433  0.00213126  0.0058885 ]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+### ORIGINAL Y_C 86400000 [ 0.01103865  0.01176985  0.00412414 -0.00774774 -0.01663554 -0.01605902
+ -0.00705433  0.00213126  0.0058885 ] <class 'numpy.ndarray'>
+### CHUNKS Y_C total_chunks: 180 chunk_size: 480000 <class 'list'> <class 'numpy.ndarray'>
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    5.4s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    1.6s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.9s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.8s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    1.6s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    1.5s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.8s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.8s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    1.7s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    1.6s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.8s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done 180 out of 180 | elapsed:    0.8s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+[Parallel(n_jobs=32)]: Using backend LokyBackend with 32 concurrent workers.
+[Parallel(n_jobs=32)]: Done   2 out of  10 | elapsed:    0.0s remaining:    0.2s
+[Parallel(n_jobs=32)]: Done  10 out of  10 | elapsed:    0.1s finished
+### PARALLEL split_freq_band
+#### PARALLEL SPLIT DENOISE Y_C SPLIT PER FREQUENCY 180 10 10000 [ 0.0004436  -0.00047768 -0.00049152 -0.00049849 -0.00050286 -0.00050593
+ -0.00050825 -0.00051009 -0.00051162] 2.015664577484131
+#### TIMES #### List comprehension
+#### TIMES #### List comprehension: 0.12261557579040527
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 10 <class 'numpy.ndarray'> 1800000
+### COMPUTE SLIDING WINDOW WITH SUM
+#### RUNNING #### sum_this_sliding_window
+#### TIMES #### sum_this_sliding_window 0.48824548721313477
+#### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
+0 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 86.14202356338501
+1 #### RUNNING #### process_soundscape
+y: [ 0.00041495  0.00191905  0.00555526  0.00784058  0.00575741  0.00123444
+ -0.00283909 -0.00552388 -0.0053111 ]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+### ORIGINAL Y_C 86400000 [ 0.00041495  0.00191905  0.00555526  0.00784058  0.00575741  0.00123444
+ -0.00283909 -0.00552388 -0.0053111 ] <class 'numpy.ndarray'>
+### CHUNKS Y_C total_chunks: 180 chunk_size: 480000 <class 'list'> <class 'numpy.ndarray'>
+### PARALLEL split_freq_band
+#### PARALLEL SPLIT DENOISE Y_C SPLIT PER FREQUENCY 180 10 10000 [-0.00193217  0.00581825 -0.00545985  0.00469468 -0.00459229 -0.00143547
+  0.00323039 -0.00611755  0.00652574] 1.8952562808990479
+#### TIMES #### List comprehension
+#### TIMES #### List comprehension: 0.1132817268371582
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 10 <class 'numpy.ndarray'> 1800000
+### COMPUTE SLIDING WINDOW WITH SUM
+#### RUNNING #### sum_this_sliding_window
+#### TIMES #### sum_this_sliding_window 0.48659324645996094
+#### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
+1 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.7498140335083
+2 #### RUNNING #### process_soundscape
+y: [-0.00513838 -0.00416545  0.0014226   0.00823428  0.01222593  0.01346388
+  0.01234943  0.00994667  0.00897678]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+### ORIGINAL Y_C 86400000 [-0.00513838 -0.00416545  0.0014226   0.00823428  0.01222593  0.01346388
+  0.01234943  0.00994667  0.00897678] <class 'numpy.ndarray'>
+### CHUNKS Y_C total_chunks: 180 chunk_size: 480000 <class 'list'> <class 'numpy.ndarray'>
+### PARALLEL split_freq_band
+#### PARALLEL SPLIT DENOISE Y_C SPLIT PER FREQUENCY 180 10 10000 [ 6.48344652e-03 -6.24299248e-04 -8.86943801e-04 -9.66651993e-04
+ -1.05111174e-03 -1.07923171e-03 -8.68371785e-04 -4.86520760e-04
+ -3.40878669e-05] 1.8446872234344482
+#### TIMES #### List comprehension
+#### TIMES #### List comprehension: 0.09121894836425781
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 10 <class 'numpy.ndarray'> 1800000
+### COMPUTE SLIDING WINDOW WITH SUM
+#### RUNNING #### sum_this_sliding_window
+#### TIMES #### sum_this_sliding_window 0.4700593948364258
+#### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
+2 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 76.67806339263916
+#### TIMES #### process_soundscape TOTAL TOTAL ==>> 236.56995129585266
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+cwd: /home/vargas/repos/forests-sounds-vargas file: /home/vargas/repos/forests-sounds-vargas/out/cities_4085197_1728691334.txt total_time: 236.577  TOTAL_JOBS: 32 job_id: 4085197
+#### SLEEPING TIME: 236.577 sec ####
+All guert parcero, aller!
