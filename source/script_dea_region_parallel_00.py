@@ -5,6 +5,7 @@ gc.collect()
 import os
 import io
 import re
+import ast
 import csv
 import copy
 import time
@@ -18,7 +19,7 @@ from typing import List, Tuple
 from joblib import Parallel, delayed
 from joblib import effective_n_jobs
 from itertools import cycle
-# from multiprocessing import Pool
+from multiprocessing import Pool
 
 import urllib.request
 
@@ -45,13 +46,13 @@ cwd = os.getcwd()
 
 ### DEFINE ENVIRONMENT VARIABLES ###
 # TODO: define all the environment variables
-global job_id, N_JOBS, sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s
-global audio_files, verbose, f_progress
+global job_id, N_JOBS, sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, verbose, f_progress
+# global audio_files, verbose, f_progress
 job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
 sreg, si, bandas = 0, 0, 10
 # SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
-b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 10, False
+b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 3, False
 
 ### LOAD AUDIO FILES ###
 cwd = os.getcwd()  # cwd: /home/fs72552/vargas/forests-sounds-vargas/source
@@ -68,19 +69,29 @@ print(path_data, path_out, configfiles[:3])
 # READ audio_files to process
 audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
 audio_files = audio_files.assign(processed=False)
+# audio_files['processed'] = audio_files['processed'].astype(bool)
 audio_files.to_csv(f'{path_out}audio_files_in_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
-
-# READ audio_files_progress
-audio_files_processed = pd.read_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';')
 
 
 def update_progress(audio_files_in: pd.DataFrame = audio_files,
-                    audio_files_processed: pd.DataFrame = audio_files_processed,
+                    audio_files_processed: pd.DataFrame = None, # audio_files_processed,
+                    # audio_files_processed: pd.DataFrame = audio_files_processed,
                     c_processed: str = 'processed',
                     c_filename: str = 'filename') -> pd.DataFrame:
-    audios = [t[c_filename].split('/')[-1] for _, t in audio_files_processed.iterrows() if t.processed]
-    audio_files_in[c_processed] = audio_files_in[c_filename].astype(str).str.contains('|'.join(map(re.escape, audios)))
-    # mask = [a.split('/')[-1] in terms for a in audio_files_in[c_filename]]
+    if audio_files_processed is None:
+        return audio_files
+    # audios = [t[c_filename].split("/")[-1] for _, t in audio_files_processed.iterrows() if ast.literal_eval(t[c_processed])]
+    audios = [t.filename.split("/")[-1] for _, t in audio_files_processed.iterrows() if eval(t.processed)]
+    # audios = []
+    # for _, t in audio_files_processed.iterrows():
+    #     print(t.processed)
+    #     # if eval(str(t.processed)):
+    #     if eval(t.processed):
+    #         audios.append(t.filename.split("/")[-1])
+    # print(len(audios), audios[:3])
+    if audios:
+        audio_files_in[c_processed] = audio_files_in[c_filename].astype(str).str.contains('|'.join(map(re.escape, audios)))
+        # mask = [a.split('/')[-1] in terms for a in audio_files_in[c_filename]]
     # print(audio_files_in.head())
     return audio_files_in
 
@@ -95,13 +106,15 @@ def update_progress(audio_files_in: pd.DataFrame = audio_files,
 
 def process_soundscape(audio_file: str = '',
                        region: str = '',
-                       si: int = 1991, *,
+                       si: int = 1964, *,
                        bandas: int = bandas,
                        bandwidth: int = bandwidth,
-                       path_data=f'{cwd}/data/',
-                       path_out=f'{cwd}/out/',
+                       path_data: str = f'{cwd}/data/',
+                       path_out: str = f'{cwd}/out/',
+                       samples_s: int = samples_s,
+                       isamples_s: int = isamples_s,
                        verbose: bool = verbo
-                       ):
+                       ) -> None:
     # print(f'{si} - audio_file: {audio_file} - region: {region}')
     ### LOAD COLOUR TEMPLATES ###
     sns.set_theme(style='white', palette=None)
@@ -109,8 +122,8 @@ def process_soundscape(audio_file: str = '',
     color_cycle = cycle(plt.rcParams['axes.prop_cycle'].by_key()['color'])
 
     # PARALLEL JOBS PER FILE
+    y, y_c = None, None
     y, sr = librosa.load(audio_file, sr=None)  # , duration=1800)
-    y_c = None
     y_c = copy.deepcopy(y)
     tt = int(len(y_c) / sr)
     print(f'y: {y_c[:9]}')
@@ -295,6 +308,15 @@ def process_soundscape(audio_file: str = '',
     print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
           type(sum_y_rn_st_split), len(sum_y_rn_st_split),
           type(sum_y_rn_st_split[0]), len(sum_y_rn_st_split[0]))
+
+    # <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484 => 1800 / 484 = ~3.6 seconds
+    # sum_y_rn_st_split to .csv
+    pd.DataFrame(
+        sum_y_rn_st_split.T.astype(float),
+        columns=[f'band_{int(i)}' for i in range(sum_y_rn_st_split.shape[0])]).to_csv(
+        f'{path_out}data/{region}_{audio_file.split("/")[-1][:-4]}_sum_y_rn_st_split_{si}_{job_id}_{int(time.time())}.csv',
+        sep=';'
+    )
 
     def plot_sum_split_signal(s_split_0: List[np.ndarray] = None, s_split_1: List[np.ndarray] = None,
                               y_label: str = 'SUM',
@@ -483,7 +505,18 @@ def process_soundscape(audio_file: str = '',
 
 
 t00 = time.time()
-audio_files = update_progress(audio_files_in=audio_files)
+# READ audio_files_progress
+global audio_files_processed# = None
+try:
+    audio_files_processed = pd.read_csv(
+        f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';'
+    ).astype(str)
+    # audio_files_processed['processed'] = audio_files_processed['processed'].astype(bool)
+except Exception as e:
+    print('ALWAYS PROBLEMS', e)
+    audio_files_processed = None
+
+audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
 f_progress = copy.deepcopy(audio_files)
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
@@ -494,8 +527,9 @@ print('#### #### HOI FOREST #### ####')
 print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
 
 try:
-    for i, f in audio_files[:17].iterrows():
-        if f.processed:
+    for i, f in audio_files.iterrows():
+        if bool(f.processed):
+            # print(f)
             continue
         t11 = time.time()
         print(i, '################', '################', '################', '################')
@@ -512,29 +546,6 @@ finally:
     f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
 
 print('#### TIMES #### process_soundscape TOTAL TOTAL ==>>', time.time() - t00)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 data = [
     'cali',
