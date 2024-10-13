@@ -4,20 +4,23 @@ gc.collect()
 
 import os
 import io
+import re
+import csv
 import copy
 import time
 import joblib
+import datetime
 
-from multiprocessing import Pool
+from glob import glob
 from pathlib import Path
 from typing import List, Tuple
 
-import urllib.request
-
-from glob import glob
 from joblib import Parallel, delayed
 from joblib import effective_n_jobs
-from itertools import cycle, chain
+from itertools import cycle
+# from multiprocessing import Pool
+
+import urllib.request
 
 from scipy.io import wavfile
 import soundfile as sf
@@ -39,54 +42,71 @@ import seaborn as sns
 ### IDENTIFY PATH ###
 t0 = time.time()
 cwd = os.getcwd()
-# path = f"{cwd}/out/"
 
 ### DEFINE ENVIRONMENT VARIABLES ###
 # TODO: define all the environment variables
-global job_id, N_JOBS, sreg, si, bandas, sr, b_band, u_band, bandwidth, audio_files, samples_s, isamples_s, verbose, f_progress
-job_id = os.environ.get('SLURM_JOB_ID') or "NULL"
+global job_id, N_JOBS, sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s
+global audio_files, verbose, f_progress
+job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
 sreg, si, bandas = 0, 0, 10
-b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 10, True
+# SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
+b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 10, False
 
 ### LOAD AUDIO FILES ###
 cwd = os.getcwd()  # cwd: /home/fs72552/vargas/forests-sounds-vargas/source
-cwd = str(Path(cwd).parents[0]) if cwd.endswith("/source") else cwd
-# cwd = str(Path(cwd).parents[0])
-print(cwd)
-path_data = f"{cwd}/data/"
-path_out = f"{cwd}/out/"
+cwd = str(Path(cwd).parents[0]) if cwd.endswith('/source') else cwd
+print('PATH', cwd)
+path_data = f'{cwd}/data/'
+path_out = f'{cwd}/out/'
 
 configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                for dirpath, dirnames, files in os.walk(path_data)
                for f in files if f.endswith('.mp3')]
 print(path_data, path_out, configfiles[:3])
 
+# READ audio_files to process
+audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
+audio_files = audio_files.assign(processed=False)
+audio_files.to_csv(f'{path_out}audio_files_in_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
 
-# uniqueRegions = list(set(r[0] for r in configfiles))
+# READ audio_files_progress
+audio_files_processed = pd.read_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';')
+
+
+def update_progress(audio_files_in: pd.DataFrame = audio_files,
+                    audio_files_processed: pd.DataFrame = audio_files_processed,
+                    c_processed: str = 'processed',
+                    c_filename: str = 'filename') -> pd.DataFrame:
+    audios = [t[c_filename].split('/')[-1] for _, t in audio_files_processed.iterrows() if t.processed]
+    audio_files_in[c_processed] = audio_files_in[c_filename].astype(str).str.contains('|'.join(map(re.escape, audios)))
+    # mask = [a.split('/')[-1] in terms for a in audio_files_in[c_filename]]
+    # print(audio_files_in.head())
+    return audio_files_in
+
 
 # TODO: USE GLOBAL VARIABLE sreg TO SUBMIT PARALLEL JOBS VIA args in batch script
+# uniqueRegions = list(set(r[0] for r in configfiles))
 # region = uniqueRegions[sreg]  # for r in uniqueRegions
 # audio_files = [f[1] for f in configfiles if f[0] == region]
 # print(audio_files[:3])
 # print(f'{region} =>', len(audio_files))
 
 
-def process_soundscape(audio_file: str = "",
-                       region: str = "",
+def process_soundscape(audio_file: str = '',
+                       region: str = '',
                        si: int = 1991, *,
                        bandas: int = bandas,
                        bandwidth: int = bandwidth,
-                       path_data=f"{cwd}/data/",
-                       path_out=f"{cwd}/out/",
-                       verbose:bool=verbo
+                       path_data=f'{cwd}/data/',
+                       path_out=f'{cwd}/out/',
+                       verbose: bool = verbo
                        ):
-    print(f'{si} - audio_file: {audio_file} - region: {region}')
-    # return
+    # print(f'{si} - audio_file: {audio_file} - region: {region}')
     ### LOAD COLOUR TEMPLATES ###
-    sns.set_theme(style="white", palette=None)
-    color_pal = plt.rcParams["axes.prop_cycle"].by_key()["color"]
-    color_cycle = cycle(plt.rcParams["axes.prop_cycle"].by_key()["color"])
+    sns.set_theme(style='white', palette=None)
+    color_pal = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    color_cycle = cycle(plt.rcParams['axes.prop_cycle'].by_key()['color'])
 
     # PARALLEL JOBS PER FILE
     y, sr = librosa.load(audio_file, sr=None)  # , duration=1800)
@@ -96,11 +116,11 @@ def process_soundscape(audio_file: str = "",
     print(f'y: {y_c[:9]}')
     print(f'total samples in y: {y_c.shape} in time: {tt} secs')
     print(f'samples rate per second:  {sr}')
-    print('###', 'ORIGINAL Y_C', len(y_c), y_c[:9], type(y_c))
+    print('####', 'ORIGINAL Y_C', len(y_c), y_c[:9], type(y_c))
     # [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
     my_chunks = samples_s / isamples_s
     split_y = np.hsplit(y_c, my_chunks)
-    print('###', 'CHUNKS Y_C',
+    print('####', 'CHUNKS Y_C',
           f'total_chunks: {len(split_y)}',
           f'chunk_size: {len(split_y[0])}',
           type(split_y), type(split_y[0])
@@ -119,8 +139,8 @@ def process_soundscape(audio_file: str = "",
     split_y_rn_ns = Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(audio_denoise_ns)(y_i) for y_i in split_y)
 
     def plot_raw_signal(y=y_c, sr=sr, color_pal=color_pal,
-                        region=region, si=si,
-                        path_out=f"{cwd}/out/") -> None:
+                        region: str = region, si: int = si,
+                        path_out: str = f'{path_out}/figs/RAW/') -> None:
         # Calculate the time for each sample
         tt = np.arange(0, len(y)) / sr
         # Plot the data
@@ -133,7 +153,7 @@ def process_soundscape(audio_file: str = "",
         # plt.show()
         # save the figure to file
         plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                    format="png", dpi=600)
+                    format='png', dpi=600)
         plt.clf()
         matplotlib.pyplot.close()
 
@@ -159,7 +179,7 @@ def process_soundscape(audio_file: str = "",
         return signals
 
     # PARALLEL split_freq_band => ~6sec
-    print('###', 'PARALLEL split_freq_band')
+    print('####', 'PARALLEL split_freq_band')
     t1 = time.time()
     split_y_rn_st_split = np.array(
         Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y_rn_st)
@@ -175,10 +195,10 @@ def process_soundscape(audio_file: str = "",
 
     # REARRANGE THE SIGNAL
     t1 = time.time()
-    print('#### TIMES #### List comprehension')
+    # print('#### TIMES #### List comprehension')
     y_rn_split_st_10 = [split_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
     y_rn_split_ns_10 = [split_y_rn_ns_split[:, b, :].flatten() for b in range(0, bandas)]
-    print('#### TIMES #### List comprehension:', time.time() - t1)
+    print('#### TIMES #### flatten:', time.time() - t1)
 
     print('####', 'REARRANGED THE SIGNAL PER 10 FREQUENCIES', type(y_rn_split_st_10), len(y_rn_split_st_10),
           type(y_rn_split_st_10[0]), len(y_rn_split_st_10[0]))
@@ -188,7 +208,7 @@ def process_soundscape(audio_file: str = "",
                           bandwidth: int = bandwidth,
                           region: str = region,
                           si: int = si,
-                          path_out: str = path_out
+                          path_out: str = f'{path_out}figs/BANDS/'
                           ) -> None:
         if not s_split_1:
             for i, y_band_0 in enumerate(s_split_0):
@@ -206,7 +226,7 @@ def process_soundscape(audio_file: str = "",
                 # plt.show()
                 # save the figure to file
                 plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                            format="png", dpi=600)
+                            format='pn', dpi=600)
                 plt.clf()
                 matplotlib.pyplot.close()
 
@@ -227,23 +247,23 @@ def process_soundscape(audio_file: str = "",
                 # plt.show()
                 # save the figure to file
                 plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                            format="png", dpi=600)
+                            format='png', dpi=600)
                 plt.clf()
                 matplotlib.pyplot.close()
 
     plot_split_signal(y_rn_split_st_10, y_rn_split_ns_10)
 
-    print('###', 'COMPUTE SLIDING WINDOW WITH SUM')
+    print('####', 'COMPUTE SLIDING WINDOW WITH SUM')
     bandwidth, secs, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
 
     def sum_this_sliding_window(data, size=int(bandwidth * secs), stepsize=int(bandwidth * secs * w_size_mins),
                                 padded=False, axis=-1, copy=False, suma=True, average=False) -> np.ndarray:
         if axis >= data.ndim:
-            raise ValueError("Axis value out of range")
+            raise ValueError('Axis value out of range')
         if stepsize < 1:
-            raise ValueError("Stepsize may not be zero or negative")
+            raise ValueError('Stepsize may not be zero or negative')
         if size > data.shape[axis]:
-            raise ValueError("Sliding window size may not exceed size of selected axis")
+            raise ValueError('Sliding window size may not exceed size of selected axis')
         shape = list(data.shape)
         shape[axis] = np.floor(data.shape[axis] / stepsize - size / stepsize + 1).astype(int)
         shape.append(size)
@@ -262,20 +282,25 @@ def process_soundscape(audio_file: str = "",
     # SLIDING WINDOWS FOR THE SIGNAL
     t1 = time.time()
     print('#### RUNNING #### sum_this_sliding_window')
-    sum_y_rn_st_split = np.array(Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_st_10))
-    sum_y_rn_ns_split = np.array(Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_ns_10))
+    sum_y_rn_st_split = np.array(
+        Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_st_10)
+    )
+    sum_y_rn_ns_split = np.array(
+        Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_ns_10)
+    )
     # NOT NEEDED - REARRANGE THE SIGNAL
     # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
     print('#### TIMES #### sum_this_sliding_window', time.time() - t1)
 
     print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
           type(sum_y_rn_st_split), len(sum_y_rn_st_split),
-          type(sum_y_rn_st_split[0]), len(sum_y_rn_st_split[0])
-          )
+          type(sum_y_rn_st_split[0]), len(sum_y_rn_st_split[0]))
 
-    def plot_sum_split_signal(s_split_0: List[np.ndarray] = None, s_split_1: List[np.ndarray] = None, y_label: str = 'SUM',
+    def plot_sum_split_signal(s_split_0: List[np.ndarray] = None, s_split_1: List[np.ndarray] = None,
+                              y_label: str = 'SUM',
                               bandwidth: int = bandwidth, secs: int = secs, w_size_mins: int = w_size_mins,
-                              region: str = region, si: int = si, path_out: str = path_out) -> None:
+                              region: str = region, si: int = si,
+                              path_out: str = f'{path_out}figs/SUM/') -> None:
         if s_split_1 is None:
             for i, y_band_0 in enumerate(s_split_0):
                 # time = np.arange(0, len(y_rn)) / sr
@@ -290,7 +315,7 @@ def process_soundscape(audio_file: str = "",
                 # plt.show()
                 # save the figure to file
                 plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                            format="png", dpi=600)
+                            format='png', dpi=600)
                 plt.clf()
                 matplotlib.pyplot.close()
 
@@ -311,14 +336,15 @@ def process_soundscape(audio_file: str = "",
                 # plt.show()
                 # save the figure to file
                 plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                            format="png", dpi=600)
+                            format='png', dpi=600)
                 plt.clf()
                 matplotlib.pyplot.close()
 
     plot_sum_split_signal(sum_y_rn_st_split, sum_y_rn_ns_split)
 
     def plot_3d_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
-                             region: str = region, si: int = si, path_out: str = path_out) -> None:
+                             region: str = region, si: int = si,
+                             path_out: str = f'{path_out}figs/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
         for i, y in enumerate(np.array(s_split)):
@@ -333,14 +359,15 @@ def process_soundscape(audio_file: str = "",
         # plt.show()
         # save the figure to file
         plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                    format="png", dpi=300)
+                    format='png', dpi=300)
         plt.clf()
         matplotlib.pyplot.close()
 
     plot_3d_split_signal(sum_y_rn_st_split)
 
     def plot_surf_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
-                               region: str = region, si: int = si, path_out: str = path_out) -> None:
+                               region: str = region, si: int = si,
+                               path_out: str = f'{path_out}figs/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -370,7 +397,7 @@ def process_soundscape(audio_file: str = "",
         # Adjust layout and save the figure
         fig.tight_layout()
         plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                    format="png", dpi=300)
+                    format='png', dpi=300)
         plt.clf()
         matplotlib.pyplot.close()
         # plt.close()
@@ -378,7 +405,8 @@ def process_soundscape(audio_file: str = "",
     plot_surf_split_signal(sum_y_rn_st_split)
 
     def r_plot_surf_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
-                                 region: str = region, si: int = si, path_out: str = path_out) -> None:
+                                 region: str = region, si: int = si,
+                                 path_out: str = f'{path_out}figs/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -407,15 +435,16 @@ def process_soundscape(audio_file: str = "",
         # Adjust layout and save the figure
         fig.tight_layout()
         plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                    format="png", dpi=300)
+                    format='png', dpi=300)
         plt.clf()
         matplotlib.pyplot.close()
         # plt.close()
 
-    r_plot_surf_split_signal(sum_y_rn_st_split)
+    # r_plot_surf_split_signal(sum_y_rn_st_split)
 
     def rr_plot_surf_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
-                                  region: str = region, si: int = si, path_out: str = path_out) -> None:
+                                  region: str = region, si: int = si,
+                                  path_out: str = f'{path_out}figs/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -445,59 +474,90 @@ def process_soundscape(audio_file: str = "",
         # Adjust layout and save the figure
         fig.tight_layout()
         plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                    format="png", dpi=300)
+                    format='png', dpi=300)
         plt.clf()
         matplotlib.pyplot.close()
         # plt.close()
 
-    rr_plot_surf_split_signal(sum_y_rn_st_split)
+    # rr_plot_surf_split_signal(sum_y_rn_st_split)
 
 
 t00 = time.time()
-f_progress = []
-outfile_name = f"f_progress_{job_id}_{int(time.time())}.txt"
+audio_files = update_progress(audio_files_in=audio_files)
+f_progress = copy.deepcopy(audio_files)
+
+outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
 print('#### #### HOI FOREST #### ####')
 # Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(process_soundscape)(audio_file=a) for a in audio_files)
 
 # This function is meant to be used in a parallel fashion
-print(f'Starting with parallel jobs: {len(configfiles)} time: {int(time.time())}')
-for i, f in enumerate(configfiles):
-    t11 = time.time()
-    f_progress.append(f'{i} - {f} -  {t11}')
-    print(i, 'REGION:', '====>>>>', f[0], '#### RUNNING #### AUDIO:', '====>>>>', f[1])
-    # print(f'audio_file: {f[1]} region_: {f[0]}')
-    # try:
-    process_soundscape(f[1], f[0], i)
-    # except Exception as e:
-    #     print ('HHHHHHHOOOOOOOOOOOORRRRRRRRRRRRRRRIIIIIIIIIIIIIIIBBBBBBBBBBBBLLLLLLLLLLLLLLLEEEEEEEEE')
-    #     print ('HHHHHHHOOOOOOOOOOOORRRRRRRRRRRRRRRIIIIIIIIIIIIIIIBBBBBBBBBBBBLLLLLLLLLLLLLLLEEEEEEEEE', e)
-    # finally:
-    #     with open(path_out + outfile_name, 'w') as file:
-    #         file.write('\n'.join(f_progress) + '\n')
-    #     file.close()
-    #     print('GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL')
-    print(i, '#### TIMES #### process_soundscape TOTAL TOTAL ==>>', time.time() - t11)
+print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
+
+try:
+    for i, f in audio_files[:17].iterrows():
+        if f.processed:
+            continue
+        t11 = time.time()
+        print(i, '################', '################', '################', '################')
+        print(i, '#### RUNNING ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO:', '==>>', f.filename.split('/')[-1])
+        process_soundscape(audio_file=f.filename, region=f.region, si=i)
+        print(i, '#### TIMES #### process_soundscape TOTAL TOTAL ==>>', time.time() - t11)
+        f_progress.at[i, 'processed'] = True
+        f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
+except Exception as e:
+    print('ALWAYS PROBLEMS', e)
+    raise
+finally:
+    print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
+    f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
+
 print('#### TIMES #### process_soundscape TOTAL TOTAL ==>>', time.time() - t00)
 
-data = ['cali',
-        'thornbury',
-        'mexico',
-        'wien',
-        'porto',
-        'lausanne',
-        'rapperswil'
-        ]
 
-outfile_name = f"cities_{job_id}_{int(time.time())}.txt"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+data = [
+    'cali',
+    'thornbury',
+    'mexico',
+    'wien',
+    'porto',
+    'lausanne',
+    'rapperswil'
+]
+
+outfile_name = f'cities_{job_id}_{str(datetime.date.today())}.txt'
 with open(path_out + outfile_name, 'w') as file:
     file.write('\n'.join(data) + '\n')
 file.close()
 
 print('#### #### NO DA MAS #### TERMINO #### FINITO #### ####')
-print(f'cwd: {cwd}',
-      f'file: {path_out + outfile_name}',
-      f'total_time: {round(time.time() - t0, 3)}',
-      f' TOTAL_JOBS: {effective_n_jobs(N_JOBS)}',
-      f'job_id: {job_id}')
-print('####', f"SLEEPING TIME:", f'{round(time.time() - t0, 3)} sec', '####')
-print("All guert parcero, aller!")
+print(
+    '####', '####', '\n',
+    f'TOTAL_TIME: {round(time.time() - t0, 3)}', '\n',
+    f'TOTAL_JOBS: {effective_n_jobs(N_JOBS)}', '\n',
+    f'JOB_ID: {job_id}', '\n',
+    '####', '####'
+)
+print('####', f'SLEEPING TIME:', f'{round(time.time() - t0, 3)} seconds', '####')
+print('All guert parcero, aller!')
