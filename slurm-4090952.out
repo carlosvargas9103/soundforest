@@ -1,0 +1,1292 @@
+PATH /home/vargas/repos/forests-sounds-vargas
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+ALWAYS PROBLEMS [Errno 2] No such file or directory: '/home/vargas/repos/forests-sounds-vargas/out/audio_files_processed_2024-10.csv'
+#### #### HOI FOREST #### ####
+starting with => 57 soundscapes => now 1730047764
+0 ################ ################ ################ ################
+0 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_05_PSA0093-2010.mp3
+y: [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
+  0.00836801  0.01314615  0.01415004]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
+  0.00836801  0.01314615  0.01415004] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.01869938 -0.11695495 -0.10683113  0.09810696  0.05393811 -0.0373623
+ -0.07357613 -0.04924065  0.02845863] 1.9014191627502441
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 3.309483952615056e-05, 'v': array([-0.01869938, -0.11695495, -0.10683113, ...,  0.04022351,
+       -0.02772541, -0.0148602 ])}
+#### TIMES #### flatten: 0.17960453033447266
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.35727524757385254
+0 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 7.081506967544556
+1 ################ ################ ################ ################
+1 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_15_PSA0290-2012.mp3
+y: [-0.0006119   0.00068735  0.00166055  0.00251585  0.00187133  0.00070333
+  0.00103505  0.0010529   0.00061101]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.0006119   0.00068735  0.00166055  0.00251585  0.00187133  0.00070333
+  0.00103505  0.0010529   0.00061101] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.0205638   0.0139965   0.03383933  0.01005078  0.0009512  -0.0015969
+ -0.03684802  0.02381689 -0.0222121 ] 1.0730392932891846
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -4.3399231418144964e-06, 'v': array([-0.0205638 ,  0.0139965 ,  0.03383933, ...,  0.00867719,
+        0.00554027,  0.0145448 ])}
+#### TIMES #### flatten: 0.16942167282104492
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37573695182800293
+1 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.658640146255493
+2 ################ ################ ################ ################
+2 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_19_PSA0374-2012.mp3
+y: [0.00831298 0.01321053 0.01454676 0.01506956 0.01508774 0.01517149
+ 0.01529458 0.0121099  0.00804036]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [0.00831298 0.01321053 0.01454676 0.01506956 0.01508774 0.01517149
+ 0.01529458 0.0121099  0.00804036] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.20409858 -0.04919433 -0.163549   -0.04446079 -0.06820577 -0.09265122
+ -0.03950285  0.1403622   0.20489708] 1.1331274509429932
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -1.863729672589513e-05, 'v': array([ 0.20409858, -0.04919433, -0.163549  , ...,  0.03191836,
+        0.02005272,  0.02303008])}
+#### TIMES #### flatten: 0.1717689037322998
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3770453929901123
+2 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.693192720413208
+3 ################ ################ ################ ################
+3 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_07_PSA0093-2010.mp3
+y: [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
+  0.00836801  0.01314615  0.01415004]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
+  0.00836801  0.01314615  0.01415004] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.01869938 -0.11695495 -0.10683113  0.09810696  0.05393811 -0.0373623
+ -0.07357613 -0.04924065  0.02845863] 1.139533519744873
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 3.309483952615056e-05, 'v': array([-0.01869938, -0.11695495, -0.10683113, ...,  0.04022351,
+       -0.02772541, -0.0148602 ])}
+#### TIMES #### flatten: 0.1769864559173584
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3876774311065674
+3 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.790219783782959
+4 ################ ################ ################ ################
+4 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_20_PSA0400-2013.mp3
+y: [ 0.00232441  0.00309165  0.00177757  0.00270376  0.00179844 -0.00149232
+ -0.00024056  0.00196713  0.00111439]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00232441  0.00309165  0.00177757  0.00270376  0.00179844 -0.00149232
+ -0.00024056  0.00196713  0.00111439] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.03143919  0.00705038 -0.11931945 -0.09265985 -0.05178755  0.0496901
+  0.06447415  0.05353158  0.01381711] 1.1290974617004395
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 2.0166825643779334e-06, 'v': array([ 0.03143919,  0.00705038, -0.11931945, ...,  0.00643002,
+        0.02946371, -0.00495315])}
+#### TIMES #### flatten: 0.17119312286376953
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.34194064140319824
+4 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.703766107559204
+5 ################ ################ ################ ################
+5 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_13_PSA0280-2012.mp3
+y: [ 3.6415369e-03  2.6228302e-03  8.4596279e-05 -1.5951027e-04
+  1.0559170e-03  1.8270714e-03  1.9221809e-03  9.7268366e-04
+ -4.3881708e-05]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 3.6415369e-03  2.6228302e-03  8.4596279e-05 -1.5951027e-04
+  1.0559170e-03  1.8270714e-03  1.9221809e-03  9.7268366e-04
+ -4.3881708e-05] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00957913  0.01989454  0.02359055 -0.02949247 -0.00191518 -0.02131692
+ -0.01858419 -0.00276766 -0.01467303] 1.0980684757232666
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 2.316169762388356e-05, 'v': array([-0.00957913,  0.01989454,  0.02359055, ..., -0.03417909,
+       -0.00423048, -0.02155644])}
+#### TIMES #### flatten: 0.1754932403564453
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37645673751831055
+5 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.670184850692749
+6 ################ ################ ################ ################
+6 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_17_PSA0331-2012.mp3
+y: [-0.00156389 -0.00311076 -0.00225797 -0.00128544 -0.00113144 -0.00195252
+ -0.00180479  0.00029279  0.00038763]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00156389 -0.00311076 -0.00225797 -0.00128544 -0.00113144 -0.00195252
+ -0.00180479  0.00029279  0.00038763] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.03339568  0.05061967  0.00122392 -0.00570185 -0.0086463  -0.128042
+ -0.02997853 -0.06175334  0.01631687] 1.0873866081237793
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -2.9811376177732115e-05, 'v': array([-0.03339568,  0.05061967,  0.00122392, ..., -0.06000199,
+       -0.01671537,  0.03446168])}
+#### TIMES #### flatten: 0.1717536449432373
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3739285469055176
+6 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.657178163528442
+7 ################ ################ ################ ################
+7 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_00_PSA0010-2010.mp3
+y: [-0.00225802 -0.00408008 -0.00553367 -0.00679917 -0.00652087 -0.00546292
+ -0.00668596 -0.00835071 -0.00815475]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00225802 -0.00408008 -0.00553367 -0.00679917 -0.00652087 -0.00546292
+ -0.00668596 -0.00835071 -0.00815475] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.16539357  0.03641152 -0.02538178  0.11038894 -0.02125513 -0.07423651
+ -0.06160336  0.00956248 -0.08672023] 1.0192558765411377
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -4.690226827384929e-06, 'v': array([-0.16539357,  0.03641152, -0.02538178, ...,  0.30909742,
+        0.11500155, -0.0116627 ])}
+#### TIMES #### flatten: 0.17665696144104004
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37807250022888184
+7 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.646547317504883
+8 ################ ################ ################ ################
+8 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_14_PSA0289-2012.mp3
+y: [-0.01960655 -0.02791282 -0.02750732 -0.02641052 -0.03029392 -0.03201358
+ -0.02964977 -0.02935831 -0.02964232]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.01960655 -0.02791282 -0.02750732 -0.02641052 -0.03029392 -0.03201358
+ -0.02964977 -0.02935831 -0.02964232] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.27848375 -0.44628652  0.99798508 -0.37840191 -0.01988105 -0.16118231
+ -0.41544522  0.2027917   0.10245034] 1.0180752277374268
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 3.755961386129158e-05, 'v': array([-0.27848375, -0.44628652,  0.99798508, ..., -0.04976492,
+        0.03861068, -0.08896072])}
+#### TIMES #### flatten: 0.17216825485229492
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3778245449066162
+8 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.568958759307861
+9 ################ ################ ################ ################
+9 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_18_PSA0373-2011.mp3
+y: [-0.00241771 -0.00108932  0.0016709   0.00449528  0.00606185  0.00498239
+  0.00340853  0.00361732  0.00319519]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00241771 -0.00108932  0.0016709   0.00449528  0.00606185  0.00498239
+  0.00340853  0.00361732  0.00319519] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02092279 -0.00735402 -0.00820267  0.0248017  -0.06307248 -0.00830743
+  0.05332184 -0.01512688 -0.02055499] 1.0317747592926025
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -4.521384499048512e-06, 'v': array([ 2.09227863e-02, -7.35401722e-03, -8.20267377e-03, ...,
+       -3.73131239e-02,  2.53276985e-02, -3.89443189e-05])}
+#### TIMES #### flatten: 0.17138075828552246
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3911123275756836
+9 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.599333047866821
+10 ################ ################ ################ ################
+10 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_16_PSA0292-2012.mp3
+y: [ 0.00011271 -0.00401716 -0.00642971 -0.00703088 -0.00726458 -0.00570953
+ -0.00384026 -0.00149835  0.00383474]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00011271 -0.00401716 -0.00642971 -0.00703088 -0.00726458 -0.00570953
+ -0.00384026 -0.00149835  0.00383474] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.01216371 -0.03098004 -0.03029241 -0.05444909 -0.09581744 -0.0100864
+ -0.03914924 -0.03174993 -0.09885785] 0.9146356582641602
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -1.839090311273144e-05, 'v': array([-0.01216371, -0.03098004, -0.03029241, ...,  0.01978169,
+        0.05536624,  0.00466536])}
+#### TIMES #### flatten: 0.17429852485656738
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3870093822479248
+10 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.537179708480835
+11 ################ ################ ################ ################
+11 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> PSA0025-2015.mp3
+y: [-6.8993503e-03 -7.8593977e-03 -3.5266078e-03 -3.3374643e-05
+  1.2119662e-03 -3.4863944e-04 -6.0659214e-03 -9.2964070e-03
+ -5.4037138e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-6.8993503e-03 -7.8593977e-03 -3.5266078e-03 -3.3374643e-05
+  1.2119662e-03 -3.4863944e-04 -6.0659214e-03 -9.2964070e-03
+ -5.4037138e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.03720595 -0.04786866  0.05473736 -0.01181822  0.02260812 -0.07172001
+ -0.03540968  0.08952839  0.0430773 ] 0.9162635803222656
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -6.986465426346112e-05, 'v': array([-0.03720595, -0.04786866,  0.05473736, ...,  0.08620852,
+       -0.02762916,  0.04245555])}
+#### TIMES #### flatten: 0.17014431953430176
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3901205062866211
+11 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.57913875579834
+12 ################ ################ ################ ################
+12 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_10_PSA0189-2007.mp3
+y: [ 5.3311074e-03  5.1743435e-03  1.7210189e-03 -4.6343525e-04
+ -7.2194729e-05 -3.4478935e-04 -3.8194051e-04  2.9907064e-03
+  3.5931203e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 5.3311074e-03  5.1743435e-03  1.7210189e-03 -4.6343525e-04
+ -7.2194729e-05 -3.4478935e-04 -3.8194051e-04  2.9907064e-03
+  3.5931203e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.01724251  0.00509941 -0.00856076  0.02182452 -0.01279502  0.0314615
+  0.00203849 -0.28763895 -0.17803276] 0.9541366100311279
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -3.968696707733361e-05, 'v': array([ 0.01724251,  0.00509941, -0.00856076, ...,  0.07620537,
+       -0.09329336,  0.06676616])}
+#### TIMES #### flatten: 0.17114758491516113
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37323784828186035
+12 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.493778705596924
+13 ################ ################ ################ ################
+13 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_09_PSA0096-2013.mp3
+y: [ 0.00498617  0.00343108 -0.00189297 -0.00040188  0.0026763   0.0024897
+  0.00282044  0.00150527  0.00051496]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00498617  0.00343108 -0.00189297 -0.00040188  0.0026763   0.0024897
+  0.00282044  0.00150527  0.00051496] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.06139673 -0.05177419  0.00696413  0.03663507  0.1243687  -0.03249082
+  0.0323021  -0.01771012 -0.05314167] 0.9945487976074219
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -8.915191448374262e-05, 'v': array([ 0.06139673, -0.05177419,  0.00696413, ...,  0.01266657,
+        0.01491648,  0.07886349])}
+#### TIMES #### flatten: 0.1772902011871338
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3937230110168457
+13 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.578388452529907
+14 ################ ################ ################ ################
+14 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_08_PSA0095-2013.mp3
+y: [2.9889517e-03 2.1491684e-03 1.6709652e-03 3.0980729e-03 1.9990047e-03
+ 5.7865726e-04 2.8421842e-03 3.2138512e-03 5.2391624e-05]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [2.9889517e-03 2.1491684e-03 1.6709652e-03 3.0980729e-03 1.9990047e-03
+ 5.7865726e-04 2.8421842e-03 3.2138512e-03 5.2391624e-05] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02219048  0.00847685 -0.02065121 -0.01769907 -0.03454348  0.03236362
+  0.01141941  0.06429828  0.02197872] 0.9882087707519531
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 4.601500900192673e-06, 'v': array([ 0.02219048,  0.00847685, -0.02065121, ...,  0.0416411 ,
+        0.07253582, -0.00552191])}
+#### TIMES #### flatten: 0.17303729057312012
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3799784183502197
+14 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.590085744857788
+15 ################ ################ ################ ################
+15 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_06_PSA0087-2013.mp3
+y: [-0.0014093  -0.00103954 -0.00105862 -0.00210072 -0.00228073 -0.00215911
+ -0.00314596 -0.00297701 -0.00058426]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.0014093  -0.00103954 -0.00105862 -0.00210072 -0.00228073 -0.00215911
+ -0.00314596 -0.00297701 -0.00058426] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.01175603 -0.00899154  0.03337161  0.04488306  0.03894906  0.02183001
+  0.02315244 -0.02923895  0.04946435] 0.9210031032562256
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -1.6503966346878485e-05, 'v': array([-0.01175603, -0.00899154,  0.03337161, ..., -0.04298716,
+        0.01196179, -0.00569794])}
+#### TIMES #### flatten: 0.17396759986877441
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3853340148925781
+15 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.518752574920654
+16 ################ ################ ################ ################
+16 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_21_PSA0429-2012.mp3
+y: [ 0.0015737   0.00132185  0.00142273  0.00205023  0.0014455  -0.00059423
+ -0.00193451 -0.00154098 -0.00060688]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.0015737   0.00132185  0.00142273  0.00205023  0.0014455  -0.00059423
+ -0.00193451 -0.00154098 -0.00060688] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.0186847   0.03583935 -0.02164033 -0.02531043 -0.02525569 -0.02791854
+ -0.04939072 -0.07334006 -0.02656159] 0.9684581756591797
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -2.2555996347443843e-05, 'v': array([-0.0186847 ,  0.03583935, -0.02164033, ..., -0.0076924 ,
+       -0.0758432 , -0.08989651])}
+#### TIMES #### flatten: 0.17143869400024414
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38185834884643555
+16 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.584542274475098
+17 ################ ################ ################ ################
+17 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_11_PSA0192-2009.mp3
+y: [ 1.5078523e-03 -4.8705522e-05 -2.4045832e-03 -1.9080644e-03
+ -1.0817056e-03 -1.8788462e-03 -2.2096413e-03 -1.5640502e-03
+ -1.1114924e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 1.5078523e-03 -4.8705522e-05 -2.4045832e-03 -1.9080644e-03
+ -1.0817056e-03 -1.8788462e-03 -2.2096413e-03 -1.5640502e-03
+ -1.1114924e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.04134365 -0.00917647 -0.0038086   0.02049971  0.01779164 -0.00219945
+  0.00023842 -0.01601334  0.03719822] 1.0208961963653564
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 4.442122815373743e-06, 'v': array([-0.04134365, -0.00917647, -0.0038086 , ..., -0.0797313 ,
+        0.01699481,  0.01291417])}
+#### TIMES #### flatten: 0.17341971397399902
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3765594959259033
+17 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.585306882858276
+18 ################ ################ ################ ################
+18 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_01_PSA0022-2015.mp3
+y: [-0.00544647 -0.00827495 -0.00738019 -0.00657342 -0.00486134  0.00204174
+  0.00792338  0.00717777  0.00406893]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00544647 -0.00827495 -0.00738019 -0.00657342 -0.00486134  0.00204174
+  0.00792338  0.00717777  0.00406893] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.03563103  0.00867215 -0.02445562  0.00062466  0.00978906 -0.01114011
+  0.04454606 -0.01844884  0.06814894] 0.9877028465270996
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 2.821221720873841e-05, 'v': array([-0.03563103,  0.00867215, -0.02445562, ...,  0.01652699,
+       -0.02471189,  0.03853488])}
+#### TIMES #### flatten: 0.17628073692321777
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3795027732849121
+18 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.560513019561768
+19 ################ ################ ################ ################
+19 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_04_PSA0078-2013.mp3
+y: [ 0.00496935  0.00223682 -0.00015433  0.00304944  0.00606916  0.00514213
+  0.00539011  0.00601292  0.00222353]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00496935  0.00223682 -0.00015433  0.00304944  0.00606916  0.00514213
+  0.00539011  0.00601292  0.00222353] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.03249238 -0.03020434 -0.06090676 -0.02757093 -0.06112419 -0.07019326
+ -0.06190467 -0.01507636  0.04880708] 0.9647908210754395
+300 {'r': 2, 'h': 0, 'b': 0, 'm': -9.508526543667577e-06, 'v': array([ 0.03249238, -0.03020434, -0.06090676, ...,  0.0640891 ,
+        0.10999899,  0.04254283])}
+#### TIMES #### flatten: 0.17064118385314941
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.39405393600463867
+19 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.533223628997803
+20 ################ ################ ################ ################
+20 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_02_PSA0077-2013.mp3
+y: [-0.00433627 -0.00495441 -0.00197762  0.00187105  0.0034753   0.00254379
+  0.00032513 -0.00268132 -0.00445698]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00433627 -0.00495441 -0.00197762  0.00187105  0.0034753   0.00254379
+  0.00032513 -0.00268132 -0.00445698] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.03801322 -0.01382908  0.00763804  0.00305587  0.00706771 -0.06083247
+  0.01115332 -0.02078612 -0.00665855] 0.9564065933227539
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 3.286677111329179e-05, 'v': array([-0.03801322, -0.01382908,  0.00763804, ...,  0.00457865,
+        0.00466547,  0.0432032 ])}
+#### TIMES #### flatten: 0.17344045639038086
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3791046142578125
+20 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.5535056591033936
+21 ################ ################ ################ ################
+21 #### RUNNING #### REGION: ==>> Plantation <<== AUDIO: ==>> 2_12_PSA0254-2011.mp3
+y: [ 0.00175081 -0.00323589 -0.00785828 -0.00602909 -0.00034175  0.00169458
+ -0.00107514 -0.00280806 -0.00080339]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00175081 -0.00323589 -0.00785828 -0.00602909 -0.00034175  0.00169458
+ -0.00107514 -0.00280806 -0.00080339] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00654132 -0.01016333  0.02881343 -0.04107326 -0.01566673  0.01584604
+ -0.02307217  0.00013815  0.03526334] 0.9367103576660156
+300 {'r': 2, 'h': 0, 'b': 0, 'm': 1.152044734835724e-05, 'v': array([-0.00654132, -0.01016333,  0.02881343, ...,  0.02870998,
+        0.00808102, -0.02556474])}
+#### TIMES #### flatten: 0.17411398887634277
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3815758228302002
+21 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.48750114440918
+22 ################ ################ ################ ################
+22 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_01_Pasture11.mp3
+y: [-7.8479032e-04 -2.0871679e-03  4.1018400e-04  2.8872874e-03
+  2.7670162e-03  1.2681029e-03  2.7039059e-05 -1.3762547e-04
+ -2.9300922e-04]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-7.8479032e-04 -2.0871679e-03  4.1018400e-04  2.8872874e-03
+  2.7670162e-03  1.2681029e-03  2.7039059e-05 -1.3762547e-04
+ -2.9300922e-04] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.01191368 -0.00564983  0.01166245  0.01725776 -0.00415574 -0.04744886
+ -0.01957127 -0.02270516  0.02232283] 0.9911158084869385
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 3.2998382496778884e-05, 'v': array([ 0.01191368, -0.00564983,  0.01166245, ...,  0.00769501,
+        0.01573673, -0.01397618])}
+#### TIMES #### flatten: 0.176161527633667
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3891003131866455
+22 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.582618236541748
+23 ################ ################ ################ ################
+23 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_09_Pasture8.mp3
+y: [ 0.00261545 -0.00092412 -0.0060214  -0.0065224  -0.00085734  0.00450322
+  0.00437373 -0.00030787 -0.00563385]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00261545 -0.00092412 -0.0060214  -0.0065224  -0.00085734  0.00450322
+  0.00437373 -0.00030787 -0.00563385] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.03103651 -0.01768064 -0.01253069 -0.03471461  0.02887515  0.08894638
+  0.06539537  0.06686198  0.01658967] 0.9734070301055908
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 4.46182517823748e-05, 'v': array([ 0.03103651, -0.01768064, -0.01253069, ..., -0.03043405,
+       -0.0278622 ,  0.05335841])}
+#### TIMES #### flatten: 0.1773536205291748
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.374373197555542
+23 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.530320405960083
+24 ################ ################ ################ ################
+24 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_06_Pasture5.mp3
+y: [-0.00381287 -0.0027278   0.00032075  0.00017258 -0.00444139 -0.00411534
+  0.00661932  0.01696365  0.01375177]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00381287 -0.0027278   0.00032075  0.00017258 -0.00444139 -0.00411534
+  0.00661932  0.01696365  0.01375177] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00422574  0.09408625  0.11490641  0.10154336  0.06229568 -0.10306227
+ -0.05707573 -0.02954594 -0.04201368] 0.9766368865966797
+300 {'r': 1, 'h': 0, 'b': 0, 'm': -3.941846777888643e-06, 'v': array([-0.00422574,  0.09408625,  0.11490641, ..., -0.02795115,
+        0.01363371, -0.03281685])}
+#### TIMES #### flatten: 0.17298650741577148
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3798356056213379
+24 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.5061187744140625
+25 ################ ################ ################ ################
+25 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_08_Pasture6.mp3
+y: [-0.00626647 -0.00417781  0.00088     0.0031542   0.00375354  0.00452603
+  0.00266295 -0.0027078  -0.00751396]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00626647 -0.00417781  0.00088     0.0031542   0.00375354  0.00452603
+  0.00266295 -0.0027078  -0.00751396] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.01363667 -0.00700776  0.00951275 -0.01589227  0.01918361  0.03717667
+ -0.0135703  -0.01100226  0.01329256] 0.9299733638763428
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 2.686285504842093e-05, 'v': array([ 0.01363667, -0.00700776,  0.00951275, ..., -0.03452496,
+        0.00949563,  0.00018065])}
+#### TIMES #### flatten: 0.17265582084655762
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38147664070129395
+25 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.523769855499268
+26 ################ ################ ################ ################
+26 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_07_Pasture5.mp3
+y: [-0.00381287 -0.0027278   0.00032075  0.00017258 -0.00444139 -0.00411534
+  0.00661932  0.01696365  0.01375177]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00381287 -0.0027278   0.00032075  0.00017258 -0.00444139 -0.00411534
+  0.00661932  0.01696365  0.01375177] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00422574  0.09408625  0.11490641  0.10154336  0.06229568 -0.10306227
+ -0.05707573 -0.02954594 -0.04201368] 0.9431397914886475
+300 {'r': 1, 'h': 0, 'b': 0, 'm': -3.941846777888643e-06, 'v': array([-0.00422574,  0.09408625,  0.11490641, ..., -0.02795115,
+        0.01363371, -0.03281685])}
+#### TIMES #### flatten: 0.1708061695098877
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37579894065856934
+26 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.455180644989014
+27 ################ ################ ################ ################
+27 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_05_Pasture4.mp3
+y: [ 0.0057366  -0.00273573 -0.0150972  -0.01746827 -0.01176313 -0.00983595
+ -0.01108886 -0.00824677 -0.00404682]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.0057366  -0.00273573 -0.0150972  -0.01746827 -0.01176313 -0.00983595
+ -0.01108886 -0.00824677 -0.00404682] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00288561 -0.0492756   0.03169878  0.06932787  0.00060305  0.09390364
+ -0.02612415 -0.01349629 -0.05514162] 0.9712700843811035
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 2.4972900430717893e-05, 'v': array([-0.00288561, -0.0492756 ,  0.03169878, ..., -0.03843782,
+       -0.02187687, -0.02223102])}
+#### TIMES #### flatten: 0.17091941833496094
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3895535469055176
+27 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.507123947143555
+28 ################ ################ ################ ################
+28 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_00_Pasture10.mp3
+y: [0.00365036 0.0032973  0.00126399 0.00112457 0.00214178 0.00322806
+ 0.00385621 0.00296243 0.00160244]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [0.00365036 0.0032973  0.00126399 0.00112457 0.00214178 0.00322806
+ 0.00385621 0.00296243 0.00160244] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02598406 -0.08706933 -0.00655346  0.00212539 -0.04866402  0.13993369
+ -0.19305113 -0.07857184  0.1417959 ] 0.9929163455963135
+300 {'r': 1, 'h': 0, 'b': 0, 'm': -1.4731959196099759e-05, 'v': array([ 0.02598406, -0.08706933, -0.00655346, ...,  0.04626569,
+        0.04299996, -0.02860924])}
+#### TIMES #### flatten: 0.17350101470947266
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.39225077629089355
+28 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.597558259963989
+29 ################ ################ ################ ################
+29 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_03_Pasture2.mp3
+y: [-0.006425   -0.00607684 -0.00163868  0.00151603  0.00407694  0.00710465
+  0.00620017  0.0015748  -0.00099667]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.006425   -0.00607684 -0.00163868  0.00151603  0.00407694  0.00710465
+  0.00620017  0.0015748  -0.00099667] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02032369 -0.00243953  0.01203228  0.02829778  0.04142794 -0.01240221
+ -0.01468376 -0.01514294 -0.00379097] 1.0087158679962158
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 1.6273334204803915e-05, 'v': array([ 0.02032369, -0.00243953,  0.01203228, ...,  0.00605401,
+       -0.0081782 , -0.0024553 ])}
+#### TIMES #### flatten: 0.17084097862243652
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.396573543548584
+29 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.600632429122925
+30 ################ ################ ################ ################
+30 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_10_Pasture9.mp3
+y: [-0.00402293  0.00018895  0.00486967  0.00672111  0.00504222 -0.00141986
+ -0.00852966 -0.00877793 -0.00269217]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00402293  0.00018895  0.00486967  0.00672111  0.00504222 -0.00141986
+ -0.00852966 -0.00877793 -0.00269217] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.02191506 -0.00520766 -0.00230878 -0.01291153 -0.06134876 -0.02427958
+ -0.01754232 -0.00135228  0.00899756] 0.9493892192840576
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 2.418374744350684e-06, 'v': array([-0.02191506, -0.00520766, -0.00230878, ...,  0.03223895,
+        0.05472943, -0.02962099])}
+#### TIMES #### flatten: 0.17412757873535156
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3920581340789795
+30 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.511488914489746
+31 ################ ################ ################ ################
+31 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_04_Pasture3.mp3
+y: [-0.01645248 -0.00066915 -0.01571613  0.00739202  0.0242783  -0.01983872
+ -0.02534965  0.0034896  -0.00387647]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.01645248 -0.00066915 -0.01571613  0.00739202  0.0242783  -0.01983872
+ -0.02534965  0.0034896  -0.00387647] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.01540026 -0.06746286  0.23027817  0.29453528 -0.00240968 -0.29290449
+ -0.20149297 -0.10235009  0.18369801] 0.9356374740600586
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 0.00011374634651195558, 'v': array([ 0.01540026, -0.06746286,  0.23027817, ...,  0.01465234,
+       -0.05682073, -0.0436301 ])}
+#### TIMES #### flatten: 0.1724410057067871
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38201189041137695
+31 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.491471290588379
+32 ################ ################ ################ ################
+32 #### RUNNING #### REGION: ==>> Pasture <<== AUDIO: ==>> 3_02_Pasture12.mp3
+y: [ 1.8349340e-03 -3.3504126e-05 -4.4894009e-04 -1.3686367e-05
+  1.3483892e-05  2.0566548e-03  5.0532585e-03  3.6723120e-03
+ -8.7233982e-04]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 1.8349340e-03 -3.3504126e-05 -4.4894009e-04 -1.3686367e-05
+  1.3483892e-05  2.0566548e-03  5.0532585e-03  3.6723120e-03
+ -8.7233982e-04] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.00798097 -0.05434318  0.01553308 -0.0648413   0.00226016  0.05371642
+  0.011944    0.06590648  0.10390315] 0.9390203952789307
+300 {'r': 1, 'h': 0, 'b': 0, 'm': 2.0638156022073643e-05, 'v': array([ 0.00798097, -0.05434318,  0.01553308, ..., -0.02074811,
+       -0.10482899, -0.00730099])}
+#### TIMES #### flatten: 0.17533540725708008
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3872568607330322
+32 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.534217596054077
+33 ################ ################ ################ ################
+33 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_01_PSA0009-2018.mp3
+y: [-0.00073008 -0.00149818 -0.00137381  0.00121684  0.0025564   0.00025634
+ -0.00252127 -0.00486954 -0.00723418]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00073008 -0.00149818 -0.00137381  0.00121684  0.0025564   0.00025634
+ -0.00252127 -0.00486954 -0.00723418] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.00161816  0.02495877  0.02362562  0.01582144  0.02011883  0.00694731
+ -0.00787685 -0.00654982 -0.0420497 ] 0.9312732219696045
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 7.071977140973766e-06, 'v': array([ 0.00161816,  0.02495877,  0.02362562, ..., -0.03615424,
+        0.02675662, -0.00135968])}
+#### TIMES #### flatten: 0.1728968620300293
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3938875198364258
+33 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.506624460220337
+34 ################ ################ ################ ################
+34 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_05_PSA0074-2020.mp3
+y: [-0.00413486 -0.00270978 -0.00017886 -0.00018085 -0.00060511 -0.00186505
+ -0.00377522 -0.00295778 -0.00029858]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00413486 -0.00270978 -0.00017886 -0.00018085 -0.00060511 -0.00186505
+ -0.00377522 -0.00295778 -0.00029858] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.02137152 -0.0038033  -0.00063002 -0.01028218 -0.00418348  0.03178081
+  0.01764079 -0.00717721  0.03445623] 0.986372709274292
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -2.3420349937244287e-06, 'v': array([-0.02137152, -0.0038033 , -0.00063002, ..., -0.01781742,
+        0.00184014,  0.0312585 ])}
+#### TIMES #### flatten: 0.17790579795837402
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3815906047821045
+34 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.581214904785156
+35 ################ ################ ################ ################
+35 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_13_PSA0165-2021.mp3
+y: [ 0.00119434  0.0014703   0.00074433 -0.00060399 -0.0012913  -0.00042328
+  0.00121864  0.00340199  0.00547332]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00119434  0.0014703   0.00074433 -0.00060399 -0.0012913  -0.00042328
+  0.00121864  0.00340199  0.00547332] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02070056 -0.102897    0.05225396  0.05448648  0.00437041  0.06012341
+ -0.02025279  0.02534809  0.00495887] 0.9735946655273438
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 3.192647307714654e-05, 'v': array([ 0.02070056, -0.102897  ,  0.05225396, ..., -0.00797239,
+        0.02616575,  0.00045818])}
+#### TIMES #### flatten: 0.17829132080078125
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3717484474182129
+35 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.583632230758667
+36 ################ ################ ################ ################
+36 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_17_PSA0193-2013.mp3
+y: [-9.4229414e-05  6.7900686e-04  2.5894905e-03  3.2814175e-03
+  2.7445049e-03  1.4147771e-03 -1.0942377e-03 -3.1116561e-03
+ -3.2491102e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-9.4229414e-05  6.7900686e-04  2.5894905e-03  3.2814175e-03
+  2.7445049e-03  1.4147771e-03 -1.0942377e-03 -3.1116561e-03
+ -3.2491102e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00250396 -0.01073684 -0.00140751 -0.00267309  0.02738275  0.02314534
+ -0.00733711 -0.01054466 -0.01628187] 0.9251115322113037
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -7.851960481711152e-06, 'v': array([-0.00250396, -0.01073684, -0.00140751, ..., -0.02915049,
+        0.04592691,  0.02633755])}
+#### TIMES #### flatten: 0.17116022109985352
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3925163745880127
+36 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.544003248214722
+37 ################ ################ ################ ################
+37 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_12_PSA0161-2016.mp3
+y: [0.00123108 0.00094246 0.00163549 0.00216079 0.0021793  0.00242583
+ 0.00282757 0.00242003 0.00074263]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [0.00123108 0.00094246 0.00163549 0.00216079 0.0021793  0.00242583
+ 0.00282757 0.00242003 0.00074263] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02651052 -0.01779098 -0.02268968 -0.02243263 -0.01058178  0.0090703
+ -0.06974288  0.00755703  0.00409316] 0.9318516254425049
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -3.7154768853724854e-06, 'v': array([ 0.02651052, -0.01779098, -0.02268968, ..., -0.03134814,
+        0.01410386,  0.00019586])}
+#### TIMES #### flatten: 0.17235183715820312
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3854067325592041
+37 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.529029607772827
+38 ################ ################ ################ ################
+38 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_16_PSA0183-2017.mp3
+y: [ 9.8261726e-04 -3.2066222e-05 -2.3561085e-03 -7.2424085e-04
+  1.3759425e-03  1.0739835e-03  8.6392160e-05 -1.8749989e-03
+ -1.5327190e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 9.8261726e-04 -3.2066222e-05 -2.3561085e-03 -7.2424085e-04
+  1.3759425e-03  1.0739835e-03  8.6392160e-05 -1.8749989e-03
+ -1.5327190e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.0088353  -0.01954266  0.03991919 -0.01358172  0.00199539  0.03075308
+ -0.00197319  0.02151367  0.00061226] 0.970597505569458
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -2.6132856991353406e-06, 'v': array([-0.0088353 , -0.01954266,  0.03991919, ..., -0.0097392 ,
+        0.02113364, -0.02539912])}
+#### TIMES #### flatten: 0.17878508567810059
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3684084415435791
+38 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.534944772720337
+39 ################ ################ ################ ################
+39 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_03_PSA0042-2017.mp3
+y: [-0.00364023 -0.00125221  0.00192867  0.00215246  0.00141629  0.00053356
+ -0.00161819 -0.00299418 -0.00225683]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00364023 -0.00125221  0.00192867  0.00215246  0.00141629  0.00053356
+ -0.00161819 -0.00299418 -0.00225683] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.0079247   0.0065377   0.03163762  0.00089172  0.00161916  0.0344265
+ -0.03025459  0.00399332  0.01289287] 0.9485037326812744
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 2.3540264885009804e-06, 'v': array([-0.0079247 ,  0.0065377 ,  0.03163762, ...,  0.00326943,
+       -0.02253464,  0.04227643])}
+#### TIMES #### flatten: 0.17525577545166016
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38987040519714355
+39 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.552537202835083
+40 ################ ################ ################ ################
+40 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_10_PSA0152-2013.mp3
+y: [-0.00159034 -0.00288069  0.00053162  0.00633866  0.0039187  -0.00379815
+ -0.00480804 -0.00151416 -0.00072719]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00159034 -0.00288069  0.00053162  0.00633866  0.0039187  -0.00379815
+ -0.00480804 -0.00151416 -0.00072719] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 1.82101073e-02  3.04906062e-02 -1.85104652e-02  4.29012959e-02
+ -4.04042988e-02  6.15778966e-02 -8.18035020e-05  7.77875340e-02
+ -3.42780874e-03] 1.0019638538360596
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 8.196774209651888e-06, 'v': array([ 0.01821011,  0.03049061, -0.01851047, ..., -0.04549524,
+        0.0006047 , -0.05245471])}
+#### TIMES #### flatten: 0.17075467109680176
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38706398010253906
+40 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.545034170150757
+41 ################ ################ ################ ################
+41 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_00_PSA0004-2017.mp3
+y: [ 1.4344932e-03  2.4639177e-03  1.4560978e-03  3.0906291e-03
+  5.1320400e-03  2.9266190e-03 -2.0787556e-06 -1.3506541e-03
+ -2.3234403e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 1.4344932e-03  2.4639177e-03  1.4560978e-03  3.0906291e-03
+  5.1320400e-03  2.9266190e-03 -2.0787556e-06 -1.3506541e-03
+ -2.3234403e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.00425396 -0.00137638  0.02067644  0.03640531  0.03531008 -0.01240201
+  0.01445665  0.01917819 -0.0132882 ] 0.9806866645812988
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -1.6243475852790382e-05, 'v': array([ 0.00425396, -0.00137638,  0.02067644, ...,  0.0205674 ,
+        0.00919587,  0.02361939])}
+#### TIMES #### flatten: 0.17655420303344727
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.41037845611572266
+41 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.636657238006592
+42 ################ ################ ################ ################
+42 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_09_PSA0151-2016.mp3
+y: [ 6.5332302e-04  1.8729658e-03  3.3993374e-03  3.1793350e-03
+  1.0842357e-03 -4.1343927e-05 -8.2071485e-05 -1.3103456e-03
+ -2.6673328e-03]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 6.5332302e-04  1.8729658e-03  3.3993374e-03  3.1793350e-03
+  1.0842357e-03 -4.1343927e-05 -8.2071485e-05 -1.3103456e-03
+ -2.6673328e-03] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.00211095  0.01470679  0.03785074 -0.04372634 -0.01334781  0.01345666
+  0.01969671 -0.01091781  0.00591979] 0.937624454498291
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 8.114607859245859e-06, 'v': array([-2.11095156e-03,  1.47067871e-02,  3.78507376e-02, ...,
+       -1.23938800e-02,  3.76828173e-05,  1.23059588e-02])}
+#### TIMES #### flatten: 0.17116904258728027
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3837254047393799
+42 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.600887775421143
+43 ################ ################ ################ ################
+43 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_04_PSA0051-2018.mp3
+y: [-0.00055183  0.00105216  0.00203149  0.00025324 -0.00193943  0.00096149
+  0.00651453  0.00772723  0.00570498]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00055183  0.00105216  0.00203149  0.00025324 -0.00193943  0.00096149
+  0.00651453  0.00772723  0.00570498] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02534122  0.07321334  0.05709161  0.00641614 -0.01384197 -0.03878983
+ -0.03529101  0.01865618 -0.02865355] 0.9708657264709473
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -5.6394046200966646e-05, 'v': array([ 0.02534122,  0.07321334,  0.05709161, ...,  0.06034387,
+       -0.01591437, -0.1080165 ])}
+#### TIMES #### flatten: 0.17389941215515137
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38138437271118164
+43 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.524370193481445
+44 ################ ################ ################ ################
+44 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_15_PSA0179-2013.mp3
+y: [-0.00528781 -0.0084039  -0.0109695  -0.00842017 -0.00410324 -0.00360032
+ -0.00313666 -0.00157477 -0.00385864]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00528781 -0.0084039  -0.0109695  -0.00842017 -0.00410324 -0.00360032
+ -0.00313666 -0.00157477 -0.00385864] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.11836841 -0.05548287 -0.04048009 -0.07103534 -0.06459795 -0.00714305
+  0.12454447 -0.12464737  0.00533711] 0.9633541107177734
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -0.0001320080624317598, 'v': array([-0.11836841, -0.05548287, -0.04048009, ...,  0.12883784,
+        0.10826741, -0.00506872])}
+#### TIMES #### flatten: 0.17302441596984863
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3904554843902588
+44 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.557165145874023
+45 ################ ################ ################ ################
+45 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_11_PSA0159-2020.mp3
+y: [-0.00770338 -0.01029339 -0.00804883 -0.00901718 -0.00678219 -0.0030095
+ -0.0049484  -0.00398878 -0.00031875]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00770338 -0.01029339 -0.00804883 -0.00901718 -0.00678219 -0.0030095
+ -0.0049484  -0.00398878 -0.00031875] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.0416354   0.00564163  0.10765832  0.00910884 -0.02049245  0.14330782
+  0.00223497 -0.21250044 -0.08877368] 0.9729890823364258
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -7.163304791811183e-06, 'v': array([-0.0416354 ,  0.00564163,  0.10765832, ..., -0.22213611,
+        0.12322338,  0.25449834])}
+#### TIMES #### flatten: 0.174605131149292
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37810707092285156
+45 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.5399229526519775
+46 ################ ################ ################ ################
+46 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_18_PSA0341-2012.mp3
+y: [ 0.00475994  0.00414117  0.00096587  0.00125672  0.00358638  0.0022769
+ -0.0005434  -0.00036682  0.00035943]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00475994  0.00414117  0.00096587  0.00125672  0.00358638  0.0022769
+ -0.0005434  -0.00036682  0.00035943] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02436421  0.01159549  0.04173499 -0.01155159  0.00302043  0.00092567
+  0.01845174  0.01107429 -0.0633735 ] 0.9486105442047119
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -3.5933847876920796e-05, 'v': array([ 0.02436421,  0.01159549,  0.04173499, ..., -0.03803431,
+       -0.00904715, -0.08802916])}
+#### TIMES #### flatten: 0.1721789836883545
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38660573959350586
+46 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.542127370834351
+47 ################ ################ ################ ################
+47 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_19_PSA0418-2013.mp3
+y: [-0.00126435 -0.00057605  0.00132228  0.00209208  0.00106727 -0.00055142
+ -0.0020024  -0.00256514 -0.00147479]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00126435 -0.00057605  0.00132228  0.00209208  0.00106727 -0.00055142
+ -0.0020024  -0.00256514 -0.00147479] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.00344547 -0.0190705  -0.01615897  0.00389107  0.04992452  0.01889873
+  0.01519317 -0.01478734 -0.0414379 ] 0.9353604316711426
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -2.3781030296883075e-06, 'v': array([ 0.00344547, -0.0190705 , -0.01615897, ...,  0.02152647,
+        0.00819204, -0.01029746])}
+#### TIMES #### flatten: 0.17109322547912598
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3909280300140381
+47 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.561861515045166
+48 ################ ################ ################ ################
+48 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_08_PSA0132-2013.mp3
+y: [ 0.00295693  0.00367725  0.00196132 -0.00056545 -0.00106793  0.00118661
+  0.00160184 -0.00082026  0.00014527]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00295693  0.00367725  0.00196132 -0.00056545 -0.00106793  0.00118661
+  0.00160184 -0.00082026  0.00014527] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.02988101  0.02083721 -0.00881631  0.01504098  0.02626353 -0.00993863
+ -0.04586779 -0.05411189 -0.11192129] 0.9615976810455322
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 1.0626918895892751e-05, 'v': array([ 0.02988101,  0.02083721, -0.00881631, ...,  0.05345049,
+        0.03027809,  0.00489281])}
+#### TIMES #### flatten: 0.17371201515197754
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38669633865356445
+48 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.502106666564941
+49 ################ ################ ################ ################
+49 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_06_PSA0093-2018.mp3
+y: [ 0.01301335  0.01457914  0.00164659 -0.01007226 -0.0111896  -0.00599943
+  0.00228781  0.00742674  0.00437273]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.01301335  0.01457914  0.00164659 -0.01007226 -0.0111896  -0.00599943
+  0.00228781  0.00742674  0.00437273] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.02951165 -0.02389753  0.0033837  -0.00712764  0.00041022 -0.00399038
+  0.032293   -0.00739452  0.01226852] 0.973752498626709
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 1.6412189987787917e-05, 'v': array([-0.02951165, -0.02389753,  0.0033837 , ..., -0.01890468,
+       -0.00116878,  0.00303376])}
+#### TIMES #### flatten: 0.17585396766662598
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.378082275390625
+49 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.5024333000183105
+50 ################ ################ ################ ################
+50 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_02_PSA0026-2020.mp3
+y: [0.00536645 0.00867253 0.01128107 0.01042143 0.0096461  0.01021449
+ 0.00775896 0.00422377 0.00198129]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [0.00536645 0.00867253 0.01128107 0.01042143 0.0096461  0.01021449
+ 0.00775896 0.00422377 0.00198129] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.11655029  0.07386412  0.02953997  0.01481903 -0.04130972  0.07574381
+  0.00689651  0.05780915 -0.00580518] 1.0297133922576904
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -1.5807360934863235e-06, 'v': array([ 0.11655029,  0.07386412,  0.02953997, ...,  0.0363615 ,
+       -0.00557241,  0.05822735])}
+#### TIMES #### flatten: 0.1736891269683838
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3776731491088867
+50 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.650057077407837
+51 ################ ################ ################ ################
+51 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_14_PSA0168-2016.mp3
+y: [ 0.00081792 -0.00090185 -0.00156615 -0.00212448  0.00072237  0.00424087
+  0.00128948 -0.00268635 -0.00185615]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00081792 -0.00090185 -0.00156615 -0.00212448  0.00072237  0.00424087
+  0.00128948 -0.00268635 -0.00185615] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.01150291 -0.00055703 -0.03003636  0.00847347 -0.03741844 -0.03817513
+ -0.02680392  0.00869826  0.03763722] 1.0205225944519043
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -3.365578678009777e-07, 'v': array([ 0.01150291, -0.00055703, -0.03003636, ..., -0.02869064,
+        0.01155841, -0.02314249])}
+#### TIMES #### flatten: 0.1728067398071289
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.391373872756958
+51 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.561995506286621
+52 ################ ################ ################ ################
+52 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_20_PSA0431-2013.mp3
+y: [-1.16280979e-04 -7.45697995e-04  1.05585984e-03  6.35813922e-05
+ -3.26562952e-03 -3.27943196e-03 -8.11779290e-04  4.00391815e-04
+  1.18925935e-04]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-1.16280979e-04 -7.45697995e-04  1.05585984e-03  6.35813922e-05
+ -3.26562952e-03 -3.27943196e-03 -8.11779290e-04  4.00391815e-04
+  1.18925935e-04] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.05351081  0.03079638  0.00184726  0.05441351 -0.00117495  0.00825298
+  0.00546574 -0.00600386  0.00509111] 0.9846019744873047
+300 {'r': 0, 'h': 0, 'b': 0, 'm': -2.491776491126555e-06, 'v': array([ 5.35108101e-02,  3.07963815e-02,  1.84726478e-03, ...,
+       -9.99113464e-05,  1.34361390e-01, -8.83511984e-02])}
+#### TIMES #### flatten: 0.17499375343322754
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.38549113273620605
+52 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.607961654663086
+53 ################ ################ ################ ################
+53 #### RUNNING #### REGION: ==>> NaturalRegeneration <<== AUDIO: ==>> 1_07_PSA0099-2019.mp3
+y: [0.01464401 0.02786117 0.03568167 0.03849116 0.03603841 0.02874531
+ 0.02253207 0.02150755 0.02229689]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [0.01464401 0.02786117 0.03568167 0.03849116 0.03603841 0.02874531
+ 0.02253207 0.02150755 0.02229689] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.34948289  0.48761272 -0.44691793  0.26378806 -0.46724656  0.23765541
+ -0.33955499  0.59611273 -0.13309432] 0.9876348972320557
+300 {'r': 0, 'h': 0, 'b': 0, 'm': 3.162752483358392e-05, 'v': array([ 0.34948289,  0.48761272, -0.44691793, ...,  0.11271007,
+       -0.23409834,  0.11235779])}
+#### TIMES #### flatten: 0.17261433601379395
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3950662612915039
+53 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.562838077545166
+54 ################ ################ ################ ################
+54 #### RUNNING #### REGION: ==>> RefForest <<== AUDIO: ==>> 0_00_RefForest1.mp3
+y: [ 0.01103865  0.01176985  0.00412414 -0.00774774 -0.01663554 -0.01605902
+ -0.00705433  0.00213126  0.0058885 ]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.01103865  0.01176985  0.00412414 -0.00774774 -0.01663554 -0.01605902
+ -0.00705433  0.00213126  0.0058885 ] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.01520609  0.0487448   0.00790685 -0.02322937  0.04721319 -0.06899574
+  0.04534351 -0.00764527  0.01231808] 0.9884059429168701
+300 {'r': 3, 'h': 0, 'b': 0, 'm': 1.535970246365345e-05, 'v': array([ 0.01520609,  0.0487448 ,  0.00790685, ...,  0.03328978,
+       -0.00654022,  0.0504614 ])}
+#### TIMES #### flatten: 0.17496299743652344
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.3659090995788574
+54 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.528557062149048
+55 ################ ################ ################ ################
+55 #### RUNNING #### REGION: ==>> RefForest <<== AUDIO: ==>> 0_01_RefForest4.mp3
+y: [ 0.00041495  0.00191905  0.00555526  0.00784058  0.00575741  0.00123444
+ -0.00283909 -0.00552388 -0.0053111 ]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [ 0.00041495  0.00191905  0.00555526  0.00784058  0.00575741  0.00123444
+ -0.00283909 -0.00552388 -0.0053111 ] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [-0.02007868  0.09077038 -0.02574074 -0.03691256 -0.15391229 -0.13598842
+ -0.07764637 -0.10078786  0.01485272] 0.9763691425323486
+300 {'r': 3, 'h': 0, 'b': 0, 'm': -5.861363680120768e-06, 'v': array([-0.02007868,  0.09077038, -0.02574074, ...,  0.04133471,
+        0.05577173, -0.01933899])}
+#### TIMES #### flatten: 0.1788780689239502
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.36498570442199707
+55 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.486617088317871
+56 ################ ################ ################ ################
+56 #### RUNNING #### REGION: ==>> RefForest <<== AUDIO: ==>> 0_02_RefForest5.mp3
+y: [-0.00513838 -0.00416545  0.0014226   0.00823428  0.01222593  0.01346388
+  0.01234943  0.00994667  0.00897678]
+total samples in y: (86400000,) in time: 1800 secs
+samples rate per second:  48000
+#### ORIGINAL Y_C 86400000 [-0.00513838 -0.00416545  0.0014226   0.00823428  0.01222593  0.01346388
+  0.01234943  0.00994667  0.00897678] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 30 chunk_size: 2880000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 30 10 60000 [ 0.18846191 -0.0309402  -0.09223149 -0.00885486 -0.04887699 -0.0743562
+ -0.02869181 -0.01424963 -0.02562471] 0.9768359661102295
+300 {'r': 3, 'h': 0, 'b': 0, 'm': 3.4267008827859786e-06, 'v': array([ 0.18846191, -0.0309402 , -0.09223149, ...,  0.17372023,
+        0.18489863, -0.88971101])}
+#### TIMES #### flatten: 0.17415380477905273
+#### REARRANGED THE SIGNAL PER 10 FREQUENCIES <class 'list'> 300 <class 'numpy.ndarray'> 60000
+#### COMPUTE SLIDING WINDOW True
+#### RUNNING #### sum_this_sliding_window
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 300 <class 'numpy.ndarray'> 1 3600
+#### REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+#### TIMES #### w_this_sliding_window 0.37585878372192383
+56 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4.5165276527404785
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 263.041216135025
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 263.155 
+ TOTAL_JOBS: 32 
+ JOB_ID: 4090952 
+ #### ####
+#### SLEEPING TIME: 263.155 seconds ####
+All guert parcero, aller!
