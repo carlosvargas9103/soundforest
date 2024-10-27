@@ -9,6 +9,7 @@ import ast
 import csv
 import copy
 import time
+import json
 import random
 import joblib
 import datetime
@@ -47,8 +48,9 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from tslearn.datasets import UCR_UEA_datasets
+# from tslearn.datasets import UCR_UEA_datasets
 from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
 # <<< import libraries for CNN <<<<
 
@@ -329,25 +331,24 @@ def bootstrap_soundscape(audio_file: str = '',
 
 def merge_data(data_files: pd.DataFrame = None) -> pd.DataFrame:
     data_merged = None
-    # for i, f in enumerate(data_files.filename):
-    #     print(i, f)
     ncols = 3005
     with open(data_files.filename[0]) as x:
         ncols = len(x.readline().split(';'))
     try:
-        df_merged = pd.concat((pd.read_csv(f, sep=';', usecols=range(1, ncols)) for f in data_files.filename),ignore_index=True)
-        print(df_merged.shape)
+        df_merged = pd.concat((pd.read_csv(f, sep=';', usecols=range(1, ncols)) for f in data_files.filename),
+                              ignore_index=True)
+        # print(df_merged.shape)
         # print(df_merged.head(3))
+        return df_merged
     except Exception as e:
         print('ALWAYS PROBLEMS', e)
-        df_merged = None
-    finally:
-        return data_merged
+    return data_merged
 
 
 t00 = time.time()
 # READ audio_files_progress
 global audio_files_processed  # = None
+t0 = time.time()
 try:
     audio_files_processed = pd.read_csv(
         f'{path_out}{file_in_pattern}processed_data_in_{str(datetime.date.today())[:-3]}.csv', sep=';'
@@ -359,7 +360,189 @@ except Exception as e:
 audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
 # print(audio_files[:3])
 f_progress = copy.deepcopy(audio_files)
-merge_data(audio_files)
+df_data = merge_data(audio_files)
+print('####', 'merge_data Dataframe shape:', df_data.shape, '####', 'time:', int(time.time()- t0))
+t0 = time.time()
+X_train, X_test, y_train, y_test = train_test_split(df_data.iloc[:, 1:], df_data.iloc[:, 0], test_size=0.2, random_state=9103)
+#normalize the data
+X_train = TimeSeriesScalerMinMax().fit_transform(X_train)
+X_test = TimeSeriesScalerMinMax().fit_transform(X_test)
+# Convert the data to torch tensors
+X_train = torch.from_numpy(X_train).float()
+X_test = torch.from_numpy(X_test).float()
+y_train = torch.from_numpy(y_train.values).long()
+y_test = torch.from_numpy(y_test.values).long()
+
+#Datasets
+train_dataset = torch.utils.data.TensorDataset(X_train, y_train)
+test_dataset = torch.utils.data.TensorDataset(X_test, y_test)
+#Dataloaders
+train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print('####', 'train_test_split and cuda: ', device, '####', 'time:', int(time.time()- t0))
+
+t0 = time.time()
+
+# model 1: CNN + LSTM
+# model 2: LSTM + CNN
+# model 3: CNN LSTM parallel
+
+class CNN_LSTM(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, num_classes):
+        super(CNN_LSTM, self).__init__()
+        self.cnn = nn.Sequential(
+            nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2)
+        )
+        self.lstm = nn.LSTM(input_size=128, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
+        self.fc = nn.Linear(hidden_size, num_classes)
+
+    def forward(self, x):
+        #cnn takes input of shape (batch_size, channels, seq_len)
+        x = x.permute(0, 2, 1)
+        out = self.cnn(x)
+        # lstm takes input of shape (batch_size, seq_len, input_size)
+        out = out.permute(0, 2, 1)
+        out, _ = self.lstm(out)
+        out = self.fc(out[:, -1, :])
+        return out
+
+class LSTM_CNN(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, num_classes):
+        super(LSTM_CNN, self).__init__()
+        self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
+        self.cnn = nn.Sequential(
+            nn.Conv1d(in_channels=hidden_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            #flatten
+            nn.Flatten(),
+            nn.LazyLinear(out_features=256),
+            nn.ReLU(),
+            nn.Linear(in_features=256, out_features=num_classes)
+        )
+
+    def forward(self, x):
+        out, _ = self.lstm(x)
+        out = out.permute(0, 2, 1)
+        out = self.cnn(out)
+        return out
+
+# model 3: CNN LSTM parallel
+class ParallelCNNLSTMModel(nn.Module):
+    def __init__(self, input_size, hidden_size, num_layers, num_classes):
+        super(ParallelCNNLSTMModel, self).__init__()
+        self.cnn = nn.Sequential(
+            nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Flatten(),
+            nn.LazyLinear(out_features=128),
+            nn.ReLU()
+        )
+        self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
+        self.fc_lstm = nn.Linear(hidden_size, 128)
+        self.fc = nn.Linear(128*2, num_classes)
+
+    def forward(self, x):
+        #cnn takes input of shape (batch_size, channels, seq_len)
+        x_cnn = x.permute(0, 2, 1)
+        out_cnn = self.cnn(x_cnn)
+        # lstm takes input of shape (batch_size, seq_len, input_size)
+        out_lstm, _ = self.lstm(x)
+        out_lstm = self.fc_lstm(out_lstm[:, -1, :])
+        out = torch.cat([out_cnn, out_lstm], dim=1)
+        out = self.fc(out)
+        return out
+
+#### PREPARE FOR FITTING THE MODEL ####
+
+input_size = X_train.shape[-1]
+hidden_size = 128
+num_layers = 2
+num_classes = len(np.unique(y_train)) + 1
+print(np.unique(y_train), num_classes)
+
+# exit()
+
+cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+
+
+def train(models:List, train_loader:DataLoader, epochs:int):
+    criterion = nn.CrossEntropyLoss()
+    for model in models:
+        print("Training model: ", model.__class__.__name__)
+        model.train()
+        optimizer = Adam(model.parameters(), lr=0.001)
+        for epoch in range(epochs):
+            for i, (x, y) in enumerate(train_loader):
+                x = x.to(device)
+                y = y.to(device)
+                optimizer.zero_grad()
+                y_pred = model(x)
+                loss = criterion(y_pred, y)
+                loss.backward()
+                optimizer.step()
+                if (i+1) % 10 == 0:
+                    print(f'Epoch [{epoch+1}/{epochs}], Step [{i+1}/{len(train_loader)}], Loss: {loss.item():.4f}')
+        print("Training completed for model: ", model.__class__.__name__)
+
+# SOME CONFIG
+os.environ['CUDA_LAUNCH_BLOCKING']="1"
+os.environ['TORCH_USE_CUDA_DSA'] = "1"
+
+#train
+models = [cnn_lstm]
+# models = [cnn_lstm_parallel]
+# models = [lstm_cnn]
+# models = [cnn_lstm, lstm_cnn, cnn_lstm_parallel]
+
+
+num_epochs = 19
+train(models, train_loader, epochs=num_epochs)
+
+#test
+def test(models, test_loader):
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        accuracy_dict = {}
+        for model in models:
+            model.eval()
+            for x, y in test_loader:
+                x = x.to(device)
+                y = y.to(device)
+                y_pred = model(x)
+                _, predicted = torch.max(y_pred.data, 1)
+                total += y.size(0)
+                correct += (predicted == y).sum().item()
+            print(f'Accuracy of the {model.__class__.__name__} model on the test set: {100 * correct / total:.2f} %')
+            accuracy_dict[model.__class__.__name__] = 100 * correct / total
+    return accuracy_dict
+
+accuracy_dict = test(models, test_loader)
+
+#plot bar chart with the accuracy of each model
+# sns.barplot(x=list(accuracy_dict.keys()), y=list(accuracy_dict.values()))
+
+with open(f'{path_out}000_models_accuracy_dict_{str(datetime.date.today())[:-3]}.json', 'w') as fp:
+    json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
+
+print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS')
 exit()
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
