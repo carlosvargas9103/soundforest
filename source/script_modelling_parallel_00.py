@@ -41,7 +41,19 @@ import matplotlib
 import matplotlib.pylab as plt
 import seaborn as sns
 
+# >>>> import libraries for CNN >>>>
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader
+from torch.optim import Adam
+
+from sklearn.metrics import accuracy_score
+from tslearn.datasets import UCR_UEA_datasets
+from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
+# <<< import libraries for CNN <<<<
+
 from warnings import simplefilter
+
 # simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
 random.seed("9103")
@@ -57,28 +69,36 @@ global d_re, windows_13
 # global audio_files, verbose, f_progress
 job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
-sreg, si, bandas, windows_13 = 0, 0, 10, True #False
+sreg, si, bandas, windows_13, file_in_pattern = 0, 0, 10, True, '000_'
 # SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
 b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 60, False
 d_re = {'NaturalRegeneration': 0, 'Pasture': 1, 'Plantation': 2, 'RefForest': 3}
+
 ### LOAD AUDIO FILES ###
 cwd = os.getcwd()  # cwd: /home/fs72552/vargas/forests-sounds-vargas/source
 cwd = str(Path(cwd).parents[0]) if cwd.endswith('/source') else cwd
 print('PATH', cwd)
-path_data = f'{cwd}/data/'
+# path_data = f'{cwd}/data/'
 path_out = f'{cwd}/out/'
+path_data = f'{cwd}/out/data'
 
 configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                for dirpath, dirnames, files in os.walk(path_data)
-               for f in files if f.endswith('.mp3')]
-print(path_data, path_out, configfiles[:3])
+               for f in files if f.startswith(file_in_pattern)]
+
+print(path_data, path_out, len(configfiles))  # , configfiles[:3])
 
 # READ audio_files to process
+
 audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
 audio_files = audio_files.assign(processed=False)
 # audio_files['processed'] = audio_files['processed'].astype(bool)
-audio_files.to_csv(f'{path_out}audio_files_in_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
 
+audio_files.to_csv(f'{path_out}{file_in_pattern}preprocessed_data_in_{job_id}_{str(datetime.date.today())[:-3]}.csv',
+                   sep=';', index=True)
+
+
+# exit()
 
 def update_progress(audio_files_in: pd.DataFrame = audio_files,
                     audio_files_processed: pd.DataFrame = None,  # audio_files_processed,
@@ -124,7 +144,6 @@ def bootstrap_soundscape(audio_file: str = '',
                          windows_13: bool = windows_13 or False,
                          verbose: bool = verbo
                          ) -> None:
-    # print(f'{si} - audio_file: {audio_file} - region: {region}')
     ### LOAD COLOUR TEMPLATES ###
     sns.set_theme(style='white', palette=None)
     color_pal = plt.rcParams['axes.prop_cycle'].by_key()['color']
@@ -154,15 +173,6 @@ def bootstrap_soundscape(audio_file: str = '',
 
     def audio_denoise_ns(y=None, sr: int = 48000):
         return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.6, stationary=False)
-
-    # CHUNKS OF 60 SECONDS
-    # exit()
-
-    # WE DONT DENOISE THIS TIME
-    # t1 = time.time()
-    # parallel audio_denoise => ~30sec
-    # split_y_rn_st = Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(audio_denoise_st)(y_i) for y_i in split_y)
-    # split_y_rn_ns = Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(audio_denoise_ns)(y_i) for y_i in split_y)
 
     def split_freq_band(s: np.memmap = None,
                         sr: int = sr,
@@ -218,7 +228,7 @@ def bootstrap_soundscape(audio_file: str = '',
 
     mean_y_hours_bandas = [
         {'r': d_re.get(region, 0),
-        # {'r': d_re.get(region.upper(), 0),
+         # {'r': d_re.get(region.upper(), 0),
          'h': h,
          'b': b,
          'm': np.mean(f := split_y_split_bands[h, b, :].flatten()),
@@ -237,8 +247,7 @@ def bootstrap_soundscape(audio_file: str = '',
     bandwidth, secs, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
 
     def w_this_sliding_window(data, size=int(bandwidth * secs * w_size_mins), stepsize=int(bandwidth * secs),
-    # def sum_this_sliding_window(data, size=int(bandwidth * secs), stepsize=int(bandwidth * secs * w_size_mins),
-                                padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
+                              padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
         if axis >= data.ndim:
             raise ValueError('Axis value out of range')
         if stepsize < 1:
@@ -264,16 +273,13 @@ def bootstrap_soundscape(audio_file: str = '',
     # SLIDING WINDOWS FOR THE SIGNAL
     t1 = time.time()
     print('#### RUNNING #### sum_this_sliding_window')
-    # mean_y_hours_bandas = copy.deepcopy(mean_y_hours_bandas)
-    # dict_y_split_hours_bands = copy.deepcopy(data)
-
-    # mean_y_hours_bandas = [dict(item, w=np.array(sum_this_sliding_window(item['v']))) for item in copy.deepcopy(data)]
 
     df_m = None
 
     if windows_13:
         w_vectors = np.array(
-            Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(w_this_sliding_window)(s.get('v')) for s in mean_y_hours_bandas)
+            Parallel(n_jobs=N_JOBS, verbose=verbose)(
+                delayed(w_this_sliding_window)(s.get('v')) for s in mean_y_hours_bandas)
         )
 
         print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
@@ -291,7 +297,6 @@ def bootstrap_soundscape(audio_file: str = '',
 
         v_prefix = 'v'
         df.drop(columns=[v_prefix], inplace=True)
-        # df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
         # (300, 60000)
         # print(df.head(3), df.shape)
         v_prefix = 'w'
@@ -303,26 +308,7 @@ def bootstrap_soundscape(audio_file: str = '',
         # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
         print('#### TIMES #### w_this_sliding_window', time.time() - t1)
 
-        # print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
-        #       type(mean_y_hours_bandas), len(mean_y_hours_bandas),
-        #       type(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0][0]),
-        #       # len(mean_y_hours_bandas[0][0]), mean_y_hours_bandas[0][0][33:39], data[0].get('v')[33:39]
-        #       )
-
-        # print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
-        #       type(mean_y_hours_bandas), len(mean_y_hours_bandas), type(mean_y_hours_bandas[0]), mean_y_hours_bandas[0].keys()
-        #       # type(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0][0]),
-        #       # len(mean_y_hours_bandas[0][0]), mean_y_hours_bandas[0][0][33:39], data[0].get('v')[33:39]
-        #       )
-        # for k in mean_y_hours_bandas[0].keys():
-        #     print(k, type(mean_y_hours_bandas[0].get(k)))
-
-        # exit()
-
     else:
-        # <class 'numpy.ndarray'> 10
-        # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
-        # sum_y_rn_st_split to .csv
 
         df = pd.DataFrame(mean_y_hours_bandas)
         v_prefix = 'v'
@@ -331,30 +317,53 @@ def bootstrap_soundscape(audio_file: str = '',
         # print(df_v.head(3), df_v.shape)
         df.drop(columns=['v'], inplace=True)
         df_m = pd.concat([df, df_v], axis=1)
+        # (300, 60004)
         # print(df_m.head(3), df_m.shape)
 
-    df_m.to_csv(f'{path_out}data/000_{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv', sep=';')
+    df_m.to_csv(
+        f'{path_out}data/{file_in_pattern}{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv',
+        sep=';')
 
     # exit()
+
+
+def merge_data(data_files: pd.DataFrame = None) -> pd.DataFrame:
+    data_merged = None
+    # for i, f in enumerate(data_files.filename):
+    #     print(i, f)
+    ncols = 3005
+    with open(data_files.filename[0]) as x:
+        ncols = len(x.readline().split(';'))
+    try:
+        df_merged = pd.concat((pd.read_csv(f, sep=';', usecols=range(1, ncols)) for f in data_files.filename),ignore_index=True)
+        print(df_merged.shape)
+        # print(df_merged.head(3))
+    except Exception as e:
+        print('ALWAYS PROBLEMS', e)
+        df_merged = None
+    finally:
+        return data_merged
+
 
 t00 = time.time()
 # READ audio_files_progress
 global audio_files_processed  # = None
 try:
     audio_files_processed = pd.read_csv(
-        f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';'
+        f'{path_out}{file_in_pattern}processed_data_in_{str(datetime.date.today())[:-3]}.csv', sep=';'
     ).astype(str)
-    # audio_files_processed['processed'] = audio_files_processed['processed'].astype(bool)
 except Exception as e:
     print('ALWAYS PROBLEMS', e)
     audio_files_processed = None
 
 audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
+# print(audio_files[:3])
 f_progress = copy.deepcopy(audio_files)
+merge_data(audio_files)
+exit()
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
 print('#### #### HOI FOREST #### ####')
-# Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(bootstrap_soundscape)(audio_file=a) for a in audio_files)
 
 # This function is meant to be used in a parallel fashion
 print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
