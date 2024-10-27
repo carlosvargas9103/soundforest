@@ -57,7 +57,7 @@ global d_re, windows_13
 # global audio_files, verbose, f_progress
 job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
-sreg, si, bandas, windows_13 = 0, 0, 10, False
+sreg, si, bandas, windows_13 = 0, 0, 10, True #False
 # SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
 b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 60, False
 d_re = {'NaturalRegeneration': 0, 'Pasture': 1, 'Plantation': 2, 'RefForest': 3}
@@ -121,6 +121,7 @@ def bootstrap_soundscape(audio_file: str = '',
                          path_out: str = f'{cwd}/out/',
                          samples_s: int = samples_s,
                          isamples_s: int = isamples_s,
+                         windows_13: bool = windows_13 or False,
                          verbose: bool = verbo
                          ) -> None:
     # print(f'{si} - audio_file: {audio_file} - region: {region}')
@@ -215,7 +216,7 @@ def bootstrap_soundscape(audio_file: str = '',
     horas = 30
     y_split_hours_bands = [split_y_split_bands[h, b, :].flatten() for b in range(0, bandas) for h in range(0, horas)]
 
-    data = [
+    mean_y_hours_bandas = [
         {'r': d_re.get(region, 0),
         # {'r': d_re.get(region.upper(), 0),
          'h': h,
@@ -224,7 +225,7 @@ def bootstrap_soundscape(audio_file: str = '',
          'v': f
          } for b in range(0, bandas) for h in range(0, horas)
     ]
-    print(len(data), data[0])
+    print(len(mean_y_hours_bandas), mean_y_hours_bandas[0])
     # y_rn_split_ns_10 = [split_y_rn_ns_split[:, b, :].flatten() for b in range(0, bandas)]
     print('#### TIMES #### flatten:', time.time() - t1)
     print('####', 'REARRANGED THE SIGNAL PER 10 FREQUENCIES', type(y_split_hours_bands), len(y_split_hours_bands),
@@ -235,7 +236,7 @@ def bootstrap_soundscape(audio_file: str = '',
     print('####', f'COMPUTE SLIDING WINDOW {windows_13}')
     bandwidth, secs, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
 
-    def sum_this_sliding_window(data, size=int(bandwidth * secs * w_size_mins), stepsize=int(bandwidth * secs),
+    def w_this_sliding_window(data, size=int(bandwidth * secs * w_size_mins), stepsize=int(bandwidth * secs),
     # def sum_this_sliding_window(data, size=int(bandwidth * secs), stepsize=int(bandwidth * secs * w_size_mins),
                                 padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
         if axis >= data.ndim:
@@ -263,28 +264,44 @@ def bootstrap_soundscape(audio_file: str = '',
     # SLIDING WINDOWS FOR THE SIGNAL
     t1 = time.time()
     print('#### RUNNING #### sum_this_sliding_window')
-    mean_y_hours_bandas = copy.deepcopy(data)
+    # mean_y_hours_bandas = copy.deepcopy(mean_y_hours_bandas)
     # dict_y_split_hours_bands = copy.deepcopy(data)
 
     # mean_y_hours_bandas = [dict(item, w=np.array(sum_this_sliding_window(item['v']))) for item in copy.deepcopy(data)]
 
+    df_m = None
 
     if windows_13:
         w_vectors = np.array(
-            Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(sum_this_sliding_window)(s.get('v')) for s in data)
+            Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(w_this_sliding_window)(s.get('v')) for s in mean_y_hours_bandas)
         )
 
-        # print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
-        #       type(w_vectors), len(w_vectors),
-        #       type(w_vectors[0]), len(w_vectors[0]), len(w_vectors[0][0]),
-        #       )
+        print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
+              type(w_vectors), len(w_vectors),
+              type(w_vectors[0]), len(w_vectors[0]), len(w_vectors[0][0]),
+              )
 
-        for i, w in enumerate(w_vectors):
-            mean_y_hours_bandas[i]['w'] = w[0]
+        w_vectors = w_vectors.reshape(w_vectors.shape[0], w_vectors.shape[-1])
+        df, df_w = pd.DataFrame(mean_y_hours_bandas), pd.DataFrame(w_vectors)
+
+        # <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+        print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
+              type(df_w), len(df_w), type(df_w[0]), df_w.shape
+              )
+
+        v_prefix = 'v'
+        df.drop(columns=[v_prefix], inplace=True)
+        # df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
+        # (300, 60000)
+        # print(df.head(3), df.shape)
+        v_prefix = 'w'
+        df_m = pd.concat([df, df_w.add_prefix(f'{v_prefix}_')], axis=1)
+        # [3 rows x 3604 columns] (300, 3604)
+        # print(df_m.head(3), df_m.shape)
 
         # NOT NEEDED - REARRANGE THE SIGNAL
         # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
-        print('#### TIMES #### sum_this_sliding_window', time.time() - t1)
+        print('#### TIMES #### w_this_sliding_window', time.time() - t1)
 
         # print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
         #       type(mean_y_hours_bandas), len(mean_y_hours_bandas),
@@ -292,30 +309,31 @@ def bootstrap_soundscape(audio_file: str = '',
         #       # len(mean_y_hours_bandas[0][0]), mean_y_hours_bandas[0][0][33:39], data[0].get('v')[33:39]
         #       )
 
-        print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
-              type(mean_y_hours_bandas), len(mean_y_hours_bandas), type(mean_y_hours_bandas[0]), mean_y_hours_bandas[0].keys()
-              # type(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0][0]),
-              # len(mean_y_hours_bandas[0][0]), mean_y_hours_bandas[0][0][33:39], data[0].get('v')[33:39]
-              )
+        # print('####', 'REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES',
+        #       type(mean_y_hours_bandas), len(mean_y_hours_bandas), type(mean_y_hours_bandas[0]), mean_y_hours_bandas[0].keys()
+        #       # type(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0]), len(mean_y_hours_bandas[0][0]),
+        #       # len(mean_y_hours_bandas[0][0]), mean_y_hours_bandas[0][0][33:39], data[0].get('v')[33:39]
+        #       )
         # for k in mean_y_hours_bandas[0].keys():
         #     print(k, type(mean_y_hours_bandas[0].get(k)))
 
         # exit()
 
-    # <class 'numpy.ndarray'> 10
-    # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
-    # sum_y_rn_st_split to .csv
+    else:
+        # <class 'numpy.ndarray'> 10
+        # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
+        # sum_y_rn_st_split to .csv
 
-    df = pd.DataFrame(mean_y_hours_bandas)
-    v_prefix = 'v'
-    df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
-    # (300, 60000)
-    # print(df_v.head(3), df_v.shape)
-    df.drop(columns=['v'], inplace=True)
-    df_m = pd.concat([df, df_v], axis=1)
-    # print(df_m.head(3), df_m.shape)
+        df = pd.DataFrame(mean_y_hours_bandas)
+        v_prefix = 'v'
+        df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
+        # (300, 60000)
+        # print(df_v.head(3), df_v.shape)
+        df.drop(columns=['v'], inplace=True)
+        df_m = pd.concat([df, df_v], axis=1)
+        # print(df_m.head(3), df_m.shape)
 
-    df_m.to_csv(f'{path_out}data/00_{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv', sep=';')
+    df_m.to_csv(f'{path_out}data/000_{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv', sep=';')
 
     # exit()
 
