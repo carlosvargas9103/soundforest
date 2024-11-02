@@ -1,0 +1,16 @@
+Lmod has detected the following error: The following module(s) are unknown:
+"cuda"
+
+Please check the spelling or version number. Also try "module spider ..."
+It is also possible your cache file is out-of-date; it may help to try:
+  $ module --ignore_cache load "cuda"
+
+Also make sure that all modulefiles written in TCL start with the string
+#%Module
+
+
+
+Traceback (most recent call last):
+  File "/home/vargas/repos/forests-sounds-vargas/source/check_gpu.py", line 1, in <module>
+    check_gpu.py 
+NameError: name 'check_gpu' is not defined

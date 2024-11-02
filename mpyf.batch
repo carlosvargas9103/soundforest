@@ -15,8 +15,8 @@
 # --ntasks-per-node=2
 # --gres=gpu:1
 
-module load gcc python
+module load gcc python cuda
 
 source ~/repos/forests-sounds-vargas/venvs/py310f/bin/activate
 
-cd ~/repos/forests-sounds-vargas/source && python3 script_bootstrap_parallel_00.py
+cd ~/repos/forests-sounds-vargas/source && python3 script_modelling_parallel_00.py

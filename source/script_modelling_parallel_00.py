@@ -345,6 +345,7 @@ def merge_data(data_files: pd.DataFrame = None) -> pd.DataFrame:
         print('ALWAYS PROBLEMS', e)
     return data_merged
 
+print('#### #### HOI FOREST #### ####')
 
 t00 = time.time()
 # READ audio_files_progress
@@ -502,6 +503,8 @@ def train(models:List, train_loader:DataLoader, epochs:int):
                     print(f'Epoch [{epoch+1}/{epochs}], Step [{i+1}/{len(train_loader)}], Loss: {loss.item():.4f}')
         print("Training completed for model: ", model.__class__.__name__)
 
+
+
 # SOME CONFIG
 os.environ['CUDA_LAUNCH_BLOCKING']="1"
 os.environ['TORCH_USE_CUDA_DSA'] = "1"
@@ -513,7 +516,7 @@ models = [cnn_lstm]
 # models = [cnn_lstm, lstm_cnn, cnn_lstm_parallel]
 
 
-num_epochs = 19
+num_epochs = 9
 train(models, train_loader, epochs=num_epochs)
 
 #test
@@ -544,11 +547,11 @@ with open(f'{path_out}000_models_accuracy_dict_{str(datetime.date.today())[:-3]}
     json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
 
 print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS')
-exit()
+# exit()
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
-print('#### #### HOI FOREST #### ####')
 
+"""
 # This function is meant to be used in a parallel fashion
 print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
 
@@ -572,6 +575,7 @@ finally:
     f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
 
 print('#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', time.time() - t00)
+"""
 
 data = [
     'cali',

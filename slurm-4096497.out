@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/home/vargas/repos/forests-sounds-vargas/source/check_gpu.py", line 1, in <module>
+    check_gpu.py 
+NameError: name 'check_gpu' is not defined
