@@ -57,7 +57,8 @@ global d_re, windows_13
 # global audio_files, verbose, f_progress
 job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
-sreg, si, bandas, windows_13 = 0, 0, 10, True #False
+sreg, si, bandas, windows_13, file_in_pattern = 0, 0, 10, True, '000_'
+
 # SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
 b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 60, False
 d_re = {'NaturalRegeneration': 0, 'Pasture': 1, 'Plantation': 2, 'RefForest': 3}
@@ -333,7 +334,7 @@ def bootstrap_soundscape(audio_file: str = '',
         df_m = pd.concat([df, df_v], axis=1)
         # print(df_m.head(3), df_m.shape)
 
-    df_m.to_csv(f'{path_out}data/000_{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv', sep=';')
+    df_m.to_csv(f'{path_out}data/{file_in_pattern}{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv', sep=';')
 
     # exit()
 
