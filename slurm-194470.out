@@ -1,0 +1,298 @@
+/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/tslearn/bases/bases.py:15: UserWarning: h5py not installed, hdf5 features will not be supported.
+Install h5py to use hdf5 features: http://docs.h5py.org/
+  warn(h5py_msg)
+PATH /home/vargas/repos/forests-sounds-vargas
+/home/vargas/repos/forests-sounds-vargas/out/data /home/vargas/repos/forests-sounds-vargas/out/ 57
+#### #### HOI FOREST #### ####
+ALWAYS PROBLEMS [Errno 2] No such file or directory: '/home/vargas/repos/forests-sounds-vargas/out/000_processed_data_in_2024-11.csv'
+#### MERGE 57 merge_data Dataframe shape: (17100, 3604) #### time: 15
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### MODELS {0: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+)], 1: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+), LSTM_CNN(
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (cnn): Sequential(
+    (0): Conv1d(128, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=256, bias=True)
+    (8): ReLU()
+    (9): Linear(in_features=256, out_features=4, bias=True)
+  )
+)], 2: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+), LSTM_CNN(
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (cnn): Sequential(
+    (0): Conv1d(128, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=256, bias=True)
+    (8): ReLU()
+    (9): Linear(in_features=256, out_features=4, bias=True)
+  )
+), ParallelCNNLSTMModel(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=128, bias=True)
+    (8): ReLU()
+  )
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (fc_lstm): Linear(in_features=128, out_features=128, bias=True)
+  (fc): Linear(in_features=256, out_features=4, bias=True)
+)]} ####
+#### MODELS - TOTAL 3 ####
+#### EPOCHS 3 ####
+Training model:  CNN_LSTM
+#### Epoch [1/3] Step [10/214] Loss: 1.3325 Time: 5 ####
+#### Epoch [1/3] Step [20/214] Loss: 1.2117 Time: 5 ####
+#### Epoch [1/3] Step [30/214] Loss: 1.2813 Time: 5 ####
+#### Epoch [1/3] Step [40/214] Loss: 1.2012 Time: 5 ####
+#### Epoch [1/3] Step [50/214] Loss: 1.2211 Time: 5 ####
+#### Epoch [1/3] Step [60/214] Loss: 1.2144 Time: 6 ####
+#### Epoch [1/3] Step [70/214] Loss: 1.1728 Time: 6 ####
+#### Epoch [1/3] Step [80/214] Loss: 1.1909 Time: 6 ####
+#### Epoch [1/3] Step [90/214] Loss: 1.1759 Time: 6 ####
+#### Epoch [1/3] Step [100/214] Loss: 1.2357 Time: 6 ####
+#### Epoch [1/3] Step [110/214] Loss: 1.1487 Time: 6 ####
+#### Epoch [1/3] Step [120/214] Loss: 1.2400 Time: 6 ####
+#### Epoch [1/3] Step [130/214] Loss: 1.1453 Time: 6 ####
+#### Epoch [1/3] Step [140/214] Loss: 1.1811 Time: 7 ####
+#### Epoch [1/3] Step [150/214] Loss: 1.3177 Time: 7 ####
+#### Epoch [1/3] Step [160/214] Loss: 1.2885 Time: 7 ####
+#### Epoch [1/3] Step [170/214] Loss: 1.1737 Time: 7 ####
+#### Epoch [1/3] Step [180/214] Loss: 1.1609 Time: 7 ####
+#### Epoch [1/3] Step [190/214] Loss: 1.2060 Time: 7 ####
+#### Epoch [1/3] Step [200/214] Loss: 1.3068 Time: 7 ####
+#### Epoch [1/3] Step [210/214] Loss: 1.1188 Time: 7 ####
+#### Epoch [2/3] Step [10/214] Loss: 1.1634 Time: 8 ####
+#### Epoch [2/3] Step [20/214] Loss: 1.2313 Time: 8 ####
+#### Epoch [2/3] Step [30/214] Loss: 1.1791 Time: 8 ####
+#### Epoch [2/3] Step [40/214] Loss: 1.1641 Time: 8 ####
+#### Epoch [2/3] Step [50/214] Loss: 1.1408 Time: 8 ####
+#### Epoch [2/3] Step [60/214] Loss: 1.2312 Time: 8 ####
+#### Epoch [2/3] Step [70/214] Loss: 1.2028 Time: 8 ####
+#### Epoch [2/3] Step [80/214] Loss: 1.2972 Time: 8 ####
+#### Epoch [2/3] Step [90/214] Loss: 1.2024 Time: 9 ####
+#### Epoch [2/3] Step [100/214] Loss: 1.1948 Time: 9 ####
+#### Epoch [2/3] Step [110/214] Loss: 1.2269 Time: 9 ####
+#### Epoch [2/3] Step [120/214] Loss: 1.1920 Time: 9 ####
+#### Epoch [2/3] Step [130/214] Loss: 1.1658 Time: 9 ####
+#### Epoch [2/3] Step [140/214] Loss: 1.1343 Time: 9 ####
+#### Epoch [2/3] Step [150/214] Loss: 1.1738 Time: 9 ####
+#### Epoch [2/3] Step [160/214] Loss: 1.2134 Time: 9 ####
+#### Epoch [2/3] Step [170/214] Loss: 1.1853 Time: 10 ####
+#### Epoch [2/3] Step [180/214] Loss: 1.2043 Time: 10 ####
+#### Epoch [2/3] Step [190/214] Loss: 1.1433 Time: 10 ####
+#### Epoch [2/3] Step [200/214] Loss: 1.2116 Time: 10 ####
+#### Epoch [2/3] Step [210/214] Loss: 1.1964 Time: 10 ####
+#### Epoch [3/3] Step [10/214] Loss: 1.2510 Time: 10 ####
+#### Epoch [3/3] Step [20/214] Loss: 1.2301 Time: 10 ####
+#### Epoch [3/3] Step [30/214] Loss: 1.2509 Time: 11 ####
+#### Epoch [3/3] Step [40/214] Loss: 1.2035 Time: 11 ####
+#### Epoch [3/3] Step [50/214] Loss: 1.1718 Time: 11 ####
+#### Epoch [3/3] Step [60/214] Loss: 1.2110 Time: 11 ####
+#### Epoch [3/3] Step [70/214] Loss: 1.1308 Time: 11 ####
+#### Epoch [3/3] Step [80/214] Loss: 1.2204 Time: 11 ####
+#### Epoch [3/3] Step [90/214] Loss: 1.2039 Time: 11 ####
+#### Epoch [3/3] Step [100/214] Loss: 1.2561 Time: 11 ####
+#### Epoch [3/3] Step [110/214] Loss: 1.2348 Time: 12 ####
+#### Epoch [3/3] Step [120/214] Loss: 1.1818 Time: 12 ####
+#### Epoch [3/3] Step [130/214] Loss: 1.1843 Time: 12 ####
+#### Epoch [3/3] Step [140/214] Loss: 1.2117 Time: 12 ####
+#### Epoch [3/3] Step [150/214] Loss: 1.2424 Time: 12 ####
+#### Epoch [3/3] Step [160/214] Loss: 1.3020 Time: 12 ####
+#### Epoch [3/3] Step [170/214] Loss: 1.2977 Time: 12 ####
+#### Epoch [3/3] Step [180/214] Loss: 1.2059 Time: 12 ####
+#### Epoch [3/3] Step [190/214] Loss: 1.1642 Time: 13 ####
+#### Epoch [3/3] Step [200/214] Loss: 1.2763 Time: 13 ####
+#### Epoch [3/3] Step [210/214] Loss: 1.2103 Time: 13 ####
+Training completed for model:  CNN_LSTM time: 13 total time: 13
+Training model:  LSTM_CNN
+#### Epoch [1/3] Step [10/214] Loss: 1.2126 Time: 15 ####
+#### Epoch [1/3] Step [20/214] Loss: 1.1754 Time: 15 ####
+#### Epoch [1/3] Step [30/214] Loss: 1.1683 Time: 16 ####
+#### Epoch [1/3] Step [40/214] Loss: 1.1658 Time: 16 ####
+#### Epoch [1/3] Step [50/214] Loss: 1.2936 Time: 16 ####
+#### Epoch [1/3] Step [60/214] Loss: 1.2039 Time: 17 ####
+#### Epoch [1/3] Step [70/214] Loss: 1.3031 Time: 17 ####
+#### Epoch [1/3] Step [80/214] Loss: 1.0838 Time: 18 ####
+#### Epoch [1/3] Step [90/214] Loss: 1.2513 Time: 18 ####
+#### Epoch [1/3] Step [100/214] Loss: 1.2621 Time: 19 ####
+#### Epoch [1/3] Step [110/214] Loss: 1.2573 Time: 19 ####
+#### Epoch [1/3] Step [120/214] Loss: 1.1737 Time: 20 ####
+#### Epoch [1/3] Step [130/214] Loss: 1.1375 Time: 20 ####
+#### Epoch [1/3] Step [140/214] Loss: 1.2078 Time: 21 ####
+#### Epoch [1/3] Step [150/214] Loss: 1.1267 Time: 21 ####
+#### Epoch [1/3] Step [160/214] Loss: 1.2455 Time: 21 ####
+#### Epoch [1/3] Step [170/214] Loss: 1.1647 Time: 22 ####
+#### Epoch [1/3] Step [180/214] Loss: 1.2426 Time: 22 ####
+#### Epoch [1/3] Step [190/214] Loss: 1.1525 Time: 23 ####
+#### Epoch [1/3] Step [200/214] Loss: 1.1891 Time: 23 ####
+#### Epoch [1/3] Step [210/214] Loss: 1.1038 Time: 24 ####
+#### Epoch [2/3] Step [10/214] Loss: 1.2963 Time: 24 ####
+#### Epoch [2/3] Step [20/214] Loss: 1.1670 Time: 25 ####
+#### Epoch [2/3] Step [30/214] Loss: 1.2181 Time: 25 ####
+#### Epoch [2/3] Step [40/214] Loss: 1.1470 Time: 26 ####
+#### Epoch [2/3] Step [50/214] Loss: 1.2351 Time: 26 ####
+#### Epoch [2/3] Step [60/214] Loss: 1.1877 Time: 27 ####
+#### Epoch [2/3] Step [70/214] Loss: 1.2991 Time: 27 ####
+#### Epoch [2/3] Step [80/214] Loss: 1.2269 Time: 28 ####
+#### Epoch [2/3] Step [90/214] Loss: 1.2073 Time: 28 ####
+#### Epoch [2/3] Step [100/214] Loss: 1.1392 Time: 28 ####
+#### Epoch [2/3] Step [110/214] Loss: 1.3474 Time: 29 ####
+#### Epoch [2/3] Step [120/214] Loss: 1.2710 Time: 29 ####
+#### Epoch [2/3] Step [130/214] Loss: 1.1678 Time: 30 ####
+#### Epoch [2/3] Step [140/214] Loss: 1.2673 Time: 30 ####
+#### Epoch [2/3] Step [150/214] Loss: 1.2171 Time: 31 ####
+#### Epoch [2/3] Step [160/214] Loss: 1.2269 Time: 31 ####
+#### Epoch [2/3] Step [170/214] Loss: 1.1137 Time: 32 ####
+#### Epoch [2/3] Step [180/214] Loss: 1.1960 Time: 32 ####
+#### Epoch [2/3] Step [190/214] Loss: 1.1051 Time: 33 ####
+#### Epoch [2/3] Step [200/214] Loss: 1.1519 Time: 33 ####
+#### Epoch [2/3] Step [210/214] Loss: 1.2322 Time: 33 ####
+#### Epoch [3/3] Step [10/214] Loss: 1.1471 Time: 34 ####
+#### Epoch [3/3] Step [20/214] Loss: 1.1681 Time: 35 ####
+#### Epoch [3/3] Step [30/214] Loss: 1.1571 Time: 35 ####
+#### Epoch [3/3] Step [40/214] Loss: 1.2179 Time: 35 ####
+#### Epoch [3/3] Step [50/214] Loss: 1.2208 Time: 36 ####
+#### Epoch [3/3] Step [60/214] Loss: 1.2597 Time: 36 ####
+#### Epoch [3/3] Step [70/214] Loss: 1.1533 Time: 37 ####
+#### Epoch [3/3] Step [80/214] Loss: 1.1509 Time: 37 ####
+#### Epoch [3/3] Step [90/214] Loss: 1.1485 Time: 38 ####
+#### Epoch [3/3] Step [100/214] Loss: 1.1736 Time: 38 ####
+#### Epoch [3/3] Step [110/214] Loss: 1.1712 Time: 39 ####
+#### Epoch [3/3] Step [120/214] Loss: 1.1687 Time: 39 ####
+#### Epoch [3/3] Step [130/214] Loss: 1.3016 Time: 40 ####
+#### Epoch [3/3] Step [140/214] Loss: 1.1502 Time: 40 ####
+#### Epoch [3/3] Step [150/214] Loss: 1.1888 Time: 40 ####
+#### Epoch [3/3] Step [160/214] Loss: 1.1416 Time: 41 ####
+#### Epoch [3/3] Step [170/214] Loss: 1.2951 Time: 41 ####
+#### Epoch [3/3] Step [180/214] Loss: 1.2659 Time: 42 ####
+#### Epoch [3/3] Step [190/214] Loss: 1.2565 Time: 42 ####
+#### Epoch [3/3] Step [200/214] Loss: 1.1243 Time: 43 ####
+#### Epoch [3/3] Step [210/214] Loss: 1.2463 Time: 43 ####
+Training completed for model:  LSTM_CNN time: 30 total time: 43
+Training model:  ParallelCNNLSTMModel
+#### Epoch [1/3] Step [10/214] Loss: 1.2069 Time: 44 ####
+#### Epoch [1/3] Step [20/214] Loss: 1.1764 Time: 45 ####
+#### Epoch [1/3] Step [30/214] Loss: 1.2009 Time: 45 ####
+#### Epoch [1/3] Step [40/214] Loss: 1.2818 Time: 45 ####
+#### Epoch [1/3] Step [50/214] Loss: 1.3362 Time: 46 ####
+#### Epoch [1/3] Step [60/214] Loss: 1.2180 Time: 46 ####
+#### Epoch [1/3] Step [70/214] Loss: 1.2593 Time: 47 ####
+#### Epoch [1/3] Step [80/214] Loss: 1.2738 Time: 47 ####
+#### Epoch [1/3] Step [90/214] Loss: 1.2367 Time: 47 ####
+#### Epoch [1/3] Step [100/214] Loss: 1.1560 Time: 48 ####
+#### Epoch [1/3] Step [110/214] Loss: 1.2316 Time: 48 ####
+#### Epoch [1/3] Step [120/214] Loss: 1.1972 Time: 48 ####
+#### Epoch [1/3] Step [130/214] Loss: 1.2594 Time: 49 ####
+#### Epoch [1/3] Step [140/214] Loss: 1.2446 Time: 49 ####
+#### Epoch [1/3] Step [150/214] Loss: 1.1948 Time: 50 ####
+#### Epoch [1/3] Step [160/214] Loss: 1.1496 Time: 50 ####
+#### Epoch [1/3] Step [170/214] Loss: 1.2481 Time: 50 ####
+#### Epoch [1/3] Step [180/214] Loss: 1.1779 Time: 51 ####
+#### Epoch [1/3] Step [190/214] Loss: 1.1197 Time: 51 ####
+#### Epoch [1/3] Step [200/214] Loss: 1.3136 Time: 52 ####
+#### Epoch [1/3] Step [210/214] Loss: 1.2339 Time: 52 ####
+#### Epoch [2/3] Step [10/214] Loss: 1.2943 Time: 53 ####
+#### Epoch [2/3] Step [20/214] Loss: 1.2397 Time: 53 ####
+#### Epoch [2/3] Step [30/214] Loss: 1.3246 Time: 53 ####
+#### Epoch [2/3] Step [40/214] Loss: 1.2616 Time: 54 ####
+#### Epoch [2/3] Step [50/214] Loss: 1.2164 Time: 54 ####
+#### Epoch [2/3] Step [60/214] Loss: 1.1938 Time: 55 ####
+#### Epoch [2/3] Step [70/214] Loss: 1.2261 Time: 55 ####
+#### Epoch [2/3] Step [80/214] Loss: 1.1833 Time: 55 ####
+#### Epoch [2/3] Step [90/214] Loss: 1.1745 Time: 56 ####
+#### Epoch [2/3] Step [100/214] Loss: 1.2080 Time: 56 ####
+#### Epoch [2/3] Step [110/214] Loss: 1.1663 Time: 57 ####
+#### Epoch [2/3] Step [120/214] Loss: 1.1654 Time: 57 ####
+#### Epoch [2/3] Step [130/214] Loss: 1.2476 Time: 57 ####
+#### Epoch [2/3] Step [140/214] Loss: 1.1721 Time: 58 ####
+#### Epoch [2/3] Step [150/214] Loss: 1.3002 Time: 58 ####
+#### Epoch [2/3] Step [160/214] Loss: 1.1626 Time: 59 ####
+#### Epoch [2/3] Step [170/214] Loss: 1.1729 Time: 59 ####
+#### Epoch [2/3] Step [180/214] Loss: 1.1466 Time: 59 ####
+#### Epoch [2/3] Step [190/214] Loss: 1.3053 Time: 60 ####
+#### Epoch [2/3] Step [200/214] Loss: 1.1415 Time: 60 ####
+#### Epoch [2/3] Step [210/214] Loss: 1.2239 Time: 61 ####
+#### Epoch [3/3] Step [10/214] Loss: 1.2701 Time: 61 ####
+#### Epoch [3/3] Step [20/214] Loss: 1.1693 Time: 62 ####
+#### Epoch [3/3] Step [30/214] Loss: 1.3190 Time: 62 ####
+#### Epoch [3/3] Step [40/214] Loss: 1.2176 Time: 62 ####
+#### Epoch [3/3] Step [50/214] Loss: 1.1674 Time: 63 ####
+#### Epoch [3/3] Step [60/214] Loss: 1.2334 Time: 63 ####
+#### Epoch [3/3] Step [70/214] Loss: 1.1345 Time: 64 ####
+#### Epoch [3/3] Step [80/214] Loss: 1.1451 Time: 64 ####
+#### Epoch [3/3] Step [90/214] Loss: 1.1488 Time: 64 ####
+#### Epoch [3/3] Step [100/214] Loss: 1.2031 Time: 65 ####
+#### Epoch [3/3] Step [110/214] Loss: 1.0779 Time: 65 ####
+#### Epoch [3/3] Step [120/214] Loss: 1.1047 Time: 66 ####
+#### Epoch [3/3] Step [130/214] Loss: 1.2020 Time: 66 ####
+#### Epoch [3/3] Step [140/214] Loss: 1.1951 Time: 66 ####
+#### Epoch [3/3] Step [150/214] Loss: 1.1891 Time: 67 ####
+#### Epoch [3/3] Step [160/214] Loss: 1.1978 Time: 67 ####
+#### Epoch [3/3] Step [170/214] Loss: 1.3034 Time: 68 ####
+#### Epoch [3/3] Step [180/214] Loss: 1.2419 Time: 68 ####
+#### Epoch [3/3] Step [190/214] Loss: 1.2371 Time: 68 ####
+#### Epoch [3/3] Step [200/214] Loss: 1.1563 Time: 69 ####
+#### Epoch [3/3] Step [210/214] Loss: 1.1884 Time: 69 ####
+Training completed for model:  ParallelCNNLSTMModel time: 25 total time: 69
+#### TRAINING TOTAL TIME: 69 ####
+Accuracy of the CNN_LSTM model on the test set: 37.54 %
+Accuracy of the LSTM_CNN model on the test set: 37.28 %
+Accuracy of the ParallelCNNLSTMModel model on the test set: 37.45 %
+#### TIME #### TERMINO #### 90 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 72.249 
+ TOTAL_JOBS: 1 
+ JOB_ID: 194470 
+ #### ####
+#### SLEEPING TIME: 72.249 seconds ####
+All guert parcero, aller!

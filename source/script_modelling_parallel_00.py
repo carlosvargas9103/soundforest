@@ -71,7 +71,8 @@ global d_re, windows_13
 # global audio_files, verbose, f_progress
 job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
-sreg, si, bandas, windows_13, file_in_pattern = 0, 0, 10, True, '000_'
+sreg, si, bandas, windows_13, file_in_pattern = 0, 0, 10, False, '000_'
+file_in_pattern = '000_' if windows_13 else '00_'
 
 # SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
 b_band, u_band, bandwidth, samples_s, isamples_s, verbo = 0, 10000, 1000, 1800, 60, False
@@ -100,8 +101,6 @@ audio_files = audio_files.assign(processed=False)
 audio_files.to_csv(f'{path_out}{file_in_pattern}preprocessed_data_in_{job_id}_{str(datetime.date.today())[:-3]}.csv',
                    sep=';', index=True)
 
-
-# exit()
 
 def update_progress(audio_files_in: pd.DataFrame = audio_files,
                     audio_files_processed: pd.DataFrame = None,  # audio_files_processed,
@@ -345,6 +344,7 @@ def merge_data(data_files: pd.DataFrame = None) -> pd.DataFrame:
         print('ALWAYS PROBLEMS', e)
     return data_merged
 
+
 print('#### #### HOI FOREST #### ####')
 
 t00 = time.time()
@@ -363,10 +363,15 @@ audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=
 # print(audio_files[:3])
 f_progress = copy.deepcopy(audio_files)
 df_data = merge_data(audio_files)
-print('####', 'merge_data Dataframe shape:', df_data.shape, '####', 'time:', int(time.time()- t0))
+
+print('####', 'MERGE', len(audio_files),
+      'merge_data Dataframe shape:', df_data.shape,
+      '####', 'time:', int(time.time() - t0))
+
 t0 = time.time()
-X_train, X_test, y_train, y_test = train_test_split(df_data.iloc[:, 1:], df_data.iloc[:, 0], test_size=0.2, random_state=9103)
-#normalize the data
+X_train, X_test, y_train, y_test = train_test_split(df_data.iloc[:, 1:], df_data.iloc[:, 0], test_size=0.2,
+                                                    random_state=9103)
+# normalize the data
 X_train = TimeSeriesScalerMinMax().fit_transform(X_train)
 X_test = TimeSeriesScalerMinMax().fit_transform(X_test)
 # Convert the data to torch tensors
@@ -375,17 +380,18 @@ X_test = torch.from_numpy(X_test).float()
 y_train = torch.from_numpy(y_train.values).long()
 y_test = torch.from_numpy(y_test.values).long()
 
-#Datasets
+# Datasets
 train_dataset = torch.utils.data.TensorDataset(X_train, y_train)
 test_dataset = torch.utils.data.TensorDataset(X_test, y_test)
-#Dataloaders
+# Dataloaders
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print('####', 'train_test_split and cuda: ', device, '####', 'time:', int(time.time()- t0))
+print('####', 'SPLIT', 'train_test_split and CUDA:', '???', device, '####', 'time:', int(time.time() - t0))
 
 t0 = time.time()
+
 
 # model 1: CNN + LSTM
 # model 2: LSTM + CNN
@@ -406,7 +412,7 @@ class CNN_LSTM(nn.Module):
         self.fc = nn.Linear(hidden_size, num_classes)
 
     def forward(self, x):
-        #cnn takes input of shape (batch_size, channels, seq_len)
+        # cnn takes input of shape (batch_size, channels, seq_len)
         x = x.permute(0, 2, 1)
         out = self.cnn(x)
         # lstm takes input of shape (batch_size, seq_len, input_size)
@@ -414,6 +420,7 @@ class CNN_LSTM(nn.Module):
         out, _ = self.lstm(out)
         out = self.fc(out[:, -1, :])
         return out
+
 
 class LSTM_CNN(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers, num_classes):
@@ -426,7 +433,7 @@ class LSTM_CNN(nn.Module):
             nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
             nn.MaxPool1d(kernel_size=2, stride=2),
-            #flatten
+            # flatten
             nn.Flatten(),
             nn.LazyLinear(out_features=256),
             nn.ReLU(),
@@ -438,6 +445,7 @@ class LSTM_CNN(nn.Module):
         out = out.permute(0, 2, 1)
         out = self.cnn(out)
         return out
+
 
 # model 3: CNN LSTM parallel
 class ParallelCNNLSTMModel(nn.Module):
@@ -456,10 +464,10 @@ class ParallelCNNLSTMModel(nn.Module):
         )
         self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
         self.fc_lstm = nn.Linear(hidden_size, 128)
-        self.fc = nn.Linear(128*2, num_classes)
+        self.fc = nn.Linear(128 * 2, num_classes)
 
     def forward(self, x):
-        #cnn takes input of shape (batch_size, channels, seq_len)
+        # cnn takes input of shape (batch_size, channels, seq_len)
         x_cnn = x.permute(0, 2, 1)
         out_cnn = self.cnn(x_cnn)
         # lstm takes input of shape (batch_size, seq_len, input_size)
@@ -469,25 +477,18 @@ class ParallelCNNLSTMModel(nn.Module):
         out = self.fc(out)
         return out
 
-#### PREPARE FOR FITTING THE MODEL ####
 
-input_size = X_train.shape[-1]
-hidden_size = 128
-num_layers = 2
-num_classes = len(np.unique(y_train)) + 1
-print(np.unique(y_train), num_classes)
-
-# exit()
-
-cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
-
-
-def train(models:List, train_loader:DataLoader, epochs:int):
+def train(models: List,
+          train_loader: DataLoader,
+          epochs: int = 1,
+          t0: int = time.time()):
     criterion = nn.CrossEntropyLoss()
     for model in models:
-        print("Training model: ", model.__class__.__name__)
+        t1 = time.time()
+        print('####',
+              'TRAINING MODEL',
+              model.__class__.__name__,
+              '####')
         model.train()
         optimizer = Adam(model.parameters(), lr=0.001)
         for epoch in range(epochs):
@@ -499,27 +500,54 @@ def train(models:List, train_loader:DataLoader, epochs:int):
                 loss = criterion(y_pred, y)
                 loss.backward()
                 optimizer.step()
-                if (i+1) % 10 == 0:
-                    print(f'Epoch [{epoch+1}/{epochs}], Step [{i+1}/{len(train_loader)}], Loss: {loss.item():.4f}')
-        print("Training completed for model: ", model.__class__.__name__)
+                if (i + 1) % 10 == 0:
+                    print(f'Epoch [{epoch + 1}/{epochs}]',
+                          f'Step [{i + 1}/{len(train_loader)}]',
+                          f'Loss: {loss.item():.4f}',
+                          f'Time: {round(time.time()-t1, 3)}')
+        print('####',
+              'TRAINED MODEL',
+              model.__class__.__name__,
+              'training time:', round(time.time()-t1, 3),
+              'total time:', round(time.time()-t0, 3),
+              '####')
 
 
-
-# SOME CONFIG
-os.environ['CUDA_LAUNCH_BLOCKING']="1"
+# SOME CONFIG ####
+os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
-#train
-models = [cnn_lstm]
-# models = [cnn_lstm_parallel]
-# models = [lstm_cnn]
-# models = [cnn_lstm, lstm_cnn, cnn_lstm_parallel]
+#### PREPARE FOR FITTING THE MODEL ####
+input_size = X_train.shape[-1]
+hidden_size = 128
+num_layers = 2
+num_classes = len(np.unique(y_train))
+num_classes = num_classes if num_classes >= 4 else num_classes + 1
+print('####', 'CLASSES:', np.unique(y_train), 'TOTAL', num_classes)
 
+#### MODELS ####
+cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
 
-num_epochs = 9
+dict_models = {
+    0: [cnn_lstm],
+    1: [cnn_lstm, lstm_cnn],
+    2: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+}
+models = dict_models.get(2, [cnn_lstm])
+
+#### TRAIN ####
+num_epochs = 3
+print('####', 'MODELS', dict_models, '####')
+print('####', 'MODELS - TOTAL', len(models), '####')
+print('####', 'EPOCHS', num_epochs, '####')
+
+tt0 = time.time()
 train(models, train_loader, epochs=num_epochs)
+print('####', 'TRAINING', 'TOTAL TIME:', round(time.time()-tt0, 3), '####')
 
-#test
+# test
 def test(models, test_loader):
     with torch.no_grad():
         correct = 0
@@ -538,16 +566,17 @@ def test(models, test_loader):
             accuracy_dict[model.__class__.__name__] = 100 * correct / total
     return accuracy_dict
 
+
 accuracy_dict = test(models, test_loader)
 
-#plot bar chart with the accuracy of each model
+# plot bar chart with the accuracy of each model
 # sns.barplot(x=list(accuracy_dict.keys()), y=list(accuracy_dict.values()))
 
-with open(f'{path_out}000_models_accuracy_dict_{str(datetime.date.today())[:-3]}.json', 'w') as fp:
+with open(f'{path_out}000_models_accuracy_dict_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
     json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
 
-print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS')
-# exit()
+print('####', 'TIME', '####', 'TERMINO', '####', round(time.time()-t00, 3), '####')
+print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
 
