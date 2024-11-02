@@ -535,10 +535,10 @@ dict_models = {
     1: [cnn_lstm, lstm_cnn],
     2: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
 }
-models = dict_models.get(2, [cnn_lstm])
+models = dict_models.get(0, [cnn_lstm])
 
 #### TRAIN ####
-num_epochs = 99
+num_epochs = 3
 print('####', 'MODELS', dict_models, '####')
 print('####', 'MODELS - TOTAL', len(models), '####')
 print('####', 'EPOCHS', num_epochs, '####')
