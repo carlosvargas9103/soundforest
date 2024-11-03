@@ -72,6 +72,7 @@ global d_re, windows_13
 job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
 N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
 sreg, si, bandas, windows_13, file_in_pattern = 0, 0, 10, False, '000_'
+# windows_13 = True
 file_in_pattern = '000_' if windows_13 else '00_'
 
 # SAMPLES_S / ISAMPLES_S => [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
@@ -384,8 +385,11 @@ y_test = torch.from_numpy(y_test.values).long()
 train_dataset = torch.utils.data.TensorDataset(X_train, y_train)
 test_dataset = torch.utils.data.TensorDataset(X_test, y_test)
 # Dataloaders
-train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
-test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
+
+batch_s = 64 if windows_13 else 128
+
+train_loader = DataLoader(train_dataset, batch_size=batch_s, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=batch_s, shuffle=False)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('####', 'SPLIT', 'train_test_split and CUDA:', '???', device, '####', 'time:', int(time.time() - t0))
@@ -481,7 +485,10 @@ class ParallelCNNLSTMModel(nn.Module):
 def train(models: List,
           train_loader: DataLoader,
           epochs: int = 1,
-          t0: int = time.time()):
+          t0: int = time.time(),
+          verbose: bool = verbo or False,
+          model_path: str = f'{path_out}models/{file_in_pattern}{job_id}_{str(datetime.date.today())[:-3]}'
+          ) -> None:
     criterion = nn.CrossEntropyLoss()
     for model in models:
         t1 = time.time()
@@ -500,16 +507,26 @@ def train(models: List,
                 loss = criterion(y_pred, y)
                 loss.backward()
                 optimizer.step()
-                if (i + 1) % 10 == 0:
-                    print(f'Epoch [{epoch + 1}/{epochs}]',
-                          f'Step [{i + 1}/{len(train_loader)}]',
-                          f'Loss: {loss.item():.4f}',
-                          f'Time: {round(time.time()-t1, 3)}')
+                if verbose:
+                    if (i + 1) % 33 == 0:
+                        print(f'Epoch [{epoch + 1}/{epochs}]',
+                              f'Step [{i + 1}/{len(train_loader)}]',
+                              f'Loss: {loss.item():.4f}',
+                              f'Time: {round(time.time() - t1, 3)}')
+                else:
+                    if ((epoch + 1) % 10 == 0) and ((i + 1) % 33 == 0):
+                        print('####', 'prediction', y_pred.shape)
+                        print(f'Epoch [{epoch + 1}/{epochs}]',
+                              f'Step [{i + 1}/{len(train_loader)}]',
+                              f'Loss: {loss.item():.4f}',
+                              f'Time: {round(time.time() - t1, 3)}')
+
+        torch.save(model, f'{model_path}_{model.__class__.__name__}.model')
         print('####',
               'TRAINED MODEL',
               model.__class__.__name__,
-              'training time:', round(time.time()-t1, 3),
-              'total time:', round(time.time()-t0, 3),
+              'training time:', round(time.time() - t1, 3),
+              'total time:', round(time.time() - t0, 3),
               '####')
 
 
@@ -535,7 +552,7 @@ dict_models = {
     1: [cnn_lstm, lstm_cnn],
     2: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
 }
-models = dict_models.get(0, [cnn_lstm])
+models = dict_models.get(2, [cnn_lstm])
 
 #### TRAIN ####
 num_epochs = 91
@@ -545,7 +562,8 @@ print('####', 'EPOCHS', num_epochs, '####')
 
 tt0 = time.time()
 train(models, train_loader, epochs=num_epochs)
-print('####', 'TRAINING', 'TOTAL TIME:', round(time.time()-tt0, 3), '####')
+print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
+
 
 # test
 def test(models, test_loader):
@@ -567,7 +585,9 @@ def test(models, test_loader):
     return accuracy_dict
 
 
+tt0 = time.time()
 accuracy_dict = test(models, test_loader)
+print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
 # plot bar chart with the accuracy of each model
 # sns.barplot(x=list(accuracy_dict.keys()), y=list(accuracy_dict.values()))
@@ -575,7 +595,7 @@ accuracy_dict = test(models, test_loader)
 with open(f'{path_out}000_models_accuracy_dict_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
     json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
 
-print('####', 'TIME', '####', 'TERMINO', '####', round(time.time()-t00, 3), '####')
+print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
 print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
