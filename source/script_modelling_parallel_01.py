@@ -538,7 +538,7 @@ dict_models = {
 models = dict_models.get(0, [cnn_lstm])
 
 #### TRAIN ####
-num_epochs = 3
+num_epochs = 91
 print('####', 'MODELS', dict_models, '####')
 print('####', 'MODELS - TOTAL', len(models), '####')
 print('####', 'EPOCHS', num_epochs, '####')
