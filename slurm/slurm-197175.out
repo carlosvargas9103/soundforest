@@ -1,0 +1,72 @@
+/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/tslearn/bases/bases.py:15: UserWarning: h5py not installed, hdf5 features will not be supported.
+Install h5py to use hdf5 features: http://docs.h5py.org/
+  warn(h5py_msg)
+PATH /home/vargas/repos/forests-sounds-vargas
+/home/vargas/repos/forests-sounds-vargas/out/data /home/vargas/repos/forests-sounds-vargas/out/ 57
+#### #### HOI FOREST #### ####
+ALWAYS PROBLEMS [Errno 2] No such file or directory: '/home/vargas/repos/forests-sounds-vargas/out/00_processed_data_in_2024-11.csv'
+#### MERGE 57 merge_data Dataframe shape: (17100, 60004) #### time: 413
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 36
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### MODELS {0: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+)], 1: [LSTM_CNN(
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (cnn): Sequential(
+    (0): Conv1d(128, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=256, bias=True)
+    (8): ReLU()
+    (9): Linear(in_features=256, out_features=4, bias=True)
+  )
+)], 2: [ParallelCNNLSTMModel(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=128, bias=True)
+    (8): ReLU()
+  )
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (fc_lstm): Linear(in_features=128, out_features=128, bias=True)
+  (fc): Linear(in_features=256, out_features=4, bias=True)
+)]} ####
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 91 ####
+#### TRAINING MODEL ParallelCNNLSTMModel ####
+Traceback (most recent call last):
+  File "/home/vargas/repos/forests-sounds-vargas/source/script_modelling_parallel_00_2.py", line 570, in <module>
+    train(models, train_loader, epochs=num_epochs)
+  File "/home/vargas/repos/forests-sounds-vargas/source/script_modelling_parallel_00_2.py", line 510, in train
+    y_pred = model(x)
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/vargas/repos/forests-sounds-vargas/source/script_modelling_parallel_00_2.py", line 482, in forward
+    out_lstm, _ = self.lstm(x)
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/tpy310f_k/lib/python3.10/site-packages/torch/nn/modules/rnn.py", line 1123, in forward
+    result = _VF.lstm(
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 38.47 GiB. GPU 0 has a total capacity of 44.32 GiB of which 36.01 GiB is free. Including non-PyTorch memory, this process has 8.30 GiB memory in use. Of the allocated memory 7.37 GiB is allocated by PyTorch, and 453.31 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

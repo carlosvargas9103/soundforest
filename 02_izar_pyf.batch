@@ -4,13 +4,11 @@
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=256GB
-#SBATCH --time=10:00:00
-#SBATCH --partition=l40s
-#--partition=h100
+#SBATCH --mem=128GB
+#SBATCH --time=10:01:00
 #SBATCH --gres=gpu:1
-#--qos=kuma
-#
+#SBATCH --partition=gpu-xl
+#SBATCH --qos=gpu
 # --ntasks=1
 # --qos=serial
 # --chdir=/repos/forests-sounds-vargas
@@ -19,8 +17,8 @@
 # --ntasks-per-node=2
 # --gres=gpu:1
 
-module load gcc python "cuda/12.4.1"
+module load gcc python "cuda/12.1.1"
 
-source ~/repos/forests-sounds-vargas/venvs/tpy310f_k/bin/activate
+source ~/repos/forests-sounds-vargas/venvs/tpy310f_i/bin/activate
 
-cd ~/repos/forests-sounds-vargas/source && python3 script_modelling_parallel_01.py
+cd ~/repos/forests-sounds-vargas/source && python3 script_modelling_parallel_00_2.py

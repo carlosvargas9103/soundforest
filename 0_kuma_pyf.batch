@@ -23,4 +23,4 @@ module load gcc python "cuda/12.4.1"
 
 source ~/repos/forests-sounds-vargas/venvs/tpy310f_k/bin/activate
 
-cd ~/repos/forests-sounds-vargas/source && python3 script_modelling_parallel_01.py
+cd ~/repos/forests-sounds-vargas/source && python3 script_modelling_parallel_00_0.py
