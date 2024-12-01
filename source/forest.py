@@ -3,15 +3,11 @@
 # -*- coding: utf-8 -*-
 
 import gc
-
 gc.collect()
 
 import os
-import io
 import re
-import ast
 import csv
-import sys
 import copy
 import time
 import random
@@ -23,24 +19,26 @@ from glob import glob
 from pathlib import Path
 from typing import List, Tuple
 
-from joblib import Parallel, delayed
 from joblib import effective_n_jobs
+
+import pandas as pd
+import numpy as np
 
 from enum import Enum
 
+from observation import process_soundscape
+# import visualisation
 
-# from script_dea_region_parallel_00 import job_id
 
-
-class Task(Enum):
-    OBSERVATION = 0
-    VISUALISATION = 1
-    EXTRACTION = 2
-    AUGMENTATION = 3
+class Task(Enum):  # These are each of the tasks ( modules | files )
+    # FRAMEWORK = 0
+    OBSERVATION = 1
+    VISUALISATION = 2
+    EXTRACTION = 3
     SAMPLING = 4
-    MODELLING = 5
-    CLASSIFICATION = 6
-
+    AUGMENTATION = 5
+    MODELLING = 6
+    CLASSIFICATION = 7
 
 random.seed("9103")
 t0 = time.time()
@@ -157,6 +155,23 @@ def get_args():
         required=False,
         help="Inverse of samples per second",
     )
+    parser.add_argument(
+        "-s-b",
+        "--seconds-bandwidth",
+        type=int,
+        default=60,
+        required=False,
+        help="Seconds sampled per bandwidth",
+    )
+
+    parser.add_argument(
+        "-ws-m",
+        "--win-size-mins",
+        type=float,
+        default=0.06,
+        required=False,
+        help="Windows size per minutes",
+    )
 
     parser.add_argument(
         "-vb",
@@ -170,47 +185,134 @@ def get_args():
     return parser.parse_args()
 
 
+def update_progress(audio_files_in: pd.DataFrame = None,
+                    audio_files_processed: pd.DataFrame = None,
+                    c_processed: str = 'processed',
+                    c_filename: str = 'filename'
+                    ) -> pd.DataFrame:
+    if audio_files_processed is None:
+        return audio_files_in
+    audios = [t.filename.split("/")[-1] for _, t in audio_files_processed.iterrows() if eval(t.processed)]
+    # audios = []
+    # for _, t in audio_files_processed.iterrows():
+    #     print(t.processed)
+    #     # if eval(str(t.processed)):
+    #     if eval(t.processed):
+    #         audios.append(t.filename.split("/")[-1])
+    # print(len(audios), audios[:3])
+    if audios:
+        audio_files_in[c_processed] = audio_files_in[c_filename].astype(str).str.contains(
+            '|'.join(map(re.escape, audios)))
+        # mask = [a.split('/')[-1] in terms for a in audio_files_in[c_filename]]
+    # print(audio_files_in.head())
+    return audio_files_in
+
+
 def main():
     ### DEFINE ENVIRONMENT VARIABLES ###
     # TODO: define all the environment variables
+    # relevant for observation, extraction, and sampling
     global TASKS, job_id, N_JOBS, path_data, path_out, verbo
-    global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s
+    global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, secs_b, w_size_mins
+    global audio_files_processed, outfile_name
+    # relevant for modelling
+    global file_in_pattern
 
+    # ASSIGN environment variables
     job_id = os.environ.get('SLURM_JOB_ID') or 'NULL'
     N_JOBS = int(effective_n_jobs(-1)) or -1  # os.environ.get('N_JOBS') or 4
 
     args = get_args()
     tasks = args.tasks
     path_data, path_out, sreg, si = args.path_in, args.path_out, args.sregions, args.sregion_iterator
-    bandas, b_band, u_band, bandwidth = args.b_band, args.u_band, args.bandwidth, args.bandas
-    samples_s, isamples_s, verbo = args.samples_second, args.isamples_second, args.verbo
+    bandas, b_band, u_band, bandwidth = args.bandas, args.b_band, args.u_band, args.bandwidth
+    samples_s, isamples_s, secs_b = args.samples_second, args.isamples_second, args.seconds_bandwidth
+    w_size_mins, verbo = args.win_size_mins, args.verbo
 
+    for task in tasks:
+        match task:
+            case Task.OBSERVATION:
+                t00 = time.time()
+                # READ audio_files to process
+                configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
+                               for dirpath, dirnames, files in os.walk(path_data)
+                               for f in files if f.endswith('.mp3')]
+                print(path_data, path_out, configfiles[:3])
+                audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
+                audio_files = audio_files.assign(processed=False)
+                audio_files.to_csv(f'{path_out}audio_files_in_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                   index=True)
+                try:
+                    audio_files_processed = pd.read_csv(
+                        f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';').astype(str)
+                except Exception as e:
+                    print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
+                    audio_files_processed = None
+                audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
+                f_progress = copy.deepcopy(audio_files)
+                outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
 
+                # PREPROCESS the soundscapes
+                print('#### #### HOI FOREST #### ####')
+                # TODO: This function is meant to be used in a parallel fashion
+                print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
+                try:
+                    for i, f in audio_files.iterrows():
+                        if bool(f.processed):
+                            # print(f)
+                            continue
+                        t11 = time.time()
+                        print(f'{i}/{len(audio_files)}', '################', '################', '################', '################')
+                        print(i, '#### RUNNING ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO:', '==>>',
+                              f.filename.split('/')[-1])
+                        process_soundscape(audio_file=f.filename, region=f.region, si=i, bandas=bandas,
+                                           b_band = b_band, u_band = u_band, bandwidth=bandwidth,
+                                           path_data=path_data, path_out=path_out,
+                                           samples_s=samples_s, isamples_s=isamples_s,
+                                           secs_b=secs_b, w_size_mins=w_size_mins,
+                                           verbose=verbo, n_jobs=N_JOBS, job_id=job_id)
+                        print(i, '#### TIMES #### bootstrap_soundscape TOTAL ==>>', round(time.time() - t11, 3), 'seconds')
+                        f_progress.at[i, 'processed'] = True
+                        f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv',
+                                          sep=';', index=True)
+                except Exception as e:
+                    print('ALWAYS PROBLEMS', e)
+                    raise
+                finally:
+                    print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
+                    f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                      index=True)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                print('#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', time.time() - t00)
 
 
 if __name__ == '__main__':
     print('Hablámelo maniño, alles gut oder was??')
+
     main()
+
+    data = [
+        'cali',
+        'thornbury',
+        'mexico',
+        'wien',
+        'porto',
+        'lausanne',
+        'rapperswil'
+    ]
+
+    outfile_name = f'cities_{job_id}_{str(datetime.date.today())}.txt'
+    with open(path_out + outfile_name, 'w') as file:
+        file.write('\n'.join(data) + '\n')
+    file.close()
+
+    print('#### #### NO DA MAS #### TERMINO #### FINITO #### ####')
+    print(
+        '####', '####', '\n',
+        f'TOTAL_TIME: {round(time.time() - t0, 3)}', '\n',
+        f'TOTAL_JOBS: {effective_n_jobs(N_JOBS)}', '\n',
+        f'JOB_ID: {job_id}', '\n',
+        '####', '####'
+    )
+    print('####', f'SLEEPING TIME:', f'{round(time.time() - t0, 3)} seconds', '####')
     print('All gürkel parcero, aller!')
