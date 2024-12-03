@@ -95,12 +95,9 @@ def process_soundscape(audio_file: str = '',
     # PARALLEL split_freq_band => ~6sec
     print('####', 'PARALLEL split_freq_band')
     t1 = time.time()
-    split_y_c_split = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y))
-    split_y_rn_st_split = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y_rn_st))
-    split_y_rn_ns_split = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y_rn_ns))
+    split_y_c_split = np.array(Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y))
+    split_y_rn_st_split = np.array(Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y_rn_st))
+    split_y_rn_ns_split = np.array(Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band)(y_i) for y_i in split_y_rn_ns))
 
     print('####', 'PARALLEL SPLIT ORIGINAL Y_C SPLIT PER FREQUENCY',
           len(split_y_c_split), len(split_y_c_split[0]), len(split_y_c_split[0][0]), '\n',
@@ -158,12 +155,9 @@ def process_soundscape(audio_file: str = '',
     # SLIDING WINDOWS FOR THE SIGNAL
     t1 = time.time()
     print('#### RUNNING #### sum_this_sliding_window')
-    sum_y_c_split = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_c_split_10))
-    sum_y_rn_st_split = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_st_10))
-    sum_y_rn_ns_split = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_ns_10))
+    sum_y_c_split = np.array(Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_c_split_10))
+    sum_y_rn_st_split = np.array(Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_st_10))
+    sum_y_rn_ns_split = np.array(Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(sum_this_sliding_window)(s) for s in y_rn_split_ns_10))
 
     # NOT NEEDED - REARRANGE THE SIGNAL
     # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
@@ -182,10 +176,13 @@ def process_soundscape(audio_file: str = '',
         ('sum_y_rn_ns_split', sum_y_rn_ns_split)
     ]
 
-    for d_e in data_export:
-        (d_n, df) = d_e
-        np.save(f'{path_out}data/{region}_{audio_file.split("/")[-1][:-4]}_{d_n}_{si}_{job_id}_{int(time.time())}.npy',
-                df)
+    np.save(f'{path_out}data/observation/{region}/{audio_file.split("/")[-1][:-4]}_{si}_{job_id}_{int(time.time())}.npy',
+            np.array(data_export, dtype=object),
+            allow_pickle=True)
+
+    # for d_e in data_export:
+    #     (d_n, df) = d_e
+    #     np.save(f'{path_out}data/observation/{region}/{audio_file.split("/")[-1][:-4]}_{d_n}_{si}_{job_id}_{int(time.time())}.npy', df)
 
         # pd.DataFrame(
         #     sum_y_rn_st_split.T.astype(float),
