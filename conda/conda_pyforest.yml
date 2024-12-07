@@ -15,4 +15,6 @@ dependencies:
   - scipy
   - seaborn
   - matplotlib
+  - scikit-maad
+  - acoustics
 

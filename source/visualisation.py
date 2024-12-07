@@ -1,5 +1,7 @@
 import gc
 
+from soupsieve.util import lower
+
 gc.collect()
 
 import re
@@ -24,9 +26,15 @@ import matplotlib.pylab as plt
 import seaborn as sns
 
 
-def visualise_soundscape(audio_files: List[str] = [],
+def visualise_distribution(audio_files_in: pd.DataFrame = None) -> None:
+    # TODO: Given all the preprocessed datasets plot distribution with box-plots
+    ...
+
+
+def visualise_soundscape(audio_file: str = '',
                          region: str = '',
                          si: int = 1964, *,
+                         sr: int = 48000,
                          b_band: int = 0,
                          u_band: int = 10000,
                          bandas: int = 10,
@@ -37,12 +45,25 @@ def visualise_soundscape(audio_files: List[str] = [],
                          isamples_s: int = 3,
                          secs_b: int = 60,
                          w_size_mins: float = 0.06,
-                         verbose: bool = False,
                          n_jobs: int = 1,
-                         job_id: str = 'NULL'
+                         job_id: str = 'NULL',
+                         verbose: bool = False,
+                         f_pattern_out: str = 'visualisation'
                          ) -> None:
-    exit()
-    # print(f'{si} - audio_file: {audio_file} - region: {region}')
+    # LOAD numpy ndarrays
+    # print(path_out)
+    path_fig_out = f'{path_out}data/{f_pattern_out}/{region}/'
+    # print(path_fig_out)
+    # print(audio_file)
+    vectors = np.load(audio_file, allow_pickle=True)
+    # print(len(data_export), )
+    # (_, y_c), (_, sum_y_c_split), (_, sum_y_rn_st_split), (_, sum_y_rn_ns_split) = vectors[0], vectors[1], vectors[2], vectors[3]
+    (_, sum_y_c_split), (_, sum_y_rn_st_split), (_, sum_y_rn_ns_split) = vectors[0], vectors[1], vectors[2]
+    y_c = copy.deepcopy(sum_y_c_split)
+    # print(type(y_c), len(y_c))
+    # <class 'numpy.ndarray'> 10 [-0.26039539  0.83492684  0.26657928]
+    print(type(sum_y_c_split), len(sum_y_c_split), sum_y_c_split[0][:3])
+
     ### LOAD COLOUR TEMPLATES ###
     sns.set_theme(style='white', palette=None)
     color_pal = plt.rcParams['axes.prop_cycle'].by_key()['color']
@@ -50,7 +71,7 @@ def visualise_soundscape(audio_files: List[str] = [],
 
     def plot_raw_signal(y=y_c, sr=sr, color_pal=color_pal,
                         region: str = region, si: int = si,
-                        path_out: str = f'{path_out}/figs/RAW/') -> None:
+                        path_out: str = f'{path_fig_out}/RAW/') -> None:
         # Calculate the time for each sample
         tt = np.arange(0, len(y)) / sr
         # Plot the data
@@ -67,16 +88,19 @@ def visualise_soundscape(audio_files: List[str] = [],
         plt.clf()
         matplotlib.pyplot.close()
 
+    # TODO: export the y_c raw signal
     plot_raw_signal()
+
+    # exit()
 
     def plot_split_signal(s_split_0: List[np.ndarray] = None,
                           s_split_1: List[np.ndarray] = None,
                           bandwidth: int = bandwidth,
                           region: str = region,
                           si: int = si,
-                          path_out: str = f'{path_out}figs/BANDS/'
+                          path_out: str = f'{path_fig_out}/BANDS/'
                           ) -> None:
-        if not s_split_1:
+        if s_split_1 is None:
             for i, y_band_0 in enumerate(s_split_0):
                 # Calculate the time for each sample
                 # time = np.arange(0, len(y_rn)) / sr
@@ -92,11 +116,11 @@ def visualise_soundscape(audio_files: List[str] = [],
                 # plt.show()
                 # save the figure to file
                 plt.savefig(f'{path_out}{int(time.time())}_{"_".join(title.split())}_{job_id}.png',
-                            format='pn', dpi=600)
+                            format='png', dpi=600)
                 plt.clf()
                 matplotlib.pyplot.close()
 
-        elif (s_split_1 and s_split_1):
+        elif (s_split_0 is not None and s_split_1 is not None):
             for i, (y_band_0, y_band_1) in enumerate(zip(s_split_0, s_split_1)):
                 # Calculate the time for each sample
                 # time = np.arange(0, len(y_rn)) / sr
@@ -117,13 +141,14 @@ def visualise_soundscape(audio_files: List[str] = [],
                 plt.clf()
                 matplotlib.pyplot.close()
 
-    plot_split_signal(y_rn_split_st_10, y_rn_split_ns_10)
+    # plot_split_signal(sum_y_rn_st_split, sum_y_rn_ns_split)
+    # exit()
 
     def plot_sum_split_signal(s_split_0: List[np.ndarray] = None, s_split_1: List[np.ndarray] = None,
                               y_label: str = 'SUM',
-                              bandwidth: int = bandwidth, secs: int = secs, w_size_mins: int = w_size_mins,
+                              bandwidth: int = bandwidth, secs: int = secs_b, w_size_mins: int = w_size_mins,
                               region: str = region, si: int = si,
-                              path_out: str = f'{path_out}figs/SUM/') -> None:
+                              path_out: str = f'{path_fig_out}/SUM/') -> None:
         if s_split_1 is None:
             for i, y_band_0 in enumerate(s_split_0):
                 # time = np.arange(0, len(y_rn)) / sr
@@ -143,8 +168,7 @@ def visualise_soundscape(audio_files: List[str] = [],
                 matplotlib.pyplot.close()
 
         # elif (s_split_1 and s_split_1):
-        elif (s_split_1 is not None and
-              s_split_0 is not None):
+        elif (s_split_1 is not None and s_split_0 is not None):
             for i, (y_band_0, y_band_1) in enumerate(zip(s_split_0, s_split_1)):
                 # time = np.arange(0, len(y_rn)) / sr
                 time_band = np.arange(0, max([len(y_band_0), len(y_band_1)])) * w_size_mins  # / bandwidth
@@ -165,9 +189,11 @@ def visualise_soundscape(audio_files: List[str] = [],
 
     plot_sum_split_signal(sum_y_rn_st_split, sum_y_rn_ns_split)
 
+    # exit()
+
     def plot_3d_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
                              region: str = region, si: int = si,
-                             path_out: str = f'{path_out}figs/3D/') -> None:
+                             path_out: str = f'{path_fig_out}/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
         for i, y in enumerate(np.array(s_split)):
@@ -190,7 +216,7 @@ def visualise_soundscape(audio_files: List[str] = [],
 
     def plot_surf_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
                                region: str = region, si: int = si,
-                               path_out: str = f'{path_out}figs/3D/') -> None:
+                               path_out: str = f'{path_fig_out}/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -229,7 +255,7 @@ def visualise_soundscape(audio_files: List[str] = [],
 
     def r_plot_surf_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
                                  region: str = region, si: int = si,
-                                 path_out: str = f'{path_out}figs/3D/') -> None:
+                                 path_out: str = f'{path_fig_out}/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
 
@@ -267,7 +293,7 @@ def visualise_soundscape(audio_files: List[str] = [],
 
     def rr_plot_surf_split_signal(s_split: List[np.ndarray] = None, bandwidth: int = bandwidth, y_label: str = 'SUM',
                                   region: str = region, si: int = si,
-                                  path_out: str = f'{path_out}figs/3D/') -> None:
+                                  path_out: str = f'{path_fig_out}/3D/') -> None:
         fig = plt.figure(figsize=(60, 30))
         ax = fig.add_subplot(111, projection='3d')
 

@@ -171,6 +171,7 @@ def process_soundscape(audio_file: str = '',
     # <class 'numpy.ndarray'> 10
     # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
     data_export = [
+        # ('y_c', y_c),
         ('sum_y_c_split', sum_y_c_split),
         ('sum_y_rn_st_split', sum_y_rn_st_split),
         ('sum_y_rn_ns_split', sum_y_rn_ns_split)
@@ -180,13 +181,6 @@ def process_soundscape(audio_file: str = '',
             np.array(data_export, dtype=object),
             allow_pickle=True)
 
-    # for d_e in data_export:
-    #     (d_n, df) = d_e
-    #     np.save(f'{path_out}data/observation/{region}/{audio_file.split("/")[-1][:-4]}_{d_n}_{si}_{job_id}_{int(time.time())}.npy', df)
-
-        # pd.DataFrame(
-        #     sum_y_rn_st_split.T.astype(float),
-        #     columns=[f'band_{int(i)}' for i in range(sum_y_rn_st_split.shape[0])]).to_csv(
-        #     f'{path_out}data/{region}_{audio_file.split("/")[-1][:-4]}_sum_y_rn_st_split_{si}_{job_id}_{int(time.time())}.csv',
-        #     sep=';'
-        # )
+if __name__ == '__main__':
+    print('Mirá ve.. oís?? alles gut oder was??')
+    # TODO: extract observation modules here

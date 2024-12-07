@@ -28,7 +28,8 @@ import numpy as np
 from enum import Enum
 
 from observation import process_soundscape
-from visualisation import visualise_soundscape
+from visualisation import visualise_soundscape, visualise_distribution
+from extraction import bootstrap_soundscape
 
 
 class Task(Enum):  # These are each of the tasks ( modules | files )
@@ -60,6 +61,8 @@ print('PATH', cwd)
 ### CONSTANTS ###
 TASKS = [Task.VISUALISATION]
 TASKS = [Task.OBSERVATION]
+TASKS = [Task.EXTRACTION]
+# TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
 
 
 def get_args():
@@ -109,6 +112,15 @@ def get_args():
         default=0,
         required=False,
         help="Iterator for regions id",
+    )
+
+    parser.add_argument(
+        "-sr",
+        "--sample-r",
+        type=int,
+        default=48000,
+        required=False,
+        help="Sample rate of the original audio files",
     )
 
     parser.add_argument(
@@ -183,6 +195,15 @@ def get_args():
     )
 
     parser.add_argument(
+        "-w13",
+        "--windows13",
+        type=bool,
+        default=True,
+        required=False,
+        help="Dimensionality reduction with windows per 3.1 seconds",
+    )
+
+    parser.add_argument(
         "-vb",
         "--verbo",
         type=bool,
@@ -217,34 +238,11 @@ def update_progress(audio_files_in: pd.DataFrame = None,
     return audio_files_in
 
 
-def update_progress_visual(audio_files_in: pd.DataFrame = None,
-                           audio_files_processed: pd.DataFrame = None,
-                           c_processed: str = 'processed',
-                           c_filename: str = 'filename'
-                           ) -> pd.DataFrame:
-    if audio_files_processed is None:
-        return audio_files_in
-    audios = [t.filename.split("/")[-1] for _, t in audio_files_processed.iterrows() if eval(t.processed)]
-    # audios = []
-    # for _, t in audio_files_processed.iterrows():
-    #     print(t.processed)
-    #     # if eval(str(t.processed)):
-    #     if eval(t.processed):
-    #         audios.append(t.filename.split("/")[-1])
-    # print(len(audios), audios[:3])
-    if audios:
-        audio_files_in[c_processed] = audio_files_in[c_filename].astype(str).str.contains(
-            '|'.join(map(re.escape, audios)))
-        # mask = [a.split('/')[-1] in terms for a in audio_files_in[c_filename]]
-    # print(audio_files_in.head())
-    return audio_files_in
-
-
 def main():
     ### DEFINE ENVIRONMENT VARIABLES ###
     # TODO: define all the environment variables
     # relevant for observation, extraction, and sampling
-    global TASKS, job_id, N_JOBS, path_data, path_out, verbo
+    global TASKS, job_id, N_JOBS, path_data, path_out, verbo, windows_13
     global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, secs_b, w_size_mins
     global audio_files_processed, outfile_name
     # relevant for modelling
@@ -257,15 +255,16 @@ def main():
     args = get_args()
     tasks = args.tasks
     path_data, path_out, sreg, si = args.path_in, args.path_out, args.sregions, args.sregion_iterator
-    bandas, b_band, u_band, bandwidth = args.bandas, args.b_band, args.u_band, args.bandwidth
+    bandas, sr, b_band, u_band, bandwidth = args.bandas, args.sample_r, args.b_band, args.u_band, args.bandwidth
     samples_s, isamples_s, secs_b = args.samples_second, args.isamples_second, args.seconds_bandwidth
-    w_size_mins, verbo = args.win_size_mins, args.verbo
+    w_size_mins, verbo, windows_13 = args.win_size_mins, args.verbo, args.windows13
 
     print('#### #### HOI FOREST #### ####')
     for task in tasks:
         match task:
             case Task.OBSERVATION:
                 t00 = time.time()
+                folders_in, f_pattern_out, f_ext_in = 'files_in', 'observation', ''
                 # READ audio_files to process
                 configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                                for dirpath, dirnames, files in os.walk(path_data)
@@ -273,11 +272,11 @@ def main():
                 print(path_data, path_out, configfiles[:3])
                 audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
                 audio_files = audio_files.assign(processed=False)
-                audio_files.to_csv(f'{path_out}audio_files_in_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                audio_files.to_csv(f'{path_out}audio_{folders_in}_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                    index=True)
                 try:
                     audio_files_processed = pd.read_csv(
-                        f'{path_out}audio_observation_{str(datetime.date.today())[:-3]}.csv', sep=';').astype(str)
+                        f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';').astype(str)
                 except Exception as e:
                     print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
                     audio_files_processed = None
@@ -294,61 +293,51 @@ def main():
                             continue
                         t11 = time.time()
                         print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
-                        print(i, '#### OBSERVATION ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO:', '==>>',
+                        print(i, '#### OBSERVATION ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO', '==>>',
                               f.filename.split('/')[-1])
 
-                        process_soundscape(audio_file=f.filename, region=f.region, si=i, bandas=bandas,
-                                           b_band=b_band, u_band=u_band, bandwidth=bandwidth,
+                        process_soundscape(audio_file=f.filename, region=f.region, si=i,
+                                           bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
                                            path_data=path_data, path_out=path_out,
                                            samples_s=samples_s, isamples_s=isamples_s,
                                            secs_b=secs_b, w_size_mins=w_size_mins,
                                            verbose=verbo, n_jobs=N_JOBS, job_id=job_id)
                         print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                         f_progress.at[i, 'processed'] = True
-                        f_progress.to_csv(f'{path_out}audio_observation_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                        f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                           index=True)
+                        break
                 except Exception as e:
                     print('ALWAYS PROBLEMS', e)
                     raise
                 finally:
                     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
-                    f_progress.to_csv(f'{path_out}audio_observation_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
+                    f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                      index=True)
                 print('#### TIMES #### observation TOTAL TOTAL ==>>', time.time() - t00)
 
             case Task.VISUALISATION:
                 t00 = time.time()
                 # LOAD preprocessed n-dimensional arrays to plot
-                path_data = f'{path_out}data/observation/'
+                folders_in, f_pattern_out, f_ext_in = 'data/observation/', 'visualisation', '.npy'
+                path_data = f'{path_out}{folders_in}'
                 configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                                for dirpath, dirnames, files in os.walk(path_data)
-                               for f in files if f.endswith('.npy')]
-                print(path_data, path_out, configfiles[:3])
+                               for f in files if f.endswith(f_ext_in)]
+                # print(path_data, path_out, configfiles[:3])
                 audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
                 audio_files = audio_files.assign(processed=False)
-                audio_files.to_csv(f'{path_out}audio_files_in_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                audio_files.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                    index=True)
                 try:
-                    audio_files_processed = pd.read_csv(f'{path_out}audio_visualisation_{str(datetime.date.today())[:-3]}.csv',
+                    audio_files_processed = pd.read_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv',
                                                         sep=';').astype(str)
                 except Exception as e:
                     print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
                     audio_files_processed = None
-                audio_files = update_progress_visual(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
+                audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
                 f_progress = copy.deepcopy(audio_files)
                 outfile_name = f'f_visual_{job_id}_{int(time.time())}.txt'
-
-                single_audio_files = pd.read_csv(f'{path_out}audio_observation_{str(datetime.date.today())[:-3]}.csv', sep=';')
-                print(len(single_audio_files), single_audio_files[:1], '\n',
-                      (single_audio_files.iloc[0].filename).split('/')[-1][:-4]
-                      )
-                substring = (single_audio_files.iloc[0].filename).split('/')[-1][:-4]
-                # Filter rows where 'column1' contains the substring
-                filtered_df = audio_files[audio_files['filename'].str.contains(substring, na=False)]
-                print(len(filtered_df), filtered_df['filename'])
-
-                exit()
-
-
                 # PREPROCESS the soundscapes
                 # TODO: This function is meant to be used in a parallel fashion!!!
                 print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
@@ -359,17 +348,74 @@ def main():
                             continue
                         t11 = time.time()
                         print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
-                        print(i, '#### OBSERVATION ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO:', '==>>',
+                        print(i, '#### VISUALISATION ####', 'REGION:', '==>>', f.region, '<<==', 'DATA', '==>>',
                               f.filename.split('/')[-1])
-                        # visualise_soundscape(audio_files=f.filename, region=f.region, si=i, bandas=bandas,
-                        #                      b_band=b_band, u_band=u_band, bandwidth=bandwidth,
-                        #                      path_data=path_data, path_out=path_out,
-                        #                      samples_s=samples_s, isamples_s=isamples_s,
-                        #                      secs_b=secs_b, w_size_mins=w_size_mins,
-                        #                      verbose=verbo, n_jobs=N_JOBS, job_id=job_id)
+                        visualise_soundscape(audio_file=f.filename, region=f.region, si=i, sr=sr,
+                                             bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
+                                             path_data=path_data, path_out=path_out,
+                                             samples_s=samples_s, isamples_s=isamples_s,
+                                             secs_b=secs_b, w_size_mins=w_size_mins,
+                                             verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
+                                             f_pattern_out=f_pattern_out)
                         print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                         f_progress.at[i, 'processed'] = True
-                        f_progress.to_csv(f'{path_out}audio_observation_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                        f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                          index=True)
+                        break
+                    # exit()
+                except Exception as e:
+                    print('ALWAYS PROBLEMS', e)
+                    raise
+                finally:
+                    print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
+                    f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                      index=True)
+                print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
+
+            case Task.EXTRACTION:
+                t00 = time.time()
+                path_data = args.path_in
+                folders_in, f_pattern_out, f_ext_in = 'files_in', 'extraction', ''
+                # READ audio_files to process
+                configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
+                               for dirpath, dirnames, files in os.walk(path_data)
+                               for f in files if f.endswith('.mp3')]
+                print(path_data, path_out, configfiles[:3])
+                audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
+                audio_files = audio_files.assign(processed=False)
+                audio_files.to_csv(f'{path_out}audio_{folders_in}_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                   index=True)
+                try:
+                    audio_files_processed = pd.read_csv(
+                        f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';').astype(str)
+                except Exception as e:
+                    print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
+                    audio_files_processed = None
+                audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
+                f_progress = copy.deepcopy(audio_files)
+                outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
+                # PREPROCESS the soundscapes
+                # TODO: This function is meant to be used in a parallel fashion
+                print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
+                try:
+                    for i, f in audio_files.iterrows():
+                        if bool(f.processed):
+                            # print(f)
+                            continue
+                        t11 = time.time()
+                        print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
+                        print(i, '#### EXTRACTION ####', 'REGION:', '==>>', f.region, '<<==', 'DATA', '==>>',
+                              f.filename.split('/')[-1])
+                        bootstrap_soundscape(audio_file=f.filename, region=f.region, si=i, sr=sr,
+                                             bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
+                                             path_data=path_data, path_out=path_out,
+                                             samples_s=samples_s, isamples_s=isamples_s,
+                                             secs_b=secs_b, w_size_mins=w_size_mins,
+                                             verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
+                                             f_pattern_out=f_pattern_out, windows_13=windows_13, horas = 30)
+                        print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
+                        f_progress.at[i, 'processed'] = True
+                        f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                           index=True)
                         break
                     exit()
@@ -378,7 +424,8 @@ def main():
                     raise
                 finally:
                     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
-                    f_progress.to_csv(f'{path_out}audio_visualisation_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
+                    f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                                      index=True)
                 print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
 
 
