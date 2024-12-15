@@ -18,7 +18,6 @@ import noisereduce as nr
 import pandas as pd
 import numpy as np
 
-
 random.seed("9103")
 
 
@@ -34,7 +33,9 @@ def bootstrap_soundscape(audio_file: str = '',
                          path_out: str = '',
                          samples_s: int = 1800,
                          isamples_s: int = 3,
-                         secs_b: int = 60,
+                         secs_b: int = 6,
+                         secs_o: int = 1.9,
+                         hanning: bool = True,
                          w_size_mins: float = 0.06,
                          n_jobs: int = 1,
                          job_id: str = 'NULL',
@@ -55,6 +56,7 @@ def bootstrap_soundscape(audio_file: str = '',
     # print(f'samples rate per second:  {sr}')
     print('####', 'ORIGINAL Y_C', len(y_c), y_c[:3], type(y_c))
     # [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
+    print('NUMBERS', sr, isamples_s, samples_s, secs_b)
     my_chunks = samples_s / secs_b
     split_y = np.hsplit(y_c, my_chunks)
     print('####', 'CHUNKS Y_C',
@@ -63,6 +65,33 @@ def bootstrap_soundscape(audio_file: str = '',
           type(split_y), type(split_y[0])
           )
 
+    frame_size, hop_size, hanning = sr * secs_b, int(sr * (secs_b - secs_o)), hanning
+
+    def hanning(y: np.array = None, frame_size: int = frame_size, hop_size: int = hop_size, hanning: bool = hanning):
+        signal = np.array(y)
+        # num_frames = 1 + (len(signal) - frame_size) // hop_size
+        # print(num_frames) # 449
+        if hanning:
+            hanning_window = np.hanning(frame_size)
+            return [signal[i:i + frame_size] * hanning_window for i in range(0, len(signal) - frame_size + 1, hop_size)]
+        return [signal[i:(i + frame_size)] for i in range(0, len(signal) - frame_size + 1, hop_size)]
+
+    split_y = hanning(y_c, frame_size, hop_size, hanning)
+
+    print('####', 'HANNING Y_C',
+          f'total_chunks: {len(split_y)}',
+          f'chunk_size first: {len(split_y[0])}',
+          f'chunk_size last: {len(split_y[-1])}',
+          type(split_y), type(split_y[0])
+          )
+    print('####', 'HANNING', '\n',
+          f'hanning => max: {max(split_y[0])} min: {min(split_y[0])} mean: {(split_y[0].mean())} size: {len(split_y[250])}', '\n',
+          f'hanning => max: {max(split_y[250])} min: {min(split_y[250])} mean: {split_y[250].mean()} size: {len(split_y[250])}', '\n',
+          # split_y[250]
+          )
+    # exit()
+
+    # ATM, WE DO NOT CALL THESE METHODS
     # wrap methods audio_denoise with parameters
     def audio_denoise_st(y=None, sr: int = 48000):
         return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.9, stationary=True)
@@ -70,70 +99,20 @@ def bootstrap_soundscape(audio_file: str = '',
     def audio_denoise_ns(y=None, sr: int = 48000):
         return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.6, stationary=False)
 
-    def split_freq_band_per_chunk(s: np.memmap = None,
-                                  sr: int = sr,
-                                  b_band: int = b_band,
-                                  u_band: int = u_band,
-                                  bandwidth: int = bandwidth) -> List[np.ndarray]:
-        # Calculate the FFT
-        # 2880000 48000 2.0833333333333333e-05 10000 0 1000
-        # print(len(s), sr, 1/sr, u_band, b_band, bandwidth)
-        y_fft = np.fft.fft(s)
-        # Calculate the frequencies for the FFT
-        fft_freq = np.fft.fftfreq(len(s), 1.0 / sr)
-        signals = []
-        for f in range(b_band, u_band, bandwidth):
-            mask = (fft_freq >= f) & (fft_freq < f + bandwidth)
-            y_fft_band = y_fft[mask]
-            fft_freq_band = fft_freq[mask]
-            y_band = np.fft.ifft(y_fft_band)
-            y_band = np.real(y_band)  # Take only the real part
-            signals.append(y_band)
-        return signals
+    # TODO: Pipeline (12-24.12.24):
+    #       0. Frame per 6 secs with 1.9 secs overlapping, make sure the vectors have all the same size. - DONE
+    #       1. Apply Hanning window to smooth the frame. - DONE
+    #       2. Split per frequency band. -
+    #       3. Compute the mean, medium, max, min, distance, etc.. -
+    #       4. Transform the data => filters, envelope, pitch, etc.. - 2h
+    #       6. Plot the distribution or each frequency against a metric per region. - 1h
+    #       7. Save the plots..
 
-    # PARALLEL split_freq_band => ~6sec
-    print('####', 'PARALLEL split_freq_band')
-    t1 = time.time()
-    split_y_split_bands = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band_per_chunk)(y_i) for y_i in split_y)
-    )
-
-    print('####', 'PARALLEL SPLIT Y_C PER FREQUENCY',
-          len(split_y_split_bands), len(split_y_split_bands[0]),
-          len(split_y_split_bands[0][0]), split_y_split_bands[0][0][:3],
-          time.time() - t1)
-
-    t1 = time.time()
-    y_split_hours_bands = [split_y_split_bands[h, b, :].flatten() for b in range(0, bandas) for h in range(0, horas)]
-    # ARRANGE in dict per BANDAS, and HORAS
-    mean_y_hours_bandas = [
-        {'r': d_re.get(region, 0), # CLASS (INT) 4
-         'id_s': 123, #serial # DONT NEED
-         # {'r': d_re.get(region.upper(), 0),
-         'h': h, # TIME (int) 0 - 29 REMARK => DONT NEED!
-         'b': b, # BAND (int) 0 - 9  => TODO: Consider 10-bands at once
-         'm': np.mean(f := split_y_split_bands[h, b, :].flatten()), # MEAN of the VECTOR (float)
-         'v': f # VECTOR (npArray[float]) => 60000 => 3600
-         } for b in range(0, bandas) for h in range(0, horas)
-
-        # TODO: Activation function (Sigmoid).
-        # TODO: Evaluation Metrics for classification => Table & Matrix.
-        # TODO: Extract the Benchmark from Giacomo.
-        # TODO: Reduce the time of the samples.
-        # TODO: Continuing with the pre-processing.
-        # TODO: Next meeting => 08.01.2025.
-        # TODO: Methodology PDFs FOLDER on Git?
-
-    ]
-    print('####', 'DICT VECTOR', len(mean_y_hours_bandas), list(mean_y_hours_bandas[0].keys()),
-          mean_y_hours_bandas[0].get('v', [])[:3])
-    print('####', 'TIMES', '####', 'FLATTEN:', round(time.time() - t1, 3))
-    print('####', 'REARRANGED THE SIGNAL PER 10 FREQUENCIES', type(y_split_hours_bands), len(y_split_hours_bands),
-          type(y_split_hours_bands[0]), len(y_split_hours_bands[0]))
     print('####', f'COMPUTE SLIDING WINDOW {windows_13}')
 
-    # DEFAULT VALUES ARE: bandwidth, secs, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
-    def w_this_sliding_window(data, size=int(bandwidth * secs_b * w_size_mins), stepsize=int(bandwidth * secs_b),
+    # DEFAULT VALUES ARE: bandwidth, secs_b, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
+    def w_this_sliding_window(data: np.ndarray = None, size=int(bandwidth * secs_b * w_size_mins),
+                              stepsize=int(bandwidth * secs_b),
                               padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
         if axis >= data.ndim:
             raise ValueError('Axis value out of range')
@@ -204,6 +183,67 @@ def bootstrap_soundscape(audio_file: str = '',
         df_m = pd.concat([df, df_v], axis=1)
         print(df_m.head(3), df_m.shape)
 
+    def split_freq_band_per_chunk(s: np.memmap = None,
+                                  sr: int = sr,
+                                  b_band: int = b_band,
+                                  u_band: int = u_band,
+                                  bandwidth: int = bandwidth) -> List[np.ndarray]:
+        # Calculate the FFT
+        # 2880000 48000 2.0833333333333333e-05 10000 0 1000
+        # print(len(s), sr, 1/sr, u_band, b_band, bandwidth)
+        y_fft = np.fft.fft(s)
+        # Calculate the frequencies for the FFT
+        fft_freq = np.fft.fftfreq(len(s), 1.0 / sr)
+        signals = []
+        for f in range(b_band, u_band, bandwidth):
+            mask = (fft_freq >= f) & (fft_freq < f + bandwidth)
+            y_fft_band = y_fft[mask]
+            fft_freq_band = fft_freq[mask]
+            y_band = np.fft.ifft(y_fft_band)
+            y_band = np.real(y_band)  # Take only the real part
+            signals.append(y_band)
+        return signals
+
+    # PARALLEL split_freq_band => ~6sec
+    print('####', 'PARALLEL split_freq_band')
+    t1 = time.time()
+    split_y_split_bands = np.array(
+        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band_per_chunk)(y_i) for y_i in split_y)
+    )
+
+    print('####', 'PARALLEL SPLIT Y_C PER FREQUENCY',
+          len(split_y_split_bands), len(split_y_split_bands[0]),
+          len(split_y_split_bands[0][0]), split_y_split_bands[0][0][:3],
+          time.time() - t1)
+
+    t1 = time.time()
+    y_split_hours_bands = [split_y_split_bands[h, b, :].flatten() for b in range(0, bandas) for h in range(0, horas)]
+    # ARRANGE in dict per BANDAS, and HORAS
+    mean_y_hours_bandas = [
+        {'r': d_re.get(region, 0),  # CLASS (INT) 4
+         'id_s': 123,  # serial # DONT NEED
+         # {'r': d_re.get(region.upper(), 0),
+         'h': h,  # TIME (int) 0 - 29 => DONT NEED!
+         'b': b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once
+         'm': np.mean(f := split_y_split_bands[h, b, :].flatten()),  # MEAN of the VECTOR (float)
+         'v': f  # VECTOR (npArray[float]) => 60000 => 3600
+         } for b in range(0, bandas) for h in range(0, horas)
+
+        # TODO: Pipeline (12-24.12.24):
+        # TODO: Extract the Benchmark from Giacomo.
+        # TODO: Activation function (Sigmoid).
+        # TODO: Evaluation Metrics for classification => Table & Matrix.
+        # TODO: Reduce the time of the samples.
+        # TODO: Continuing with the pre-processing.
+        # TODO: Next meeting => 08.01.2025.
+        # TODO: Methodology PDFs FOLDER on Git?
+
+    ]
+    print('####', 'DICT VECTOR', len(mean_y_hours_bandas), list(mean_y_hours_bandas[0].keys()),
+          mean_y_hours_bandas[0].get('v', [])[:3])
+    print('####', 'TIMES', '####', 'FLATTEN:', round(time.time() - t1, 3))
+    print('####', 'REARRANGED THE SIGNAL PER 10 FREQUENCIES', type(y_split_hours_bands), len(y_split_hours_bands),
+          type(y_split_hours_bands[0]), len(y_split_hours_bands[0]))
 
     exit()
 

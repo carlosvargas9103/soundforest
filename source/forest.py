@@ -180,7 +180,8 @@ def get_args():
         "-s-b",
         "--seconds-bandwidth",
         type=int,
-        default=60,
+        # default=60,
+        default=6,
         required=False,
         help="Seconds sampled per bandwidth",
     )
