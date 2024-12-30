@@ -84,112 +84,122 @@ def bootstrap_soundscape(audio_file: str = '',
           f'chunk_size last: {len(split_y[-1])}',
           type(split_y), type(split_y[0])
           )
-    print('####', 'HANNING', '\n',
-          f'hanning => max: {max(split_y[0])} min: {min(split_y[0])} mean: {(split_y[0].mean())} size: {len(split_y[250])}', '\n',
-          f'hanning => max: {max(split_y[250])} min: {min(split_y[250])} mean: {split_y[250].mean()} size: {len(split_y[250])}', '\n',
-          # split_y[250]
-          )
+    # print('####', 'HANNING', '\n',
+    #       f'hanning => max: {max(split_y[0])} min: {min(split_y[0])} mean: {(split_y[0].mean())} size: {len(split_y[250])}', '\n',
+    #       f'hanning => max: {max(split_y[250])} min: {min(split_y[250])} mean: {split_y[250].mean()} size: {len(split_y[250])}'
+    #       )
     # exit()
 
     # ATM, WE DO NOT CALL THESE METHODS
     # wrap methods audio_denoise with parameters
-    def audio_denoise_st(y=None, sr: int = 48000):
+    # def audio_denoise_st(y=None, sr: int = 48000):
+    def audio_denoise_st(y=None, sr: int = sr):
         return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.9, stationary=True)
 
-    def audio_denoise_ns(y=None, sr: int = 48000):
+    # def audio_denoise_ns(y=None, sr: int = 48000):
+    def audio_denoise_ns(y=None, sr: int = sr):
         return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.6, stationary=False)
 
-    # TODO: Pipeline (12-24.12.24):
-    #       0. Frame per 6 secs with 1.9 secs overlapping, make sure the vectors have all the same size. - DONE
-    #       1. Apply Hanning window to smooth the frame. - DONE
-    #       2. Split per frequency band. -
-    #       3. Compute the mean, medium, max, min, distance, etc.. -
-    #       4. Transform the data => filters, envelope, pitch, etc.. - 2h
-    #       6. Plot the distribution or each frequency against a metric per region. - 1h
-    #       7. Save the plots..
-
-    print('####', f'COMPUTE SLIDING WINDOW {windows_13}')
-
-    # DEFAULT VALUES ARE: bandwidth, secs_b, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
-    def w_this_sliding_window(data: np.ndarray = None, size=int(bandwidth * secs_b * w_size_mins),
-                              stepsize=int(bandwidth * secs_b),
-                              padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
-        if axis >= data.ndim:
-            raise ValueError('Axis value out of range')
-        if stepsize < 1:
-            raise ValueError('Stepsize may not be zero or negative')
-        if size > data.shape[axis]:
-            raise ValueError('Sliding window size may not exceed size of selected axis')
-        shape = list(data.shape)
-        # print(data.shape[axis] / stepsize - size / stepsize + 1)
-        shape[axis] = np.floor(data.shape[axis] / stepsize - size / stepsize + 1).astype(int)
-        shape.append(size)
-        strides = list(data.strides)
-        strides[axis] *= stepsize
-        strides.append(data.strides[axis])
-        # TODO: Maybe with dask??
-        strided = np.lib.stride_tricks.as_strided(data, shape=shape, strides=strides)
-        if suma:
-            return [np.sum(s, axis=0) for s in strided.copy()] if copy else [np.sum(s, axis=0) for s in strided]
-        elif average:
-            return [np.mean(s, axis=0) for s in strided.copy()] if copy else [np.mean(s, axis=0) for s in strided]
-        else:
-            return strided.copy() if copy else strided
-
-    # SLIDING WINDOWS FOR THE SIGNAL
-    t1 = time.time()
-    print('#### RUNNING #### sum_this_sliding_window')
-    df_m = None
-    if windows_13:
-        w_vectors = np.array(
-            Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(w_this_sliding_window)(s.get('v')) for s in mean_y_hours_bandas)
+    denoise = False
+    if denoise:
+        # PARALLEL split_freq_band => ~6sec
+        print('####', 'PARALLEL audio_denoise')
+        t1 = time.time()
+        split_y_st = np.array(
+            Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(audio_denoise_st)(y_i) for y_i in split_y)
         )
-        print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
-              type(w_vectors), len(w_vectors),
-              type(w_vectors[0]), len(w_vectors[0]), len(w_vectors[0][0]),
-              )
-        w_vectors = w_vectors.reshape(w_vectors.shape[0], w_vectors.shape[-1])
-        df, df_w = pd.DataFrame(mean_y_hours_bandas), pd.DataFrame(w_vectors)
-        # DEFAULT VALUES ARE: <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
-        print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
-              type(df_w), len(df_w), type(df_w[0]), df_w.shape
-              )
+        split_y_ns = np.array(
+            Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(audio_denoise_ns)(y_i) for y_i in split_y)
+        )
+        # 438 288000 [2.19772187e-26 1.05804673e-26 5.78876953e-27] 18.265
+        print('####', 'PARALLEL DENOISE Y_C', len(split_y_st), len(split_y_st[0]), split_y_st[0][:3], round(time.time() - t1, 3))
 
-        # ARRANGE TO A PANDAS DATAFRAME FOR MODELLING
-        v_prefix = 'v'
-        df.drop(columns=[v_prefix], inplace=True)
-        # df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
-        # DEFAULT VALUES ARE: (300, 60000)
-        # print(df.head(3), df.shape)
-        v_prefix = 'w'
-        df_m = pd.concat([df, df_w.add_prefix(f'{v_prefix}_')], axis=1)
-        # DEFAULT VALUES ARE: [3 rows x 3604 columns] (300, 3604)'
-        # print(df_m.head(3), df_m.shape)
-        print('####', 'EXTRACTED', 'MEAN', df_m.shape)
+    # exit()
 
-        # NOT NEEDED - REARRANGE THE SIGNAL
-        # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
-        print('#### TIMES #### w_this_sliding_window', round(time.time() - t1), 3)
-    else:
-        # <class 'numpy.ndarray'> 10
-        # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
-        # sum_y_rn_st_split to .csv
-        df = pd.DataFrame(mean_y_hours_bandas)
-        v_prefix = 'v'
-        df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
-        # (300, 60000)
-        # print(df_v.head(3), df_v.shape)
-        df.drop(columns=['v'], inplace=True)
-        df_m = pd.concat([df, df_v], axis=1)
-        print(df_m.head(3), df_m.shape)
+    # print('####', f'COMPUTE SLIDING WINDOW {windows_13}')
 
-    def split_freq_band_per_chunk(s: np.memmap = None,
+    # # DEFAULT VALUES ARE: bandwidth, secs_b, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
+    # def w_this_sliding_window(data: np.ndarray = None, size=int(bandwidth * secs_b * w_size_mins),
+    #                           stepsize=int(bandwidth * secs_b),
+    #                           padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
+    #     if axis >= data.ndim:
+    #         raise ValueError('Axis value out of range')
+    #     if stepsize < 1:
+    #         raise ValueError('Stepsize may not be zero or negative')
+    #     if size > data.shape[axis]:
+    #         raise ValueError('Sliding window size may not exceed size of selected axis')
+    #     shape = list(data.shape)
+    #     # print(data.shape[axis] / stepsize - size / stepsize + 1)
+    #     shape[axis] = np.floor(data.shape[axis] / stepsize - size / stepsize + 1).astype(int)
+    #     shape.append(size)
+    #     strides = list(data.strides)
+    #     strides[axis] *= stepsize
+    #     strides.append(data.strides[axis])
+    #     # TODO: Maybe with dask??
+    #     strided = np.lib.stride_tricks.as_strided(data, shape=shape, strides=strides)
+    #     if suma:
+    #         return [np.sum(s, axis=0) for s in strided.copy()] if copy else [np.sum(s, axis=0) for s in strided]
+    #     elif average:
+    #         return [np.mean(s, axis=0) for s in strided.copy()] if copy else [np.mean(s, axis=0) for s in strided]
+    #     else:
+    #         return strided.copy() if copy else strided
+
+    # # SLIDING WINDOWS FOR THE SIGNAL
+    # t1 = time.time()
+    # print('#### RUNNING #### sum_this_sliding_window')
+    # df_m = None
+    # if windows_13:
+    #     w_vectors = np.array(
+    #         Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(w_this_sliding_window)(s.get('v')) for s in mean_y_hours_bandas)
+    #     )
+    #     print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
+    #           type(w_vectors), len(w_vectors),
+    #           type(w_vectors[0]), len(w_vectors[0]), len(w_vectors[0][0]),
+    #           )
+    #     w_vectors = w_vectors.reshape(w_vectors.shape[0], w_vectors.shape[-1])
+    #     df, df_w = pd.DataFrame(mean_y_hours_bandas), pd.DataFrame(w_vectors)
+    #     # DEFAULT VALUES ARE: <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
+    #     print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
+    #           type(df_w), len(df_w), type(df_w[0]), df_w.shape
+    #           )
+    #
+    #     # ARRANGE TO A PANDAS DATAFRAME FOR MODELLING
+    #     v_prefix = 'v'
+    #     df.drop(columns=[v_prefix], inplace=True)
+    #     # df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
+    #     # DEFAULT VALUES ARE: (300, 60000)
+    #     # print(df.head(3), df.shape)
+    #     v_prefix = 'w'
+    #     df_m = pd.concat([df, df_w.add_prefix(f'{v_prefix}_')], axis=1)
+    #     # DEFAULT VALUES ARE: [3 rows x 3604 columns] (300, 3604)'
+    #     # print(df_m.head(3), df_m.shape)
+    #     print('####', 'EXTRACTED', 'MEAN', df_m.shape)
+    #
+    #     # NOT NEEDED - REARRANGE THE SIGNAL
+    #     # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
+    #     print('#### TIMES #### w_this_sliding_window', round(time.time() - t1), 3)
+    # else:
+    #     # <class 'numpy.ndarray'> 10
+    #     # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
+    #     # sum_y_rn_st_split to .csv
+    #     df = pd.DataFrame(mean_y_hours_bandas)
+    #     v_prefix = 'v'
+    #     df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
+    #     # (300, 60000)
+    #     # print(df_v.head(3), df_v.shape)
+    #     df.drop(columns=['v'], inplace=True)
+    #     df_m = pd.concat([df, df_v], axis=1)
+    #     print(df_m.head(3), df_m.shape)
+
+
+    def split_freq_band_per_frame(s: np.memmap = None,
                                   sr: int = sr,
                                   b_band: int = b_band,
                                   u_band: int = u_band,
                                   bandwidth: int = bandwidth) -> List[np.ndarray]:
         # Calculate the FFT
-        # 2880000 48000 2.0833333333333333e-05 10000 0 1000
+        # 2880000 48000 2.0833333333333333e-05 10000 0 1000 => 60 seconds
+        # 288000 48000 2.0833333333333333e-05 10000 0 1000 => 6 seconds
         # print(len(s), sr, 1/sr, u_band, b_band, bandwidth)
         y_fft = np.fft.fft(s)
         # Calculate the frequencies for the FFT
@@ -208,56 +218,100 @@ def bootstrap_soundscape(audio_file: str = '',
     print('####', 'PARALLEL split_freq_band')
     t1 = time.time()
     split_y_split_bands = np.array(
-        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band_per_chunk)(y_i) for y_i in split_y)
+        Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band_per_frame)(y_i) for y_i in split_y)
     )
 
     print('####', 'PARALLEL SPLIT Y_C PER FREQUENCY',
           len(split_y_split_bands), len(split_y_split_bands[0]),
           len(split_y_split_bands[0][0]), split_y_split_bands[0][0][:3],
-          time.time() - t1)
+          round(time.time() - t1, 3)
+          )
 
     t1 = time.time()
-    y_split_hours_bands = [split_y_split_bands[h, b, :].flatten() for b in range(0, bandas) for h in range(0, horas)]
+
+    # # y_split_hours_bands = [split_y_split_bands[h, b, :].flatten() for b in range(0, bandas) for h in range(0, horas)]
+    # y_split_seconds_bands = [split_y_split_bands[s, b, :].flatten() for b in range(0, bandas) for s in range(0, secs_b)]
+    # # exit()
+    #
+    # print('####', 'REARRANGED THE SIGNAL PER (bands = 10) FREQUENCIES', type(y_split_seconds_bands), len(y_split_seconds_bands),
+    #       type(y_split_seconds_bands[0]), len(y_split_seconds_bands[0]))
+
+    # exit()
+
     # ARRANGE in dict per BANDAS, and HORAS
-    mean_y_hours_bandas = [
-        {'r': d_re.get(region, 0),  # CLASS (INT) 4
-         'id_s': 123,  # serial # DONT NEED
-         # {'r': d_re.get(region.upper(), 0),
-         'h': h,  # TIME (int) 0 - 29 => DONT NEED!
-         'b': b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once
-         'm': np.mean(f := split_y_split_bands[h, b, :].flatten()),  # MEAN of the VECTOR (float)
-         'v': f  # VECTOR (npArray[float]) => 60000 => 3600
-         } for b in range(0, bandas) for h in range(0, horas)
-
-        # TODO: Pipeline (12-24.12.24):
-        # TODO: Extract the Benchmark from Giacomo.
-        # TODO: Activation function (Sigmoid).
-        # TODO: Evaluation Metrics for classification => Table & Matrix.
-        # TODO: Reduce the time of the samples.
-        # TODO: Continuing with the pre-processing.
-        # TODO: Next meeting => 08.01.2025.
-        # TODO: Methodology PDFs FOLDER on Git?
-
+    mean_y_seconds_bandas = [
+        {'reg': d_re.get(region, 0),  # CLASS (INT) 4
+         'sid': si,  # audio_file_id
+         'sec': s,  # TIME (int) 0 - 6 => DONT NEED!?? - FRIDAY (03.01.25)!
+         'ban': b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once - FRIDAY!
+         'men': np.mean(f := split_y_split_bands[s, b, :].flatten()),  # MEAN of the VECTOR (float)
+         'med': np.median(f),  # MEDIAN of the VECTOR (float)
+         'sum': np.sum(f),  # SUM of the VECTOR (float)
+         'max': np.max(f),  # MAX of the VECTOR (float)
+         'min': np.min(f),  # MIN of the VECTOR (float)
+         'vec': f  # VECTOR (npArray[float]) => 6000 => 4380
+         } for b in range(0, bandas) for s in range(0, secs_b)
     ]
-    print('####', 'DICT VECTOR', len(mean_y_hours_bandas), list(mean_y_hours_bandas[0].keys()),
-          mean_y_hours_bandas[0].get('v', [])[:3])
-    print('####', 'TIMES', '####', 'FLATTEN:', round(time.time() - t1, 3))
-    print('####', 'REARRANGED THE SIGNAL PER 10 FREQUENCIES', type(y_split_hours_bands), len(y_split_hours_bands),
-          type(y_split_hours_bands[0]), len(y_split_hours_bands[0]))
 
-    exit()
+    # print('####', 'DICT_VECTOR',
+    #       len(mean_y_seconds_bandas), list(mean_y_seconds_bandas[0].keys()),
+    #       mean_y_seconds_bandas[0],
+    #       # mean_y_seconds_bandas[0].get("vec", [])[:3]
+    #       )
+    print('####', 'TIMES', '####', 'DICT_VECTOR:', round(time.time() - t1, 3))
+
+    # exit()
+
+    # <class 'numpy.ndarray'> 10
+    # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
+    df = pd.DataFrame(mean_y_seconds_bandas)
+    v_prefix = 'vec'
+    df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
+    # (60, 6009)
+    # print(df_v.head(3), df_v.shape)
+    df.drop(columns=[v_prefix], inplace=True)
+    df_m = pd.concat([df, df_v], axis=1)
+
+    # exit()
+
+    # TODO: Pipeline (12-24.12.24):
+    # TODO: MODELLING - THURSDAY (02.01.25)!
+    # TODO: Extract the Benchmark from Giacomo - THURSDAY (02.01.25)!
+    #   6. PLOTS the distribution or each frequency against a metric per region - THURSDAY (02.01.25)!
+    # TODO: Activation function (Sigmoid) - FRIDAY (03.01.25)!
+    # TODO: Evaluation Metrics for classification => Table & Matrix - THURSDAY (02.01.25)!
+    # TODO: Reduce the time of the samples - DONE!
+    # TODO: Continuing with the pre-processing - in-progress - SATURDAY & SUNDAY (04-05.01.25)!
+    #   3. Compute the mean, medium, max, min, distance, etc.. - DONE!
+    #   4. Transform the data => filters, envelope, pitch, etc.. - SATURDAY & SUNDAY (04-05.01.25)!
+    #   4.1. These transformations need to be here in this module - SATURDAY & SUNDAY (04-05.01.25)!
+    # TODO: Next meeting => 08.01.2025.
+    # TODO: Methodology PDFs FOLDER on Git?
+
+
+    # TODO: Pipeline (12-24-29.12.24):
+    #       0. Frame per 6 secs with 1.9 secs overlapping, make sure the vectors have all the same size. - DONE
+    #       1. Apply Hanning window to smooth the frame. - DONE
+    #       1.5 Denoise - DONE (no used)
+    #       2. Split per frequency band. - DONE
+    #       3. Compute the mean, medium, max, min, distance, etc.. -
+    #       4. Transform the data => filters, envelope, pitch, etc.. - 2h
+    #       6. Plot the distribution or each frequency against a metric per region. - 1h
+    #       7. Save the plots..
+
 
     df_m.to_pickle(
-        f'{path_out}data/{file_in_pattern}{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
+        f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
 
-    df_m.to_csv(
-        f'{path_out}data/{file_in_pattern}{region}_{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv',
-        sep=';')
+    # df_m.to_csv(
+    #     f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv',
+    #     sep=';')
+
+    # exit()
 
 
 t00 = time.time()
-print('#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', time.time() - t00)
+print('#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
 if __name__ == '__main__':
     print('Mirá ve.. oís?? alles gut oder was??')
-    # TODO: extract extraction modules here

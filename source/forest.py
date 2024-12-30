@@ -363,7 +363,7 @@ def main():
                         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                           index=True)
                         break
-                    # exit()
+                    exit()
                 except Exception as e:
                     print('ALWAYS PROBLEMS', e)
                     raise
@@ -418,8 +418,8 @@ def main():
                         f_progress.at[i, 'processed'] = True
                         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                           index=True)
-                        break
-                    exit()
+                        # break
+                    # exit()
                 except Exception as e:
                     print('ALWAYS PROBLEMS', e)
                     raise
