@@ -63,7 +63,7 @@ print('PATH', cwd)
 TASKS = [Task.VISUALISATION]
 TASKS = [Task.OBSERVATION]
 TASKS = [Task.EXTRACTION, Task.MODELLING]
-TASKS = [Task.MODELLING]
+# TASKS = [Task.MODELLING]
 
 
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
@@ -456,12 +456,7 @@ def main():
                                            secs_b=secs_b, w_size_mins=w_size_mins,
                                            verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                            f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30)
-                    print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
-                    # f_progress.at[i, 'processed'] = True
-                    # f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                    #                   index=True)
-                    break
-                    exit()
+                    print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                 except Exception as e:
                     print('ALWAYS PROBLEMS', e)
                     raise
@@ -469,7 +464,7 @@ def main():
                     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
                     # f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                     #                   index=True)
-                print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
+                print('#### TIMES #### Modelling TOTAL TOTAL ==>>', time.time() - t00)
 
 
 if __name__ == '__main__':
