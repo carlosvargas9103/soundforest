@@ -65,9 +65,9 @@ def bootstrap_soundscape(audio_file: str = '',
           type(split_y), type(split_y[0])
           )
 
-    frame_size, hop_size, hanning = sr * secs_b, int(sr * (secs_b - secs_o)), hanning
+    frame_size, hop_size = sr * secs_b, int(sr * (secs_b - secs_o))
 
-    def hanning(y: np.array = None, frame_size: int = frame_size, hop_size: int = hop_size, hanning: bool = hanning):
+    def hanning(y: np.array = None, frame_size: int = frame_size, hop_size: int = hop_size, hanning: bool = True):
         signal = np.array(y)
         # num_frames = 1 + (len(signal) - frame_size) // hop_size
         # print(num_frames) # 449
@@ -242,8 +242,8 @@ def bootstrap_soundscape(audio_file: str = '',
     mean_y_seconds_bandas = [
         {'reg': d_re.get(region, 0),  # CLASS (INT) 4
          'sid': si,  # audio_file_id
-         'sec': s,  # TIME (int) 0 - 6 => DONT NEED!?? - FRIDAY (03.01.25)!
-         'ban': b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once - FRIDAY!
+         'sec': s,  # TIME (int) 0 - 6 => DONT NEED!?? - SUNDAY (05.01.25)!
+         'ban': b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once - SUNDAY (05.01.25)!
          'men': np.mean(f := split_y_split_bands[s, b, :].flatten()),  # MEAN of the VECTOR (float)
          'med': np.median(f),  # MEDIAN of the VECTOR (float)
          'sum': np.sum(f),  # SUM of the VECTOR (float)
@@ -275,16 +275,17 @@ def bootstrap_soundscape(audio_file: str = '',
     # exit()
 
     # TODO: Pipeline (12-24.12.24):
-    # TODO: MODELLING - THURSDAY (02.01.25)!
-    # TODO: Extract the Benchmark from Giacomo - THURSDAY (02.01.25)!
-    #   6. PLOTS the distribution or each frequency against a metric per region - THURSDAY (02.01.25)!
-    # TODO: Activation function (Sigmoid) - FRIDAY (03.01.25)!
+    # TODO: MODELLING - SATURDAY (02.01.25)!
+    # TODO: Continuing with the pre-processing - in-progress - SATURDAY (04-05.01.25)!
+    #   3. Compute the mean, medium, max, min, distance, etc.. - DONE!
+    #   4. Transform the data => filters, envelope, pitch, etc.. - SATURDAY (04-05.01.25)!
+    #   4.1. These transformations need to be here in this module - SATURDAY (04-05.01.25)!
+    # TODO: Activation function (Sigmoid) - SATURDAY (03.01.25)!
+    # #### # ####
+    # TODO: Extract the Benchmark from Giacomo - SUNDAY (02.01.25)!
+    #   6. PLOTS the distribution or each frequency against a metric per region - SUNDAY (02.01.25)!
     # TODO: Evaluation Metrics for classification => Table & Matrix - THURSDAY (02.01.25)!
     # TODO: Reduce the time of the samples - DONE!
-    # TODO: Continuing with the pre-processing - in-progress - SATURDAY & SUNDAY (04-05.01.25)!
-    #   3. Compute the mean, medium, max, min, distance, etc.. - DONE!
-    #   4. Transform the data => filters, envelope, pitch, etc.. - SATURDAY & SUNDAY (04-05.01.25)!
-    #   4.1. These transformations need to be here in this module - SATURDAY & SUNDAY (04-05.01.25)!
     # TODO: Next meeting => 08.01.2025.
     # TODO: Methodology PDFs FOLDER on Git?
 
@@ -311,7 +312,7 @@ def bootstrap_soundscape(audio_file: str = '',
 
 
 t00 = time.time()
-print('#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', round(time.time() - t00, 3))
+print('#### TIMES #### extraction TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
 if __name__ == '__main__':
     print('Mirá ve.. oís?? alles gut oder was??')

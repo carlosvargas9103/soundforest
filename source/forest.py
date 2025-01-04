@@ -30,6 +30,7 @@ from enum import Enum
 from observation import process_soundscape
 from visualisation import visualise_soundscape, visualise_distribution
 from extraction import bootstrap_soundscape
+from modelling import train_with_soundscapes
 
 
 class Task(Enum):  # These are each of the tasks ( modules | files )
@@ -37,8 +38,8 @@ class Task(Enum):  # These are each of the tasks ( modules | files )
     OBSERVATION = 1
     VISUALISATION = 2
     EXTRACTION = 3
-    SAMPLING = 4
-    AUGMENTATION = 5
+    # SAMPLING = 4
+    # AUGMENTATION = 5
     MODELLING = 6
     CLASSIFICATION = 7
 
@@ -61,7 +62,10 @@ print('PATH', cwd)
 ### CONSTANTS ###
 TASKS = [Task.VISUALISATION]
 TASKS = [Task.OBSERVATION]
-TASKS = [Task.EXTRACTION]
+TASKS = [Task.EXTRACTION, Task.MODELLING]
+TASKS = [Task.MODELLING]
+
+
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
 
 
@@ -413,7 +417,7 @@ def main():
                                              samples_s=samples_s, isamples_s=isamples_s,
                                              secs_b=secs_b, w_size_mins=w_size_mins,
                                              verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
-                                             f_pattern_out=f_pattern_out, windows_13=windows_13, horas = 30)
+                                             f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30)
                         print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                         f_progress.at[i, 'processed'] = True
                         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
@@ -427,6 +431,44 @@ def main():
                     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
                     f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                       index=True)
+                print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
+
+            case Task.MODELLING:
+                t00 = time.time()
+                path_data = args.path_in
+                folders_in, f_pattern_out, f_ext_in = 'extraction', 'modelling', '.pkl'
+                path_data_in = f'{path_out}data/{folders_in}/'
+                # READ audio_files to process
+                configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
+                               for dirpath, dirnames, files in os.walk(path_data_in)
+                               for f in files if f.endswith(f_ext_in)]
+                # print(path_data, path_data_in, path_out, configfiles[:3])
+                # exit()
+                try:
+                    i = 0
+                    t11 = time.time()
+                    print(f'{i}/{len(configfiles)}', '########', '################', '################', '########')
+                    print(i, '#### MODELLING ####', 'REGION:', '==>>', 'f.region', '<<==', 'DATA', '==>>', "f.filename.split('/')[-1]")
+                    train_with_soundscapes(files_path=configfiles, #region=f.region, si=i, sr=sr,
+                                           bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
+                                           path_data=path_data, path_out=path_out,
+                                           samples_s=samples_s, isamples_s=isamples_s,
+                                           secs_b=secs_b, w_size_mins=w_size_mins,
+                                           verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
+                                           f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30)
+                    print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
+                    # f_progress.at[i, 'processed'] = True
+                    # f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                    #                   index=True)
+                    break
+                    exit()
+                except Exception as e:
+                    print('ALWAYS PROBLEMS', e)
+                    raise
+                finally:
+                    print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
+                    # f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+                    #                   index=True)
                 print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
 
 
