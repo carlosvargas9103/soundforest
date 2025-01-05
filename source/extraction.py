@@ -1,11 +1,16 @@
 import gc
 
+from sympy.diffgeom import metric_to_Christoffel_1st
+
 gc.collect()
 
 import copy
 import time
 import random
 # import datetime
+import indices
+
+# import torchaudio
 
 from typing import List, Tuple
 
@@ -15,10 +20,98 @@ from joblib import Parallel, delayed
 import librosa
 import noisereduce as nr
 
+from maad import sound, features
+
 import pandas as pd
 import numpy as np
 
+t00 = time.time()
+
+DICT_BANDAS = {
+    0: (0, 1000),
+    1: (1000, 2000),
+    2: (2000, 3000),
+    3: (3000, 4000),
+    4: (4000, 5000),
+    5: (5000, 6000),
+    6: (6000, 7000),
+    7: (7000, 8000),
+    8: (8000, 9000),
+    9: (9000, 10000)
+}
+
 random.seed("9103")
+
+
+# def get_audio_indices(file_name: str = '',
+def get_audio_indices(s, fs,
+                      apply_filter: bool = False, start_freqs: int = 0, end_freqs: int = 10000) -> Tuple[
+    float]:
+    """
+    Load an audio file, optionally apply a bandstop filter, and calculate various acoustic indices.
+
+    Parameters:
+    - file_name: string, path to the audio file.
+    - apply_filter: boolean, indicates if a bandstop filter should be applied.
+    - start_freqs: list of floats, start frequencies for the bandstop filters, used if apply_filter is True.
+    - end_freqs: list of floats, end frequencies for the bandstop filters, used if apply_filter is True.
+
+    Returns:
+    - indices: list, containing the file name and computed acoustic indices or np.nan in case of an error.
+    """
+
+    # Load the audio file and compute the spectrogram
+    # s, fs = torchaudio.load(str(file_name))
+    # s, fs = torchaudio.load(str(file_name))
+    # if s.size()[0] != 1:
+    #     s = torch.unsqueeze(s[0, :], 0)
+
+        # If filtering is applied, filter the signal before computing the spectrogram
+    if apply_filter and start_freqs is not None and end_freqs is not None:
+        s_filtered = butter_bandstop_filter(s.numpy()[0, :], start_freqs, end_freqs, fs)
+        s = torch.tensor(s_filtered.copy()[None, :])  # Add a new axis to make it 2D again
+        rms = np.sqrt(np.mean(np.square(s.numpy()[0, :])))
+        s = s / rms  # Normalize the signal
+        # Sxx, tn, fn, ext = sound.spectrogram(s[0, :], fs, mode='amplitude')
+        Sxx, tn, fn, ext = sound.spectrogram(s, fs, mode='amplitude')
+        # Sxx_power, _, _, _ = sound.spectrogram(s[0, :], fs)
+        Sxx_power, _, _, _ = sound.spectrogram(s, fs)
+        ADI = 0
+        AEI = 0
+        for f1, f2 in zip(start_freqs, end_freqs):
+            ADI += features.acoustic_diversity_index(Sxx, fn, f1, f2)
+            AEI += features.acoustic_eveness_index(Sxx, fn, f1, f2)
+
+        # Compute the spectrogram
+    if apply_filter == False:
+        # Sxx, tn, fn, ext = sound.spectrogram(s[0, :], fs, mode='amplitude')
+        Sxx, tn, fn, ext = sound.spectrogram(s, fs, mode='amplitude')
+        # Sxx_power, _, _, _ = sound.spectrogram(s[0, :], fs)
+        Sxx_power, _, _, _ = sound.spectrogram(s, fs)
+        ADI = features.acoustic_diversity_index(Sxx, fn, fmax=int(fs / 2), dB_threshold=-40)
+        AEI = features.acoustic_eveness_index(Sxx, fn, fmax=int(fs / 2), dB_threshold=-40)
+
+        # Calculate acoustic indices
+    ACIft_ = indices.ACIft(Sxx)
+    BETA = features.bioacoustics_index(Sxx, fn, flim=(2000, 8000))
+    # M = features.temporal_median(s[0, :], mode='hilbert')
+    M = features.temporal_median(s, mode='hilbert')
+    NP = features.number_of_peaks(Sxx_power, fn, slopes=6, min_freq_dist=100, display=False)
+    Hf, _ = features.frequency_entropy(Sxx_power)
+    # Ht = features.temporal_entropy(s.numpy()[0, :], mode='hilbert')
+    # Ht = features.temporal_entropy(s.numpy()[:], mode='hilbert')
+    Ht = features.temporal_entropy(s, mode='hilbert')
+    H = Ht * Hf
+    NDSI, _, _, _ = features.soundscape_index(Sxx_power, fn, flim_bioPh=(0, 10000), flim_antroPh=(0, 1000))
+
+    # Compile all indices into a list
+    # acoustic_indices = [ACIft_, ADI, BETA, M, NP, H, AEI, NDSI]
+    # print('INDICES', ACIft_, ADI, BETA, M, NP, H, AEI, NDSI)
+    return (ACIft_, ADI, BETA, M, NP, H, AEI, NDSI)
+
+    # Include file name information in the indices list
+    # file_info = [str(file_name).split('/')[-1], str(file_name).split('/')[-2]]
+    # return file_info + acoustic_indices
 
 
 def bootstrap_soundscape(audio_file: str = '',
@@ -84,6 +177,22 @@ def bootstrap_soundscape(audio_file: str = '',
           f'chunk_size last: {len(split_y[-1])}',
           type(split_y), type(split_y[0])
           )
+
+    split_y_indices, total_indices = None, 8
+    indices = True
+    if indices:
+        # PARALLEL split_freq_band => ~6sec
+        print('####', 'PARALLEL audio_indices')
+        t1 = time.time()
+        split_y_indices = np.array(
+            Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(get_audio_indices)(y_i, sr) for y_i in split_y)
+        )
+        # split_y_indices = [get_audio_indices(y_i, sr) for y_i in split_y]
+
+        print('####', 'PARALLEL INDICES Y_C', len(split_y_indices), len(split_y_indices[0]),
+              split_y_indices[0][:3], f'{(time.time() - t1):.3}')
+
+
     # print('####', 'HANNING', '\n',
     #       f'hanning => max: {max(split_y[0])} min: {min(split_y[0])} mean: {(split_y[0].mean())} size: {len(split_y[250])}', '\n',
     #       f'hanning => max: {max(split_y[250])} min: {min(split_y[250])} mean: {split_y[250].mean()} size: {len(split_y[250])}'
@@ -114,84 +223,6 @@ def bootstrap_soundscape(audio_file: str = '',
         # 438 288000 [2.19772187e-26 1.05804673e-26 5.78876953e-27] 18.265
         print('####', 'PARALLEL DENOISE Y_C', len(split_y_st), len(split_y_st[0]), split_y_st[0][:3], round(time.time() - t1, 3))
 
-    # exit()
-
-    # print('####', f'COMPUTE SLIDING WINDOW {windows_13}')
-
-    # # DEFAULT VALUES ARE: bandwidth, secs_b, w_size_mins = bandwidth, 60, 0.06  # 1000, 60, 0.06 => every 3.6 secs
-    # def w_this_sliding_window(data: np.ndarray = None, size=int(bandwidth * secs_b * w_size_mins),
-    #                           stepsize=int(bandwidth * secs_b),
-    #                           padded=False, axis=-1, copy=False, suma=False, average=False) -> np.ndarray:
-    #     if axis >= data.ndim:
-    #         raise ValueError('Axis value out of range')
-    #     if stepsize < 1:
-    #         raise ValueError('Stepsize may not be zero or negative')
-    #     if size > data.shape[axis]:
-    #         raise ValueError('Sliding window size may not exceed size of selected axis')
-    #     shape = list(data.shape)
-    #     # print(data.shape[axis] / stepsize - size / stepsize + 1)
-    #     shape[axis] = np.floor(data.shape[axis] / stepsize - size / stepsize + 1).astype(int)
-    #     shape.append(size)
-    #     strides = list(data.strides)
-    #     strides[axis] *= stepsize
-    #     strides.append(data.strides[axis])
-    #     # TODO: Maybe with dask??
-    #     strided = np.lib.stride_tricks.as_strided(data, shape=shape, strides=strides)
-    #     if suma:
-    #         return [np.sum(s, axis=0) for s in strided.copy()] if copy else [np.sum(s, axis=0) for s in strided]
-    #     elif average:
-    #         return [np.mean(s, axis=0) for s in strided.copy()] if copy else [np.mean(s, axis=0) for s in strided]
-    #     else:
-    #         return strided.copy() if copy else strided
-
-    # # SLIDING WINDOWS FOR THE SIGNAL
-    # t1 = time.time()
-    # print('#### RUNNING #### sum_this_sliding_window')
-    # df_m = None
-    # if windows_13:
-    #     w_vectors = np.array(
-    #         Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(w_this_sliding_window)(s.get('v')) for s in mean_y_hours_bandas)
-    #     )
-    #     print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
-    #           type(w_vectors), len(w_vectors),
-    #           type(w_vectors[0]), len(w_vectors[0]), len(w_vectors[0][0]),
-    #           )
-    #     w_vectors = w_vectors.reshape(w_vectors.shape[0], w_vectors.shape[-1])
-    #     df, df_w = pd.DataFrame(mean_y_hours_bandas), pd.DataFrame(w_vectors)
-    #     # DEFAULT VALUES ARE: <class 'pandas.core.frame.DataFrame'> 300 <class 'pandas.core.series.Series'> (300, 3600)
-    #     print('####', 'REARRANGED THE SIGNAL W SLIDING_WINDOW PER 10 FREQUENCIES',
-    #           type(df_w), len(df_w), type(df_w[0]), df_w.shape
-    #           )
-    #
-    #     # ARRANGE TO A PANDAS DATAFRAME FOR MODELLING
-    #     v_prefix = 'v'
-    #     df.drop(columns=[v_prefix], inplace=True)
-    #     # df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
-    #     # DEFAULT VALUES ARE: (300, 60000)
-    #     # print(df.head(3), df.shape)
-    #     v_prefix = 'w'
-    #     df_m = pd.concat([df, df_w.add_prefix(f'{v_prefix}_')], axis=1)
-    #     # DEFAULT VALUES ARE: [3 rows x 3604 columns] (300, 3604)'
-    #     # print(df_m.head(3), df_m.shape)
-    #     print('####', 'EXTRACTED', 'MEAN', df_m.shape)
-    #
-    #     # NOT NEEDED - REARRANGE THE SIGNAL
-    #     # sum_y_rn_st_split = [split_sum_y_rn_st_split[:, b, :].flatten() for b in range(0, bandas)]
-    #     print('#### TIMES #### w_this_sliding_window', round(time.time() - t1), 3)
-    # else:
-    #     # <class 'numpy.ndarray'> 10
-    #     # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
-    #     # sum_y_rn_st_split to .csv
-    #     df = pd.DataFrame(mean_y_hours_bandas)
-    #     v_prefix = 'v'
-    #     df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
-    #     # (300, 60000)
-    #     # print(df_v.head(3), df_v.shape)
-    #     df.drop(columns=['v'], inplace=True)
-    #     df_m = pd.concat([df, df_v], axis=1)
-    #     print(df_m.head(3), df_m.shape)
-
-
     def split_freq_band_per_frame(s: np.memmap = None,
                                   sr: int = sr,
                                   b_band: int = b_band,
@@ -221,6 +252,7 @@ def bootstrap_soundscape(audio_file: str = '',
         Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band_per_frame)(y_i) for y_i in split_y)
     )
 
+
     print('####', 'PARALLEL SPLIT Y_C PER FREQUENCY',
           len(split_y_split_bands), len(split_y_split_bands[0]),
           len(split_y_split_bands[0][0]), split_y_split_bands[0][0][:3],
@@ -238,8 +270,20 @@ def bootstrap_soundscape(audio_file: str = '',
 
     # exit()
 
+    def acift(s):
+        intensity_vector = np.array(s)
+        # Avoid division by zero
+        if np.sum(intensity_vector) == 0:
+            return 0.0
+        # Calculate the numerator: sum of absolute differences between consecutive values
+        numerator = np.sum(np.abs(np.diff(intensity_vector)))
+        # Calculate the denominator: sum of intensity values
+        denominator = np.sum(intensity_vector)
+        # Compute ACIft
+        return numerator / denominator
+
     # ARRANGE in dict per BANDAS, and HORAS
-    mean_y_seconds_bandas = [
+    metrics_y_seconds_bandas = [
         {'reg': d_re.get(region, 0),  # CLASS (INT) 4
          'sid': si,  # audio_file_id
          'sec': s,  # TIME (int) 0 - 6 => DONT NEED!?? - SUNDAY (05.01.25)!
@@ -249,14 +293,29 @@ def bootstrap_soundscape(audio_file: str = '',
          'sum': np.sum(f),  # SUM of the VECTOR (float)
          'max': np.max(f),  # MAX of the VECTOR (float)
          'min': np.min(f),  # MIN of the VECTOR (float)
+         'aci': acift(f),  # Acoustic Complexity Index (float)
+         'aca': split_y_indices[s, 0],
+         'adi': split_y_indices[s, 1],
+         'bet': split_y_indices[s, 2],
+         'mmm': split_y_indices[s, 3],
+         'npp': split_y_indices[s, 4],
+         'hhh': split_y_indices[s, 5],
+         'aei': split_y_indices[s, 6],
+         'dsi': split_y_indices[s, 7],
          'vec': f  # VECTOR (npArray[float]) => 6000 => 4380
-         } for b in range(0, bandas) for s in range(0, secs_b)
+         } for b in range(0, bandas) for s in range(0, len(split_y_split_bands))
     ]
 
     # print('####', 'DICT_VECTOR',
-    #       len(mean_y_seconds_bandas), list(mean_y_seconds_bandas[0].keys()),
-    #       mean_y_seconds_bandas[0],
-    #       # mean_y_seconds_bandas[0].get("vec", [])[:3]
+    #       len(metrics_y_seconds_bandas), list(metrics_y_seconds_bandas[0].keys()),
+    #       # metrics_y_seconds_bandas[0],
+    #       # metrics_y_seconds_bandas[0].get("vec", [])[:3]
+    #       # metrics_y_seconds_bandas[0],
+    #       # metrics_y_seconds_bandas[1],
+    #       # metrics_y_seconds_bandas[10],
+    #       # metrics_y_seconds_bandas[11],
+    #       # metrics_y_seconds_bandas[100],
+    #       # len(metrics_y_seconds_bandas[0].get("vec", []))
     #       )
     print('####', 'TIMES', '####', 'DICT_VECTOR:', round(time.time() - t1, 3))
 
@@ -264,7 +323,7 @@ def bootstrap_soundscape(audio_file: str = '',
 
     # <class 'numpy.ndarray'> 10
     # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
-    df = pd.DataFrame(mean_y_seconds_bandas)
+    df = pd.DataFrame(metrics_y_seconds_bandas)
     v_prefix = 'vec'
     df_v = pd.DataFrame(df[v_prefix].to_list()).add_prefix(f'{v_prefix}_')
     # (60, 6009)
@@ -275,31 +334,30 @@ def bootstrap_soundscape(audio_file: str = '',
     # exit()
 
     # TODO: Pipeline (12-24.12.24):
-    # TODO: MODELLING - SATURDAY (02.01.25)!
-    # TODO: Continuing with the pre-processing - in-progress - SATURDAY (04-05.01.25)!
+    # TODO: MODELLING - DONE!
+    # TODO: Continuing with the pre-processing - - DONE!
     #   3. Compute the mean, medium, max, min, distance, etc.. - DONE!
-    #   4. Transform the data => filters, envelope, pitch, etc.. - SATURDAY (04-05.01.25)!
-    #   4.1. These transformations need to be here in this module - SATURDAY (04-05.01.25)!
-    # TODO: Activation function (Sigmoid) - SATURDAY (03.01.25)!
+    #   3.6. Compute the BIO-ACOUSTIC indexes, etc.. - DONE!
+    #   4. Transform the data => filters, envelope, pitch, etc.. - MONDAY (06.01.25)!
+    #   4.1. These transformations need to be included here in the extraction module - MONDAY (06.01.25)!
+    # TODO: Activation function (Sigmoid) - SUNDAY (03.01.25)!
     # #### # ####
     # TODO: Extract the Benchmark from Giacomo - SUNDAY (02.01.25)!
     #   6. PLOTS the distribution or each frequency against a metric per region - SUNDAY (02.01.25)!
-    # TODO: Evaluation Metrics for classification => Table & Matrix - THURSDAY (02.01.25)!
+    # TODO: Evaluation Metrics for classification => Table & Matrix - SUNDAY (02.01.25)!
     # TODO: Reduce the time of the samples - DONE!
     # TODO: Next meeting => 08.01.2025.
     # TODO: Methodology PDFs FOLDER on Git?
 
-
-    # TODO: Pipeline (12-24-29.12.24):
+    # TODO: Pipeline (12-24-07.01.25):
     #       0. Frame per 6 secs with 1.9 secs overlapping, make sure the vectors have all the same size. - DONE
-    #       1. Apply Hanning window to smooth the frame. - DONE
+    #       1. Apply Hanning window to smooth the frame. - DONE!
     #       1.5 Denoise - DONE (no used)
-    #       2. Split per frequency band. - DONE
-    #       3. Compute the mean, medium, max, min, distance, etc.. -
-    #       4. Transform the data => filters, envelope, pitch, etc.. - 2h
-    #       6. Plot the distribution or each frequency against a metric per region. - 1h
-    #       7. Save the plots..
-
+    #       2. Split per frequency band. - DONE!
+    #       3. Compute the mean, medium, max, min, distance, etc.. - DONE!
+    #       4. Transform the data => filters, envelope, pitch, etc.. - 3h
+    #       6. Plot the distribution or each frequency against a metric per region. - 2h
+    #       7. Save the plots.. - 1h
 
     df_m.to_pickle(
         f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
@@ -310,9 +368,7 @@ def bootstrap_soundscape(audio_file: str = '',
 
     # exit()
 
-
-t00 = time.time()
-print('#### TIMES #### extraction TOTAL TOTAL ==>>', round(time.time() - t00, 3))
+    print('#### TIMES #### extraction TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
 if __name__ == '__main__':
     print('Mirá ve.. oís?? alles gut oder was??')
