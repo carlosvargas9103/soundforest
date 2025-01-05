@@ -50,7 +50,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4731462001800537
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-0 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 83.04847526550293
+0 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 83.04847526550293
 1 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3
 1 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3 - region: Plantation
 y: [-0.0006119   0.00068735  0.00166055  0.00251585  0.00187133  0.00070333
@@ -71,8 +71,8 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.46819424629211426
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-1 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.39423489570618
-#### TIMES #### process_soundscape TOTAL TOTAL ==>> 158.44276666641235
+1 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.39423489570618
+#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 158.44276666641235
 #### #### NO DA MAS #### TERMINO #### FINITO #### ####
 cwd: /home/vargas/repos/forests-sounds-vargas file: /home/vargas/repos/forests-sounds-vargas/out/cities_4085202_1728698120.txt total_time: 158.451  TOTAL_JOBS: 32 job_id: 4085202
 #### SLEEPING TIME: 158.451 sec ####

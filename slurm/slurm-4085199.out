@@ -3,7 +3,7 @@
 /home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
 #### #### HOI FOREST #### ####
 Starting with parallel jobs: 57 time: 1728694114
-0 REGION: ====>>>> Plantation #### RUNNING #### process_soundscape
+0 REGION: ====>>>> Plantation #### RUNNING #### bootstrap_soundscape
 y: [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
   0.00836801  0.01314615  0.01415004]
 total samples in y: (86400000,) in time: 1800 secs

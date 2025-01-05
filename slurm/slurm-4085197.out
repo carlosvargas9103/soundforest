@@ -5,7 +5,7 @@
 RefForest => 3
 Starting with parallel jobs: 3 time: 1728691098
 #### #### HOI FOREST #### ####
-0 #### RUNNING #### process_soundscape
+0 #### RUNNING #### bootstrap_soundscape
 y: [ 0.01103865  0.01176985  0.00412414 -0.00774774 -0.01663554 -0.01605902
  -0.00705433  0.00213126  0.0058885 ]
 total samples in y: (86400000,) in time: 1800 secs
@@ -64,8 +64,8 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.48824548721313477
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-0 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 86.14202356338501
-1 #### RUNNING #### process_soundscape
+0 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 86.14202356338501
+1 #### RUNNING #### bootstrap_soundscape
 y: [ 0.00041495  0.00191905  0.00555526  0.00784058  0.00575741  0.00123444
  -0.00283909 -0.00552388 -0.0053111 ]
 total samples in y: (86400000,) in time: 1800 secs
@@ -83,8 +83,8 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.48659324645996094
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-1 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.7498140335083
-2 #### RUNNING #### process_soundscape
+1 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.7498140335083
+2 #### RUNNING #### bootstrap_soundscape
 y: [-0.00513838 -0.00416545  0.0014226   0.00823428  0.01222593  0.01346388
   0.01234943  0.00994667  0.00897678]
 total samples in y: (86400000,) in time: 1800 secs
@@ -103,8 +103,8 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4700593948364258
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-2 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 76.67806339263916
-#### TIMES #### process_soundscape TOTAL TOTAL ==>> 236.56995129585266
+2 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 76.67806339263916
+#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 236.56995129585266
 #### #### NO DA MAS #### TERMINO #### FINITO #### ####
 cwd: /home/vargas/repos/forests-sounds-vargas file: /home/vargas/repos/forests-sounds-vargas/out/cities_4085197_1728691334.txt total_time: 236.577  TOTAL_JOBS: 32 job_id: 4085197
 #### SLEEPING TIME: 236.577 sec ####

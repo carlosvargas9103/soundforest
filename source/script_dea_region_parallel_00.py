@@ -9,6 +9,7 @@ import ast
 import csv
 import copy
 import time
+import random
 import joblib
 import datetime
 
@@ -39,6 +40,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib
 import matplotlib.pylab as plt
 import seaborn as sns
+
+random.seed("9103")
+
 
 ### IDENTIFY PATH ###
 t0 = time.time()
@@ -309,7 +313,8 @@ def process_soundscape(audio_file: str = '',
           type(sum_y_rn_st_split), len(sum_y_rn_st_split),
           type(sum_y_rn_st_split[0]), len(sum_y_rn_st_split[0]))
 
-    # <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484 => 1800 / 484 = ~3.6 seconds
+    # <class 'numpy.ndarray'> 10
+    # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
     # sum_y_rn_st_split to .csv
     pd.DataFrame(
         sum_y_rn_st_split.T.astype(float),
@@ -521,7 +526,7 @@ f_progress = copy.deepcopy(audio_files)
 
 outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
 print('#### #### HOI FOREST #### ####')
-# Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(process_soundscape)(audio_file=a) for a in audio_files)
+# Parallel(n_jobs=N_JOBS, verbose=verbose)(delayed(bootstrap_soundscape)(audio_file=a) for a in audio_files)
 
 # This function is meant to be used in a parallel fashion
 print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
@@ -535,7 +540,7 @@ try:
         print(i, '################', '################', '################', '################')
         print(i, '#### RUNNING ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO:', '==>>', f.filename.split('/')[-1])
         process_soundscape(audio_file=f.filename, region=f.region, si=i)
-        print(i, '#### TIMES #### process_soundscape TOTAL TOTAL ==>>', time.time() - t11)
+        print(i, '#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', time.time() - t11)
         f_progress.at[i, 'processed'] = True
         f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
 except Exception as e:
@@ -545,7 +550,7 @@ finally:
     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
     f_progress.to_csv(f'{path_out}audio_files_processed_{str(datetime.date.today())[:-3]}.csv', sep=';', index=True)
 
-print('#### TIMES #### process_soundscape TOTAL TOTAL ==>>', time.time() - t00)
+print('#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>>', time.time() - t00)
 
 data = [
     'cali',

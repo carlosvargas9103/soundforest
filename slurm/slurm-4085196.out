@@ -5,7 +5,7 @@
 Plantation => 22
 Starting with parallel jobs: 22 time: 1728690581
 #### #### HOI FOREST #### ####
-#### RUNNING #### process_soundscape
+#### RUNNING #### bootstrap_soundscape
 [Parallel(n_jobs=32)]: Using backend ThreadingBackend with 32 concurrent workers.
 [Parallel(n_jobs=32)]: Using backend ThreadingBackend with 32 concurrent workers.
 [Parallel(n_jobs=32)]: Using backend ThreadingBackend with 32 concurrent workers.
@@ -30,7 +30,7 @@ Starting with parallel jobs: 22 time: 1728690581
 [Parallel(n_jobs=32)]: Using backend ThreadingBackend with 32 concurrent workers.
 Traceback (most recent call last):
   File "/home/vargas/repos/forests-sounds-vargas/source/script_dea_region_parallel_00.py", line 454, in <module>
-    sum_y_rn_st_split = np.array(Parallel(n_jobs=N_JOBS, verbose=1)(delayed(process_soundscape)(audio_file=a) for a in audio_files))
+    sum_y_rn_st_split = np.array(Parallel(n_jobs=N_JOBS, verbose=1)(delayed(bootstrap_soundscape)(audio_file=a) for a in audio_files))
   File "/home/vargas/repos/forests-sounds-vargas/venvs/py310f/lib/python3.10/site-packages/joblib/parallel.py", line 2007, in __call__
     return output if self.return_generator else list(output)
   File "/home/vargas/repos/forests-sounds-vargas/venvs/py310f/lib/python3.10/site-packages/joblib/parallel.py", line 1650, in _get_outputs

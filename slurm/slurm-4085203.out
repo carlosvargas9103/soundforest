@@ -827,7 +827,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4739375114440918
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-0 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 82.92170524597168
+0 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 82.92170524597168
 1 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3
 1 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3 - region: Plantation
 y: [-0.0006119   0.00068735  0.00166055  0.00251585  0.00187133  0.00070333
@@ -848,7 +848,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4605588912963867
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-1 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.0066270828247
+1 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.0066270828247
 2 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3
 2 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3 - region: Plantation
 y: [0.00831298 0.01321053 0.01454676 0.01506956 0.01508774 0.01517149
@@ -868,7 +868,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.42818379402160645
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-2 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 79.24527215957642
+2 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 79.24527215957642
 3 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3
 3 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3 - region: Plantation
 y: [-0.01472808 -0.01491113 -0.00816156 -0.00218979  0.00167903  0.00490456
@@ -889,7 +889,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43546485900878906
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-3 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 78.03574919700623
+3 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 78.03574919700623
 4 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3
 4 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3 - region: Plantation
 y: [ 0.00232441  0.00309165  0.00177757  0.00270376  0.00179844 -0.00149232
@@ -910,7 +910,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.45195651054382324
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-4 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 72.07707500457764
+4 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 72.07707500457764
 5 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3
 5 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3 - region: Plantation
 y: [ 3.6415369e-03  2.6228302e-03  8.4596279e-05 -1.5951027e-04
@@ -933,7 +933,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.46011900901794434
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-5 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.83013916015625
+5 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.83013916015625
 6 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3
 6 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3 - region: Plantation
 y: [-0.00156389 -0.00311076 -0.00225797 -0.00128544 -0.00113144 -0.00195252
@@ -954,7 +954,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.46295905113220215
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-6 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 78.03357338905334
+6 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 78.03357338905334
 7 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_00_PSA0010-2010.mp3
 7 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_00_PSA0010-2010.mp3 - region: Plantation
 y: [-0.00225802 -0.00408008 -0.00553367 -0.00679917 -0.00652087 -0.00546292
@@ -974,7 +974,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4491109848022461
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-7 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.21806931495667
+7 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.21806931495667
 8 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3
 8 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3 - region: Plantation
 y: [-0.01960655 -0.02791282 -0.02750732 -0.02641052 -0.03029392 -0.03201358
@@ -994,7 +994,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43869972229003906
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-8 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.97921442985535
+8 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.97921442985535
 9 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_18_PSA0373-2011.mp3
 9 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_18_PSA0373-2011.mp3 - region: Plantation
 y: [-0.00241771 -0.00108932  0.0016709   0.00449528  0.00606185  0.00498239
@@ -1015,7 +1015,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43308472633361816
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-9 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 74.9064428806305
+9 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 74.9064428806305
 10 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_16_PSA0292-2012.mp3
 10 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_16_PSA0292-2012.mp3 - region: Plantation
 y: [ 0.00011271 -0.00401716 -0.00642971 -0.00703088 -0.00726458 -0.00570953
@@ -1035,7 +1035,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4611179828643799
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-10 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.87266993522644
+10 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.87266993522644
 11 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/PSA0025-2015.mp3
 11 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/PSA0025-2015.mp3 - region: Plantation
 y: [-6.8993503e-03 -7.8593977e-03 -3.5266078e-03 -3.3374643e-05
@@ -1058,7 +1058,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4556715488433838
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-11 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 76.42696642875671
+11 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 76.42696642875671
 12 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3
 12 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3 - region: Plantation
 y: [ 5.3311074e-03  5.1743435e-03  1.7210189e-03 -4.6343525e-04
@@ -1081,7 +1081,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43633055686950684
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-12 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 81.6914176940918
+12 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 81.6914176940918
 13 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3
 13 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3 - region: Plantation
 y: [ 0.00498617  0.00343108 -0.00189297 -0.00040188  0.0026763   0.0024897
@@ -1102,7 +1102,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.434511661529541
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-13 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.88565850257874
+13 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.88565850257874
 14 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3
 14 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3 - region: Plantation
 y: [2.9889517e-03 2.1491684e-03 1.6709652e-03 3.0980729e-03 1.9990047e-03
@@ -1123,7 +1123,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.44800472259521484
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-14 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.85070133209229
+14 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.85070133209229
 15 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3
 15 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3 - region: Plantation
 y: [-0.0014093  -0.00103954 -0.00105862 -0.00210072 -0.00228073 -0.00215911
@@ -1144,7 +1144,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4248485565185547
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-15 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 80.2903242111206
+15 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 80.2903242111206
 16 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_21_PSA0429-2012.mp3
 16 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_21_PSA0429-2012.mp3 - region: Plantation
 y: [ 0.0015737   0.00132185  0.00142273  0.00205023  0.0014455  -0.00059423
@@ -1165,7 +1165,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4579493999481201
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-16 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 72.09110879898071
+16 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 72.09110879898071
 17 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_11_PSA0192-2009.mp3
 17 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_11_PSA0192-2009.mp3 - region: Plantation
 y: [ 1.5078523e-03 -4.8705522e-05 -2.4045832e-03 -1.9080644e-03
@@ -1188,7 +1188,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.435941219329834
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-17 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.43670773506165
+17 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.43670773506165
 18 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_01_PSA0022-2015.mp3
 18 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_01_PSA0022-2015.mp3 - region: Plantation
 y: [-0.00544647 -0.00827495 -0.00738019 -0.00657342 -0.00486134  0.00204174
@@ -1209,7 +1209,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4625535011291504
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-18 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 78.39472365379333
+18 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 78.39472365379333
 19 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3
 19 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3 - region: Plantation
 y: [ 0.00496935  0.00223682 -0.00015433  0.00304944  0.00606916  0.00514213
@@ -1230,7 +1230,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4637014865875244
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-19 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 81.05402421951294
+19 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 81.05402421951294
 20 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_02_PSA0077-2013.mp3
 20 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_02_PSA0077-2013.mp3 - region: Plantation
 y: [-0.00433627 -0.00495441 -0.00197762  0.00187105  0.0034753   0.00254379
@@ -1251,7 +1251,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.465595006942749
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-20 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.41285252571106
+20 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.41285252571106
 21 REGION: ====>>>> Plantation #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_12_PSA0254-2011.mp3
 21 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_12_PSA0254-2011.mp3 - region: Plantation
 y: [ 0.00175081 -0.00323589 -0.00785828 -0.00602909 -0.00034175  0.00169458
@@ -1271,7 +1271,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4452650547027588
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-21 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 77.94240832328796
+21 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 77.94240832328796
 22 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_01_Pasture11.mp3
 22 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_01_Pasture11.mp3 - region: Pasture
 y: [-7.8479032e-04 -2.0871679e-03  4.1018400e-04  2.8872874e-03
@@ -1294,7 +1294,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4419369697570801
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-22 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.36993598937988
+22 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.36993598937988
 23 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_09_Pasture8.mp3
 23 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_09_Pasture8.mp3 - region: Pasture
 y: [ 0.00261545 -0.00092412 -0.0060214  -0.0065224  -0.00085734  0.00450322
@@ -1314,7 +1314,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4460310935974121
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-23 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 74.0410566329956
+23 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 74.0410566329956
 24 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3
 24 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3 - region: Pasture
 y: [-0.00381287 -0.0027278   0.00032075  0.00017258 -0.00444139 -0.00411534
@@ -1335,7 +1335,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.44342517852783203
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-24 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 71.04348802566528
+24 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 71.04348802566528
 25 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3
 25 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3 - region: Pasture
 y: [-0.00626647 -0.00417781  0.00088     0.0031542   0.00375354  0.00452603
@@ -1356,7 +1356,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4383068084716797
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-25 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 79.2568109035492
+25 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 79.2568109035492
 26 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3
 26 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3 - region: Pasture
 y: [-0.00381287 -0.0027278   0.00032075  0.00017258 -0.00444139 -0.00411534
@@ -1377,7 +1377,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4549829959869385
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-26 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 71.26463031768799
+26 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 71.26463031768799
 27 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3
 27 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3 - region: Pasture
 y: [ 0.0057366  -0.00273573 -0.0150972  -0.01746827 -0.01176313 -0.00983595
@@ -1398,7 +1398,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4477722644805908
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-27 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 88.88058161735535
+27 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 88.88058161735535
 28 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_00_Pasture10.mp3
 28 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_00_Pasture10.mp3 - region: Pasture
 y: [0.00365036 0.0032973  0.00126399 0.00112457 0.00214178 0.00322806
@@ -1418,7 +1418,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4611520767211914
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-28 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 76.68540287017822
+28 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 76.68540287017822
 29 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3
 29 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3 - region: Pasture
 y: [-0.006425   -0.00607684 -0.00163868  0.00151603  0.00407694  0.00710465
@@ -1439,7 +1439,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.44894957542419434
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-29 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 72.02004766464233
+29 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 72.02004766464233
 30 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3
 30 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3 - region: Pasture
 y: [-0.00402293  0.00018895  0.00486967  0.00672111  0.00504222 -0.00141986
@@ -1460,7 +1460,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43907713890075684
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-30 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 79.94486021995544
+30 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 79.94486021995544
 31 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3
 31 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3 - region: Pasture
 y: [-0.01645248 -0.00066915 -0.01571613  0.00739202  0.0242783  -0.01983872
@@ -1481,7 +1481,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.45539021492004395
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-31 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 81.50813817977905
+31 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 81.50813817977905
 32 REGION: ====>>>> Pasture #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_02_Pasture12.mp3
 32 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_02_Pasture12.mp3 - region: Pasture
 y: [ 1.8349340e-03 -3.3504126e-05 -4.4894009e-04 -1.3686367e-05
@@ -1503,7 +1503,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4536738395690918
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-32 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 71.17793226242065
+32 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 71.17793226242065
 33 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3
 33 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3 - region: NaturalRegeneration
 y: [-0.00073008 -0.00149818 -0.00137381  0.00121684  0.0025564   0.00025634
@@ -1524,7 +1524,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.45110297203063965
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-33 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 80.4603967666626
+33 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 80.4603967666626
 34 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_05_PSA0074-2020.mp3
 34 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_05_PSA0074-2020.mp3 - region: NaturalRegeneration
 y: [-0.00413486 -0.00270978 -0.00017886 -0.00018085 -0.00060511 -0.00186505
@@ -1545,7 +1545,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.45198893547058105
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-34 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 71.85092830657959
+34 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 71.85092830657959
 35 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_13_PSA0165-2021.mp3
 35 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_13_PSA0165-2021.mp3 - region: NaturalRegeneration
 y: [ 0.00119434  0.0014703   0.00074433 -0.00060399 -0.0012913  -0.00042328
@@ -1565,7 +1565,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.44919419288635254
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-35 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 71.30366373062134
+35 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 71.30366373062134
 36 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_17_PSA0193-2013.mp3
 36 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_17_PSA0193-2013.mp3 - region: NaturalRegeneration
 y: [-9.4229414e-05  6.7900686e-04  2.5894905e-03  3.2814175e-03
@@ -1587,7 +1587,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4566762447357178
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-36 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 78.39099478721619
+36 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 78.39099478721619
 37 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_12_PSA0161-2016.mp3
 37 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_12_PSA0161-2016.mp3 - region: NaturalRegeneration
 y: [0.00123108 0.00094246 0.00163549 0.00216079 0.0021793  0.00242583
@@ -1608,7 +1608,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4338376522064209
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-37 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 78.81518363952637
+37 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 78.81518363952637
 38 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_16_PSA0183-2017.mp3
 38 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_16_PSA0183-2017.mp3 - region: NaturalRegeneration
 y: [ 9.8261726e-04 -3.2066222e-05 -2.3561085e-03 -7.2424085e-04
@@ -1630,7 +1630,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4386758804321289
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-38 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.87560939788818
+38 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.87560939788818
 39 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3
 39 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3 - region: NaturalRegeneration
 y: [-0.00364023 -0.00125221  0.00192867  0.00215246  0.00141629  0.00053356
@@ -1651,7 +1651,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4461634159088135
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-39 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 86.83943700790405
+39 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 86.83943700790405
 40 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_10_PSA0152-2013.mp3
 40 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_10_PSA0152-2013.mp3 - region: NaturalRegeneration
 y: [-0.00159034 -0.00288069  0.00053162  0.00633866  0.0039187  -0.00379815
@@ -1671,7 +1671,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43883228302001953
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-40 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 81.28768420219421
+40 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 81.28768420219421
 41 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_00_PSA0004-2017.mp3
 41 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_00_PSA0004-2017.mp3 - region: NaturalRegeneration
 y: [ 1.4344932e-03  2.4639177e-03  1.4560978e-03  3.0906291e-03
@@ -1694,7 +1694,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4505634307861328
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-41 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 82.06028389930725
+41 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 82.06028389930725
 42 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_09_PSA0151-2016.mp3
 42 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_09_PSA0151-2016.mp3 - region: NaturalRegeneration
 y: [ 6.5332302e-04  1.8729658e-03  3.3993374e-03  3.1793350e-03
@@ -1717,7 +1717,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4376680850982666
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-42 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 74.74713897705078
+42 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 74.74713897705078
 43 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3
 43 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3 - region: NaturalRegeneration
 y: [-0.00055183  0.00105216  0.00203149  0.00025324 -0.00193943  0.00096149
@@ -1738,7 +1738,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4500768184661865
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-43 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 76.75680136680603
+43 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 76.75680136680603
 44 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_15_PSA0179-2013.mp3
 44 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_15_PSA0179-2013.mp3 - region: NaturalRegeneration
 y: [-0.00528781 -0.0084039  -0.0109695  -0.00842017 -0.00410324 -0.00360032
@@ -1759,7 +1759,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.463458776473999
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-44 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 77.73926901817322
+44 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 77.73926901817322
 45 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3
 45 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3 - region: NaturalRegeneration
 y: [-0.00770338 -0.01029339 -0.00804883 -0.00901718 -0.00678219 -0.0030095
@@ -1780,7 +1780,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4353454113006592
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-45 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.45943689346313
+45 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.45943689346313
 46 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3
 46 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3 - region: NaturalRegeneration
 y: [ 0.00475994  0.00414117  0.00096587  0.00125672  0.00358638  0.0022769
@@ -1801,7 +1801,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.45764613151550293
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-46 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.5664496421814
+46 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.5664496421814
 47 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3
 47 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3 - region: NaturalRegeneration
 y: [-0.00126435 -0.00057605  0.00132228  0.00209208  0.00106727 -0.00055142
@@ -1822,7 +1822,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.43827342987060547
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-47 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 81.14211797714233
+47 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 81.14211797714233
 48 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3
 48 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3 - region: NaturalRegeneration
 y: [ 0.00295693  0.00367725  0.00196132 -0.00056545 -0.00106793  0.00118661
@@ -1843,7 +1843,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4551115036010742
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-48 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 79.71037578582764
+48 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 79.71037578582764
 49 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_06_PSA0093-2018.mp3
 49 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_06_PSA0093-2018.mp3 - region: NaturalRegeneration
 y: [ 0.01301335  0.01457914  0.00164659 -0.01007226 -0.0111896  -0.00599943
@@ -1864,7 +1864,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4561920166015625
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-49 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 75.26180219650269
+49 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 75.26180219650269
 50 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_02_PSA0026-2020.mp3
 50 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_02_PSA0026-2020.mp3 - region: NaturalRegeneration
 y: [0.00536645 0.00867253 0.01128107 0.01042143 0.0096461  0.01021449
@@ -1885,7 +1885,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.45313382148742676
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-50 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.44441628456116
+50 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.44441628456116
 51 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_14_PSA0168-2016.mp3
 51 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_14_PSA0168-2016.mp3 - region: NaturalRegeneration
 y: [ 0.00081792 -0.00090185 -0.00156615 -0.00212448  0.00072237  0.00424087
@@ -1906,7 +1906,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.44478607177734375
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-51 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 71.3402030467987
+51 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 71.3402030467987
 52 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_20_PSA0431-2013.mp3
 52 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_20_PSA0431-2013.mp3 - region: NaturalRegeneration
 y: [-1.16280979e-04 -7.45697995e-04  1.05585984e-03  6.35813922e-05
@@ -1929,7 +1929,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4525935649871826
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-52 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 81.53922939300537
+52 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 81.53922939300537
 53 REGION: ====>>>> NaturalRegeneration #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_07_PSA0099-2019.mp3
 53 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_07_PSA0099-2019.mp3 - region: NaturalRegeneration
 y: [0.01464401 0.02786117 0.03568167 0.03849116 0.03603841 0.02874531
@@ -1949,7 +1949,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4525337219238281
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-53 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 85.20000648498535
+53 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 85.20000648498535
 54 REGION: ====>>>> RefForest #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3
 54 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3 - region: RefForest
 y: [ 0.01103865  0.01176985  0.00412414 -0.00774774 -0.01663554 -0.01605902
@@ -1969,7 +1969,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4383370876312256
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-54 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 80.18378019332886
+54 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 80.18378019332886
 55 REGION: ====>>>> RefForest #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3
 55 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3 - region: RefForest
 y: [ 0.00041495  0.00191905  0.00555526  0.00784058  0.00575741  0.00123444
@@ -1989,7 +1989,7 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4530029296875
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-55 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 73.6861674785614
+55 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 73.6861674785614
 56 REGION: ====>>>> RefForest #### RUNNING #### AUDIO: ====>>>> /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3
 56 - audio_file: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3 - region: RefForest
 y: [-0.00513838 -0.00416545  0.0014226   0.00823428  0.01222593  0.01346388
@@ -2010,8 +2010,8 @@ samples rate per second:  48000
 #### RUNNING #### sum_this_sliding_window
 #### TIMES #### sum_this_sliding_window 0.4550306797027588
 #### REARRANGED THE SIGNAL SUM SLIDING_WINDOW PER 10 FREQUENCIES <class 'numpy.ndarray'> 10 <class 'numpy.ndarray'> 484
-56 #### TIMES #### process_soundscape TOTAL TOTAL ==>> 76.6855776309967
-#### TIMES #### process_soundscape TOTAL TOTAL ==>> 4392.144790649414
+56 #### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 76.6855776309967
+#### TIMES #### bootstrap_soundscape TOTAL TOTAL ==>> 4392.144790649414
 #### #### NO DA MAS #### TERMINO #### FINITO #### ####
 cwd: /home/vargas/repos/forests-sounds-vargas file: /home/vargas/repos/forests-sounds-vargas/out/cities_4085203_1728702699.txt total_time: 4392.151  TOTAL_JOBS: 32 job_id: 4085203
 #### SLEEPING TIME: 4392.151 sec ####
