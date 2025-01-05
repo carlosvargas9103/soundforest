@@ -1,6 +1,6 @@
 import gc
 
-from soupsieve.util import lower
+# from soupsieve.util import lower
 
 gc.collect()
 

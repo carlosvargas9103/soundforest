@@ -60,13 +60,11 @@ cwd = str(Path(cwd).parents[0]) if cwd.endswith('/source') else cwd
 print('PATH', cwd)
 
 ### CONSTANTS ###
-TASKS = [Task.VISUALISATION]
-TASKS = [Task.OBSERVATION]
-TASKS = [Task.EXTRACTION, Task.MODELLING]
+# TASKS = [Task.VISUALISATION]
+# TASKS = [Task.OBSERVATION]
 # TASKS = [Task.MODELLING]
-
-
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
+TASKS = [Task.EXTRACTION, Task.MODELLING]
 
 
 def get_args():
@@ -247,7 +245,7 @@ def main():
     ### DEFINE ENVIRONMENT VARIABLES ###
     # TODO: define all the environment variables
     # relevant for observation, extraction, and sampling
-    global TASKS, job_id, N_JOBS, path_data, path_out, verbo, windows_13
+    global tasks, job_id, N_JOBS, path_data, path_out, verbo, windows_13
     global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, secs_b, w_size_mins
     global audio_files_processed, outfile_name
     # relevant for modelling
@@ -268,6 +266,7 @@ def main():
     for task in tasks:
         match task:
             case Task.OBSERVATION:
+                print('#### #### HOI OBSERVATION #### ####')
                 t00 = time.time()
                 folders_in, f_pattern_out, f_ext_in = 'files_in', 'observation', ''
                 # READ audio_files to process
@@ -322,6 +321,7 @@ def main():
                 print('#### TIMES #### observation TOTAL TOTAL ==>>', time.time() - t00)
 
             case Task.VISUALISATION:
+                print('#### #### HOI VISUALISATION #### ####')
                 t00 = time.time()
                 # LOAD preprocessed n-dimensional arrays to plot
                 folders_in, f_pattern_out, f_ext_in = 'data/observation/', 'visualisation', '.npy'
@@ -362,12 +362,12 @@ def main():
                                              secs_b=secs_b, w_size_mins=w_size_mins,
                                              verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                              f_pattern_out=f_pattern_out)
-                        print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
+                        print(i, '#### TIMES #### visualisation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                         f_progress.at[i, 'processed'] = True
                         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                           index=True)
-                        break
-                    exit()
+                    #     break
+                    # exit()
                 except Exception as e:
                     print('ALWAYS PROBLEMS', e)
                     raise
@@ -378,6 +378,7 @@ def main():
                 print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
 
             case Task.EXTRACTION:
+                print('#### #### HOI EXTRACTION #### ####')
                 t00 = time.time()
                 path_data = args.path_in
                 folders_in, f_pattern_out, f_ext_in = 'files_in', 'extraction', ''
@@ -405,7 +406,7 @@ def main():
                 try:
                     for i, f in audio_files.iterrows():
                         if bool(f.processed):
-                            # print(f)
+                            print('ALREADY PROCESED:', f.filename)
                             continue
                         t11 = time.time()
                         print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
@@ -418,7 +419,7 @@ def main():
                                              secs_b=secs_b, w_size_mins=w_size_mins,
                                              verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                              f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30)
-                        print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
+                        print(i, '#### TIMES #### extraction #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                         f_progress.at[i, 'processed'] = True
                         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                           index=True)
@@ -431,9 +432,10 @@ def main():
                     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
                     f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                                       index=True)
-                print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
+                print('#### TIMES #### extraction TOTAL TOTAL ==>>', time.time() - t00)
 
             case Task.MODELLING:
+                print('#### #### HOI MODELLING #### ####')
                 t00 = time.time()
                 path_data = args.path_in
                 folders_in, f_pattern_out, f_ext_in = 'extraction', 'modelling', '.pkl'

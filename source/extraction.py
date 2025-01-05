@@ -44,9 +44,9 @@ random.seed("9103")
 
 
 # def get_audio_indices(file_name: str = '',
-def get_audio_indices(s, fs,
-                      apply_filter: bool = False, start_freqs: int = 0, end_freqs: int = 10000) -> Tuple[
-    float]:
+def get_audio_indices(s=None, fs: int = 0,
+                      apply_filter: bool = False, start_freqs: int = 0, end_freqs: int = 10000
+                      ) -> Tuple[float]:
     """
     Load an audio file, optionally apply a bandstop filter, and calculate various acoustic indices.
 
@@ -66,7 +66,7 @@ def get_audio_indices(s, fs,
     # if s.size()[0] != 1:
     #     s = torch.unsqueeze(s[0, :], 0)
 
-        # If filtering is applied, filter the signal before computing the spectrogram
+    # If filtering is applied, filter the signal before computing the spectrogram
     if apply_filter and start_freqs is not None and end_freqs is not None:
         s_filtered = butter_bandstop_filter(s.numpy()[0, :], start_freqs, end_freqs, fs)
         s = torch.tensor(s_filtered.copy()[None, :])  # Add a new axis to make it 2D again
@@ -152,6 +152,7 @@ def bootstrap_soundscape(audio_file: str = '',
     print('NUMBERS', sr, isamples_s, samples_s, secs_b)
     my_chunks = samples_s / secs_b
     split_y = np.hsplit(y_c, my_chunks)
+
     print('####', 'CHUNKS Y_C',
           f'total_chunks: {len(split_y)}',
           f'chunk_size: {len(split_y[0])}',
@@ -191,7 +192,6 @@ def bootstrap_soundscape(audio_file: str = '',
 
         print('####', 'PARALLEL INDICES Y_C', len(split_y_indices), len(split_y_indices[0]),
               split_y_indices[0][:3], f'{(time.time() - t1):.3}')
-
 
     # print('####', 'HANNING', '\n',
     #       f'hanning => max: {max(split_y[0])} min: {min(split_y[0])} mean: {(split_y[0].mean())} size: {len(split_y[250])}', '\n',
@@ -251,7 +251,6 @@ def bootstrap_soundscape(audio_file: str = '',
     split_y_split_bands = np.array(
         Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(split_freq_band_per_frame)(y_i) for y_i in split_y)
     )
-
 
     print('####', 'PARALLEL SPLIT Y_C PER FREQUENCY',
           len(split_y_split_bands), len(split_y_split_bands[0]),
@@ -369,6 +368,7 @@ def bootstrap_soundscape(audio_file: str = '',
     # exit()
 
     print('#### TIMES #### extraction TOTAL TOTAL ==>>', round(time.time() - t00, 3))
+
 
 if __name__ == '__main__':
     print('Mirá ve.. oís?? alles gut oder was??')

@@ -78,11 +78,12 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     print('#### #### READING DATA FILES #### ####')
     try:
+        print(files_path[0])
         df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
         print(df_data.shape, df_data.columns[:19])
         # print(df_merged.head(3))
     except Exception as e:
-        print('ALWAYS PROBLEMS', e)
+        print('ALWAYS PROBLEMS', 'NO DATA FROM PRE-PROCESSING', e)
 
     print('####', 'MERGE', len(files_path),
           'merge_data Dataframe shape:', df_data.shape,
@@ -260,20 +261,20 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     #### MODELS ####
     cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-    # lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-    # cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+    lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+    cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
 
     dict_models = {
         0: [cnn_lstm],
-        # 1: [lstm_cnn],
-        # 11: [cnn_lstm, lstm_cnn],
-        # 2: [cnn_lstm_parallel],
-        # 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+        1: [lstm_cnn],
+        11: [cnn_lstm, lstm_cnn],
+        2: [cnn_lstm_parallel],
+        22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    models = dict_models.get(0, [cnn_lstm])
+    models = dict_models.get(22, [cnn_lstm])
 
     #### TRAIN ####
-    num_epochs = 19
+    num_epochs = 61
     print('####', 'MODELS', dict_models, '####')
     print('####', 'MODELS - TOTAL', len(models), '####')
     print('####', 'EPOCHS', num_epochs, '####')
