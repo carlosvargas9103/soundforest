@@ -1,6 +1,11 @@
 # forests-sounds
 
-Carlos VARGAS & G. DELGADO & C. REMLINGER
+for Master Thesis at TU Wien
+
+Author: Carlos VARGAS
+
+Co-Supervisors: G. DELGADO & C. REMLINGER
+
 
 ## TODO
 - [x] Install environment
@@ -13,17 +18,37 @@ Carlos VARGAS & G. DELGADO & C. REMLINGER
     - [x] [warbleR](https://cran.r-project.org/web/packages/warbleR/index.html)
 - [x] Identify METHODS
 - [ ] Read PAPERS (in-progress):
-  - [x] CS - Colombia
-  - [x] CS - CR
-  - [x] CS - 2
-  - [x] CA - 3
-  - [x] 2 Giacomo
-  - [ ] Roadmap
-  - [ ] 1/2 Bio-acoustics metrics
-  - [ ] Music metrics
-  - [ ] Images for Music (tbc)
-  - [ ] 1/3 Modelling
-  - [ ] 1/3 Classification
-- [ ] 1/3 Presentation
-- [ ] Results
-
+  - [x] CS - COL
+  - [x] CS - COR
+  - [x] CS - 002 (Name??)
+  - [x] CS - 003 (Name??)
+  - [x] BA - COL (Luna-Naranjo)
+  - [x] BA - COL (Ulloa)
+  - [x] BA - CHL (Name??)
+  - [ ] MS - 007 (Name??)
+  - [ ] MS - 008 (Name??)
+  - [ ] RN - 009 (Name??)
+  - [ ] RN - 010 (Name??)
+- [ ] Implement METHODS (CODE in-progress)
+  - [ ] 2/3 Giacomo metrics
+  - [ ] 2/3 Bio-acoustics metrics (in-progress)
+    - [x] CS - 002 (Name??)
+    - [x] CS - 003 (Name??)
+    - [x] BA - COL (Luna-Naranjo, David) => 2024 => indices.py
+    - [x] BA - COL (maad - Ulloa, Juan) => Soundscapy => metrics.py
+    - [ ] BA - FRA (Patrice Guyot) => 2014 => compute_indices.py
+    - [ ] BA - FRA (MOSQUITO)
+  - [ ] 0/2 Music metrics
+    - [ ] MS - 007 (Name??)
+    - [ ] MS - 008 (Name??)
+    - [ ] RN - 009 (Name??) 
+    - [ ] RN - 010 (Name??) 
+  - [ ] 2/3 Modelling (in-progress)
+  - [ ] 2/3 Classification
+  - [ ] 1/2 Images for Music (tbc)
+- [ ] ARTIFACTS
+  - [ ] 1/2 Roadmap (10.01.2025)
+  - [ ] 1/3 Presentation - EPFL
+  - [ ] 1/3 Seminar Paper Research Methods
+  - [ ] 1/3 Thesis Manuscript TU Wien
+  - [ ] Results - Presentation - Meeting

@@ -76,9 +76,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
+    print('#### #### READING DATA FILES #### ####')
     try:
         df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
-        print(df_data.shape, df_data.columns[:9])
+        print(df_data.shape, df_data.columns[:19])
         # print(df_merged.head(3))
     except Exception as e:
         print('ALWAYS PROBLEMS', e)
@@ -88,6 +89,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
           '####', 'time:', int(time.time() - t0))
 
     # exit()
+    print('#### #### SPLIT TRAIN TEST #### ####')
     t0 = time.time()
     X_train, X_test, y_train, y_test = train_test_split(df_data.iloc[:, 1:], df_data.iloc[:, 0], test_size=0.2, random_state=9103)
     # Normalize the data
@@ -258,14 +260,14 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     #### MODELS ####
     cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-    lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-    cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+    # lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+    # cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
 
     dict_models = {
         0: [cnn_lstm],
-        1: [lstm_cnn],
+        # 1: [lstm_cnn],
         # 11: [cnn_lstm, lstm_cnn],
-        2: [cnn_lstm_parallel],
+        # 2: [cnn_lstm_parallel],
         # 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
     models = dict_models.get(0, [cnn_lstm])
@@ -279,6 +281,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     # exit()
 
     tt0 = time.time()
+    print('####', 'TRAINING', 'MODELS', '####')
     train(models, train_loader, epochs=num_epochs)
     print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
