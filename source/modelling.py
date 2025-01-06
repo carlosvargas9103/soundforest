@@ -116,8 +116,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     print('####', 'CLASSES:', np.unique(y_train), 'TOTAL', num_classes)
 
     # batch_s = 64 if windows_13 else 128
-    # batch_s = 64  # if windows_13 else 64
-    batch_s = 128 if windows_13 else 128
+    batch_s = 64 if windows_13 else 64
+    # batch_s = 128 if windows_13 else 128
+    # batch_s = 128 if windows_13 else 64
     train_loader = DataLoader(train_dataset, batch_size=batch_s, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_s, shuffle=False)
 
