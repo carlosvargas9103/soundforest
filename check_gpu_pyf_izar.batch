@@ -1,13 +1,13 @@
 #!/bin/bash -l
 #SBATCH --job-name=check_gpu_pyforest_01
-#SBATCH --nodes=1
+#SBATCH --nodes=8
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=128GB
-#SBATCH --time=10:01:00
+#SBATCH --time=10:11:01
 #SBATCH --gres=gpu:1
-#SBATCH --partition=gpu-xl
+#SBATCH --partition=gpu
 #SBATCH --qos=gpu
 # --ntasks=1
 # --qos=serial
