@@ -4,8 +4,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+#  - acoustics
   - python=3.11.9
-  - pip=24.2
+  - pip=24.3
   - numpy=1.26.4
   - pandas=2.2.2
   - librosa=0.10.2.post1
@@ -16,5 +17,4 @@ dependencies:
   - seaborn
   - matplotlib
   - scikit-maad
-  - acoustics
 

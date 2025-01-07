@@ -1,16 +1,12 @@
 import gc
 
-from sympy.diffgeom import metric_to_Christoffel_1st
-
 gc.collect()
 
+import os
 import copy
 import time
 import random
-# import datetime
 import indices
-
-# import torchaudio
 
 from typing import List, Tuple
 
@@ -357,9 +353,9 @@ def bootstrap_soundscape(audio_file: str = '',
     #       4. Transform the data => filters, envelope, pitch, etc.. - 3h
     #       6. Plot the distribution or each frequency against a metric per region. - 2h
     #       7. Save the plots.. - 1h
-
+    file_name_name = os.path.splitext(os.path.basename(audio_file))[0]
     df_m.to_pickle(
-        f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
+        f'{path_out}data/{f_pattern_out}/{region}/{file_name_name}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
 
     # df_m.to_csv(
     #     f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv',

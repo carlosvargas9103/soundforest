@@ -32,6 +32,7 @@ from torch.optim import Adam
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
+
 # <<< import libraries for CNN <<<<
 
 # from warnings import simplefilter
@@ -41,6 +42,7 @@ random.seed("9103")
 
 ### IDENTIFY PATH ###
 t00 = time.time()
+
 
 def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                            ncols: int = 6009, *,
@@ -111,14 +113,16 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     input_size = X_train.shape[-1]
     hidden_size = 128
     num_layers = 2
-    num_classes = len(np.unique(y_train))
-    num_classes = num_classes if num_classes >= 4 else num_classes + 1
-    print('####', 'CLASSES:', np.unique(y_train), 'TOTAL', num_classes)
+    unique_classes = np.unique(np.concatenate((y_train, y_test)))
+    num_classes = 4 if len(unique_classes) <= 4 else len(unique_classes)
+    # num_classes = num_classes if num_classes >= 4 else num_classes + 1
+    print('####', 'CLASSES:', unique_classes, 'TOTAL', num_classes)
 
     # batch_s = 64 if windows_13 else 128
     batch_s = 64 if windows_13 else 64
-    batch_s = 128 if windows_13 else 128
-    batch_s = 192 if windows_13 else 192
+    # batch_s = 32 if windows_13 else 32
+    # batch_s = 128 if windows_13 else 128
+    # batch_s = 192 if windows_13 else 192
     # batch_s = 128 if windows_13 else 64
     train_loader = DataLoader(train_dataset, batch_size=batch_s, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_s, shuffle=False)
@@ -251,7 +255,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                   f'Loss: {loss.item():.4f}',
                                   f'Time: {round(time.time() - t1, 3)}')
 
-            torch.save(model.state_dict(), f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.model')
+            # torch.save(model.state_dict(), f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.model')
             print('####',
                   'TRAINED MODEL',
                   model.__class__.__name__,
@@ -259,25 +263,23 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                   'total time:', round(time.time() - t0, 3),
                   '####')
 
-
-
     #### MODELS ####
     cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-    lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-    cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+    # lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+    # cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
 
     dict_models = {
         0: [cnn_lstm],
-        1: [lstm_cnn],
-        11: [cnn_lstm, lstm_cnn],
-        2: [cnn_lstm_parallel],
-        22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+        # 1: [lstm_cnn],
+        # 11: [cnn_lstm, lstm_cnn],
+        # 2: [cnn_lstm_parallel],
+        # 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    models = dict_models.get(22, [cnn_lstm])
+    models = dict_models.get(0, [cnn_lstm])
 
     #### TRAIN ####
-    num_epochs = 71
-    print('####', 'MODELS', dict_models, '####')
+    num_epochs = 3
+    # print('####', 'MODELS', dict_models, '####')
     print('####', 'MODELS - TOTAL', len(models), '####')
     print('####', 'EPOCHS', num_epochs, '####')
 
@@ -289,7 +291,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
     # test
-    def test(models, test_loader):
+    def ttest(models, test_loader):
         with torch.no_grad():
             correct = 0
             total = 0
@@ -307,12 +309,50 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 accuracy_dict[model.__class__.__name__] = 100 * correct / total
         return accuracy_dict
 
+    def test(models, test_loader):
+        with torch.no_grad():
+            model_scores_dict = {}
+            for model in models:
+                model.eval()
+                metrics = {'TP': 0, 'TN': 0, 'FP': 0, 'FN': 0}
+                total = 0
+                correct = 0
+                for x, y in test_loader:
+                    x = x.to(device)
+                    y = y.to(device)
+                    y_pred = model(x)
+                    _, predicted = torch.max(y_pred.data, 1)
+                    # Update total and correct predictions
+                    total += y.size(0)
+                    correct += (predicted == y).sum().item()
+                    # Compute TP, TN, FP, FN
+                    for cls in torch.unique(y): # Iterate over unique classes
+                        cls = cls.item()
+                        cls_pred = (predicted == cls)  # Predictions for the current class
+                        cls_true = (y == cls)  # Ground truth for the current class
+                        metrics['TP'] += (cls_pred & cls_true).sum().item()
+                        metrics['FP'] += (cls_pred & ~cls_true).sum().item()
+                        metrics['FN'] += (~cls_pred & cls_true).sum().item()
+                        metrics['TN'] += ((~cls_pred) & (~cls_true)).sum().item()
+
+                accuracy = 100 * correct / total
+                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy:.2f} %')
+
+                model_scores_dict[model.__class__.__name__] = {
+                    'AC': accuracy,
+                    'TP': metrics['TP'],
+                    'TN': metrics['TN'],
+                    'FP': metrics['FP'],
+                    'FN': metrics['FN'],
+                }
+            return model_scores_dict
+
     tt0 = time.time()
     accuracy_dict = test(models, test_loader)
     print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
     # plot bar chart with the accuracy of each model
-    # sns.barplot(x=list(accuracy_dict.keys()), y=list(accuracy_dict.values()))
+    # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
 
     with open(f'{model_path}000_models_accuracy_dict_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
         json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
