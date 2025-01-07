@@ -1,4 +1,7 @@
-check_gpu.py 
+# !/venvs/tpy310f_ihk/bin/python
+# filename: check_gpu.py
+# -*- coding: utf-8 -*-
+
 import torch
 print(torch.__version__)
 print(f"Is available: {torch.cuda.is_available()}")

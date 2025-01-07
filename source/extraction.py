@@ -347,7 +347,7 @@ def bootstrap_soundscape(audio_file: str = '',
     # TODO: Reduce the time of the samples - DONE!
     # TODO: Next meeting => 08.01.2025.
     # TODO: Methodology PDFs FOLDER on Git?
-
+    #
     # TODO: Pipeline (12-24-07.01.25):
     #       0. Frame per 6 secs with 1.9 secs overlapping, make sure the vectors have all the same size. - DONE
     #       1. Apply Hanning window to smooth the frame. - DONE!
