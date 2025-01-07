@@ -1,0 +1,776 @@
+#### TIME #### TERMINO #### 0.0 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 0.0
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### HOI EXTRACTION #### ####
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+starting with => 57 soundscapes => now 1736248061
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_00_PSA0010-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_18_PSA0373-2011.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_16_PSA0292-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/PSA0025-2015.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_21_PSA0429-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_11_PSA0192-2009.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_01_PSA0022-2015.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_02_PSA0077-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_12_PSA0254-2011.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_01_Pasture11.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_09_Pasture8.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_00_Pasture10.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_02_Pasture12.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_05_PSA0074-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_13_PSA0165-2021.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_17_PSA0193-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_12_PSA0161-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_16_PSA0183-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_10_PSA0152-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_00_PSA0004-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_09_PSA0151-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_15_PSA0179-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_06_PSA0093-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_02_PSA0026-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_14_PSA0168-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_20_PSA0431-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_07_PSA0099-2019.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### extraction TOTAL TOTAL ==>> 0.1653451919555664
+#### #### HOI MODELLING #### ####
+0/57 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### #### READING DATA FILES #### ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_08_PSA0095-2013_dict_y_split_14_2509977_1736196176.pkl')
+(249660, 6018) Index(['reg', 'sid', 'sec', 'ban', 'men', 'med', 'sum', 'max', 'min', 'aci',
+       'aca', 'adi', 'bet', 'mmm', 'npp', 'hhh', 'aei', 'dsi', 'vec_0'],
+      dtype='object')
+#### MERGE 57 merge_data Dataframe shape: (249660, 6018) #### time: 29
+#### #### SPLIT TRAIN TEST #### ####
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 132
+#### MODELS {0: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+)], 1: [LSTM_CNN(
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (cnn): Sequential(
+    (0): Conv1d(128, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=256, bias=True)
+    (8): ReLU()
+    (9): Linear(in_features=256, out_features=4, bias=True)
+  )
+)], 11: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+), LSTM_CNN(
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (cnn): Sequential(
+    (0): Conv1d(128, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=256, bias=True)
+    (8): ReLU()
+    (9): Linear(in_features=256, out_features=4, bias=True)
+  )
+)], 2: [ParallelCNNLSTMModel(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=128, bias=True)
+    (8): ReLU()
+  )
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (fc_lstm): Linear(in_features=128, out_features=128, bias=True)
+  (fc): Linear(in_features=256, out_features=4, bias=True)
+)], 22: [CNN_LSTM(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (lstm): LSTM(128, 128, num_layers=2, batch_first=True)
+  (fc): Linear(in_features=128, out_features=4, bias=True)
+), LSTM_CNN(
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (cnn): Sequential(
+    (0): Conv1d(128, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=256, bias=True)
+    (8): ReLU()
+    (9): Linear(in_features=256, out_features=4, bias=True)
+  )
+), ParallelCNNLSTMModel(
+  (cnn): Sequential(
+    (0): Conv1d(1, 64, kernel_size=(3,), stride=(1,), padding=(1,))
+    (1): ReLU()
+    (2): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (3): Conv1d(64, 128, kernel_size=(3,), stride=(1,), padding=(1,))
+    (4): ReLU()
+    (5): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (6): Flatten(start_dim=1, end_dim=-1)
+    (7): LazyLinear(in_features=0, out_features=128, bias=True)
+    (8): ReLU()
+  )
+  (lstm): LSTM(1, 128, num_layers=2, batch_first=True)
+  (fc_lstm): Linear(in_features=128, out_features=128, bias=True)
+  (fc): Linear(in_features=256, out_features=4, bias=True)
+)]} ####
+#### MODELS - TOTAL 3 ####
+#### EPOCHS 22 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [33/1561] Loss: 1.1950 Time: 1210.975
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [66/1561] Loss: 1.2459 Time: 1213.767
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [99/1561] Loss: 1.1796 Time: 1216.558
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [132/1561] Loss: 1.3461 Time: 1219.35
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [165/1561] Loss: 1.1606 Time: 1222.14
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [198/1561] Loss: 1.0920 Time: 1224.932
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [231/1561] Loss: 1.1498 Time: 1227.722
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [264/1561] Loss: 1.2798 Time: 1230.514
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [297/1561] Loss: 1.2453 Time: 1233.306
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [330/1561] Loss: 1.2220 Time: 1236.102
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [363/1561] Loss: 1.2347 Time: 1238.898
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [396/1561] Loss: 1.1995 Time: 1241.689
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [429/1561] Loss: 1.2501 Time: 1244.482
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [462/1561] Loss: 1.1492 Time: 1247.275
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [495/1561] Loss: 1.2275 Time: 1250.067
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [528/1561] Loss: 1.2586 Time: 1252.868
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [561/1561] Loss: 1.2377 Time: 1255.663
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [594/1561] Loss: 1.1581 Time: 1258.454
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [627/1561] Loss: 1.2925 Time: 1261.247
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [660/1561] Loss: 1.2619 Time: 1264.042
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [693/1561] Loss: 1.1717 Time: 1266.838
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [726/1561] Loss: 1.1577 Time: 1269.631
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [759/1561] Loss: 1.2377 Time: 1272.423
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [792/1561] Loss: 1.2618 Time: 1275.216
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [825/1561] Loss: 1.1641 Time: 1278.01
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [858/1561] Loss: 1.1716 Time: 1280.802
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [891/1561] Loss: 1.1905 Time: 1283.593
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [924/1561] Loss: 1.2367 Time: 1286.384
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [957/1561] Loss: 1.2775 Time: 1289.175
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [990/1561] Loss: 1.2283 Time: 1291.968
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1023/1561] Loss: 1.1690 Time: 1294.764
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1056/1561] Loss: 1.1463 Time: 1297.562
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1089/1561] Loss: 1.1592 Time: 1300.354
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1122/1561] Loss: 1.2566 Time: 1303.147
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1155/1561] Loss: 1.2462 Time: 1305.938
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1188/1561] Loss: 1.1777 Time: 1308.728
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1221/1561] Loss: 1.2830 Time: 1311.52
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1254/1561] Loss: 1.2362 Time: 1314.311
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1287/1561] Loss: 1.2787 Time: 1317.104
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1320/1561] Loss: 1.1386 Time: 1319.895
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1353/1561] Loss: 1.2166 Time: 1322.687
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1386/1561] Loss: 1.1987 Time: 1325.483
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1419/1561] Loss: 1.2580 Time: 1328.28
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1452/1561] Loss: 1.1768 Time: 1331.072
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1485/1561] Loss: 1.2938 Time: 1333.864
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1518/1561] Loss: 1.2387 Time: 1336.656
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1551/1561] Loss: 1.2098 Time: 1339.448
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [33/1561] Loss: 1.1984 Time: 2531.612
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [66/1561] Loss: 1.1506 Time: 2534.403
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [99/1561] Loss: 1.2460 Time: 2537.193
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [132/1561] Loss: 1.1928 Time: 2539.985
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [165/1561] Loss: 1.2254 Time: 2542.775
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [198/1561] Loss: 1.1640 Time: 2545.565
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [231/1561] Loss: 1.2094 Time: 2548.356
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [264/1561] Loss: 1.3588 Time: 2551.147
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [297/1561] Loss: 1.2024 Time: 2553.938
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [330/1561] Loss: 1.1467 Time: 2556.735
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [363/1561] Loss: 1.1920 Time: 2559.525
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [396/1561] Loss: 1.2341 Time: 2562.315
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [429/1561] Loss: 1.1780 Time: 2565.106
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [462/1561] Loss: 1.1880 Time: 2567.896
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [495/1561] Loss: 1.1894 Time: 2570.686
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [528/1561] Loss: 1.2367 Time: 2573.476
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [561/1561] Loss: 1.2543 Time: 2576.266
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [594/1561] Loss: 1.2814 Time: 2579.057
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [627/1561] Loss: 1.2388 Time: 2581.847
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [660/1561] Loss: 1.1578 Time: 2584.639
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [693/1561] Loss: 1.1825 Time: 2587.435
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [726/1561] Loss: 1.2493 Time: 2590.226
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [759/1561] Loss: 1.2097 Time: 2593.018
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [792/1561] Loss: 1.2042 Time: 2595.807
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [825/1561] Loss: 1.1934 Time: 2598.597
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [858/1561] Loss: 1.1419 Time: 2601.387
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [891/1561] Loss: 1.2097 Time: 2604.177
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [924/1561] Loss: 1.1232 Time: 2606.966
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [957/1561] Loss: 1.2173 Time: 2609.756
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [990/1561] Loss: 1.2281 Time: 2612.547
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1023/1561] Loss: 1.2398 Time: 2615.337
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1056/1561] Loss: 1.2745 Time: 2618.132
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1089/1561] Loss: 1.1773 Time: 2620.922
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1122/1561] Loss: 1.2632 Time: 2623.711
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1155/1561] Loss: 1.2221 Time: 2626.5
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1188/1561] Loss: 1.2518 Time: 2629.288
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1221/1561] Loss: 1.2219 Time: 2632.079
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1254/1561] Loss: 1.2347 Time: 2634.869
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1287/1561] Loss: 1.2148 Time: 2637.659
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1320/1561] Loss: 1.1839 Time: 2640.449
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1353/1561] Loss: 1.2335 Time: 2643.24
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1386/1561] Loss: 1.2411 Time: 2646.031
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1419/1561] Loss: 1.2020 Time: 2648.827
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1452/1561] Loss: 1.2150 Time: 2651.617
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1485/1561] Loss: 1.1887 Time: 2654.408
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1518/1561] Loss: 1.2092 Time: 2657.198
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1551/1561] Loss: 1.2221 Time: 2659.989
+#### TRAINED MODEL CNN_LSTM training time: 2925.277 total time: 2925.881 ####
+#### TRAINING MODEL LSTM_CNN ####
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [33/1561] Loss: 1.1517 Time: 3587.263
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [66/1561] Loss: 1.2582 Time: 3595.672
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [99/1561] Loss: 1.2720 Time: 3604.072
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [132/1561] Loss: 1.2140 Time: 3612.469
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [165/1561] Loss: 1.3203 Time: 3620.872
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [198/1561] Loss: 1.2166 Time: 3629.284
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [231/1561] Loss: 1.2271 Time: 3637.69
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [264/1561] Loss: 1.1744 Time: 3646.089
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [297/1561] Loss: 1.1673 Time: 3654.501
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [330/1561] Loss: 1.1722 Time: 3662.902
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [363/1561] Loss: 1.2683 Time: 3671.305
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [396/1561] Loss: 1.2431 Time: 3679.714
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [429/1561] Loss: 1.1724 Time: 3688.126
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [462/1561] Loss: 1.1520 Time: 3696.529
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [495/1561] Loss: 1.2428 Time: 3704.93
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [528/1561] Loss: 1.2006 Time: 3713.337
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [561/1561] Loss: 1.1959 Time: 3721.74
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [594/1561] Loss: 1.1730 Time: 3730.143
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [627/1561] Loss: 1.1818 Time: 3738.547
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [660/1561] Loss: 1.2477 Time: 3746.958
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [693/1561] Loss: 1.2378 Time: 3755.363
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [726/1561] Loss: 1.1386 Time: 3763.768
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [759/1561] Loss: 1.1522 Time: 3772.172
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [792/1561] Loss: 1.1500 Time: 3780.577
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [825/1561] Loss: 1.2107 Time: 3788.981
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [858/1561] Loss: 1.2151 Time: 3797.384
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [891/1561] Loss: 1.2400 Time: 3805.796
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [924/1561] Loss: 1.2346 Time: 3814.2
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [957/1561] Loss: 1.1819 Time: 3822.605
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [990/1561] Loss: 1.2362 Time: 3831.009
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1023/1561] Loss: 1.1682 Time: 3839.421
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1056/1561] Loss: 1.2172 Time: 3847.825
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1089/1561] Loss: 1.2183 Time: 3856.227
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1122/1561] Loss: 1.1569 Time: 3864.642
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1155/1561] Loss: 1.1830 Time: 3873.041
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1188/1561] Loss: 1.2834 Time: 3881.444
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1221/1561] Loss: 1.1104 Time: 3889.848
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1254/1561] Loss: 1.1640 Time: 3898.262
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1287/1561] Loss: 1.2554 Time: 3906.664
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1320/1561] Loss: 1.2110 Time: 3915.069
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1353/1561] Loss: 1.2250 Time: 3923.474
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1386/1561] Loss: 1.2024 Time: 3931.879
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1419/1561] Loss: 1.2278 Time: 3940.283
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1452/1561] Loss: 1.2063 Time: 3948.686
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1485/1561] Loss: 1.1928 Time: 3957.097
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1518/1561] Loss: 1.2447 Time: 3965.504
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1551/1561] Loss: 1.2461 Time: 3973.907
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [33/1561] Loss: 1.2449 Time: 7562.436
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [66/1561] Loss: 1.2234 Time: 7570.838
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [99/1561] Loss: 1.2548 Time: 7579.238
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [132/1561] Loss: 1.2593 Time: 7587.653
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [165/1561] Loss: 1.2467 Time: 7596.059
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [198/1561] Loss: 1.3124 Time: 7604.459
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [231/1561] Loss: 1.2610 Time: 7612.865
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [264/1561] Loss: 1.2308 Time: 7621.272
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [297/1561] Loss: 1.2731 Time: 7629.675
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [330/1561] Loss: 1.1897 Time: 7638.076
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [363/1561] Loss: 1.2054 Time: 7646.481
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [396/1561] Loss: 1.1897 Time: 7654.885
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [429/1561] Loss: 1.1925 Time: 7663.289
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [462/1561] Loss: 1.2434 Time: 7671.693
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [495/1561] Loss: 1.1841 Time: 7680.098
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [528/1561] Loss: 1.1909 Time: 7688.506
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [561/1561] Loss: 1.2068 Time: 7696.911
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [594/1561] Loss: 1.1231 Time: 7705.316
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [627/1561] Loss: 1.3065 Time: 7713.724
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [660/1561] Loss: 1.1992 Time: 7722.126
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [693/1561] Loss: 1.1558 Time: 7730.532
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [726/1561] Loss: 1.2281 Time: 7738.946
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [759/1561] Loss: 1.2060 Time: 7747.35
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [792/1561] Loss: 1.1816 Time: 7755.755
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [825/1561] Loss: 1.2525 Time: 7764.164
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [858/1561] Loss: 1.2492 Time: 7772.574
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [891/1561] Loss: 1.1675 Time: 7780.978
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [924/1561] Loss: 1.2529 Time: 7789.386
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [957/1561] Loss: 1.1536 Time: 7797.799
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [990/1561] Loss: 1.1950 Time: 7806.206
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1023/1561] Loss: 1.2975 Time: 7814.606
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1056/1561] Loss: 1.1564 Time: 7823.014
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1089/1561] Loss: 1.2804 Time: 7831.419
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1122/1561] Loss: 1.1952 Time: 7839.831
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1155/1561] Loss: 1.2153 Time: 7848.236
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1188/1561] Loss: 1.2208 Time: 7856.637
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1221/1561] Loss: 1.2737 Time: 7865.043
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1254/1561] Loss: 1.3024 Time: 7873.452
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1287/1561] Loss: 1.2226 Time: 7881.861
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1320/1561] Loss: 1.1454 Time: 7890.269
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1353/1561] Loss: 1.1749 Time: 7898.67
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1386/1561] Loss: 1.2390 Time: 7907.071
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1419/1561] Loss: 1.2572 Time: 7915.479
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1452/1561] Loss: 1.2825 Time: 7923.881
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1485/1561] Loss: 1.2384 Time: 7932.281
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1518/1561] Loss: 1.3458 Time: 7940.682
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1551/1561] Loss: 1.2839 Time: 7949.094
+#### TRAINED MODEL LSTM_CNN training time: 8746.853 total time: 11672.734 ####
+#### TRAINING MODEL ParallelCNNLSTMModel ####
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [33/1561] Loss: 1.2297 Time: 3342.317
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [66/1561] Loss: 1.1461 Time: 3350.154
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [99/1561] Loss: 1.1786 Time: 3357.99
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [132/1561] Loss: 1.1893 Time: 3365.824
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [165/1561] Loss: 1.1818 Time: 3373.66
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [198/1561] Loss: 1.2453 Time: 3381.495
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [231/1561] Loss: 1.1635 Time: 3389.321
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [264/1561] Loss: 1.2479 Time: 3397.155
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [297/1561] Loss: 1.1931 Time: 3404.993
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [330/1561] Loss: 1.2343 Time: 3412.826
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [363/1561] Loss: 1.2098 Time: 3420.661
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [396/1561] Loss: 1.2058 Time: 3428.499
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [429/1561] Loss: 1.2381 Time: 3436.333
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [462/1561] Loss: 1.1487 Time: 3444.165
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [495/1561] Loss: 1.1891 Time: 3451.996
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [528/1561] Loss: 1.2407 Time: 3459.824
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [561/1561] Loss: 1.2410 Time: 3467.657
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [594/1561] Loss: 1.2186 Time: 3475.488
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [627/1561] Loss: 1.2257 Time: 3483.319
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [660/1561] Loss: 1.2584 Time: 3491.157
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [693/1561] Loss: 1.2566 Time: 3498.998
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [726/1561] Loss: 1.1685 Time: 3506.832
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [759/1561] Loss: 1.2066 Time: 3514.668
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [792/1561] Loss: 1.1319 Time: 3522.496
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [825/1561] Loss: 1.1309 Time: 3530.332
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [858/1561] Loss: 1.1861 Time: 3538.161
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [891/1561] Loss: 1.2304 Time: 3545.997
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [924/1561] Loss: 1.1704 Time: 3553.822
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [957/1561] Loss: 1.1654 Time: 3561.655
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [990/1561] Loss: 1.2357 Time: 3569.485
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1023/1561] Loss: 1.2859 Time: 3577.329
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1056/1561] Loss: 1.1885 Time: 3585.162
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1089/1561] Loss: 1.1757 Time: 3592.996
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1122/1561] Loss: 1.2242 Time: 3600.825
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1155/1561] Loss: 1.2423 Time: 3608.661
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1188/1561] Loss: 1.1261 Time: 3616.496
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1221/1561] Loss: 1.2359 Time: 3624.331
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1254/1561] Loss: 1.2232 Time: 3632.163
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1287/1561] Loss: 1.2662 Time: 3640.001
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1320/1561] Loss: 1.2641 Time: 3647.837
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1353/1561] Loss: 1.2191 Time: 3655.671
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1386/1561] Loss: 1.2275 Time: 3663.501
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1419/1561] Loss: 1.1163 Time: 3671.339
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1452/1561] Loss: 1.1567 Time: 3679.173
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1485/1561] Loss: 1.2876 Time: 3687.006
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1518/1561] Loss: 1.1998 Time: 3694.839
+#### prediction torch.Size([128, 4])
+Epoch [10/22] Step [1551/1561] Loss: 1.2115 Time: 3702.667
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [33/1561] Loss: 1.1743 Time: 7046.366
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [66/1561] Loss: 1.2026 Time: 7054.205
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [99/1561] Loss: 1.2549 Time: 7062.035
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [132/1561] Loss: 1.2474 Time: 7069.867
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [165/1561] Loss: 1.1967 Time: 7077.697
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [198/1561] Loss: 1.2257 Time: 7085.534
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [231/1561] Loss: 1.1317 Time: 7093.367
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [264/1561] Loss: 1.2441 Time: 7101.195
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [297/1561] Loss: 1.1631 Time: 7109.022
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [330/1561] Loss: 1.2231 Time: 7116.854
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [363/1561] Loss: 1.1544 Time: 7124.681
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [396/1561] Loss: 1.1861 Time: 7132.509
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [429/1561] Loss: 1.2580 Time: 7140.341
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [462/1561] Loss: 1.1737 Time: 7148.174
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [495/1561] Loss: 1.2038 Time: 7156.006
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [528/1561] Loss: 1.1981 Time: 7163.839
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [561/1561] Loss: 1.2059 Time: 7171.666
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [594/1561] Loss: 1.1291 Time: 7179.496
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [627/1561] Loss: 1.2499 Time: 7187.321
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [660/1561] Loss: 1.1511 Time: 7195.15
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [693/1561] Loss: 1.1525 Time: 7202.979
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [726/1561] Loss: 1.2557 Time: 7210.812
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [759/1561] Loss: 1.2070 Time: 7218.648
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [792/1561] Loss: 1.2260 Time: 7226.478
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [825/1561] Loss: 1.2239 Time: 7234.309
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [858/1561] Loss: 1.2548 Time: 7242.14
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [891/1561] Loss: 1.2222 Time: 7249.974
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [924/1561] Loss: 1.2475 Time: 7257.802
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [957/1561] Loss: 1.1300 Time: 7265.639
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [990/1561] Loss: 1.1924 Time: 7273.469
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1023/1561] Loss: 1.2031 Time: 7281.294
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1056/1561] Loss: 1.1920 Time: 7289.121
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1089/1561] Loss: 1.2492 Time: 7296.954
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1122/1561] Loss: 1.2822 Time: 7304.778
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1155/1561] Loss: 1.1845 Time: 7312.615
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1188/1561] Loss: 1.1908 Time: 7320.443
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1221/1561] Loss: 1.2453 Time: 7328.272
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1254/1561] Loss: 1.1677 Time: 7336.1
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1287/1561] Loss: 1.1980 Time: 7343.928
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1320/1561] Loss: 1.3203 Time: 7351.758
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1353/1561] Loss: 1.2274 Time: 7359.594
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1386/1561] Loss: 1.1438 Time: 7367.421
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1419/1561] Loss: 1.2479 Time: 7375.253
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1452/1561] Loss: 1.2129 Time: 7383.083
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1485/1561] Loss: 1.1995 Time: 7390.918
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1518/1561] Loss: 1.1491 Time: 7398.745
+#### prediction torch.Size([128, 4])
+Epoch [20/22] Step [1551/1561] Loss: 1.2080 Time: 7406.572
+#### TRAINED MODEL ParallelCNNLSTMModel training time: 8149.606 total time: 19822.341 ####
+#### TRAINING TOTAL TIME: 19821.737 ####
+Accuracy of the CNN_LSTM model on the test set: 38.36 %
+Accuracy of the LSTM_CNN model on the test set: 38.36 %
+Accuracy of the ParallelCNNLSTMModel model on the test set: 38.36 %
+#### TESTING TOTAL TIME: 80.081 ####
+0 #### TIMES #### Modelling #### PARTIAL FILE ==>> 20063.98 seconds
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### Modelling TOTAL TOTAL ==>> 20063.988867282867
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 20064.369 
+ TOTAL_JOBS: 32 
+ JOB_ID: 2510259 
+ #### ####
+#### SLEEPING TIME: 20064.369 seconds ####
+All gürkel parcero, aller!
