@@ -122,7 +122,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     batch_s = 64 if windows_13 else 64
     # batch_s = 32 if windows_13 else 32
     # batch_s = 128 if windows_13 else 128
-    # batch_s = 192 if windows_13 else 192
+    batch_s = 192 if windows_13 else 192
     # batch_s = 128 if windows_13 else 64
     train_loader = DataLoader(train_dataset, batch_size=batch_s, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_s, shuffle=False)
@@ -265,20 +265,20 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     #### MODELS ####
     cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-    # lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-    # cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+    lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+    cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
 
     dict_models = {
         0: [cnn_lstm],
-        # 1: [lstm_cnn],
-        # 11: [cnn_lstm, lstm_cnn],
-        # 2: [cnn_lstm_parallel],
-        # 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+        1: [lstm_cnn],
+        11: [cnn_lstm, lstm_cnn],
+        2: [cnn_lstm_parallel],
+        22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    models = dict_models.get(0, [cnn_lstm])
+    models = dict_models.get(22, [cnn_lstm])
 
     #### TRAIN ####
-    num_epochs = 3
+    num_epochs = 39
     # print('####', 'MODELS', dict_models, '####')
     print('####', 'MODELS - TOTAL', len(models), '####')
     print('####', 'EPOCHS', num_epochs, '####')
