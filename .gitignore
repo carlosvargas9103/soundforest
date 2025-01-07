@@ -9,10 +9,11 @@ OLD
 *.model
 
 #data
-data/
+./data/
 audio_files_*.csv
 *.mp3
 *.png
+*.pkl
 
 # PDFs
 BOOK_*.pdf
