@@ -1,0 +1,1349 @@
+#### TIME #### TERMINO #### 0.0 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 0.0
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### HOI EXTRACTION #### ####
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+ALWAYS PROBLEMS => Dónde están los Kuschifiles? [Errno 2] No such file or directory: '/home/vargas/repos/forests-sounds-vargas/out/audio_extraction_2025-01.csv'
+starting with => 57 soundscapes => now 1736417493
+0/57 ######## ################ ################ ########
+0 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_05_PSA0093-2010.mp3
+#### ORIGINAL Y_C 86400000 [-0.01472808 -0.01491113 -0.00816156] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.15083559e+04 2.72836356e+00 2.16339156e+01] 8.85
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00022358 0.00022357 0.00022352] 1.766
+#### TIMES #### DICT_VECTOR: 0.651
+#### TIMES #### extraction TOTAL TOTAL ==>> 22.039
+0 #### TIMES #### extraction #### PARTIAL FILE ==>> 21.035 seconds
+1/57 ######## ################ ################ ########
+1 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_15_PSA0290-2012.mp3
+#### ORIGINAL Y_C 86400000 [-0.0006119   0.00068735  0.00166055] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.06253896e+04 2.81032816e+00 1.07592332e+01] 2.27
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-3.45345658e-05 -3.45516818e-05 -3.45397588e-05] 1.7
+#### TIMES #### DICT_VECTOR: 0.627
+#### TIMES #### extraction TOTAL TOTAL ==>> 35.529
+1 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.48 seconds
+2/57 ######## ################ ################ ########
+2 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_19_PSA0374-2012.mp3
+#### ORIGINAL Y_C 86400000 [0.00831298 0.01321053 0.01454676] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.19466531e+04 2.20951212e+00 1.92102722e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00028074 -0.00028074 -0.0002809 ] 1.727
+#### TIMES #### DICT_VECTOR: 0.603
+#### TIMES #### extraction TOTAL TOTAL ==>> 48.574
+2 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.023 seconds
+3/57 ######## ################ ################ ########
+3 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_07_PSA0093-2010.mp3
+#### ORIGINAL Y_C 86400000 [-0.01472808 -0.01491113 -0.00816156] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.15083559e+04 2.72836356e+00 2.16339156e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00022358 0.00022357 0.00022352] 1.689
+#### TIMES #### DICT_VECTOR: 0.611
+#### TIMES #### extraction TOTAL TOTAL ==>> 61.705
+3 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.116 seconds
+4/57 ######## ################ ################ ########
+4 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_20_PSA0400-2013.mp3
+#### ORIGINAL Y_C 86400000 [0.00232441 0.00309165 0.00177757] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.26294711e+04 2.79419580e+00 1.42043313e+01] 2.3
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [8.55437802e-06 8.56656975e-06 8.44465918e-06] 1.785
+#### TIMES #### DICT_VECTOR: 0.614
+#### TIMES #### extraction TOTAL TOTAL ==>> 74.887
+4 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.168 seconds
+5/57 ######## ################ ################ ########
+5 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_13_PSA0280-2012.mp3
+#### ORIGINAL Y_C 86400000 [3.6415369e-03 2.6228302e-03 8.4596279e-05] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.91069165e+04 2.75633663e+00 1.23341998e+01] 2.21
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-3.44860133e-05 -3.45421108e-05 -3.45807478e-05] 1.932
+#### TIMES #### DICT_VECTOR: 0.746
+#### TIMES #### extraction TOTAL TOTAL ==>> 88.455
+5 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.568 seconds
+6/57 ######## ################ ################ ########
+6 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_17_PSA0331-2012.mp3
+#### ORIGINAL Y_C 86400000 [-0.00156389 -0.00311076 -0.00225797] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.88197519e+04 2.75721331e+00 1.13787172e+01] 2.21
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [5.83484306e-05 5.83459681e-05 5.83190456e-05] 1.759
+#### TIMES #### DICT_VECTOR: 0.647
+#### TIMES #### extraction TOTAL TOTAL ==>> 101.823
+6 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.351 seconds
+7/57 ######## ################ ################ ########
+7 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_00_PSA0010-2010.mp3
+#### ORIGINAL Y_C 86400000 [-0.00225802 -0.00408008 -0.00553367] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.01518793e+04 2.69874411e+00 1.62965224e+01] 2.28
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00054267 -0.00054245 -0.00054227] 1.634
+#### TIMES #### DICT_VECTOR: 0.635
+#### TIMES #### extraction TOTAL TOTAL ==>> 114.707
+7 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.877 seconds
+8/57 ######## ################ ################ ########
+8 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_14_PSA0289-2012.mp3
+#### ORIGINAL Y_C 86400000 [-0.01960655 -0.02791282 -0.02750732] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.09664218e+04 2.22191910e+00 1.78348051e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00011213 -0.00011225 -0.00011102] 1.643
+#### TIMES #### DICT_VECTOR: 0.623
+#### TIMES #### extraction TOTAL TOTAL ==>> 127.576
+8 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.853 seconds
+9/57 ######## ################ ################ ########
+9 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_18_PSA0373-2011.mp3
+#### ORIGINAL Y_C 86400000 [-0.00241771 -0.00108932  0.0016709 ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.98180752e+04 2.69314418e+00 1.37563844e+01] 2.21
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [5.12611181e-05 5.11055362e-05 5.09459149e-05] 1.618
+#### TIMES #### DICT_VECTOR: 0.626
+#### TIMES #### extraction TOTAL TOTAL ==>> 140.442
+9 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.85 seconds
+10/57 ######## ################ ################ ########
+10 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_16_PSA0292-2012.mp3
+#### ORIGINAL Y_C 86400000 [ 0.00011271 -0.00401716 -0.00642971] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.97644198e+04 2.70879261e+00 7.64060581e+00] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-5.99484192e-05 -5.99745804e-05 -6.00194708e-05] 1.624
+#### TIMES #### DICT_VECTOR: 0.653
+#### TIMES #### extraction TOTAL TOTAL ==>> 153.291
+10 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.845 seconds
+11/57 ######## ################ ################ ########
+11 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> PSA0025-2015.mp3
+#### ORIGINAL Y_C 86400000 [-0.00689935 -0.0078594  -0.00352661] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.20153033e+04 2.73012893e+00 1.67526924e+01] 2.34
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00013694 0.00013694 0.00013703] 1.624
+#### TIMES #### DICT_VECTOR: 0.604
+#### TIMES #### extraction TOTAL TOTAL ==>> 166.214
+11 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.911 seconds
+12/57 ######## ################ ################ ########
+12 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_10_PSA0189-2007.mp3
+#### ORIGINAL Y_C 86400000 [0.00533111 0.00517434 0.00172102] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.03600839e+04 2.44960371e+00 2.11042536e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00019581 0.00019599 0.00019616] 1.651
+#### TIMES #### DICT_VECTOR: 0.603
+#### TIMES #### extraction TOTAL TOTAL ==>> 178.962
+12 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.734 seconds
+13/57 ######## ################ ################ ########
+13 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_09_PSA0096-2013.mp3
+#### ORIGINAL Y_C 86400000 [ 0.00498617  0.00343108 -0.00189297] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.11752606e+04 2.69977204e+00 1.93440142e+01] 2.29
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00015411 -0.0001542  -0.00015426] 1.593
+#### TIMES #### DICT_VECTOR: 0.605
+#### TIMES #### extraction TOTAL TOTAL ==>> 191.767
+13 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.795 seconds
+14/57 ######## ################ ################ ########
+14 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_08_PSA0095-2013.mp3
+#### ORIGINAL Y_C 86400000 [0.00298895 0.00214917 0.00167097] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.99828970e+04 4.75452309e-01 1.39403677e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00013336 0.00013345 0.0001335 ] 1.651
+#### TIMES #### DICT_VECTOR: 0.604
+#### TIMES #### extraction TOTAL TOTAL ==>> 204.68
+14 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.908 seconds
+15/57 ######## ################ ################ ########
+15 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_06_PSA0087-2013.mp3
+#### ORIGINAL Y_C 86400000 [-0.0014093  -0.00103954 -0.00105862] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.13032683e+04 2.78824104e+00 1.72499600e+01] 2.26
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-5.50911413e-05 -5.51743194e-05 -5.52160209e-05] 1.6
+#### TIMES #### DICT_VECTOR: 0.62
+#### TIMES #### extraction TOTAL TOTAL ==>> 217.512
+15 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.815 seconds
+16/57 ######## ################ ################ ########
+16 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_21_PSA0429-2012.mp3
+#### ORIGINAL Y_C 86400000 [0.0015737  0.00132185 0.00142273] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.11177413e+04 2.74161777e+00 1.13399352e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-3.35320014e-05 -3.35748083e-05 -3.36588616e-05] 1.631
+#### TIMES #### DICT_VECTOR: 0.635
+#### TIMES #### extraction TOTAL TOTAL ==>> 230.259
+16 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.734 seconds
+17/57 ######## ################ ################ ########
+17 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_11_PSA0192-2009.mp3
+#### ORIGINAL Y_C 86400000 [ 1.5078523e-03 -4.8705522e-05 -2.4045832e-03] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.22686771e+04 2.76943739e+00 1.84088532e+01] 2.29
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00017312 -0.00017306 -0.000173  ] 1.666
+#### TIMES #### DICT_VECTOR: 0.628
+#### TIMES #### extraction TOTAL TOTAL ==>> 243.211
+17 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.938 seconds
+18/57 ######## ################ ################ ########
+18 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_01_PSA0022-2015.mp3
+#### ORIGINAL Y_C 86400000 [-0.00544647 -0.00827495 -0.00738019] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.11560358e+04 2.71884797e+00 2.58979147e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00014755 0.00014741 0.00014724] 1.646
+#### TIMES #### DICT_VECTOR: 0.603
+#### TIMES #### extraction TOTAL TOTAL ==>> 255.923
+18 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.694 seconds
+19/57 ######## ################ ################ ########
+19 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_04_PSA0078-2013.mp3
+#### ORIGINAL Y_C 86400000 [ 0.00496935  0.00223682 -0.00015433] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.00328882e+04 2.73796493e+00 1.98988954e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-7.85365620e-05 -7.84753553e-05 -7.84647280e-05] 1.669
+#### TIMES #### DICT_VECTOR: 0.677
+#### TIMES #### extraction TOTAL TOTAL ==>> 268.937
+19 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.009 seconds
+20/57 ######## ################ ################ ########
+20 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_02_PSA0077-2013.mp3
+#### ORIGINAL Y_C 86400000 [-0.00433627 -0.00495441 -0.00197762] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.13654976e+04 2.78553428e+00 1.38074848e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [7.20011570e-05 7.20351426e-05 7.20862974e-05] 1.684
+#### TIMES #### DICT_VECTOR: 0.627
+#### TIMES #### extraction TOTAL TOTAL ==>> 281.811
+20 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.869 seconds
+21/57 ######## ################ ################ ########
+21 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_12_PSA0254-2011.mp3
+#### ORIGINAL Y_C 86400000 [ 0.00175081 -0.00323589 -0.00785828] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.94107558e+04 2.62245763e+00 2.47214951e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-6.53425712e-05 -6.52289245e-05 -6.50755726e-05] 1.675
+#### TIMES #### DICT_VECTOR: 0.622
+#### TIMES #### extraction TOTAL TOTAL ==>> 294.745
+21 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.921 seconds
+22/57 ######## ################ ################ ########
+22 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_01_Pasture11.mp3
+#### ORIGINAL Y_C 86400000 [-0.00078479 -0.00208717  0.00041018] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.14229305e+04 2.72779284e+00 8.32238657e+00] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [2.79767209e-05 2.79233788e-05 2.78858736e-05] 1.684
+#### TIMES #### DICT_VECTOR: 0.61
+#### TIMES #### extraction TOTAL TOTAL ==>> 307.716
+22 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.965 seconds
+23/57 ######## ################ ################ ########
+23 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_09_Pasture8.mp3
+#### ORIGINAL Y_C 86400000 [ 0.00261545 -0.00092412 -0.0060214 ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.15731696e+04 2.71095167e+00 2.96999119e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00017837 -0.00017835 -0.00017832] 1.699
+#### TIMES #### DICT_VECTOR: 0.6
+#### TIMES #### extraction TOTAL TOTAL ==>> 320.488
+23 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.767 seconds
+24/57 ######## ################ ################ ########
+24 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_06_Pasture5.mp3
+#### ORIGINAL Y_C 86400000 [-0.00381287 -0.0027278   0.00032075] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.02785399e+04 2.67564987e+00 2.69886821e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00010016 0.00010036 0.00010064] 1.63
+#### TIMES #### DICT_VECTOR: 0.666
+#### TIMES #### extraction TOTAL TOTAL ==>> 333.567
+24 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.065 seconds
+25/57 ######## ################ ################ ########
+25 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_08_Pasture6.mp3
+#### ORIGINAL Y_C 86400000 [-0.00626647 -0.00417781  0.00088   ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.14104925e+04 2.75446810e+00 2.02907983e+01] 2.27
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.0002352  -0.00023513 -0.00023505] 1.629
+#### TIMES #### DICT_VECTOR: 0.604
+#### TIMES #### extraction TOTAL TOTAL ==>> 346.398
+25 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.821 seconds
+26/57 ######## ################ ################ ########
+26 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_07_Pasture5.mp3
+#### ORIGINAL Y_C 86400000 [-0.00381287 -0.0027278   0.00032075] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.02785399e+04 2.67564987e+00 2.69886821e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00010016 0.00010036 0.00010064] 1.638
+#### TIMES #### DICT_VECTOR: 0.752
+#### TIMES #### extraction TOTAL TOTAL ==>> 359.298
+26 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.894 seconds
+27/57 ######## ################ ################ ########
+27 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_05_Pasture4.mp3
+#### ORIGINAL Y_C 86400000 [ 0.0057366  -0.00273573 -0.0150972 ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.03850130e+04 2.66033338e+00 6.44655124e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00015174 0.00015176 0.00015185] 1.655
+#### TIMES #### DICT_VECTOR: 0.622
+#### TIMES #### extraction TOTAL TOTAL ==>> 372.077
+27 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.77 seconds
+28/57 ######## ################ ################ ########
+28 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_00_Pasture10.mp3
+#### ORIGINAL Y_C 86400000 [0.00365036 0.0032973  0.00126399] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.30049993e+04 2.74847554e+00 1.76585800e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [1.44286371e-05 1.44390026e-05 1.44900151e-05] 1.607
+#### TIMES #### DICT_VECTOR: 0.629
+#### TIMES #### extraction TOTAL TOTAL ==>> 384.877
+28 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.789 seconds
+29/57 ######## ################ ################ ########
+29 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_03_Pasture2.mp3
+#### ORIGINAL Y_C 86400000 [-0.006425   -0.00607684 -0.00163868] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.21331745e+04 2.72065146e+00 2.88486049e+01] 2.27
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00014044 0.00014044 0.00014047] 1.728
+#### TIMES #### DICT_VECTOR: 0.602
+#### TIMES #### extraction TOTAL TOTAL ==>> 397.71
+29 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.82 seconds
+30/57 ######## ################ ################ ########
+30 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_10_Pasture9.mp3
+#### ORIGINAL Y_C 86400000 [-0.00402293  0.00018895  0.00486967] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.25364037e+04 2.73571162e+00 2.45550665e+01] 2.2
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [6.96834594e-05 6.96369981e-05 6.95915154e-05] 1.637
+#### TIMES #### DICT_VECTOR: 0.592
+#### TIMES #### extraction TOTAL TOTAL ==>> 410.426
+30 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.7 seconds
+31/57 ######## ################ ################ ########
+31 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_04_Pasture3.mp3
+#### ORIGINAL Y_C 86400000 [-0.01645248 -0.00066915 -0.01571613] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.18635228e+04 2.67532715e+00 2.67480206e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00020298 0.00020301 0.00020334] 1.648
+#### TIMES #### DICT_VECTOR: 0.616
+#### TIMES #### extraction TOTAL TOTAL ==>> 423.269
+31 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.837 seconds
+32/57 ######## ################ ################ ########
+32 #### EXTRACTION #### REGION: ==>> Pasture <<== DATA ==>> 3_02_Pasture12.mp3
+#### ORIGINAL Y_C 86400000 [ 1.8349340e-03 -3.3504126e-05 -4.4894009e-04] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.24848652e+04 2.69768493e+00 1.88927320e+01] 2.29
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [1.23375599e-05 1.22271596e-05 1.21638978e-05] 1.697
+#### TIMES #### DICT_VECTOR: 0.602
+#### TIMES #### extraction TOTAL TOTAL ==>> 436.113
+32 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.831 seconds
+33/57 ######## ################ ################ ########
+33 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_01_PSA0009-2018.mp3
+#### ORIGINAL Y_C 86400000 [-0.00073008 -0.00149818 -0.00137381] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.09669435e+04 2.69673649e+00 1.15150702e+01] 2.26
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [9.78970998e-05 9.79649478e-05 9.80414946e-05] 1.65
+#### TIMES #### DICT_VECTOR: 0.601
+#### TIMES #### extraction TOTAL TOTAL ==>> 448.815
+33 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.659 seconds
+34/57 ######## ################ ################ ########
+34 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_05_PSA0074-2020.mp3
+#### ORIGINAL Y_C 86400000 [-0.00413486 -0.00270978 -0.00017886] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.12084495e+04 2.75129197e+00 1.87470692e+01] 2.3
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00011643 0.00011653 0.00011663] 1.636
+#### TIMES #### DICT_VECTOR: 0.611
+#### TIMES #### extraction TOTAL TOTAL ==>> 461.674
+34 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.85 seconds
+35/57 ######## ################ ################ ########
+35 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_13_PSA0165-2021.mp3
+#### ORIGINAL Y_C 86400000 [0.00119434 0.0014703  0.00074433] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.10464161e+04 2.76836971e+00 1.07914297e+01] 2.27
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00019449 0.00019434 0.0001943 ] 1.696
+#### TIMES #### DICT_VECTOR: 0.62
+#### TIMES #### extraction TOTAL TOTAL ==>> 474.58
+35 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.895 seconds
+36/57 ######## ################ ################ ########
+36 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_17_PSA0193-2013.mp3
+#### ORIGINAL Y_C 86400000 [-9.4229414e-05  6.7900686e-04  2.5894905e-03] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.16470371e+04 2.71606178e+00 1.25725409e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-2.83379564e-05 -2.83337683e-05 -2.83261617e-05] 1.67
+#### TIMES #### DICT_VECTOR: 0.604
+#### TIMES #### extraction TOTAL TOTAL ==>> 487.359
+36 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.762 seconds
+37/57 ######## ################ ################ ########
+37 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_12_PSA0161-2016.mp3
+#### ORIGINAL Y_C 86400000 [0.00123108 0.00094246 0.00163549] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.13366760e+04 2.38186722e+00 2.17359192e+01] 2.22
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [3.29290180e-07 2.87939954e-07 2.31053899e-07] 1.672
+#### TIMES #### DICT_VECTOR: 0.605
+#### TIMES #### extraction TOTAL TOTAL ==>> 500.241
+37 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.87 seconds
+38/57 ######## ################ ################ ########
+38 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_16_PSA0183-2017.mp3
+#### ORIGINAL Y_C 86400000 [ 9.8261726e-04 -3.2066222e-05 -2.3561085e-03] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.16916737e+04 2.75540366e+00 2.34824322e+01] 2.3
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00014041 0.00014048 0.00014061] 1.695
+#### TIMES #### DICT_VECTOR: 0.599
+#### TIMES #### extraction TOTAL TOTAL ==>> 513.056
+38 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.802 seconds
+39/57 ######## ################ ################ ########
+39 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_03_PSA0042-2017.mp3
+#### ORIGINAL Y_C 86400000 [-0.00364023 -0.00125221  0.00192867] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.18564647e+04 2.74887437e+00 2.25943071e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-1.57715078e-05 -1.56956794e-05 -1.55887211e-05] 1.653
+#### TIMES #### DICT_VECTOR: 0.604
+#### TIMES #### extraction TOTAL TOTAL ==>> 525.971
+39 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.902 seconds
+40/57 ######## ################ ################ ########
+40 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_10_PSA0152-2013.mp3
+#### ORIGINAL Y_C 86400000 [-0.00159034 -0.00288069  0.00053162] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.92384380e+04 2.64818023e+00 1.72268631e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00036083 -0.00036086 -0.00036091] 1.679
+#### TIMES #### DICT_VECTOR: 0.603
+#### TIMES #### extraction TOTAL TOTAL ==>> 538.855
+40 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.873 seconds
+41/57 ######## ################ ################ ########
+41 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_00_PSA0004-2017.mp3
+#### ORIGINAL Y_C 86400000 [0.00143449 0.00246392 0.0014561 ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.17948981e+04 2.80271317e+00 1.78468035e+01] 2.25
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [5.51861221e-05 5.52159023e-05 5.52691420e-05] 1.661
+#### TIMES #### DICT_VECTOR: 0.604
+#### TIMES #### extraction TOTAL TOTAL ==>> 551.602
+41 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.74 seconds
+42/57 ######## ################ ################ ########
+42 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_09_PSA0151-2016.mp3
+#### ORIGINAL Y_C 86400000 [0.00065332 0.00187297 0.00339934] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.12851693e+04 2.80409076e+00 8.41445507e+00] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [1.63533649e-05 1.63581570e-05 1.63973589e-05] 1.682
+#### TIMES #### DICT_VECTOR: 0.601
+#### TIMES #### extraction TOTAL TOTAL ==>> 564.49
+42 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.879 seconds
+43/57 ######## ################ ################ ########
+43 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_04_PSA0051-2018.mp3
+#### ORIGINAL Y_C 86400000 [-0.00055183  0.00105216  0.00203149] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.91175057e+04 2.68430451e+00 6.82841325e+00] 2.36
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [6.70890236e-05 6.71847252e-05 6.73006653e-05] 1.707
+#### TIMES #### DICT_VECTOR: 0.596
+#### TIMES #### extraction TOTAL TOTAL ==>> 577.396
+43 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.897 seconds
+44/57 ######## ################ ################ ########
+44 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_15_PSA0179-2013.mp3
+#### ORIGINAL Y_C 86400000 [-0.00528781 -0.0084039  -0.0109695 ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.28225671e+04 2.51977226e+00 2.09006764e+01] 2.22
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-2.32861787e-05 -2.32492460e-05 -2.32276051e-05] 1.668
+#### TIMES #### DICT_VECTOR: 0.594
+#### TIMES #### extraction TOTAL TOTAL ==>> 589.979
+44 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.574 seconds
+45/57 ######## ################ ################ ########
+45 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_11_PSA0159-2020.mp3
+#### ORIGINAL Y_C 86400000 [-0.00770338 -0.01029339 -0.00804883] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.09541085e+04 2.75850536e+00 1.35174437e+01] 2.24
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00033797 0.00033793 0.00033801] 1.539
+#### TIMES #### DICT_VECTOR: 0.59
+#### TIMES #### extraction TOTAL TOTAL ==>> 602.643
+45 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.658 seconds
+46/57 ######## ################ ################ ########
+46 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_18_PSA0341-2012.mp3
+#### ORIGINAL Y_C 86400000 [0.00475994 0.00414117 0.00096587] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.17408606e+04 2.60996787e+00 1.71046641e+01] 2.26
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-2.79190994e-05 -2.78972507e-05 -2.78352364e-05] 1.687
+#### TIMES #### DICT_VECTOR: 0.6
+#### TIMES #### extraction TOTAL TOTAL ==>> 615.593
+46 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.943 seconds
+47/57 ######## ################ ################ ########
+47 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_19_PSA0418-2013.mp3
+#### ORIGINAL Y_C 86400000 [-0.00126435 -0.00057605  0.00132228] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.06726132e+04 2.73779212e+00 1.91336541e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-8.05220010e-06 -8.07542465e-06 -8.10661500e-06] 1.712
+#### TIMES #### DICT_VECTOR: 0.605
+#### TIMES #### extraction TOTAL TOTAL ==>> 628.312
+47 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.709 seconds
+48/57 ######## ################ ################ ########
+48 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_08_PSA0132-2013.mp3
+#### ORIGINAL Y_C 86400000 [0.00295693 0.00367725 0.00196132] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [7.98188990e+04 2.67515753e+00 2.04180654e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00022208 -0.00022202 -0.00022198] 1.67
+#### TIMES #### DICT_VECTOR: 0.596
+#### TIMES #### extraction TOTAL TOTAL ==>> 640.977
+48 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.654 seconds
+49/57 ######## ################ ################ ########
+49 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_06_PSA0093-2018.mp3
+#### ORIGINAL Y_C 86400000 [0.01301335 0.01457914 0.00164659] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.04890965e+04 2.66860554e+00 1.61367278e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-5.32685711e-05 -5.33679421e-05 -5.34504441e-05] 1.651
+#### TIMES #### DICT_VECTOR: 0.605
+#### TIMES #### extraction TOTAL TOTAL ==>> 653.739
+49 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.752 seconds
+50/57 ######## ################ ################ ########
+50 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_02_PSA0026-2020.mp3
+#### ORIGINAL Y_C 86400000 [0.00536645 0.00867253 0.01128107] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.11857049e+04 2.60562350e+00 1.79831353e+01] 2.28
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [0.00026606 0.00026574 0.00026541] 1.697
+#### TIMES #### DICT_VECTOR: 0.611
+#### TIMES #### extraction TOTAL TOTAL ==>> 666.633
+50 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.887 seconds
+51/57 ######## ################ ################ ########
+51 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_14_PSA0168-2016.mp3
+#### ORIGINAL Y_C 86400000 [ 0.00081792 -0.00090185 -0.00156615] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.08678291e+04 2.69025355e+00 1.92700593e+01] 2.34
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [4.96974755e-05 4.98353026e-05 4.99415263e-05] 1.68
+#### TIMES #### DICT_VECTOR: 0.602
+#### TIMES #### extraction TOTAL TOTAL ==>> 679.676
+51 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.038 seconds
+52/57 ######## ################ ################ ########
+52 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_20_PSA0431-2013.mp3
+#### ORIGINAL Y_C 86400000 [-0.00011628 -0.0007457   0.00105586] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.03304047e+04 2.75469909e+00 1.87656932e+01] 2.23
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-9.85679948e-05 -9.84205712e-05 -9.82900202e-05] 1.662
+#### TIMES #### DICT_VECTOR: 0.619
+#### TIMES #### extraction TOTAL TOTAL ==>> 692.625
+52 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.935 seconds
+53/57 ######## ################ ################ ########
+53 #### EXTRACTION #### REGION: ==>> NaturalRegeneration <<== DATA ==>> 1_07_PSA0099-2019.mp3
+#### ORIGINAL Y_C 86400000 [0.01464401 0.02786117 0.03568167] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.22886974e+04 2.57209174e+00 2.45223494e+01] 2.28
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [1.87647186e-05 1.90275826e-05 1.85316661e-05] 1.647
+#### TIMES #### DICT_VECTOR: 0.624
+#### TIMES #### extraction TOTAL TOTAL ==>> 705.462
+53 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.829 seconds
+54/57 ######## ################ ################ ########
+54 #### EXTRACTION #### REGION: ==>> RefForest <<== DATA ==>> 0_00_RefForest1.mp3
+#### ORIGINAL Y_C 86400000 [0.01103865 0.01176985 0.00412414] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.19428243e+04 2.60962339e+00 4.13565451e+01] 2.31
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-0.00020181 -0.00020195 -0.00020211] 1.762
+#### TIMES #### DICT_VECTOR: 0.695
+#### TIMES #### extraction TOTAL TOTAL ==>> 718.979
+54 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.513 seconds
+55/57 ######## ################ ################ ########
+55 #### EXTRACTION #### REGION: ==>> RefForest <<== DATA ==>> 0_01_RefForest4.mp3
+#### ORIGINAL Y_C 86400000 [0.00041495 0.00191905 0.00555526] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.28674600e+04 2.66321606e+00 1.49808682e+01] 2.27
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [6.80936818e-05 6.81161554e-05 6.80619060e-05] 1.738
+#### TIMES #### DICT_VECTOR: 0.613
+#### TIMES #### extraction TOTAL TOTAL ==>> 731.983
+55 #### TIMES #### extraction #### PARTIAL FILE ==>> 12.996 seconds
+56/57 ######## ################ ################ ########
+56 #### EXTRACTION #### REGION: ==>> RefForest <<== DATA ==>> 0_02_RefForest5.mp3
+#### ORIGINAL Y_C 86400000 [-0.00513838 -0.00416545  0.0014226 ] <class 'numpy.ndarray'>
+NUMBERS 48000 3 1800 6
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL audio_indices
+#### PARALLEL INDICES Y_C 438 8 [8.17856726e+04 2.71220464e+00 2.03379994e+01] 2.22
+#### PARALLEL split_freq_band
+#### PARALLEL SPLIT Y_C PER FREQUENCY 438 10 6000 [-7.67548655e-05 -7.67782286e-05 -7.68756526e-05] 1.775
+#### TIMES #### DICT_VECTOR: 0.632
+#### TIMES #### extraction TOTAL TOTAL ==>> 745.0
+56 #### TIMES #### extraction #### PARTIAL FILE ==>> 13.001 seconds
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### extraction TOTAL TOTAL ==>> 744.0483438968658
+#### #### HOI MODELLING #### ####
+0/57 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### #### READING DATA FILES #### ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_05_PSA0093-2010_dict_y_split_0_2510948_1736417513.pkl')
+(249660, 6018) Index(['reg', 'sid', 'sec', 'ban', 'men', 'med', 'sum', 'max', 'min', 'aci',
+       'aca', 'adi', 'bet', 'mmm', 'npp', 'hhh', 'aei', 'dsi', 'vec_0'],
+      dtype='object')
+#### MERGE 57 merge_data Dataframe shape: (249660, 6018) #### time: 13
+#### #### SPLIT TRAIN TEST #### ####
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 131
+#### MODELS - TOTAL 3 ####
+#### EPOCHS 39 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [33/1041] Loss: 1.2125 Time: 1189.299
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [66/1041] Loss: 1.2311 Time: 1193.414
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [99/1041] Loss: 1.1619 Time: 1197.528
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [132/1041] Loss: 1.1549 Time: 1201.644
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [165/1041] Loss: 1.2068 Time: 1205.759
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [198/1041] Loss: 1.2222 Time: 1209.876
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [231/1041] Loss: 1.2023 Time: 1213.993
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [264/1041] Loss: 1.2147 Time: 1218.108
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [297/1041] Loss: 1.2029 Time: 1222.223
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [330/1041] Loss: 1.1605 Time: 1226.338
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [363/1041] Loss: 1.2289 Time: 1230.454
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [396/1041] Loss: 1.2590 Time: 1234.57
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [429/1041] Loss: 1.1747 Time: 1238.691
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [462/1041] Loss: 1.2503 Time: 1242.999
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [495/1041] Loss: 1.1912 Time: 1247.114
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [528/1041] Loss: 1.1720 Time: 1251.232
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [561/1041] Loss: 1.2399 Time: 1255.346
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [594/1041] Loss: 1.2480 Time: 1259.462
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [627/1041] Loss: 1.2190 Time: 1263.577
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [660/1041] Loss: 1.1896 Time: 1267.693
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [693/1041] Loss: 1.1609 Time: 1271.809
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [726/1041] Loss: 1.1971 Time: 1275.923
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [759/1041] Loss: 1.2445 Time: 1280.036
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [792/1041] Loss: 1.1885 Time: 1284.152
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [825/1041] Loss: 1.2534 Time: 1288.269
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [858/1041] Loss: 1.1818 Time: 1292.385
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [891/1041] Loss: 1.1688 Time: 1296.498
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [924/1041] Loss: 1.1923 Time: 1300.621
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [957/1041] Loss: 1.1734 Time: 1304.733
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [990/1041] Loss: 1.2621 Time: 1308.847
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [1023/1041] Loss: 1.1762 Time: 1312.964
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [33/1041] Loss: 1.1919 Time: 2484.606
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [66/1041] Loss: 1.2774 Time: 2488.692
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [99/1041] Loss: 1.2234 Time: 2492.78
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [132/1041] Loss: 1.2521 Time: 2496.866
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [165/1041] Loss: 1.2544 Time: 2500.958
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [198/1041] Loss: 1.1927 Time: 2505.045
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [231/1041] Loss: 1.2229 Time: 2509.131
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [264/1041] Loss: 1.2115 Time: 2513.218
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [297/1041] Loss: 1.2043 Time: 2517.305
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [330/1041] Loss: 1.2411 Time: 2521.393
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [363/1041] Loss: 1.2133 Time: 2525.48
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [396/1041] Loss: 1.2339 Time: 2529.574
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [429/1041] Loss: 1.2580 Time: 2533.667
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [462/1041] Loss: 1.2672 Time: 2537.753
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [495/1041] Loss: 1.2211 Time: 2541.841
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [528/1041] Loss: 1.2533 Time: 2545.931
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [561/1041] Loss: 1.2514 Time: 2550.02
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [594/1041] Loss: 1.2507 Time: 2554.107
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [627/1041] Loss: 1.1738 Time: 2558.197
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [660/1041] Loss: 1.2153 Time: 2562.287
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [693/1041] Loss: 1.2252 Time: 2566.375
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [726/1041] Loss: 1.1974 Time: 2570.463
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [759/1041] Loss: 1.1573 Time: 2574.549
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [792/1041] Loss: 1.2244 Time: 2578.637
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [825/1041] Loss: 1.1628 Time: 2582.724
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [858/1041] Loss: 1.2142 Time: 2586.812
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [891/1041] Loss: 1.2444 Time: 2590.901
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [924/1041] Loss: 1.2505 Time: 2594.988
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [957/1041] Loss: 1.2305 Time: 2599.076
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [990/1041] Loss: 1.2138 Time: 2603.163
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [1023/1041] Loss: 1.2063 Time: 2607.249
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [33/1041] Loss: 1.1892 Time: 3783.071
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [66/1041] Loss: 1.2338 Time: 3787.18
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [99/1041] Loss: 1.1867 Time: 3791.293
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [132/1041] Loss: 1.2164 Time: 3795.403
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [165/1041] Loss: 1.1927 Time: 3799.513
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [198/1041] Loss: 1.2196 Time: 3803.622
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [231/1041] Loss: 1.2171 Time: 3807.732
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [264/1041] Loss: 1.1831 Time: 3811.839
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [297/1041] Loss: 1.2682 Time: 3815.946
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [330/1041] Loss: 1.2034 Time: 3820.055
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [363/1041] Loss: 1.2316 Time: 3824.166
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [396/1041] Loss: 1.2340 Time: 3828.279
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [429/1041] Loss: 1.2830 Time: 3832.387
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [462/1041] Loss: 1.2583 Time: 3836.497
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [495/1041] Loss: 1.1742 Time: 3840.604
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [528/1041] Loss: 1.1820 Time: 3844.711
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [561/1041] Loss: 1.2170 Time: 3848.824
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [594/1041] Loss: 1.1786 Time: 3852.934
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [627/1041] Loss: 1.1562 Time: 3857.044
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [660/1041] Loss: 1.1953 Time: 3861.152
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [693/1041] Loss: 1.1910 Time: 3865.262
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [726/1041] Loss: 1.2543 Time: 3869.372
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [759/1041] Loss: 1.2105 Time: 3873.483
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [792/1041] Loss: 1.2835 Time: 3877.591
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [825/1041] Loss: 1.2076 Time: 3881.707
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [858/1041] Loss: 1.1559 Time: 3885.818
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [891/1041] Loss: 1.2322 Time: 3889.951
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [924/1041] Loss: 1.2194 Time: 3894.28
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [957/1041] Loss: 1.1780 Time: 3898.416
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [990/1041] Loss: 1.2077 Time: 3902.552
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [1023/1041] Loss: 1.1940 Time: 3906.688
+#### TRAINED MODEL CNN_LSTM training time: 5084.009 total time: 5084.538 ####
+#### TRAINING MODEL LSTM_CNN ####
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [33/1041] Loss: 1.2341 Time: 3476.606
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [66/1041] Loss: 1.2262 Time: 3488.73
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [99/1041] Loss: 1.2382 Time: 3500.858
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [132/1041] Loss: 1.2224 Time: 3512.991
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [165/1041] Loss: 1.2046 Time: 3525.112
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [198/1041] Loss: 1.2535 Time: 3537.24
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [231/1041] Loss: 1.1872 Time: 3549.373
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [264/1041] Loss: 1.2361 Time: 3561.502
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [297/1041] Loss: 1.2395 Time: 3573.633
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [330/1041] Loss: 1.2560 Time: 3585.76
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [363/1041] Loss: 1.2432 Time: 3597.884
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [396/1041] Loss: 1.2100 Time: 3610.009
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [429/1041] Loss: 1.2222 Time: 3622.135
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [462/1041] Loss: 1.1861 Time: 3634.261
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [495/1041] Loss: 1.2231 Time: 3646.584
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [528/1041] Loss: 1.2300 Time: 3658.713
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [561/1041] Loss: 1.2035 Time: 3670.839
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [594/1041] Loss: 1.3045 Time: 3682.964
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [627/1041] Loss: 1.1823 Time: 3695.088
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [660/1041] Loss: 1.2112 Time: 3707.222
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [693/1041] Loss: 1.1975 Time: 3719.347
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [726/1041] Loss: 1.1805 Time: 3731.473
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [759/1041] Loss: 1.2673 Time: 3743.609
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [792/1041] Loss: 1.2537 Time: 3755.742
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [825/1041] Loss: 1.2682 Time: 3767.867
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [858/1041] Loss: 1.2242 Time: 3779.995
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [891/1041] Loss: 1.1812 Time: 3792.112
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [924/1041] Loss: 1.2469 Time: 3804.235
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [957/1041] Loss: 1.1703 Time: 3816.364
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [990/1041] Loss: 1.1954 Time: 3828.495
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [1023/1041] Loss: 1.2318 Time: 3840.618
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [33/1041] Loss: 1.2291 Time: 7301.945
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [66/1041] Loss: 1.2548 Time: 7314.072
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [99/1041] Loss: 1.2275 Time: 7326.196
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [132/1041] Loss: 1.2223 Time: 7338.326
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [165/1041] Loss: 1.1768 Time: 7350.457
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [198/1041] Loss: 1.2124 Time: 7362.583
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [231/1041] Loss: 1.1814 Time: 7374.708
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [264/1041] Loss: 1.2133 Time: 7386.84
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [297/1041] Loss: 1.1794 Time: 7398.964
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [330/1041] Loss: 1.2777 Time: 7411.085
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [363/1041] Loss: 1.2228 Time: 7423.219
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [396/1041] Loss: 1.2529 Time: 7435.349
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [429/1041] Loss: 1.2145 Time: 7447.482
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [462/1041] Loss: 1.2113 Time: 7459.609
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [495/1041] Loss: 1.1661 Time: 7471.744
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [528/1041] Loss: 1.2532 Time: 7483.873
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [561/1041] Loss: 1.2206 Time: 7496.005
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [594/1041] Loss: 1.1683 Time: 7508.14
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [627/1041] Loss: 1.1836 Time: 7520.27
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [660/1041] Loss: 1.1484 Time: 7532.398
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [693/1041] Loss: 1.2063 Time: 7544.53
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [726/1041] Loss: 1.3008 Time: 7556.663
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [759/1041] Loss: 1.2112 Time: 7568.798
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [792/1041] Loss: 1.2708 Time: 7580.926
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [825/1041] Loss: 1.2067 Time: 7593.054
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [858/1041] Loss: 1.2319 Time: 7605.187
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [891/1041] Loss: 1.1929 Time: 7617.321
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [924/1041] Loss: 1.1941 Time: 7629.45
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [957/1041] Loss: 1.1724 Time: 7641.582
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [990/1041] Loss: 1.1764 Time: 7653.727
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [1023/1041] Loss: 1.3163 Time: 7665.859
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [33/1041] Loss: 1.2462 Time: 11126.773
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [66/1041] Loss: 1.1927 Time: 11138.897
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [99/1041] Loss: 1.1832 Time: 11151.021
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [132/1041] Loss: 1.2580 Time: 11163.145
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [165/1041] Loss: 1.2844 Time: 11175.268
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [198/1041] Loss: 1.2008 Time: 11187.39
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [231/1041] Loss: 1.2794 Time: 11199.516
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [264/1041] Loss: 1.2251 Time: 11211.634
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [297/1041] Loss: 1.2328 Time: 11223.769
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [330/1041] Loss: 1.2076 Time: 11235.894
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [363/1041] Loss: 1.1526 Time: 11248.018
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [396/1041] Loss: 1.2170 Time: 11260.148
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [429/1041] Loss: 1.2084 Time: 11272.269
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [462/1041] Loss: 1.2776 Time: 11284.397
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [495/1041] Loss: 1.2456 Time: 11296.525
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [528/1041] Loss: 1.2102 Time: 11308.65
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [561/1041] Loss: 1.1811 Time: 11320.777
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [594/1041] Loss: 1.1937 Time: 11332.899
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [627/1041] Loss: 1.1386 Time: 11345.034
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [660/1041] Loss: 1.1830 Time: 11357.154
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [693/1041] Loss: 1.2303 Time: 11369.278
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [726/1041] Loss: 1.1712 Time: 11381.401
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [759/1041] Loss: 1.1702 Time: 11393.515
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [792/1041] Loss: 1.2327 Time: 11405.639
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [825/1041] Loss: 1.2051 Time: 11417.768
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [858/1041] Loss: 1.2596 Time: 11429.89
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [891/1041] Loss: 1.2555 Time: 11442.008
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [924/1041] Loss: 1.2145 Time: 11454.134
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [957/1041] Loss: 1.2162 Time: 11466.453
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [990/1041] Loss: 1.2166 Time: 11478.579
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [1023/1041] Loss: 1.2329 Time: 11490.704
+#### TRAINED MODEL LSTM_CNN training time: 14938.791 total time: 20023.329 ####
+#### TRAINING MODEL ParallelCNNLSTMModel ####
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [33/1041] Loss: 1.2402 Time: 3224.418
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [66/1041] Loss: 1.2098 Time: 3235.736
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [99/1041] Loss: 1.2155 Time: 3247.053
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [132/1041] Loss: 1.1614 Time: 3258.368
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [165/1041] Loss: 1.2359 Time: 3269.684
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [198/1041] Loss: 1.1673 Time: 3280.997
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [231/1041] Loss: 1.2237 Time: 3292.311
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [264/1041] Loss: 1.1479 Time: 3303.633
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [297/1041] Loss: 1.1980 Time: 3314.947
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [330/1041] Loss: 1.2336 Time: 3326.268
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [363/1041] Loss: 1.2460 Time: 3337.585
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [396/1041] Loss: 1.2128 Time: 3348.898
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [429/1041] Loss: 1.1479 Time: 3360.22
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [462/1041] Loss: 1.2425 Time: 3371.532
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [495/1041] Loss: 1.2209 Time: 3382.853
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [528/1041] Loss: 1.2324 Time: 3394.358
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [561/1041] Loss: 1.1527 Time: 3405.676
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [594/1041] Loss: 1.1660 Time: 3416.999
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [627/1041] Loss: 1.2301 Time: 3428.311
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [660/1041] Loss: 1.2353 Time: 3439.618
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [693/1041] Loss: 1.1480 Time: 3450.939
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [726/1041] Loss: 1.1867 Time: 3462.253
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [759/1041] Loss: 1.1955 Time: 3473.572
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [792/1041] Loss: 1.1964 Time: 3484.888
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [825/1041] Loss: 1.1826 Time: 3496.209
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [858/1041] Loss: 1.1737 Time: 3507.537
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [891/1041] Loss: 1.2092 Time: 3518.862
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [924/1041] Loss: 1.2204 Time: 3530.182
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [957/1041] Loss: 1.2601 Time: 3541.509
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [990/1041] Loss: 1.2375 Time: 3552.837
+#### prediction torch.Size([192, 4])
+Epoch [10/39] Step [1023/1041] Loss: 1.2234 Time: 3564.149
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [33/1041] Loss: 1.2650 Time: 6794.311
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [66/1041] Loss: 1.2090 Time: 6805.636
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [99/1041] Loss: 1.1723 Time: 6816.96
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [132/1041] Loss: 1.2830 Time: 6828.284
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [165/1041] Loss: 1.2449 Time: 6839.614
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [198/1041] Loss: 1.2237 Time: 6850.926
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [231/1041] Loss: 1.1665 Time: 6862.248
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [264/1041] Loss: 1.2683 Time: 6873.567
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [297/1041] Loss: 1.2008 Time: 6884.89
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [330/1041] Loss: 1.1912 Time: 6896.212
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [363/1041] Loss: 1.1894 Time: 6907.545
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [396/1041] Loss: 1.1544 Time: 6918.867
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [429/1041] Loss: 1.2094 Time: 6930.194
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [462/1041] Loss: 1.1851 Time: 6941.518
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [495/1041] Loss: 1.2009 Time: 6952.846
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [528/1041] Loss: 1.2406 Time: 6964.173
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [561/1041] Loss: 1.2445 Time: 6975.494
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [594/1041] Loss: 1.2175 Time: 6986.819
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [627/1041] Loss: 1.2033 Time: 6998.144
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [660/1041] Loss: 1.1771 Time: 7009.46
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [693/1041] Loss: 1.1614 Time: 7020.786
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [726/1041] Loss: 1.2378 Time: 7032.112
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [759/1041] Loss: 1.2068 Time: 7043.433
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [792/1041] Loss: 1.1883 Time: 7054.751
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [825/1041] Loss: 1.2272 Time: 7066.07
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [858/1041] Loss: 1.2250 Time: 7077.396
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [891/1041] Loss: 1.1749 Time: 7088.715
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [924/1041] Loss: 1.2652 Time: 7100.035
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [957/1041] Loss: 1.2150 Time: 7111.367
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [990/1041] Loss: 1.2402 Time: 7122.69
+#### prediction torch.Size([192, 4])
+Epoch [20/39] Step [1023/1041] Loss: 1.1856 Time: 7134.002
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [33/1041] Loss: 1.1894 Time: 10364.852
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [66/1041] Loss: 1.2378 Time: 10376.175
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [99/1041] Loss: 1.1968 Time: 10387.491
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [132/1041] Loss: 1.2029 Time: 10398.806
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [165/1041] Loss: 1.2144 Time: 10410.126
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [198/1041] Loss: 1.2565 Time: 10421.45
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [231/1041] Loss: 1.1489 Time: 10432.764
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [264/1041] Loss: 1.2410 Time: 10444.087
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [297/1041] Loss: 1.1599 Time: 10455.404
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [330/1041] Loss: 1.1817 Time: 10466.726
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [363/1041] Loss: 1.1826 Time: 10478.046
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [396/1041] Loss: 1.2273 Time: 10489.37
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [429/1041] Loss: 1.1507 Time: 10500.692
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [462/1041] Loss: 1.2381 Time: 10512.006
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [495/1041] Loss: 1.1675 Time: 10523.326
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [528/1041] Loss: 1.1696 Time: 10534.657
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [561/1041] Loss: 1.2325 Time: 10545.975
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [594/1041] Loss: 1.2218 Time: 10557.301
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [627/1041] Loss: 1.1866 Time: 10568.624
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [660/1041] Loss: 1.2095 Time: 10579.936
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [693/1041] Loss: 1.2417 Time: 10591.255
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [726/1041] Loss: 1.2132 Time: 10602.572
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [759/1041] Loss: 1.2434 Time: 10613.887
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [792/1041] Loss: 1.2310 Time: 10625.205
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [825/1041] Loss: 1.2023 Time: 10636.533
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [858/1041] Loss: 1.1538 Time: 10647.85
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [891/1041] Loss: 1.1503 Time: 10659.167
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [924/1041] Loss: 1.2444 Time: 10670.487
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [957/1041] Loss: 1.2018 Time: 10681.817
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [990/1041] Loss: 1.1830 Time: 10693.317
+#### prediction torch.Size([192, 4])
+Epoch [30/39] Step [1023/1041] Loss: 1.1691 Time: 10704.635
+#### TRAINED MODEL ParallelCNNLSTMModel training time: 13924.287 total time: 33947.617 ####
+#### TRAINING TOTAL TIME: 33947.087 ####
+Accuracy of the CNN_LSTM model on the test set: 38.36 %
+Accuracy of the LSTM_CNN model on the test set: 38.36 %
+Accuracy of the ParallelCNNLSTMModel model on the test set: 38.36 %
+#### TESTING TOTAL TIME: 79.461 ####
+0 #### TIMES #### Modelling #### PARTIAL FILE ==>> 34171.854 seconds
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### Modelling TOTAL TOTAL ==>> 34171.85484433174
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 34915.956 
+ TOTAL_JOBS: 32 
+ JOB_ID: 2510948 
+ #### ####
+#### SLEEPING TIME: 34915.956 seconds ####
+All gürkel parcero, aller!

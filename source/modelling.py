@@ -73,6 +73,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     t0 = time.time()
     df_data = None
     ncols = 6009
+    accuracy_dictt, accuracy_dicttt = {}, {}
 
     # SOME CONFIG ####
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
@@ -259,8 +260,8 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             print('####',
                   'TRAINED MODEL',
                   model.__class__.__name__,
-                  'training time:', round(time.time() - t1, 3),
-                  'total time:', round(time.time() - t0, 3),
+                  'model training time:', round(time.time() - t1, 3),
+                  'total training time:', round(time.time() - t0, 3),
                   '####')
 
     #### MODELS ####
@@ -275,10 +276,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
         2: [cnn_lstm_parallel],
         22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    models = dict_models.get(22, [cnn_lstm])
+    models = dict_models.get(2, [cnn_lstm])
 
     #### TRAIN ####
-    num_epochs = 39
+    num_epochs = 5
     # print('####', 'MODELS', dict_models, '####')
     print('####', 'MODELS - TOTAL', len(models), '####')
     print('####', 'EPOCHS', num_epochs, '####')
@@ -336,8 +337,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                         metrics['TN'] += ((~cls_pred) & (~cls_true)).sum().item()
 
                 accuracy = 100 * correct / total
+                
                 print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy:.2f} %')
-
+                
                 model_scores_dict[model.__class__.__name__] = {
                     'AC': accuracy,
                     'TP': metrics['TP'],
@@ -348,15 +350,18 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             return model_scores_dict
 
     tt0 = time.time()
-    accuracy_dict = test(models, test_loader)
+    accuracy_dictt = test(models, test_loader)
+    accuracy_dicttt = ttest(models, test_loader)
     print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
     # plot bar chart with the accuracy of each model
     # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
 
-    with open(f'{model_path}000_models_accuracy_dict_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
-        json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
+    with open(f'{model_path}000_models_accuracy_dictt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+        json.dump(accuracy_dictt, fp, sort_keys=True, indent=4)
 
+    with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+        json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
 
 print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
 print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
