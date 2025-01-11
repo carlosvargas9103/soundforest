@@ -1,0 +1,2 @@
+/var/spool/slurm/slurmd/job4573511/slurm_script: line 19: /home/fs72552/vargas/repos/forests-sounds-vargas/venvs/py310f/bin/activate: No such file or directory
+/var/spool/slurm/slurmd/job4573511/slurm_script: line 21: cd: /home/fs72552/vargas/repos/forests-sounds-vargas/source: No such file or directory
