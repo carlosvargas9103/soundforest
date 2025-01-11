@@ -29,7 +29,7 @@ from enum import Enum
 
 from observation import process_soundscape
 from visualisation import visualise_soundscape, visualise_distribution
-from extraction import bootstrap_soundscape
+from extraction import Metrics, bootstrap_soundscape
 from modelling import train_with_soundscapes
 
 
@@ -64,7 +64,32 @@ print('PATH', cwd)
 # TASKS = [Task.OBSERVATION]
 # TASKS = [Task.MODELLING]
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
+TASKS = [Task.EXTRACTION]
 TASKS = [Task.EXTRACTION, Task.MODELLING]
+# TASKS = [Task.MODELLING]
+
+METRIC_NAMES = [
+    Metrics.REGION,  # mandatory
+    Metrics.SOUNDSCAPE_ID,  # mandatory
+    Metrics.BAND_ID,  # mandatory
+    Metrics.SECOND,  # mandatory
+    Metrics.MEAN,
+    Metrics.MEDIAN,
+    Metrics.SUM,
+    Metrics.MAX,
+    # Metrics.MIN,
+    Metrics.ACOUSTIC_COMPLEXITY,
+    # Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
+    # Metrics.ACOUSTIC_DIVERSITY,
+    Metrics.BIOACOUSTIC_INDEX_BETA,
+    Metrics.TEMPORAL_MEDIAN,
+    Metrics.NUMBER_PEAKS,
+    Metrics.ENTROPY_FREQUENCY,
+    Metrics.ENTROPY_TEMPORAL,
+    Metrics.ENTROPY,
+    Metrics.ACOUSTIC_EVENNESS
+    # Metrics.SOUNDSCAPE_INDEX
+]
 
 
 def get_args():
@@ -207,6 +232,15 @@ def get_args():
     )
 
     parser.add_argument(
+        "-mens",
+        "--metric-names",
+        type=List,
+        default=METRIC_NAMES,
+        required=False,
+        help="Metrics to be used to train the models",
+    )
+
+    parser.add_argument(
         "-vb",
         "--verbo",
         type=bool,
@@ -247,7 +281,7 @@ def main():
     # relevant for observation, extraction, and sampling
     global tasks, job_id, N_JOBS, path_data, path_out, verbo, windows_13
     global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, secs_b, w_size_mins
-    global audio_files_processed, outfile_name
+    global audio_files_processed, outfile_name, metric_names
     # relevant for modelling
     global file_in_pattern
 
@@ -260,9 +294,10 @@ def main():
     path_data, path_out, sreg, si = args.path_in, args.path_out, args.sregions, args.sregion_iterator
     bandas, sr, b_band, u_band, bandwidth = args.bandas, args.sample_r, args.b_band, args.u_band, args.bandwidth
     samples_s, isamples_s, secs_b = args.samples_second, args.isamples_second, args.seconds_bandwidth
-    w_size_mins, verbo, windows_13 = args.win_size_mins, args.verbo, args.windows13
+    w_size_mins, verbo, windows_13, metric_names = args.win_size_mins, args.verbo, args.windows13, args.metric_names
 
     print('#### #### HOI FOREST #### ####')
+    print('#### ####', 'N-JOBS', N_JOBS, 'SBOJ-N', '#### ####')
     for task in tasks:
         match task:
             case Task.OBSERVATION:
@@ -379,6 +414,8 @@ def main():
 
             case Task.EXTRACTION:
                 print('#### #### HOI EXTRACTION #### ####')
+                print('####', 'INDICES =>', Metrics.list(), '<= INDICES',
+                      len(Metrics.list()), '####')
                 t00 = time.time()
                 path_data = args.path_in
                 folders_in, f_pattern_out, f_ext_in = 'files_in', 'extraction', ''
@@ -418,7 +455,9 @@ def main():
                                              samples_s=samples_s, isamples_s=isamples_s,
                                              secs_b=secs_b, w_size_mins=w_size_mins,
                                              verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
-                                             f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30)
+                                             f_pattern_out=f_pattern_out, windows_13=windows_13, 
+                                             horas=30,
+                                             metric_names=Metrics.list())
                         print(i, '#### TIMES #### extraction #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                         f_progress.at[i, 'processed'] = True
                         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
@@ -436,6 +475,7 @@ def main():
 
             case Task.MODELLING:
                 print('#### #### HOI MODELLING #### ####')
+                print('####', 'INDICES =>', metric_names, '<= INDICES', len(metric_names), '####')
                 t00 = time.time()
                 path_data = args.path_in
                 folders_in, f_pattern_out, f_ext_in = 'extraction', 'modelling', '.pkl'
@@ -450,14 +490,17 @@ def main():
                     i = 0
                     t11 = time.time()
                     print(f'{i}/{len(configfiles)}', '########', '################', '################', '########')
-                    print(i, '#### MODELLING ####', 'REGION:', '==>>', 'f.region', '<<==', 'DATA', '==>>', "f.filename.split('/')[-1]")
-                    train_with_soundscapes(files_path=configfiles, #region=f.region, si=i, sr=sr,
+                    print(i, '#### MODELLING ####', 'REGION:', '==>>', 'f.region', '<<==', 'DATA', '==>>',
+                          "f.filename.split('/')[-1]")
+                    train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
                                            bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
                                            path_data=path_data, path_out=path_out,
                                            samples_s=samples_s, isamples_s=isamples_s,
                                            secs_b=secs_b, w_size_mins=w_size_mins,
                                            verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
-                                           f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30)
+                                           f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
+                                           metric_names=metric_names
+                                           )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                 except Exception as e:
                     print('ALWAYS PROBLEMS', e)

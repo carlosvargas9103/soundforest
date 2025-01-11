@@ -23,6 +23,8 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 
+from extraction import Metrics as M
+
 # >>>> import libraries for CNN >>>>
 import torch
 import torch.nn as nn
@@ -45,7 +47,7 @@ t00 = time.time()
 
 
 def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
-                           ncols: int = 6009, *,
+                           ncols: int = 6016, *,
                            region: str = '',
                            si: int = 1964,
                            sr: int = 48000,
@@ -66,13 +68,14 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                            verbose: bool = False,
                            f_pattern_out: str = 'modelling',
                            windows_13: bool = True,
-                           horas: int = 30
+                           horas: int = 30,
+                           metric_names: List[str] = M.list()
                            ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
     t0 = time.time()
     df_data = None
-    ncols = 6009
+    ncols = 6016
     accuracy_dictt, accuracy_dicttt = {}, {}
 
     # SOME CONFIG ####
@@ -83,10 +86,16 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     try:
         print(files_path[0])
         df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
-        print(df_data.shape, df_data.columns[:19])
-        # print(df_merged.head(3))
+        df_data.columns = df_data.columns.map(str)
+        # columns_to_train = metric_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+        columns_to_train = metric_names # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+        # print(columns_to_train)
+        df_data = df_data[columns_to_train]
+        print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
+        # print(df_data.head(555))
+        # exit()
     except Exception as e:
-        print('ALWAYS PROBLEMS', 'NO DATA FROM PRE-PROCESSING', e)
+        print('ALWAYS PROBLEMS', 'CORRUPTED DATA =>', 'EXTRACTION', '<= DATA CORRUPTED', 'ALWAYS PROBLEMS', e)
 
     print('####', 'MERGE', len(files_path),
           'merge_data Dataframe shape:', df_data.shape,
@@ -225,6 +234,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
               model_path: str = f'{path_out}data/{f_pattern_out}/'
               ) -> None:
         criterion = nn.CrossEntropyLoss()
+        # PARALLEL ??
         for model in models:
             t1 = time.time()
             print('####',
@@ -276,14 +286,13 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
         2: [cnn_lstm_parallel],
         22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    models = dict_models.get(2, [cnn_lstm])
+    models = dict_models.get(22, [cnn_lstm])
 
     #### TRAIN ####
-    num_epochs = 5
+    num_epochs = 11
     # print('####', 'MODELS', dict_models, '####')
     print('####', 'MODELS - TOTAL', len(models), '####')
     print('####', 'EPOCHS', num_epochs, '####')
-
     # exit()
 
     tt0 = time.time()
@@ -292,11 +301,11 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
     # test
-    def ttest(models, test_loader):
+    def ttest(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names])):
         with torch.no_grad():
             correct = 0
             total = 0
-            accuracy_dict = {}
+            accuracy_dict = {'METRICS': metric_names_str}
             for model in models:
                 model.eval()
                 for x, y in test_loader:
@@ -306,13 +315,14 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     _, predicted = torch.max(y_pred.data, 1)
                     total += y.size(0)
                     correct += (predicted == y).sum().item()
-                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {100 * correct / total:.2f} %')
-                accuracy_dict[model.__class__.__name__] = 100 * correct / total
+                accuracy = round(100 * correct / total, 6)
+                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
+                accuracy_dict[model.__class__.__name__] = accuracy
         return accuracy_dict
 
-    def test(models, test_loader):
+    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names])):
         with torch.no_grad():
-            model_scores_dict = {}
+            model_scores_dict = {'METRICS': metric_names_str}
             for model in models:
                 model.eval()
                 metrics = {'TP': 0, 'TN': 0, 'FP': 0, 'FN': 0}
@@ -327,7 +337,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     total += y.size(0)
                     correct += (predicted == y).sum().item()
                     # Compute TP, TN, FP, FN
-                    for cls in torch.unique(y): # Iterate over unique classes
+                    for cls in torch.unique(y):  # Iterate over unique classes
                         cls = cls.item()
                         cls_pred = (predicted == cls)  # Predictions for the current class
                         cls_true = (y == cls)  # Ground truth for the current class
@@ -335,11 +345,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                         metrics['FP'] += (cls_pred & ~cls_true).sum().item()
                         metrics['FN'] += (~cls_pred & cls_true).sum().item()
                         metrics['TN'] += ((~cls_pred) & (~cls_true)).sum().item()
+                accuracy = round(100 * correct / total, 6)
+                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
 
-                accuracy = 100 * correct / total
-                
-                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy:.2f} %')
-                
                 model_scores_dict[model.__class__.__name__] = {
                     'AC': accuracy,
                     'TP': metrics['TP'],
@@ -363,10 +371,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
         json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
 
-print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
-print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
+    print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
+    print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
+    print('#### TIMES #### modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
-print('#### TIMES #### modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
 if __name__ == '__main__':
     print('Mirá ve.. oís?? alles gut oder was??')

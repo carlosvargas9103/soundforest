@@ -1,0 +1,4 @@
+  File "/home/vargas/repos/forests-sounds-vargas/source/forest.py", line 267
+    print('#### ####', 'N-JOBS', N_JOBS, 'SBOJ-N, '#### ####')
+         ^
+SyntaxError: '(' was never closed
