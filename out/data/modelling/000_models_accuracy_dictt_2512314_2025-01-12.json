@@ -1,0 +1,24 @@
+{
+    "CNN_LSTM": {
+        "AC": 87.358808,
+        "FN": 6312,
+        "FP": 6309,
+        "TN": 143295,
+        "TP": 43620
+    },
+    "LSTM_CNN": {
+        "AC": 89.25739,
+        "FN": 5364,
+        "FP": 5361,
+        "TN": 144243,
+        "TP": 44568
+    },
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei",
+    "ParallelCNNLSTMModel": {
+        "AC": 90.527117,
+        "FN": 4730,
+        "FP": 4730,
+        "TN": 144874,
+        "TP": 45202
+    }
+}

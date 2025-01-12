@@ -1,0 +1,6 @@
+{
+    "CNN_LSTM": 38.362173,
+    "LSTM_CNN": 63.480333,
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei",
+    "ParallelCNNLSTMModel": 71.97522
+}
