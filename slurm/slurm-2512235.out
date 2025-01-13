@@ -1,0 +1,304 @@
+#### TIME #### TERMINO #### 0.0 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 0.0
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 39 SBOJ-N #### ####
+#### #### HOI EXTRACTION #### ####
+#### INDICES => ['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'min', 'aci', 'aca', 'adi', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei', 'dsi', 'vec'] <= INDICES 21 ####
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+starting with => 57 soundscapes => now 1736675427
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_00_PSA0010-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_18_PSA0373-2011.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_16_PSA0292-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/PSA0025-2015.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_21_PSA0429-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_11_PSA0192-2009.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_01_PSA0022-2015.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_02_PSA0077-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_12_PSA0254-2011.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_01_Pasture11.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_09_Pasture8.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_00_Pasture10.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_02_Pasture12.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_05_PSA0074-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_13_PSA0165-2021.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_17_PSA0193-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_12_PSA0161-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_16_PSA0183-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_10_PSA0152-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_00_PSA0004-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_09_PSA0151-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_15_PSA0179-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_06_PSA0093-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_02_PSA0026-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_14_PSA0168-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_20_PSA0431-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_07_PSA0099-2019.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### extraction TOTAL TOTAL ==>> 0.10711908340454102
+#### #### HOI MODELLING #### ####
+#### INDICES => ['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei'] <= INDICES 16 ####
+0/57 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### #### READING DATA FILES #### ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_15_PSA0290-2012_dict_y_split_1_2512212_1736642327.pkl')
+(249660, 16) Index([                Metrics.REGION,          Metrics.SOUNDSCAPE_ID,
+                      Metrics.BAND_ID,                 Metrics.SECOND,
+                         Metrics.MEAN,                 Metrics.MEDIAN,
+                          Metrics.SUM,                    Metrics.MAX,
+          Metrics.ACOUSTIC_COMPLEXITY, Metrics.BIOACOUSTIC_INDEX_BETA,
+              Metrics.TEMPORAL_MEDIAN,           Metrics.NUMBER_PEAKS,
+            Metrics.ENTROPY_FREQUENCY,       Metrics.ENTROPY_TEMPORAL,
+                      Metrics.ENTROPY,      Metrics.ACOUSTIC_EVENNESS],
+      dtype='object')
+#### MERGE 57 merge_data Dataframe shape: (249660, 16) #### time: 19
+#### #### SPLIT TRAIN TEST #### ####
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 29
+#### MODELS - TOTAL 3 ####
+#### EPOCHS 15 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [33/1041] Loss: 0.1905 Time: 68.824
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [66/1041] Loss: 0.2204 Time: 69.008
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [99/1041] Loss: 0.3248 Time: 69.192
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [132/1041] Loss: 0.2410 Time: 69.375
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [165/1041] Loss: 0.2228 Time: 69.559
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [198/1041] Loss: 0.2322 Time: 69.742
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [231/1041] Loss: 0.1603 Time: 69.925
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [264/1041] Loss: 0.2878 Time: 70.109
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [297/1041] Loss: 0.1349 Time: 70.293
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [330/1041] Loss: 0.2354 Time: 70.476
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [363/1041] Loss: 0.2019 Time: 70.659
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [396/1041] Loss: 0.1646 Time: 70.841
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [429/1041] Loss: 0.2113 Time: 71.024
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [462/1041] Loss: 0.2370 Time: 71.207
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [495/1041] Loss: 0.3818 Time: 71.39
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [528/1041] Loss: 0.2826 Time: 71.572
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [561/1041] Loss: 0.1997 Time: 71.755
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [594/1041] Loss: 0.2039 Time: 71.938
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [627/1041] Loss: 0.2896 Time: 72.127
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [660/1041] Loss: 0.2013 Time: 72.314
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [693/1041] Loss: 0.2684 Time: 72.499
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [726/1041] Loss: 0.1927 Time: 72.683
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [759/1041] Loss: 0.1895 Time: 72.867
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [792/1041] Loss: 0.1999 Time: 73.049
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [825/1041] Loss: 0.2169 Time: 73.232
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [858/1041] Loss: 0.2398 Time: 73.416
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [891/1041] Loss: 0.1779 Time: 73.598
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [924/1041] Loss: 0.1882 Time: 73.781
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [957/1041] Loss: 0.2036 Time: 73.964
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [990/1041] Loss: 0.1405 Time: 74.146
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [1023/1041] Loss: 0.1604 Time: 74.329
+#### TRAINED MODEL CNN_LSTM model training time: 103.864 total training time: 104.357 ####
+#### TRAINING MODEL LSTM_CNN ####
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [33/1041] Loss: 0.2119 Time: 63.576
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [66/1041] Loss: 0.2779 Time: 63.795
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [99/1041] Loss: 0.2909 Time: 64.013
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [132/1041] Loss: 0.1960 Time: 64.231
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [165/1041] Loss: 0.1845 Time: 64.45
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [198/1041] Loss: 0.2244 Time: 64.668
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [231/1041] Loss: 0.2707 Time: 64.887
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [264/1041] Loss: 0.3403 Time: 65.105
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [297/1041] Loss: 0.2637 Time: 65.323
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [330/1041] Loss: 0.2725 Time: 65.542
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [363/1041] Loss: 0.2656 Time: 65.76
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [396/1041] Loss: 0.2137 Time: 65.978
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [429/1041] Loss: 0.2295 Time: 66.197
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [462/1041] Loss: 0.3132 Time: 66.415
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [495/1041] Loss: 0.1946 Time: 66.634
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [528/1041] Loss: 0.3013 Time: 66.852
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [561/1041] Loss: 0.2056 Time: 67.07
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [594/1041] Loss: 0.2159 Time: 67.289
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [627/1041] Loss: 0.2556 Time: 67.507
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [660/1041] Loss: 0.2044 Time: 67.727
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [693/1041] Loss: 0.2367 Time: 67.946
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [726/1041] Loss: 0.2375 Time: 68.165
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [759/1041] Loss: 0.2410 Time: 68.383
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [792/1041] Loss: 0.2326 Time: 68.602
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [825/1041] Loss: 0.2192 Time: 68.82
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [858/1041] Loss: 0.2272 Time: 69.039
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [891/1041] Loss: 0.2390 Time: 69.257
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [924/1041] Loss: 0.2381 Time: 69.476
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [957/1041] Loss: 0.2568 Time: 69.694
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [990/1041] Loss: 0.2901 Time: 69.912
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [1023/1041] Loss: 0.2546 Time: 70.13
+#### TRAINED MODEL LSTM_CNN model training time: 105.163 total training time: 209.52 ####
+#### TRAINING MODEL ParallelCNNLSTMModel ####
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [33/1041] Loss: 0.2372 Time: 63.339
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [66/1041] Loss: 0.1891 Time: 63.559
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [99/1041] Loss: 0.1696 Time: 63.778
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [132/1041] Loss: 0.2467 Time: 63.997
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [165/1041] Loss: 0.1541 Time: 64.216
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [198/1041] Loss: 0.1757 Time: 64.435
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [231/1041] Loss: 0.2255 Time: 64.655
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [264/1041] Loss: 0.2126 Time: 64.874
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [297/1041] Loss: 0.1757 Time: 65.093
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [330/1041] Loss: 0.2118 Time: 65.312
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [363/1041] Loss: 0.2019 Time: 65.532
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [396/1041] Loss: 0.2134 Time: 65.75
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [429/1041] Loss: 0.2123 Time: 65.97
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [462/1041] Loss: 0.1855 Time: 66.189
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [495/1041] Loss: 0.1907 Time: 66.408
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [528/1041] Loss: 0.1652 Time: 66.628
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [561/1041] Loss: 0.2249 Time: 66.847
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [594/1041] Loss: 0.1653 Time: 67.066
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [627/1041] Loss: 0.1984 Time: 67.286
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [660/1041] Loss: 0.2845 Time: 67.505
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [693/1041] Loss: 0.1670 Time: 67.724
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [726/1041] Loss: 0.1568 Time: 67.943
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [759/1041] Loss: 0.2637 Time: 68.163
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [792/1041] Loss: 0.2265 Time: 68.382
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [825/1041] Loss: 0.2213 Time: 68.602
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [858/1041] Loss: 0.2331 Time: 68.821
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [891/1041] Loss: 0.2166 Time: 69.04
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [924/1041] Loss: 0.2043 Time: 69.41
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [957/1041] Loss: 0.1219 Time: 69.63
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [990/1041] Loss: 0.2870 Time: 69.85
+#### prediction torch.Size([192, 4])
+Epoch [10/15] Step [1023/1041] Loss: 0.2601 Time: 70.069
+#### TRAINED MODEL ParallelCNNLSTMModel model training time: 105.313 total training time: 314.833 ####
+#### TRAINING TOTAL TIME: 314.34 ####
+Accuracy of the CNN_LSTM model on the test set: 90.545141 %
+Accuracy of the LSTM_CNN model on the test set: 89.575823 %
+Accuracy of the ParallelCNNLSTMModel model on the test set: 92.089241 %
+Accuracy of the CNN_LSTM model on the test set: 90.545141 %
+Accuracy of the LSTM_CNN model on the test set: 90.060482 %
+Accuracy of the ParallelCNNLSTMModel model on the test set: 90.736735 %
+#### TESTING TOTAL TIME: 6.364 ####
+0 #### TIMES #### Modelling #### PARTIAL FILE ==>> 370.937 seconds
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### Modelling TOTAL TOTAL ==>> 370.9432055950165
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 371.106 
+ TOTAL_JOBS: 39 
+ JOB_ID: 2512235 
+ #### ####
+#### SLEEPING TIME: 371.106 seconds ####
+All gürkel parcero, aller!
