@@ -14,9 +14,11 @@ audio_files_*.csv
 *.mp3
 *.png
 *.pkl
+*.OLD.ipynb
 
 # PDFs
 BOOK_*.pdf
+*.doc*
 
 # C extensions
 *.so
