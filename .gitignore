@@ -2,8 +2,9 @@ Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-#OLD
-OLD
+*/*OLD*/
+*OLD*/
+*OLD*
 
 #models
 *.model
