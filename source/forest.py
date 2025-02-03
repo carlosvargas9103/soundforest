@@ -33,6 +33,7 @@ from extraction import Metrics, bootstrap_soundscape
 from modelling import train_with_soundscapes
 
 
+#{'FOREST': 'FramewORk for Extraction, ViSualisation, and classificaTion of Soundscapes'}
 class Task(Enum):  # These are each of the tasks ( modules | files )
     # FRAMEWORK = 0
     OBSERVATION = 1
