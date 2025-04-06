@@ -20,6 +20,8 @@ audio_files_*.csv
 # PDFs
 BOOK_*.pdf
 *.doc*
+*.bib
+!*main*.bib
 
 # C extensions
 *.so

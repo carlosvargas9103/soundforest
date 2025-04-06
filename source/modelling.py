@@ -36,7 +36,8 @@ from sklearn.metrics import accuracy_score
 from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
 
 # <<< import libraries for CNN <<<<
-
+# primary source: https://github.com/mijanr/TimeSeries/blob/master/Time_Series_Classification/cnn_plus_lstm.ipynb
+# second source: https://www.kaggle.com/code/orkatz2/cnn-lstm-pytorch-train
 # from warnings import simplefilter
 # simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
@@ -153,9 +154,11 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             super(CNN_LSTM, self).__init__()
             self.cnn = nn.Sequential(
                 nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+                # nn.BatchNorm1d(64),  # Batch Normalisation
                 nn.ReLU(),
                 nn.MaxPool1d(kernel_size=2, stride=2),
                 nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+                # nn.BatchNorm1d(128),  # Batch Normalisation
                 nn.ReLU(),
                 nn.MaxPool1d(kernel_size=2, stride=2)
             )
@@ -178,9 +181,11 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
             self.cnn = nn.Sequential(
                 nn.Conv1d(in_channels=hidden_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+                # nn.BatchNorm1d(64),  # Batch Normalisation
                 nn.ReLU(),
                 nn.MaxPool1d(kernel_size=2, stride=2),
                 nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+                # nn.BatchNorm1d(128),  # Batch Normalisation
                 nn.ReLU(),
                 nn.MaxPool1d(kernel_size=2, stride=2),
                 # flatten
@@ -202,9 +207,11 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             super(ParallelCNNLSTMModel, self).__init__()
             self.cnn = nn.Sequential(
                 nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+                # nn.BatchNorm1d(64),  # Batch Normalisation
                 nn.ReLU(),
                 nn.MaxPool1d(kernel_size=2, stride=2),
                 nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+                # nn.BatchNorm1d(128),  # Batch Normalisation
                 nn.ReLU(),
                 nn.MaxPool1d(kernel_size=2, stride=2),
                 nn.Flatten(),
