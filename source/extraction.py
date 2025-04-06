@@ -121,7 +121,7 @@ def get_audio_indices(s=None, fs: int = 0,
             ADI += features.acoustic_diversity_index(Sxx, fn, f1, f2)
             AEI += features.acoustic_eveness_index(Sxx, fn, f1, f2)
 
-        # Compute the spectrogram
+    # Compute the spectrogram
     if apply_filter == False:
         # Sxx, tn, fn, ext = sound.spectrogram(s[0, :], fs, mode='amplitude')
         Sxx, tn, fn, ext = sound.spectrogram(s, fs, mode='amplitude')
@@ -131,7 +131,7 @@ def get_audio_indices(s=None, fs: int = 0,
         AEI = features.acoustic_eveness_index(Sxx, fn)  # , fmax=int(fs / 2), dB_threshold=-40)
         # maad.features.acoustic_richness_index (PENDING)
 
-        # Calculate acoustic indices
+    # Calculate acoustic indices
     ACIft_ = indices.ACIft(Sxx)
     BETA = features.bioacoustics_index(Sxx, fn, flim=(2000, 8000))
     # M = features.temporal_median(s[0, :], mode='hilbert')
@@ -183,6 +183,7 @@ def bootstrap_soundscape(audio_file: str = '',
     # PARALLEL JOBS PER FILE
     y, y_c = None, None
     y, sr = librosa.load(audio_file, sr=None)  # , duration=1800)
+    print("SAMPLE RATE => ", sr)
     y_c = copy.deepcopy(y)
     tt = int(len(y_c) / sr)
     # print(f'y: {y_c[:3]}')
@@ -201,6 +202,7 @@ def bootstrap_soundscape(audio_file: str = '',
           type(split_y), type(split_y[0])
           )
 
+    # secs_b: int = 6, secs_o: int = 1.9,
     frame_size, hop_size = sr * secs_b, int(sr * (secs_b - secs_o))
 
     def hanning(y: np.array = None, frame_size: int = frame_size, hop_size: int = hop_size, hanning: bool = True):
@@ -241,7 +243,8 @@ def bootstrap_soundscape(audio_file: str = '',
     #       )
     # exit()
 
-    # ATM, WE DO NOT CALL THESE METHODS
+    # TODO: ATM, WE DO NOT CALL THESE METHODS
+    # TODO: ATM, WE DO NOT CALL AMPLITUDE ENVELOPE
     # wrap methods audio_denoise with parameters
     # def audio_denoise_st(y=None, sr: int = 48000):
     def audio_denoise_st(y=None, sr: int = sr):

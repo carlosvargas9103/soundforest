@@ -1,7 +1,9 @@
 metrics.py => (Soundscapy) https://github.com/MitchellAcoustics/Soundscapy/blob/main/src/soundscapy/audio/metrics.py
 
-indices.py => https://zenodo.org/records/10828267
+Naranjo-Sanchez-2024 - indices.py => https://zenodo.org/records/10828267
 
 compute_indices.py => https://github.com/patriceguyot/Acoustic_Indices/tree/master
 
 Mosquito => https://zenodo.org/records/11026796
+
+Butter_bandstop_filer => https://github.com/hgamboa/novainstrumentation/tree/master
