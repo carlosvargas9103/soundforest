@@ -327,9 +327,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 accuracy_dict[model.__class__.__name__] = accuracy
         return accuracy_dict
 
-    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names])):
+    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names])) -> dict:
+        model_scores_dict = {'METRICS': metric_names_str}
         with torch.no_grad():
-            model_scores_dict = {'METRICS': metric_names_str}
             for model in models:
                 model.eval()
                 metrics = {'TP': 0, 'TN': 0, 'FP': 0, 'FN': 0}
@@ -362,7 +362,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     'FP': metrics['FP'],
                     'FN': metrics['FN'],
                 }
-            return model_scores_dict
+        return model_scores_dict
 
     tt0 = time.time()
     accuracy_dictt = test(models, test_loader)
