@@ -70,7 +70,8 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                            f_pattern_out: str = 'modelling',
                            windows_13: bool = True,
                            horas: int = 30,
-                           metric_names: List[str] = M.list()
+                           metric_names: List[str] = M.list(),
+                           dev_mode: bool = False
                            ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
@@ -105,7 +106,39 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     # exit()
     print('#### #### SPLIT TRAIN TEST #### ####')
     t0 = time.time()
-    X_train, X_test, y_train, y_test = train_test_split(df_data.iloc[:, 1:], df_data.iloc[:, 0], test_size=0.2, random_state=9103)
+
+    # Subsample 1% of the data with stratification
+    label_column = df_data.columns[0]  # Assuming first column is your target
+    df_data_sampled, _ = train_test_split(
+        df_data,
+        train_size=0.09103,
+        stratify=df_data[label_column],
+        random_state=9103
+    )
+
+    print('####', 'reduces subsampled shape:', df_data_sampled.shape)
+
+    print('#### #### SPLIT TRAIN TEST #### ####')
+    t0 = time.time()
+
+    if dev_mode:
+        # stratified train/test split on sampled data
+        X_train, X_test, y_train, y_test = train_test_split(
+            df_data_sampled.iloc[:, 1:],
+            df_data_sampled.iloc[:, 0],
+            test_size=0.2,
+            stratify=df_data_sampled.iloc[:, 0],
+            random_state=9103
+        )
+    else:
+        X_train, X_test, y_train, y_test = train_test_split(
+            df_data.iloc[:, 1:],
+            df_data.iloc[:, 0],
+            test_size=0.2,
+            stratify=df_data_sampled.iloc[:, 0],
+            random_state=9103
+        )
+
     # Normalize the data
     X_train = TimeSeriesScalerMinMax().fit_transform(X_train)
     X_test = TimeSeriesScalerMinMax().fit_transform(X_test)
@@ -293,7 +326,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
         2: [cnn_lstm_parallel],
         22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    #models = dict_models.get(22, [cnn_lstm])
+    # models = dict_models.get(22, [cnn_lstm])
     models = dict_models.get(0, [cnn_lstm])
 
     #### TRAIN ####
@@ -328,7 +361,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 accuracy_dict[model.__class__.__name__] = accuracy
         return accuracy_dict
 
-    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names]), e:int=num_epochs) -> dict:
+    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names]), e: int = num_epochs) -> dict:
         model_scores_dict = {'METRICS': metric_names_str}
         with torch.no_grad():
             for model in models:
@@ -368,16 +401,16 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     tt0 = time.time()
     accuracy_dictt = test(models, test_loader)
-    #accuracy_dicttt = ttest(models, test_loader)
+    # accuracy_dicttt = ttest(models, test_loader)
     print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
     # plot bar chart with the accuracy of each model
     # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
 
-    with open(f'{model_path}000_models_accuracy_dictt_e_{num_epochs}_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+    with open(f'{model_path}000_models_accuracy_dict_epochs_{num_epochs}_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
         json.dump(accuracy_dictt, fp, sort_keys=True, indent=4)
 
-    #with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+    # with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
     #    json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
 
     print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
