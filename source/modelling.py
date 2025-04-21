@@ -120,7 +120,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     print('#### #### SPLIT TRAIN TEST #### ####')
     t0 = time.time()
-
+    X_train, X_test, y_train, y_test = None, None, None, None
     if dev_mode:
         # stratified train/test split on sampled data
         X_train, X_test, y_train, y_test = train_test_split(
@@ -135,7 +135,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             df_data.iloc[:, 1:],
             df_data.iloc[:, 0],
             test_size=0.2,
-            stratify=df_data_sampled.iloc[:, 0],
+            stratify=df_data.iloc[:, 0], # to handle unbalanced classes
             random_state=9103
         )
 
