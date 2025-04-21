@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/vargas/repos/forests-sounds-vargas/source/forest.py", line 33, in <module>
+    from modelling import train_with_soundscapes
+  File "/home/vargas/repos/forests-sounds-vargas/source/modelling.py", line 331
+    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names], e:int=num_epochs)) -> dict:
+                                                                                                     ^
+SyntaxError: invalid syntax
