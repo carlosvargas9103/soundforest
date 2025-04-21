@@ -106,9 +106,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 print(files_path[0])
                 df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
                 df_data.columns = df_data.columns.map(str)
-                # include the scalar features
+                # include the scalar AND temporal features
                 # columns_to_train = combi_metric_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
-                # include the temporal features
+                # include the ONLY scalar features
                 columns_to_train = combi_metric_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 df_data = df_data[columns_to_train]
                 print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
