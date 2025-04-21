@@ -293,7 +293,8 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
         2: [cnn_lstm_parallel],
         22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
     }
-    models = dict_models.get(22, [cnn_lstm])
+    #models = dict_models.get(22, [cnn_lstm])
+    models = dict_models.get(0, [cnn_lstm])
 
     #### TRAIN ####
     num_epochs = 1
@@ -327,7 +328,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 accuracy_dict[model.__class__.__name__] = accuracy
         return accuracy_dict
 
-    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names])) -> dict:
+    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in metric_names]), e:int=num_epochs) -> dict:
         model_scores_dict = {'METRICS': metric_names_str}
         with torch.no_grad():
             for model in models:
@@ -356,6 +357,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
 
                 model_scores_dict[model.__class__.__name__] = {
+                    'EPOCHS': e,
                     'AC': accuracy,
                     'TP': metrics['TP'],
                     'TN': metrics['TN'],
@@ -366,17 +368,17 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     tt0 = time.time()
     accuracy_dictt = test(models, test_loader)
-    accuracy_dicttt = ttest(models, test_loader)
+    #accuracy_dicttt = ttest(models, test_loader)
     print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
     # plot bar chart with the accuracy of each model
     # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
 
-    with open(f'{model_path}000_models_accuracy_dictt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+    with open(f'{model_path}000_models_accuracy_dictt_e_{num_epochs}_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
         json.dump(accuracy_dictt, fp, sort_keys=True, indent=4)
 
-    with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
-        json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
+    #with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+    #    json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
 
     print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
     print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
