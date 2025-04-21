@@ -1,0 +1,23 @@
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 39 SBOJ-N #### ####
+#### #### HOI EXTRACTION #### ####
+#### INDICES => ['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'min', 'aci', 'aca', 'adi', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei', 'dsi', 'vec'] <= INDICES 21 ####
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+starting with => 57 soundscapes => now 1745242173
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3
+7/57 ######## ################ ################ ########
+7 #### EXTRACTION #### REGION: ==>> Plantation <<== DATA ==>> 2_00_PSA0010-2010.mp3
+SAMPLE RATE =>  48000
+#### ORIGINAL Y_C 86400000 [-0.00225802 -0.00408008 -0.00553367] <class 'numpy.ndarray'>
+#### CHUNKS Y_C total_chunks: 300 chunk_size: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### HANNING Y_C total_chunks: 438 chunk_size first: 288000 chunk_size last: 288000 <class 'list'> <class 'numpy.ndarray'>
+#### PARALLEL INDICES ####
+slurmstepd: error: *** JOB 2605618 ON i40 CANCELLED AT 2025-04-21T15:31:45 ***
