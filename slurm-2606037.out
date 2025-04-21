@@ -1,0 +1,387 @@
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 39 SBOJ-N #### ####
+#### #### HOI EXTRACTION #### ####
+#### INDICES => ['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'min', 'aci', 'aca', 'adi', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei', 'dsi', 'vec'] <= INDICES 21 ####
+/home/vargas/repos/forests-sounds-vargas/data/ /home/vargas/repos/forests-sounds-vargas/out/ [('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3'), ('Plantation', '/home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3')]
+starting with => 57 soundscapes => now 1745257465
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_15_PSA0290-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_19_PSA0374-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_07_PSA0093-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_20_PSA0400-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_13_PSA0280-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_17_PSA0331-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_00_PSA0010-2010.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_18_PSA0373-2011.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_16_PSA0292-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/PSA0025-2015.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_21_PSA0429-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_11_PSA0192-2009.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_01_PSA0022-2015.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_02_PSA0077-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Plantation/2_12_PSA0254-2011.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_01_Pasture11.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_09_Pasture8.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_00_Pasture10.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/Pasture/3_02_Pasture12.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_05_PSA0074-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_13_PSA0165-2021.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_17_PSA0193-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_12_PSA0161-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_16_PSA0183-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_10_PSA0152-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_00_PSA0004-2017.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_09_PSA0151-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_15_PSA0179-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_06_PSA0093-2018.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_02_PSA0026-2020.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_14_PSA0168-2016.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_20_PSA0431-2013.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/NaturalRegeneration/1_07_PSA0099-2019.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3
+ALREADY PROCESED: /home/vargas/repos/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### extraction TOTAL TOTAL ==>> 0.07900476455688477
+#### #### HOI MODELLING #### ####
+#### INDICES => [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei] <= INDICES 16 ####
+0/68 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### #### READING DATA FILES #### ####
+1 #### COMBI [reg, sid, ban, sec, men, med, sum, max] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 8) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 8) #### time: 13
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 8)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 17.511 total training time: 17.997 ####
+#### TRAINING TOTAL TIME: 17.511 ####
+Accuracy of the CNN_LSTM model on the test set: 51.761018 %
+#### TESTING TOTAL TIME: 1.144 ####
+#### TIME #### TERMINO #### 36.406 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 36.406
+#### #### READING DATA FILES #### ####
+2 #### COMBI [reg, sid, ban, sec, men, med, sum, aci] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 8) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 8) #### time: 30
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 8)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.591 total training time: 0.606 ####
+#### TRAINING TOTAL TIME: 0.591 ####
+Accuracy of the CNN_LSTM model on the test set: 32.362161 %
+#### TESTING TOTAL TIME: 0.106 ####
+#### TIME #### TERMINO #### 52.297 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 52.297
+#### #### READING DATA FILES #### ####
+3 #### COMBI [reg, sid, ban, sec, men, med, sum, bet] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 8) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'bet'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'bet'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 8) #### time: 13
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 8)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.591 total training time: 0.604 ####
+#### TRAINING TOTAL TIME: 0.591 ####
+Accuracy of the CNN_LSTM model on the test set: 53.088696 %
+#### TESTING TOTAL TIME: 0.105 ####
+#### TIME #### TERMINO #### 68.844 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 68.844
+#### #### READING DATA FILES #### ####
+4 #### COMBI [reg, sid, ban, sec, men, med, sum, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 8) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 8) #### time: 12
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 8)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.591 total training time: 0.604 ####
+#### TRAINING TOTAL TIME: 0.591 ####
+Accuracy of the CNN_LSTM model on the test set: 45.768025 %
+#### TESTING TOTAL TIME: 0.106 ####
+#### TIME #### TERMINO #### 85.004 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 85.004
+#### #### READING DATA FILES #### ####
+5 #### COMBI [reg, sid, ban, sec, men, med, sum, max, aci] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 9) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 9) #### time: 12
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 9)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.617 total training time: 0.63 ####
+#### TRAINING TOTAL TIME: 0.617 ####
+Accuracy of the CNN_LSTM model on the test set: 30.886963 %
+#### TESTING TOTAL TIME: 0.109 ####
+#### TIME #### TERMINO #### 101.247 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 101.247
+#### #### READING DATA FILES #### ####
+6 #### COMBI [reg, sid, ban, sec, men, med, sum, max, bet] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 9) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'bet'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'bet'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 9) #### time: 13
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 9)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.617 total training time: 0.629 ####
+#### TRAINING TOTAL TIME: 0.617 ####
+Accuracy of the CNN_LSTM model on the test set: 53.770975 %
+#### TESTING TOTAL TIME: 0.108 ####
+#### TIME #### TERMINO #### 118.54 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 118.54
+#### #### READING DATA FILES #### ####
+7 #### COMBI [reg, sid, ban, sec, men, med, sum, max, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 9) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 9) #### time: 14
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 9)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.617 total training time: 0.63 ####
+#### TRAINING TOTAL TIME: 0.617 ####
+Accuracy of the CNN_LSTM model on the test set: 55.485893 %
+#### TESTING TOTAL TIME: 0.107 ####
+#### TIME #### TERMINO #### 135.9 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 135.901
+#### #### READING DATA FILES #### ####
+8 #### COMBI [reg, sid, ban, sec, men, med, sum, aci, bet] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 9) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci', 'bet'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci', 'bet'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 9) #### time: 14
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 9)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.787 total training time: 0.8 ####
+#### TRAINING TOTAL TIME: 0.787 ####
+Accuracy of the CNN_LSTM model on the test set: 32.362161 %
+#### TESTING TOTAL TIME: 0.106 ####
+#### TIME #### TERMINO #### 153.896 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 153.896
+#### #### READING DATA FILES #### ####
+9 #### COMBI [reg, sid, ban, sec, men, med, sum, aci, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 9) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 9) #### time: 13
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 9)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.613 total training time: 0.626 ####
+#### TRAINING TOTAL TIME: 0.613 ####
+Accuracy of the CNN_LSTM model on the test set: 30.886963 %
+#### TESTING TOTAL TIME: 0.107 ####
+#### TIME #### TERMINO #### 171.04 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 171.04
+#### #### READING DATA FILES #### ####
+10 #### COMBI [reg, sid, ban, sec, men, med, sum, bet, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 9) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'bet', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'bet', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 9) #### time: 14
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 9)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.612 total training time: 0.625 ####
+#### TRAINING TOTAL TIME: 0.612 ####
+Accuracy of the CNN_LSTM model on the test set: 54.877374 %
+#### TESTING TOTAL TIME: 0.107 ####
+#### TIME #### TERMINO #### 188.915 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 188.915
+#### #### READING DATA FILES #### ####
+11 #### COMBI [reg, sid, ban, sec, men, med, sum, max, aci, bet] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 10) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'bet'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'bet'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 10) #### time: 15
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 10)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.614 total training time: 0.627 ####
+#### TRAINING TOTAL TIME: 0.615 ####
+Accuracy of the CNN_LSTM model on the test set: 32.362161 %
+#### TESTING TOTAL TIME: 0.108 ####
+#### TIME #### TERMINO #### 207.34 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 207.34
+#### #### READING DATA FILES #### ####
+12 #### COMBI [reg, sid, ban, sec, men, med, sum, max, aci, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 10) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 10) #### time: 16
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 10)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.615 total training time: 0.628 ####
+#### TRAINING TOTAL TIME: 0.615 ####
+Accuracy of the CNN_LSTM model on the test set: 30.886963 %
+#### TESTING TOTAL TIME: 0.106 ####
+#### TIME #### TERMINO #### 227.506 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 227.506
+#### #### READING DATA FILES #### ####
+13 #### COMBI [reg, sid, ban, sec, men, med, sum, max, bet, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 10) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'bet', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'bet', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 10) #### time: 15
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 10)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.619 total training time: 0.632 ####
+#### TRAINING TOTAL TIME: 0.619 ####
+Accuracy of the CNN_LSTM model on the test set: 62.179605 %
+#### TESTING TOTAL TIME: 0.108 ####
+#### TIME #### TERMINO #### 246.013 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 246.013
+#### #### READING DATA FILES #### ####
+14 #### COMBI [reg, sid, ban, sec, men, med, sum, aci, bet, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 10) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci', 'bet', 'mmm'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'aci', 'bet', 'mmm'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 10) #### time: 13
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 10)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.612 total training time: 0.625 ####
+#### TRAINING TOTAL TIME: 0.612 ####
+Accuracy of the CNN_LSTM model on the test set: 32.343721 %
+#### TESTING TOTAL TIME: 0.106 ####
+#### TIME #### TERMINO #### 263.285 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 263.285
+#### #### READING DATA FILES #### ####
+15 #### COMBI [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 11) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'bet',
+       'mmm'],
+      dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'aci', 'bet',
+       'mmm'],
+      dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 11) #### time: 15
+#### #### SPLIT TRAIN TEST #### ####
+#### REDUCED subsampled shape: (27112, 11)
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 3
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 1 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL CNN_LSTM ####
+#### TRAINED MODEL CNN_LSTM model training time: 0.62 total training time: 0.633 ####
+#### TRAINING TOTAL TIME: 0.62 ####
+Accuracy of the CNN_LSTM model on the test set: 32.343721 %
+#### TESTING TOTAL TIME: 0.108 ####
+#### TIME #### TERMINO #### 282.332 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 282.332
+0 #### TIMES #### Modelling #### PARTIAL FILE ==>> 282.25 seconds
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### Modelling TOTAL TOTAL ==>> 282.2532660961151
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 282.336 
+ TOTAL_JOBS: 39 
+ JOB_ID: 2606037 
+ #### ####
+#### SLEEPING TIME: 282.336 seconds ####
+All gürkel parcero, aller!
