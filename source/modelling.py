@@ -339,7 +339,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
             }
             # models = dict_models.get(22, [cnn_lstm])
-            models = dict_models.get(0, [cnn_lstm])
+            models = dict_models.get(0, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
 
             #### TRAIN ####
             num_epochs = n_epochs
