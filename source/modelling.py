@@ -72,14 +72,15 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                            horas: int = 30,
                            metric_names: List[str] = M.list(),
                            dev_mode: bool = True,
-                           n_epochs: int = 11
+                           n_epochs: int = 11,
+                           df_stats: bool = False
                            ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
     t0 = time.time()
     df_data = None
     ncols = 6016
-    accuracy_dictt, accuracy_dicttt = {}, {}
+    accuracy_dict, accuracy_dicttt = {}, {}
 
     # SOME CONFIG ####
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
@@ -87,8 +88,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Fixed part: always included
     i_fix_metrics = 7
+    # fixed_part = metric_names[:-1]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
+    # variable_part = metric_names[-1:]
     variable_part = metric_names[i_fix_metrics:]
     i_r_c = 0
     for r in range(1, len(variable_part) + 1):  # r = number of items in each combination
@@ -106,7 +109,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 # include the scalar features
                 # columns_to_train = combi_metric_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 # include the temporal features
-                columns_to_train = combi_metric_names # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+                columns_to_train = combi_metric_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 df_data = df_data[columns_to_train]
                 print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
                 # print(df_data.head(555))
@@ -118,13 +121,19 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                   'merge_data Dataframe shape:', df_data.shape,
                   '####', 'time:', int(time.time() - t0))
 
+            if df_stats:
+                # basic stats for numeric columns
+                stats_df = df_data.describe(include='all').transpose()  # .transpose() makes it more readable
+                stats_df.to_csv(f'{model_path}df_statistics_{job_id}_{str(datetime.date.today())}.csv', index=True)
+                # exit()
+
             # exit()
             print('#### #### SPLIT TRAIN TEST #### ####')
             t0 = time.time()
             X_train, X_test, y_train, y_test = None, None, None, None
             if dev_mode:
-                # Subsample 1% of the data with stratification
-                label_column = df_data.columns[0]  # Assuming first column is your target
+                # subsample 1% for dev_mode
+                label_column = df_data.columns[0]  # target label
                 df_data_sampled, _ = train_test_split(
                     df_data,
                     train_size=0.09103,
@@ -132,7 +141,6 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     random_state=9103
                 )
                 print('####', 'REDUCED subsampled shape:', df_data_sampled.shape)
-                # stratified train/test split on sampled data
                 X_train, X_test, y_train, y_test = train_test_split(
                     df_data_sampled.iloc[:, 1:],
                     df_data_sampled.iloc[:, 0],
@@ -374,7 +382,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 return accuracy_dict
 
             def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names]),
-                     e: int = num_epochs) -> dict:
+                     e: int = num_epochs,
+                     c: int = i_r_c
+                     ) -> dict:
                 model_scores_dict = {'METRICS': metric_names_str}
                 with torch.no_grad():
                     for model in models:
@@ -413,7 +423,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 return model_scores_dict
 
             tt0 = time.time()
-            accuracy_dictt = test(models, test_loader)
+            accuracy_dict = test(models, test_loader, e=n_epochs, c=i_r_c)
             # accuracy_dicttt = ttest(models, test_loader)
             print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
@@ -423,7 +433,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             with open(f'{model_path}000_models_accuracy_dict_EPOCHS_{num_epochs}_COMBI_{i_r_c}_'
                       f'JOBID_{job_id}_{str(datetime.date.today())}.json',
                       'w') as fp:
-                json.dump(accuracy_dictt, fp, sort_keys=True, indent=4)
+                json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
 
             # with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
             #    json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
