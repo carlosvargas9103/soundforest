@@ -296,7 +296,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     models = dict_models.get(22, [cnn_lstm])
 
     #### TRAIN ####
-    num_epochs = 11
+    num_epochs = 1
     # print('####', 'MODELS', dict_models, '####')
     print('####', 'MODELS - TOTAL', len(models), '####')
     print('####', 'EPOCHS', num_epochs, '####')
