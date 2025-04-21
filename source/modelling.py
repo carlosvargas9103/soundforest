@@ -71,7 +71,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                            windows_13: bool = True,
                            horas: int = 30,
                            metric_names: List[str] = M.list(),
-                           dev_mode: bool = False
+                           dev_mode: bool = True
                            ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
