@@ -156,7 +156,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     df["METRICS"] = df["METRICS"].astype(str).apply(lambda x: f'[{x}]')
 
     # Export to CSV
-    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_00.csv", index=False, sep=';')
+    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_22.csv", index=False, sep=';')
 
     # Group by number of metrics and compute mean(AC)
     # df_summary = df_clean.groupby("NUM_METRICS")["AC"].mean().reset_index()
@@ -193,7 +193,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     grouped = df_flat.groupby("METRICS")#.agg(['count', 'mean', 'min', 'median', 'max'])
 
     # Optional: Save to LaTeX or CSV
-    grouped.to_csv(f"{path_data_in}metrics_grouped_summary.csv")
+    grouped.to_csv(f"{path_data_in}metrics_grouped_summary_22.csv")
 
     exit()
 
