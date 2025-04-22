@@ -93,13 +93,17 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     # Variable part: will be combined in all possible ways
     # variable_part = metric_names[-1:]
     variable_part = metric_names[i_fix_metrics:]
+    # Count total combinations
+    total_combi = sum(1 for r in range(1, len(variable_part) + 1) for _ in combinations(variable_part, r))
+    print('####', "COMBI", total_combi) # TOTAL combinations: 511
+    # exit()
     i_r_c = 0
     for r in range(1, len(variable_part) + 1):  # r = number of items in each combination
         for combi_metrics in combinations(variable_part, r):
             i_r_c += 1
             combi_metric_names = fixed_part + list(combi_metrics)
             print('#### #### READING DATA FILES #### ####')
-            print(i_r_c, '####', 'COMBI', combi_metric_names, 'METRICS', '####')
+            print(i_r_c, total_combi, '####', 'COMBI', combi_metric_names, 'METRICS', '####')
             # continue
             # exit()
             try:

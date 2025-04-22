@@ -22,6 +22,7 @@ from multiprocessing import Pool
 import pandas as pd
 import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 from extraction import Metrics as M
 from modelling import *
@@ -121,12 +122,15 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     model_name_filename = ""
     for item in json_dicts:
         metrics = item.get("METRICS", "")
+        num_metrics = len([m.strip() for m in metrics.split(",") if m.strip()])
+
         for model_name, values in item.items():
             if model_name != "METRICS":
                 model_name_filename = model_name
                 if isinstance(values, dict):
                     flat_row = values.copy()
                     flat_row["METRICS"] = metrics
+                    flat_row["NUM_METRICS"] = num_metrics
                     rows.append(flat_row)
 
     # Create DataFrame
@@ -137,10 +141,37 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     print(df_clean.head())
 
     # Sort by AC in descending order
-    df_clean = df_clean.sort_values(by="AC", ascending=False)
+    df = df_clean.sort_values(by="AC", ascending=False)
+
+    # Ensure 'METRICS' is the last column
+    if df.columns[-1] != "METRICS":
+        df = df[[col for col in df.columns if col != "METRICS"] + ["METRICS"]]
+
+    # Convert all columns to float except 'METRICS'
+    for col in df.columns[:-1]:
+        df[col] = df[col].astype(float)
+
+    # Ensure 'METRICS' is a string
+    df["METRICS"] = df["METRICS"].astype(str)
+    df["METRICS"] = df["METRICS"].astype(str).apply(lambda x: f'[{x}]')
 
     # Export to CSV
-    df_clean.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary.csv", index=False)
+    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_00.csv", index=False, sep=';')
+
+    # Group by number of metrics and compute mean(AC)
+    # df_summary = df_clean.groupby("NUM_METRICS")["AC"].mean().reset_index()
+    df_summary = df_clean.groupby("NUM_METRICS")["AC"].max().reset_index()
+
+    # Plotting
+    plt.figure(figsize=(10, 6))
+    plt.plot(df_summary["NUM_METRICS"], df_summary["AC"], marker='o')
+    plt.title("MAX AC vs Number of Metrics")
+    plt.xlabel("Number of Metrics")
+    plt.ylabel("MAX AC")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_metrics.png")
+    # plt.show()
 
     exit()
 
