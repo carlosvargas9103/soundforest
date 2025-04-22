@@ -1,0 +1,11 @@
+{
+    "CNN_LSTM": {
+        "AC": 71.99671,
+        "EPOCHS": 11,
+        "FN": 16681,
+        "FP": 16681,
+        "TN": 162023,
+        "TP": 42887
+    },
+    "METRICS": "reg, sid, ban, sec, men, med, sum, aci, mmm, hhh, aei"
+}
