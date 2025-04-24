@@ -99,7 +99,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     # exit()
     i_r_c = 0
     for r in range(1, len(variable_part) + 1):  # r = number of items in each combination
-        for combi_metrics in combinations(variable_part, r):
+        for combi_metrics in combinations(variable_part, r)[424:]:
             i_r_c += 1
             combi_metric_names = fixed_part + list(combi_metrics)
             print('#### #### READING DATA FILES #### ####')
