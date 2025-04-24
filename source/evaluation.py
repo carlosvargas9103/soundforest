@@ -88,6 +88,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     print('####', 'INDICES =>', metric_names, '<= INDICES', len(metric_names), '####')
     t00 = time.time()
     job_id_in = '2606033'
+    job_id_in = '2606265'
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
     folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
@@ -156,11 +157,17 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     df["METRICS"] = df["METRICS"].astype(str).apply(lambda x: f'[{x}]')
 
     # Export to CSV
-    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_22.csv", index=False, sep=';')
+    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
+
+    # # Export to CSV
+    # df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
 
     # Group by number of metrics and compute mean(AC)
     # df_summary = df_clean.groupby("NUM_METRICS")["AC"].mean().reset_index()
     df_summary = df_clean.groupby("NUM_METRICS")["AC"].max().reset_index()
+
+    # Export to CSV
+    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
 
     # Plotting
     plt.figure(figsize=(10, 6))
@@ -170,8 +177,9 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     plt.ylabel("MAX AC")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_metrics.png")
+    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_metrics{job_id_in}.png")
     # plt.show()
+
 
     exit()
 
@@ -193,7 +201,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     grouped = df_flat.groupby("METRICS")#.agg(['count', 'mean', 'min', 'median', 'max'])
 
     # Optional: Save to LaTeX or CSV
-    grouped.to_csv(f"{path_data_in}metrics_grouped_summary_22.csv")
+    grouped.to_csv(f"{path_data_in}metrics_grouped_summary_{job_id_in}.csv")
 
     exit()
 
