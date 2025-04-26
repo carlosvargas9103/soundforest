@@ -87,8 +87,8 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi = 424
-    i_fix_metrics = 7
+    start_combi = 0 # 424
+    i_fix_metrics = 7 # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
@@ -208,9 +208,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             # model 2: LSTM + CNN
             # model 3: CNN LSTM parallel
 
-            class CNN_LSTM(nn.Module):
+            class SEQ_CNN_LSTM(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
-                    super(CNN_LSTM, self).__init__()
+                    super(SEQ_CNN_LSTM, self).__init__()
                     self.cnn = nn.Sequential(
                         nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
                         # nn.BatchNorm1d(64),  # Batch Normalisation
@@ -234,9 +234,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(out[:, -1, :])
                     return out
 
-            class LSTM_CNN(nn.Module):
+            class SEQ_LSTM_CNN(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
-                    super(LSTM_CNN, self).__init__()
+                    super(SEQ_LSTM_CNN, self).__init__()
                     self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
                     self.cnn = nn.Sequential(
                         nn.Conv1d(in_channels=hidden_size, out_channels=64, kernel_size=3, stride=1, padding=1),
@@ -261,9 +261,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     return out
 
             # model 3: CNN LSTM parallel
-            class ParallelCNNLSTMModel(nn.Module):
+            class PARA_CNN_LSTM(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
-                    super(ParallelCNNLSTMModel, self).__init__()
+                    super(PARA_CNN_LSTM, self).__init__()
                     self.cnn = nn.Sequential(
                         nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
                         # nn.BatchNorm1d(64),  # Batch Normalisation
@@ -292,6 +292,50 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(out)
                     return out
 
+            class Simple_CNN(nn.Module):
+                def __init__(self, input_size, num_classes):
+                    super(Simple_CNN, self).__init__()
+                    self.cnn = nn.Sequential(
+                        nn.Conv1d(in_channels=input_size, out_channels=64, kernel_size=3, stride=1, padding=1),
+                        nn.ReLU(),
+                        nn.MaxPool1d(kernel_size=2, stride=2),
+                        nn.Conv1d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1),
+                        nn.ReLU(),
+                        nn.MaxPool1d(kernel_size=2, stride=2),
+                        nn.Flatten(),
+                        nn.LazyLinear(out_features=256),
+                        nn.ReLU(),
+                        nn.Linear(256, num_classes)
+                    )
+
+                def forward(self, x):
+                    # Input (batch_size, seq_len, features) -> CNN expects (batch_size, channels, seq_len)
+                    x = x.permute(0, 2, 1)
+                    out = self.cnn(x)
+                    return out
+
+            class Simple_LSTM(nn.Module):
+                def __init__(self, input_size, hidden_size, num_layers, num_classes):
+                    super(Simple_LSTM, self).__init__()
+                    self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, batch_first=True)
+                    self.fc = nn.Linear(hidden_size, num_classes)
+
+                def forward(self, x):
+                    out, _ = self.lstm(x)
+                    out = self.fc(out[:, -1, :])  # take the output of the last timestep
+                    return out
+
+            class Simple_SVM(nn.Module):
+                def __init__(self, input_size, num_classes):
+                    super(Simple_SVM, self).__init__()
+                    self.fc = nn.LazyLinear(num_classes)  # <--- LazyLinear!
+
+                def forward(self, x):
+                    x = x.mean(dim=1)  # Mean across sequence length
+                    out = self.fc(x)
+                    return out
+
+
             def train(models: List,
                       train_loader: DataLoader,
                       epochs: int = 1,
@@ -302,6 +346,8 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 criterion = nn.CrossEntropyLoss()
                 # PARALLEL ??
                 for model in models:
+                    if model.__class__.__name__ == "Simple_SVM":
+                        criterion = nn.MultiMarginLoss()
                     t1 = time.time()
                     print('####',
                           'TRAINING MODEL',
@@ -340,20 +386,30 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                           'total training time:', round(time.time() - t0, 3),
                           '####')
 
-            #### MODELS ####
-            cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-            lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-            cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+            #### PROPOSED MODELS ####
+            cnn_lstm = SEQ_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            lstm_cnn = SEQ_LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+            cnn_lstm_parallel = PARA_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            #### BASE-LINE MODELS ####
+            simple_cnn = Simple_CNN(input_size, num_classes).to(device)
+            simple_lstm = Simple_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            simple_svm = Simple_SVM(input_size, num_classes).to(device)
+
 
             dict_models = {
-                0: [cnn_lstm],
-                1: [lstm_cnn],
+                00: [cnn_lstm],
+                10: [lstm_cnn],
                 11: [cnn_lstm, lstm_cnn],
-                2: [cnn_lstm_parallel],
+                12: [cnn_lstm_parallel],
                 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+                23: [simple_svm],
+                24: [simple_lstm],
+                25: [simple_cnn],
+                26: [simple_cnn, simple_lstm, simple_svm]
             }
             # models = dict_models.get(22, [cnn_lstm])
-            models = dict_models.get(0, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
+            # models = dict_models.get(0, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
+            models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
 
             #### TRAIN ####
             num_epochs = n_epochs
@@ -446,7 +502,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
             print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
-            print('#### TIMES #### modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3))
+            print('#### TIMES #### modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3), 'seconds')
 
 
 if __name__ == '__main__':

@@ -97,18 +97,21 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Read all JSON files from path_data_in
     json_dicts = []
-    for filename in os.listdir(path_data_in):
-        if filename.endswith(f_ext_in):
-            filepath = os.path.join(path_data_in, filename)
-            try:
-                with open(filepath, 'r') as f:
-                    data = json.load(f)
-                    if isinstance(data, dict):
-                        json_dicts.append(data)
-                    elif isinstance(data, list):
-                        json_dicts.extend(data)  # handle list of dicts
-            except Exception as e:
-                print(f"Error reading {filename}: {e}")
+    for dirpath, dirnames, filenames in os.walk(path_data_in):
+        for filename in filenames:
+        # for filename in os.listdir(path_data_in):
+            if filename.endswith(f_ext_in):
+                # filepath = os.path.join(path_data_in, filename)
+                filepath = os.path.join(dirpath, filename)
+                try:
+                    with open(filepath, 'r') as f:
+                        data = json.load(f)
+                        if isinstance(data, dict):
+                            json_dicts.append(data)
+                        elif isinstance(data, list):
+                            json_dicts.extend(data)  # handle list of dicts
+                except Exception as e:
+                    print(f"Error reading {filename}: {e}")
 
     # Convert to DataFrame
     df_json = pd.DataFrame(json_dicts)

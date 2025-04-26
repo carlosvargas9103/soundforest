@@ -500,7 +500,7 @@ def main():
                                            secs_b=secs_b, w_size_mins=w_size_mins,
                                            verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                            f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
-                                           # metric_names=metric_names[:11], dev_mode=True, n_epochs=1
+                                           # metric_names=metric_names[:9], dev_mode=True, n_epochs=1
                                            metric_names=metric_names, dev_mode=False, n_epochs=11
                                            )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
@@ -511,7 +511,7 @@ def main():
                     print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
                     # f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
                     #                   index=True)
-                print('#### TIMES #### Modelling TOTAL TOTAL ==>>', time.time() - t00)
+                print('#### TIMES #### Modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3), 'seconds')
 
 
 if __name__ == '__main__':
