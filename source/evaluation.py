@@ -92,7 +92,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     job_id_in, model_name_filename = '2606033', model_names[0]
     job_id_in, model_name_filename = '2606265', model_names[0]
-    job_id_in, model_name_filename = '2610631', model_names[1]
+    # job_id_in, model_name_filename = '2610631', model_names[1]
 
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
@@ -120,13 +120,10 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Convert to DataFrame
     df_json = pd.DataFrame(json_dicts)
-
-    # Preview
     print(df_json.shape)
     print(df_json.head())
 
-    # Flatten: Extract metrics and CNN_LSTM fields
-
+    # flatten the json
     rows = []
     for item in json_dicts:
         metrics = item.get("METRICS", "")
@@ -141,79 +138,57 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                     flat_row["INDICES"] = metrics
                     flat_row["NUM_INDICES"] = num_metrics
                     rows.append(flat_row)
-
-    # Create DataFrame
     df = pd.DataFrame(rows)
 
-    # Optional preview
-    print(df.shape)
-    print(df.head())
-
-    # Calculate F1
+    # calculate performance scores
     df["Precision"] = 100 * df["TP"] / (df["TP"] + df["FP"])
     df["Recall"] = 100 * df["TP"] / (df["TP"] + df["FN"])
     df["F1"] = 2 * (df["Precision"] * df["Recall"]) / (df["Precision"] + df["Recall"])
-    # Round AFTER calculation
+
     df["AC"] = df["AC"].round(3)
     df["Precision"] = df["Precision"].round(3)
     df["Recall"] = df["Recall"].round(3)
     df["F1"] = df["F1"].round(3)
     df["F1"] = df["F1"].fillna(0)
+
     # df = df.sort_values(by="AC", ascending=False)
     df = df.sort_values(by="F1", ascending=False)
 
-    # Reorder columns: MODEL first, AC and INDICES last
+    # reorder columns
     cols = df.columns.tolist()
-    # Remove MODEL, AC, INDICES from current list
     cols = [col for col in cols if col not in ["MODEL", "AC", "INDICES", "NUM_INDICES"]]
-    # Rebuild the column order
     new_order = ["MODEL"] + cols + ["AC", "INDICES", "NUM_INDICES"]
-    # Apply the new order
     df = df[new_order]
 
-    # # Ensure 'INDICES' is the last column
-    # if df.columns[-1] != "AC":
-    #     df = df[[col for col in df.columns if col != "AC"] + ["AC"]]
-    # # Ensure 'INDICES' is the last column
-    # if df.columns[-1] != "INDICES":
-    #     df = df[[col for col in df.columns if col != "INDICES"] + ["INDICES"]]
-    # # Ensure 'MODEL' is the first column
-    # if df.columns[1] != "MODEL":
-    #     df = df[["MODEL"] + [col for col in df.columns if col != "MODEL"]]
-
-    # Convert all columns to float except 'METRICS'
     for c, col in enumerate(df.columns[1:-2]):
         if c > 4:
             df[col] = df[col].astype(float)
         else:
             df[col] = df[col].astype(int)
 
-    # Ensure 'METRICS' is a string
+    # Ensure 'INDICES' is a string
     df["INDICES"] = df["INDICES"].astype(str) # change name
+    df["INDICES"] = df["INDICES"].apply(lambda x: ", ".join([m.strip() for m in x.split(",")[8:] if m.strip()]))
     df["INDICES"] = df["INDICES"].astype(str).apply(lambda x: f'[{x}]')
 
+    print(df.shape)
+    print(df.head())
+
     # Export to CSV
-    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
+    df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{job_id_in}.csv", index=False, sep=';')
 
-    # # Export to CSV
-    # df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
-
-    # Group by number of metrics and compute mean(AC)
-    # df_summary = df.groupby("NUM_METRICS")["AC"].mean().reset_index()
+    # group-by for charts
     df_summary = df.groupby("NUM_INDICES")["AC"].max().reset_index()
 
-    # Export to CSV
-    df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
-
-    # Plotting
+    # plots
     plt.figure(figsize=(10, 6))
     plt.plot(df_summary["NUM_INDICES"], df_summary["AC"], marker='o')
-    plt.title("MAX AC vs Number of Metrics")
-    plt.xlabel("Number of Metrics")
+    plt.title("MAX AC vs Number of Indices")
+    plt.xlabel("Number of Indices")
     plt.ylabel("MAX AC")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_metrics{job_id_in}.png")
+    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{job_id_in}.png")
     # plt.show()
 
 
