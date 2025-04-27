@@ -204,10 +204,16 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             t0 = time.time()
 
-            # model 1: CNN + LSTM
-            # model 2: LSTM + CNN
-            # model 3: CNN LSTM parallel
+            #### MODELS ####
+            # model 1: SEQ => CNN >> LSTM
+            # model 2: SEQ => LSTM >> CNN
+            # model 3: PARALLEL => CNN || LSTM
+            # model 4: Simple CNN
+            # model 5: Simple LSTM
+            # model 6: Simple SVM
+            #### MODELS ####
 
+            # model 1: SEQ => CNN >> LSTM
             class SEQ_CNN_LSTM(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
                     super(SEQ_CNN_LSTM, self).__init__()
@@ -234,6 +240,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(out[:, -1, :])
                     return out
 
+            # model 2: SEQ => LSTM >> CNN
             class SEQ_LSTM_CNN(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
                     super(SEQ_LSTM_CNN, self).__init__()
@@ -260,7 +267,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.cnn(out)
                     return out
 
-            # model 3: CNN LSTM parallel
+            # model 3: PARALLEL => CNN || LSTM
             class PARA_CNN_LSTM(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
                     super(PARA_CNN_LSTM, self).__init__()
@@ -292,6 +299,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(out)
                     return out
 
+            # model 4: Simple CNN
             class Simple_CNN(nn.Module):
                 def __init__(self, input_size, num_classes):
                     super(Simple_CNN, self).__init__()
@@ -314,6 +322,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.cnn(x)
                     return out
 
+            # model 5: Simple LSTM
             class Simple_LSTM(nn.Module):
                 def __init__(self, input_size, hidden_size, num_layers, num_classes):
                     super(Simple_LSTM, self).__init__()
@@ -325,6 +334,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(out[:, -1, :])  # take the output of the last timestep
                     return out
 
+            # model 6: Simple SVM
             class Simple_SVM(nn.Module):
                 def __init__(self, input_size, num_classes):
                     super(Simple_SVM, self).__init__()
@@ -335,7 +345,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(x)
                     return out
 
-
+            # TRAIN
             def train(models: List,
                       train_loader: DataLoader,
                       epochs: int = 1,
@@ -377,7 +387,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                           f'Step [{i + 1}/{len(train_loader)}]',
                                           f'Loss: {loss.item():.4f}',
                                           f'Time: {round(time.time() - t1, 3)}')
-
+                    # models sizes are ~200-500 MB
                     # torch.save(model.state_dict(), f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.model')
                     print('####',
                           'TRAINED MODEL',

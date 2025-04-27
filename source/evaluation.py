@@ -92,7 +92,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     job_id_in, model_name_filename = '2606033', model_names[0]
     job_id_in, model_name_filename = '2606265', model_names[0]
-    # job_id_in, model_name_filename = '2610631', model_names[1]
+    job_id_in, model_name_filename = '2610631', model_names[1]
 
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
