@@ -397,18 +397,20 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
 
             dict_models = {
+                # DUAL-MODELS
                 00: [cnn_lstm],
                 10: [lstm_cnn],
                 11: [cnn_lstm, lstm_cnn],
                 12: [cnn_lstm_parallel],
                 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+                # SIMPLE-MODELS
                 23: [simple_svm],
                 24: [simple_lstm],
                 25: [simple_cnn],
                 26: [simple_cnn, simple_lstm, simple_svm]
             }
             # models = dict_models.get(22, [cnn_lstm])
-            # models = dict_models.get(0, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
+            # models = dict_models.get(00, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
             models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
 
             #### TRAIN ####
