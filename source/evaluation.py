@@ -87,9 +87,13 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     print('#### #### HOI EVALUATION #### ####')
     print('####', 'INDICES =>', metric_names, '<= INDICES', len(metric_names), '####')
     t00 = time.time()
-    job_id_in = '2606033'
-    job_id_in = '2606265'
-    # job_id_in = '2610631'
+    model_names = ["COMPOSED", "SIMPLE_MODELS", "ALL"]
+    model_name_filename = model_names[0]
+
+    job_id_in, model_name_filename = '2606033', model_names[0]
+    job_id_in, model_name_filename = '2606265', model_names[0]
+    job_id_in, model_name_filename = '2610631', model_names[1]
+
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
     folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
@@ -124,8 +128,6 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # Flatten: Extract metrics and CNN_LSTM fields
 
     rows = []
-    model_names = ["COMPOSED", "SIMPLE_MODELS", "ALL"]
-    model_name_filename = model_names[0]
     for item in json_dicts:
         metrics = item.get("METRICS", "")
         num_metrics = int(len([m.strip() for m in metrics.split(",") if m.strip()]))
@@ -137,7 +139,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                     flat_row = values.copy()
                     flat_row["MODEL"] = model_name
                     flat_row["INDICES"] = metrics
-                    flat_row["NUM_METRICS"] = num_metrics
+                    flat_row["NUM_INDICES"] = num_metrics
                     rows.append(flat_row)
 
     # Create DataFrame
@@ -152,6 +154,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     df["Recall"] = 100 * df["TP"] / (df["TP"] + df["FN"])
     df["F1"] = 2 * (df["Precision"] * df["Recall"]) / (df["Precision"] + df["Recall"])
     # Round AFTER calculation
+    df["AC"] = df["AC"].round(3)
     df["Precision"] = df["Precision"].round(3)
     df["Recall"] = df["Recall"].round(3)
     df["F1"] = df["F1"].round(3)
@@ -159,16 +162,31 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # df = df.sort_values(by="AC", ascending=False)
     df = df.sort_values(by="F1", ascending=False)
 
-    # Ensure 'INDICES' is the last column
-    if df.columns[-1] != "INDICES":
-        df = df[[col for col in df.columns if col != "INDICES"] + ["INDICES"]]
-    # Ensure 'MODEL' is the first column
-    if df.columns[1] != "MODEL":
-        df = df[["MODEL"] + [col for col in df.columns if col != "MODEL"]]
+    # Reorder columns: MODEL first, AC and INDICES last
+    cols = df.columns.tolist()
+    # Remove MODEL, AC, INDICES from current list
+    cols = [col for col in cols if col not in ["MODEL", "AC", "INDICES", "NUM_INDICES"]]
+    # Rebuild the column order
+    new_order = ["MODEL"] + cols + ["AC", "INDICES", "NUM_INDICES"]
+    # Apply the new order
+    df = df[new_order]
+
+    # # Ensure 'INDICES' is the last column
+    # if df.columns[-1] != "AC":
+    #     df = df[[col for col in df.columns if col != "AC"] + ["AC"]]
+    # # Ensure 'INDICES' is the last column
+    # if df.columns[-1] != "INDICES":
+    #     df = df[[col for col in df.columns if col != "INDICES"] + ["INDICES"]]
+    # # Ensure 'MODEL' is the first column
+    # if df.columns[1] != "MODEL":
+    #     df = df[["MODEL"] + [col for col in df.columns if col != "MODEL"]]
 
     # Convert all columns to float except 'METRICS'
-    for col in df.columns[1:-1]:
-        df[col] = df[col].astype(float)
+    for c, col in enumerate(df.columns[1:-2]):
+        if c > 4:
+            df[col] = df[col].astype(float)
+        else:
+            df[col] = df[col].astype(int)
 
     # Ensure 'METRICS' is a string
     df["INDICES"] = df["INDICES"].astype(str) # change name
@@ -182,14 +200,14 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Group by number of metrics and compute mean(AC)
     # df_summary = df.groupby("NUM_METRICS")["AC"].mean().reset_index()
-    df_summary = df.groupby("NUM_METRICS")["AC"].max().reset_index()
+    df_summary = df.groupby("NUM_INDICES")["AC"].max().reset_index()
 
     # Export to CSV
     df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
 
     # Plotting
     plt.figure(figsize=(10, 6))
-    plt.plot(df_summary["NUM_METRICS"], df_summary["AC"], marker='o')
+    plt.plot(df_summary["NUM_INDICES"], df_summary["AC"], marker='o')
     plt.title("MAX AC vs Number of Metrics")
     plt.xlabel("Number of Metrics")
     plt.ylabel("MAX AC")
