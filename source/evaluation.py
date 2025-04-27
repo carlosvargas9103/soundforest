@@ -89,6 +89,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     t00 = time.time()
     job_id_in = '2606033'
     job_id_in = '2606265'
+    # job_id_in = '2610631'
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
     folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
@@ -123,41 +124,55 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # Flatten: Extract metrics and CNN_LSTM fields
 
     rows = []
-    model_name_filename = ""
+    model_names = ["COMPOSED", "SIMPLE_MODELS", "ALL"]
+    model_name_filename = model_names[0]
     for item in json_dicts:
         metrics = item.get("METRICS", "")
-        num_metrics = len([m.strip() for m in metrics.split(",") if m.strip()])
+        num_metrics = int(len([m.strip() for m in metrics.split(",") if m.strip()]))
 
         for model_name, values in item.items():
             if model_name != "METRICS":
-                model_name_filename = model_name
+                model_name_filename = model_name if not model_name_filename else model_name_filename
                 if isinstance(values, dict):
                     flat_row = values.copy()
-                    flat_row["METRICS"] = metrics
+                    flat_row["MODEL"] = model_name
+                    flat_row["INDICES"] = metrics
                     flat_row["NUM_METRICS"] = num_metrics
                     rows.append(flat_row)
 
     # Create DataFrame
-    df_clean = pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
 
     # Optional preview
-    print(df_clean.shape)
-    print(df_clean.head())
+    print(df.shape)
+    print(df.head())
 
-    # Sort by AC in descending order
-    df = df_clean.sort_values(by="AC", ascending=False)
+    # Calculate F1
+    df["Precision"] = 100 * df["TP"] / (df["TP"] + df["FP"])
+    df["Recall"] = 100 * df["TP"] / (df["TP"] + df["FN"])
+    df["F1"] = 2 * (df["Precision"] * df["Recall"]) / (df["Precision"] + df["Recall"])
+    # Round AFTER calculation
+    df["Precision"] = df["Precision"].round(3)
+    df["Recall"] = df["Recall"].round(3)
+    df["F1"] = df["F1"].round(3)
+    df["F1"] = df["F1"].fillna(0)
+    # df = df.sort_values(by="AC", ascending=False)
+    df = df.sort_values(by="F1", ascending=False)
 
-    # Ensure 'METRICS' is the last column
-    if df.columns[-1] != "METRICS":
-        df = df[[col for col in df.columns if col != "METRICS"] + ["METRICS"]]
+    # Ensure 'INDICES' is the last column
+    if df.columns[-1] != "INDICES":
+        df = df[[col for col in df.columns if col != "INDICES"] + ["INDICES"]]
+    # Ensure 'MODEL' is the first column
+    if df.columns[1] != "MODEL":
+        df = df[["MODEL"] + [col for col in df.columns if col != "MODEL"]]
 
     # Convert all columns to float except 'METRICS'
-    for col in df.columns[:-1]:
+    for col in df.columns[1:-1]:
         df[col] = df[col].astype(float)
 
     # Ensure 'METRICS' is a string
-    df["METRICS"] = df["METRICS"].astype(str)
-    df["METRICS"] = df["METRICS"].astype(str).apply(lambda x: f'[{x}]')
+    df["INDICES"] = df["INDICES"].astype(str) # change name
+    df["INDICES"] = df["INDICES"].astype(str).apply(lambda x: f'[{x}]')
 
     # Export to CSV
     df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
@@ -166,8 +181,8 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
 
     # Group by number of metrics and compute mean(AC)
-    # df_summary = df_clean.groupby("NUM_METRICS")["AC"].mean().reset_index()
-    df_summary = df_clean.groupby("NUM_METRICS")["AC"].max().reset_index()
+    # df_summary = df.groupby("NUM_METRICS")["AC"].mean().reset_index()
+    df_summary = df.groupby("NUM_METRICS")["AC"].max().reset_index()
 
     # Export to CSV
     df.to_csv(f"{path_data_in}model_{model_name_filename}_metrics_summary_{job_id_in}.csv", index=False, sep=';')
