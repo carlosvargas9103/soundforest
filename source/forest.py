@@ -243,6 +243,15 @@ def get_args():
     )
 
     parser.add_argument(
+        "-dev",
+        "--dev-mode",
+        type=bool,
+        default=False,
+        required=False,
+        help="Developing Mode",
+    )
+
+    parser.add_argument(
         "-vb",
         "--verbo",
         type=bool,
@@ -283,7 +292,7 @@ def main():
     # relevant for observation, extraction, and sampling
     global tasks, job_id, N_JOBS, path_data, path_out, verbo, windows_13
     global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, secs_b, w_size_mins
-    global audio_files_processed, outfile_name, metric_names
+    global audio_files_processed, outfile_name, metric_names, dev_mode
     # relevant for modelling
     global file_in_pattern
 
@@ -296,7 +305,7 @@ def main():
     path_data, path_out, sreg, si = args.path_in, args.path_out, args.sregions, args.sregion_iterator
     bandas, sr, b_band, u_band, bandwidth = args.bandas, args.sample_r, args.b_band, args.u_band, args.bandwidth
     samples_s, isamples_s, secs_b = args.samples_second, args.isamples_second, args.seconds_bandwidth
-    w_size_mins, verbo, windows_13, metric_names = args.win_size_mins, args.verbo, args.windows13, args.metric_names
+    w_size_mins, verbo, windows_13, metric_names, dev_mode = args.win_size_mins, args.verbo, args.windows13, args.metric_names, args.dev_mode
 
     print('#### #### HOI FOREST #### ####')
     print('#### ####', 'N-JOBS', N_JOBS, 'SBOJ-N', '#### ####')
@@ -502,7 +511,7 @@ def main():
                                            verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                            f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
                                            # metric_names=metric_names[:9], dev_mode=True, n_epochs=1
-                                           metric_names=metric_names, dev_mode=False, n_epochs=11
+                                           metric_names=metric_names, dev_mode=dev_mode, n_epochs=11
                                            )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                 except Exception as e:

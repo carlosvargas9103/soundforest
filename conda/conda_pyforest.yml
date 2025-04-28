@@ -12,6 +12,7 @@ dependencies:
   - librosa=0.10.2.post1
   - noisereduce=3.0.2
   - audioread=3.0.1
+  - torchvision=0.22.0
   - IPython
   - scipy
   - seaborn
