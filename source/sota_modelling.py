@@ -489,7 +489,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             # models = dict_models.get(22, [cnn_lstm])
             # models = dict_models.get(00, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
             # models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
-            models = dict_models.get(28, [sota_resnet]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
+            models = dict_models.get(28, [sota_resnet]) # if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
 
             #### TRAIN ####
             num_epochs = n_epochs

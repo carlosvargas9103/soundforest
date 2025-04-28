@@ -1,0 +1,27 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, hfq, htp, aei",
+    "Simple_CNN": {
+        "AC": 95.035925,
+        "EPOCHS": 11,
+        "FN": 2957,
+        "FP": 2957,
+        "TN": 175747,
+        "TP": 56611
+    },
+    "Simple_LSTM": {
+        "AC": 74.885845,
+        "EPOCHS": 11,
+        "FN": 14960,
+        "FP": 14960,
+        "TN": 163744,
+        "TP": 44608
+    },
+    "Simple_SVM": {
+        "AC": 38.886651,
+        "EPOCHS": 11,
+        "FN": 36404,
+        "FP": 36404,
+        "TN": 142300,
+        "TP": 23164
+    }
+}
