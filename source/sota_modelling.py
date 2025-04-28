@@ -35,6 +35,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
 
+# >>>> import libraries for SOTA >>>>
+
+# Create a CNN object designed to recognize 3-second samples
+# from opensoundscape import CNN
+import torchvision.models as pymodels
+
 # <<< import libraries for CNN <<<<
 # primary source: https://github.com/mijanr/TimeSeries/blob/master/Time_Series_Classification/cnn_plus_lstm.ipynb
 # second source: https://www.kaggle.com/code/orkatz2/cnn-lstm-pytorch-train
@@ -50,48 +56,49 @@ np.random.seed(semilla)
 t00 = time.time()
 
 
-def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
-                           ncols: int = 6016, *,
-                           region: str = '',
-                           si: int = 1964,
-                           sr: int = 48000,
-                           b_band: int = 0,
-                           u_band: int = 10000,
-                           bandas: int = 10,
-                           bandwidth: int = 1000,
-                           path_data: str = '',
-                           path_out: str = '',
-                           samples_s: int = 1800,
-                           isamples_s: int = 3,
-                           secs_b: int = 6,
-                           secs_o: int = 1.9,
-                           hanning: bool = True,
-                           w_size_mins: float = 0.06,
-                           n_jobs: int = 1,
-                           job_id: str = 'NULL',
-                           verbose: bool = False,
-                           f_pattern_out: str = 'modelling',
-                           windows_13: bool = True,
-                           horas: int = 30,
-                           metric_names: List[str] = M.list(),
-                           dev_mode: bool = True,
-                           n_epochs: int = 11,
-                           df_stats: bool = False
-                           ) -> None:
+def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
+                                ncols: int = 6016, *,
+                                region: str = '',
+                                si: int = 1964,
+                                sr: int = 48000,
+                                b_band: int = 0,
+                                u_band: int = 10000,
+                                bandas: int = 10,
+                                bandwidth: int = 1000,
+                                path_data: str = '',
+                                path_out: str = '',
+                                samples_s: int = 1800,
+                                isamples_s: int = 3,
+                                secs_b: int = 6,
+                                secs_o: int = 1.9,
+                                hanning: bool = True,
+                                w_size_mins: float = 0.06,
+                                n_jobs: int = 1,
+                                job_id: str = 'NULL',
+                                verbose: bool = False,
+                                f_pattern_out: str = 'modelling',
+                                windows_13: bool = True,
+                                horas: int = 30,
+                                metric_names: List[str] = M.list(),
+                                dev_mode: bool = True,
+                                n_epochs: int = 11,
+                                df_stats: bool = False
+                                ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
     t0 = time.time()
     df_data = None
     ncols = 6016
-    accuracy_dict, accuracy_dicttt = {}, {}
+    # accuracy_dict, accuracy_dicttt = {}, {}
+    accuracy_dict = {}
 
     # SOME CONFIG ####
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi = 0 # 424
-    i_fix_metrics = 7 # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
+    start_combi = 0  # 424
+    i_fix_metrics = 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
@@ -145,9 +152,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 label_column = df_data.columns[0]  # target label
                 df_data_sampled, _ = train_test_split(
                     df_data,
-                    train_size=0.09103,
+                    train_size=semilla * 0.00001,
                     stratify=df_data[label_column],
-                    random_state=9103
+                    random_state=semilla
                 )
                 print('####', 'REDUCED subsampled shape:', df_data_sampled.shape)
                 X_train, X_test, y_train, y_test = train_test_split(
@@ -155,7 +162,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     df_data_sampled.iloc[:, 0],
                     test_size=0.2,
                     stratify=df_data_sampled.iloc[:, 0],  # to handle unbalanced classes
-                    random_state=9103
+                    random_state=semilla
                 )
             else:
                 X_train, X_test, y_train, y_test = train_test_split(
@@ -163,7 +170,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     df_data.iloc[:, 0],
                     test_size=0.2,
                     stratify=df_data.iloc[:, 0],  # to handle unbalanced classes
-                    random_state=9103
+                    random_state=semilla
                 )
 
             # exit()
@@ -186,6 +193,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             input_size = X_train.shape[-1]
             hidden_size = 128
             num_layers = 2
+            # label_column = df_data.columns[0]  # target label
             unique_classes = np.unique(np.concatenate((y_train, y_test)))
             num_classes = 4 if len(unique_classes) <= 4 else len(unique_classes)
             # num_classes = num_classes if num_classes >= 4 else num_classes + 1
@@ -399,6 +407,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                           'total training time:', round(time.time() - t0, 3),
                           '####')
 
+            # if not dev_mode:
             #### PROPOSED MODELS ####
             cnn_lstm = SEQ_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
             lstm_cnn = SEQ_LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
@@ -408,6 +417,59 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             simple_lstm = Simple_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
             simple_svm = Simple_SVM(input_size, num_classes).to(device)
 
+            #### SOTA MODELS ####
+            class ResNet1D(nn.Module):
+                def __init__(self, resnet, input_size, num_classes):
+                    super(ResNet1D, self).__init__()
+
+                    # Load a 2D ResNet model
+                    self.resnet = resnet # models.resnet34(pretrained=False)
+
+                    # Modify first conv layer: it expects 3 channels, but your data has `input_size`
+                    resnet.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
+
+                    # Remove avgpool and fc layers, we'll do custom pooling
+                    self.features = nn.Sequential(*list(resnet.children())[:-2])
+
+                    self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+                    self.fc = nn.Linear(512, num_classes)  # 512 is output channels for resnet34
+
+                def forward(self, x):
+                    # Input: (batch_size, seq_len, input_size)
+                    # CNN expects: (batch_size, channels, H, W)
+                    x = x.permute(0, 2, 1).unsqueeze(2)  # (batch_size, channels, 1, seq_len)
+                    x = self.features(x)
+                    x = self.avgpool(x)
+                    x = x.view(x.size(0), -1)
+                    x = self.fc(x)
+                    return x
+
+            resnet = pymodels.resnet34(pretrained=False)
+            sota_resnet = ResNet1D(resnet, input_size, num_classes).to(device)
+
+            # exit()
+
+            # # Use resnet34 architecture
+            # architecture = "resnet34"
+            # # Can use this code to get your classes, if needed
+            # # Parameters to use for label creation
+            # clip_duration = 6
+            # clip_overlap = 1.9
+            # min_label_overlap = 0.25
+            # # species_of_interest = ["NOCA", "EATO", "SCTA", "BAWW", "BCCH", "AMCR", "NOFL"]
+            # # class_list = list(train_df.columns)
+            # label_column = df_data.columns[0]  # target label
+            # class_list = list(df_data.columns[0])  # target label
+            # unique_classes = list(np.unique(np.concatenate((y_train, y_test))))
+            # model = CNN(
+            #     architecture=architecture,
+            #     classes=class_list,
+            #     sample_duration=clip_duration,
+            #     single_target=True,
+            #
+            # )
+            #
+            # exit()
 
             dict_models = {
                 # DUAL-MODELS
@@ -420,11 +482,14 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 23: [simple_svm],
                 24: [simple_lstm],
                 25: [simple_cnn],
-                26: [simple_cnn, simple_lstm, simple_svm]
+                26: [simple_cnn, simple_lstm, simple_svm],
+                # SOTA-MODELS
+                28: [sota_resnet]
             }
             # models = dict_models.get(22, [cnn_lstm])
             # models = dict_models.get(00, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
-            models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
+            # models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
+            models = dict_models.get(28, [sota_resnet]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
 
             #### TRAIN ####
             num_epochs = n_epochs
@@ -521,4 +586,5 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
 
 if __name__ == '__main__':
+    # sota_train_with_soundscapes()
     print('Mirá ve.. oís?? alles gut oder was??')

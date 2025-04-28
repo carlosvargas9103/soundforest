@@ -31,6 +31,7 @@ from observation import process_soundscape
 from visualisation import visualise_soundscape, visualise_distribution
 from extraction import Metrics, bootstrap_soundscape
 from modelling import train_with_soundscapes
+from sota_modelling import sota_train_with_soundscapes
 
 
 # {'FOREST': 'FramewORk for Extraction, ViSualisation, and classificaTion of Soundscapes'}
@@ -493,15 +494,15 @@ def main():
                     print(f'{i}/{len(configfiles)}', '########', '################', '################', '########')
                     print(i, '#### MODELLING ####', 'REGION:', '==>>', 'f.region', '<<==', 'DATA', '==>>',
                           "f.filename.split('/')[-1]")
-                    train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
+                    sota_train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
                                            bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
                                            path_data=path_data, path_out=path_out,
                                            samples_s=samples_s, isamples_s=isamples_s,
                                            secs_b=secs_b, w_size_mins=w_size_mins,
                                            verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                            f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
-                                           # metric_names=metric_names[:9], dev_mode=True, n_epochs=1
-                                           metric_names=metric_names, dev_mode=False, n_epochs=11
+                                           metric_names=metric_names[:9], dev_mode=True, n_epochs=1
+                                           # metric_names=metric_names, dev_mode=False, n_epochs=11
                                            )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                 except Exception as e:
