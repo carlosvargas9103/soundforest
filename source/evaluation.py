@@ -92,8 +92,8 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     job_id_in, model_name_filename = '2606033', model_names[0]
     job_id_in, model_name_filename = '2606265', model_names[0]
-    job_id_in, model_name_filename = '2610631', model_names[1]
-    job_id_in, model_name_filename = '2612399', model_names[2]
+    # job_id_in, model_name_filename = '2610631', model_names[1]
+    # job_id_in, model_name_filename = '2612399', model_names[2]
 
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
@@ -178,6 +178,61 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # Export to CSV
     df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{job_id_in}.csv", index=False, sep=';')
 
+    # per feature
+    sns.set_style("whitegrid")  # white background with gridlines
+    plt.figure(figsize=(8, 6))
+    ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df)
+    ax.set_xlabel("Number of Selected Features")
+    ax.set_ylabel("Accuracy (%)")
+    ax.set_title("Accuracy vs. Number of Selected Features")
+    # ax.set_ylim(0, 100)
+    ax.yaxis.grid(True)  # add horizontal grid lines
+    plt.tight_layout()
+    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_{job_id_in}.png")
+
+    # per model
+    models = sorted(df["MODEL"].unique())
+    plt.figure(figsize=(10, 6))
+    ax = sns.boxplot(x="MODEL", y="AC", data=df, order=models)
+    ax.set_xlabel("Model Name")
+    ax.set_ylabel("Accuracy (%)")
+    ax.set_title("Accuracy by Model")
+    # ax.set_ylim(0, 100)
+    plt.xticks(rotation=45)  # rotate x labels for readability&#8203;:contentReference[oaicite:6]{index=6}
+    ax.yaxis.grid(True)  # horizontal grid lines
+    plt.tight_layout()
+    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{job_id_in}.png")
+
+    # grouped by model
+    sns.set_style("whitegrid")
+    plt.figure(figsize=(10, 6))
+    ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df)
+    ax.set_xlabel("Number of Selected Features")
+    ax.set_ylabel("Accuracy (%)")
+    ax.set_title("Accuracy by Number of Features and Model")
+    # ax.set_ylim(0, 100)
+    ax.yaxis.grid(True)
+    plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+    plt.tight_layout()
+    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{job_id_in}.png")
+    # plt.show()
+
+    # max accuracy
+    df_summary = df.groupby("NUM_INDICES", as_index=False)["AC"].max()
+
+    sns.set_style("whitegrid")
+    plt.figure(figsize=(10, 6))
+    ax = sns.lineplot(data=df_summary, x="NUM_INDICES", y="AC", marker="o")
+    ax.set_title("Maximum Accuracy vs. Number of Selected Features")
+    ax.set_xlabel("Number of Selected Features")
+    ax.set_ylabel("Maximum Accuracy (%)")
+    # ax.set_ylim(0, 100)
+    ax.grid(True, axis="y")
+    plt.tight_layout()
+    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{job_id_in}.png")
+    # plt.show()
+
+    exit()
     # group-by for charts
     df_summary = df.groupby("NUM_INDICES")["AC"].max().reset_index()
 
