@@ -87,12 +87,13 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     print('#### #### HOI EVALUATION #### ####')
     print('####', 'INDICES =>', metric_names, '<= INDICES', len(metric_names), '####')
     t00 = time.time()
-    model_names = ["COMPOSED", "SIMPLE_MODELS", "ALL"]
+    model_names = ["COMPOSED", "SIMPLE_MODELS", "SOTA", "ALL"]
     model_name_filename = model_names[0]
 
     job_id_in, model_name_filename = '2606033', model_names[0]
     job_id_in, model_name_filename = '2606265', model_names[0]
     job_id_in, model_name_filename = '2610631', model_names[1]
+    job_id_in, model_name_filename = '2612399', model_names[2]
 
     path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
     path_data = path_in_evaluation
