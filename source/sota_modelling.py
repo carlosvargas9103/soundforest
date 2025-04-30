@@ -580,7 +580,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 35: [sota_models.get(4)]
             }
             # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
-            models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
+            models = dict_models.get(39, list(sota_models.values())) if not dev_mode else dict_models.get(00, [resnet])
             models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
 
             #### TRAIN ####
