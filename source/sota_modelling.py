@@ -40,6 +40,7 @@ from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResamp
 # Create a CNN object designed to recognize 3-second samples
 # from opensoundscape import CNN
 import torch.nn as nn
+import torch.nn.functional as F
 from torchvision.models import (
     resnet34, ResNet34_Weights,
     vgg16, VGG16_Weights,
@@ -379,12 +380,15 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 criterion = nn.CrossEntropyLoss()
                 # PARALLEL ??
                 for model in models:
-                    if model.__class__.__name__ == "Simple_SVM":
+                    model_name = model.__class__.__name__
+                    if model_name == "SOTA_Model":
+                        model_name = model.backbone_name
+                    if model_name == "Simple_SVM":
                         criterion = nn.MultiMarginLoss()
                     t1 = time.time()
                     print('####',
                           'TRAINING MODEL',
-                          model.__class__.__name__,
+                          model_name,
                           '####')
                     model.train()
                     optimizer = Adam(model.parameters(), lr=0.001)
@@ -414,20 +418,20 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     # torch.save(model.state_dict(), f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.model')
                     print('####',
                           'TRAINED MODEL',
-                          model.__class__.__name__,
+                          model_name,
                           'model training time:', round(time.time() - t1, 3),
                           'total training time:', round(time.time() - t0, 3),
                           '####')
 
             # if not dev_mode:
             #### PROPOSED MODELS ####
-            cnn_lstm = SEQ_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-            lstm_cnn = SEQ_LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-            cnn_lstm_parallel = PARA_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-            #### BASE-LINE MODELS ####
-            simple_cnn = Simple_CNN(input_size, num_classes).to(device)
-            simple_lstm = Simple_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-            simple_svm = Simple_SVM(input_size, num_classes).to(device)
+            # cnn_lstm = SEQ_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            # lstm_cnn = SEQ_LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+            # cnn_lstm_parallel = PARA_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            # #### BASE-LINE MODELS ####
+            # simple_cnn = Simple_CNN(input_size, num_classes).to(device)
+            # simple_lstm = Simple_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            # simple_svm = Simple_SVM(input_size, num_classes).to(device)
 
             #### SOTA MODELS ####
 
@@ -464,41 +468,189 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             #         x = self.fc(x)
             #         return x
 
+            # class SOTA_Model(nn.Module):
+            #     def __init__(self, backbone_name, base_model, input_size, num_classes, output_dim):
+            #         super(SOTA_Model, self).__init__()
+            #         self.backbone_name = backbone_name  # Store architecture name (e.g., 'resnet34', 'vgg16')
+            #
+            #         # Adjust first conv layer for 1-channel input (assumes (B, C=1, H=1, W))
+            #         base_model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
+            #
+            #         # Feature extractor up to final layers
+            #         self.features = nn.Sequential(*list(base_model.children())[:-2])
+            #         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+            #         self.fc = nn.Linear(output_dim, num_classes)
+            #
+            #     def forward(self, x):
+            #         x = x.permute(0, 2, 1).unsqueeze(2)  # (B, C, H=1, W)
+            #         x = self.features(x)
+            #         x = self.avgpool(x)
+            #         x = x.view(x.size(0), -1)
+            #         x = self.fc(x)
+            #         return x
+            #
+            # class SOTA_Model(nn.Module):
+            #     def __init__(self, backbone_name, base_model, input_size, num_classes, output_dim):
+            #         super(SOTA_Model, self).__init__()
+            #         self.backbone_name = backbone_name
+            #
+            #         # Patch input layer to accept 1-channel input
+            #         if backbone_name.startswith("resnet") or backbone_name.startswith("resnext") or backbone_name.startswith(
+            #                 "regnet"):
+            #             # base_model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
+            #             base_model.conv1 = nn.Conv2d(1, 64, kernel_size=1, stride=1, padding=0, bias=False)
+            #
+            #
+            #         elif backbone_name.startswith("vgg") or backbone_name.startswith("alexnet"):
+            #             features = list(base_model.features)
+            #             if isinstance(features[0], nn.Conv2d) and features[0].in_channels == 3:
+            #                 features[0] = nn.Conv2d(1, features[0].out_channels,
+            #                                         kernel_size=features[0].kernel_size,
+            #                                         stride=features[0].stride,
+            #                                         padding=features[0].padding)
+            #                 base_model.features = nn.Sequential(*features)
+            #
+            #         elif backbone_name.startswith("efficientnet"):
+            #             conv_stem = base_model.features[0][0]
+            #             base_model.features[0][0] = nn.Conv2d(1, conv_stem.out_channels,
+            #                                                   kernel_size=conv_stem.kernel_size,
+            #                                                   stride=conv_stem.stride,
+            #                                                   padding=conv_stem.padding,
+            #                                                   bias=False)
+            #
+            #         elif backbone_name.startswith("convnext"):
+            #             stem = base_model.features[0][0]
+            #             base_model.features[0][0] = nn.Conv2d(1, stem.out_channels,
+            #                                                   kernel_size=stem.kernel_size,
+            #                                                   stride=stem.stride,
+            #                                                   padding=stem.padding,
+            #                                                   bias=False)
+            #
+            #         elif backbone_name.startswith("swin") or backbone_name.startswith("vit"):
+            #             raise NotImplementedError(
+            #                 f"{backbone_name} requires 3-channel input and complex patch embedding; use 3-channel input or custom adapter.")
+            #
+            #         # Feature extractor + classifier
+            #         self.features = nn.Sequential(*list(base_model.children())[:-2])
+            #         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+            #         self.fc = nn.Linear(output_dim, num_classes)
+            #
+            #     def forward(self, x):
+            #         x = x.permute(0, 2, 1).unsqueeze(2)  # (B, C=1, H=1, W)
+            #         x = self.features(x)
+            #         x = self.avgpool(x)
+            #         x = x.view(x.size(0), -1)
+            #         x = self.fc(x)
+            #         return x
+
             class SOTA_Model(nn.Module):
                 def __init__(self, backbone_name, base_model, input_size, num_classes, output_dim):
                     super(SOTA_Model, self).__init__()
-                    self.backbone_name = backbone_name  # Store architecture name (e.g., 'resnet34', 'vgg16')
+                    self.backbone_name = backbone_name
 
-                    # Adjust first conv layer for 1-channel input (assumes (B, C=1, H=1, W))
-                    base_model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
+                    # Modify input conv layer depending on backbone
+                    if backbone_name.startswith("resnet") or backbone_name.startswith("resnext") or backbone_name.startswith(
+                            "regnet"):
+                        base_model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
 
-                    # Feature extractor up to final layers
+                    elif backbone_name.startswith("vgg") or backbone_name.startswith("alexnet"):
+                        features = list(base_model.features)
+                        if isinstance(features[0], nn.Conv2d) and features[0].in_channels == 3:
+                            features[0] = nn.Conv2d(1, features[0].out_channels,
+                                                    kernel_size=features[0].kernel_size,
+                                                    stride=features[0].stride,
+                                                    padding=features[0].padding)
+                            base_model.features = nn.Sequential(*features)
+
+                    elif backbone_name.startswith("efficientnet"):
+                        conv_stem = base_model.features[0][0]
+                        base_model.features[0][0] = nn.Conv2d(1, conv_stem.out_channels,
+                                                              kernel_size=conv_stem.kernel_size,
+                                                              stride=conv_stem.stride,
+                                                              padding=conv_stem.padding,
+                                                              bias=False)
+
+                    elif backbone_name.startswith("convnext"):
+                        conv_stem = base_model.features[0][0]
+                        base_model.features[0][0] = nn.Conv2d(1, conv_stem.out_channels,
+                                                              kernel_size=conv_stem.kernel_size,
+                                                              stride=conv_stem.stride,
+                                                              padding=conv_stem.padding,
+                                                              bias=False)
+
+                    else:
+                        raise NotImplementedError(f"{backbone_name} not yet supported.")
+
+                    # Extract features and custom classifier
                     self.features = nn.Sequential(*list(base_model.children())[:-2])
                     self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
                     self.fc = nn.Linear(output_dim, num_classes)
 
                 def forward(self, x):
-                    x = x.permute(0, 2, 1).unsqueeze(2)  # (B, C, H=1, W)
+
+                    if self.backbone_name.startswith(("vgg", "resnet", "alexnet", "convnext_tiny")):
+                        # Convert to (B, C=1, H, W) if input is (B, T, F)
+                        if x.ndim == 3:
+                            x = x.permute(0, 2, 1).unsqueeze(1)  # e.g., (B, 1, F, T)
+                        # Resize to standard input size
+                        x = F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
+                    else:
+                        # Custom case, adjust as needed
+                        x = x.permute(0, 2, 1).unsqueeze(2)  # e.g., (B, C=1, 1, W)
+
+                    # if self.backbone_name.startswith("vgg") or self.backbone_name.startswith("resnet"):
+                    #     x = x.permute(0, 2, 1).unsqueeze(1)  # (B, 1, 7, 1)
+                    #     x = F.interpolate(x, size=(32, 32), mode='bilinear', align_corners=False)
+                    # elif self.backbone_name.startswith("resnet"):
+                    #     x = F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
+                    # else:
+                    #     x = x.permute(0, 2, 1).unsqueeze(2)  # (B, C=1, H=1, W)
+
+                    # x = x.permute(0, 2, 1).unsqueeze(3)  # (B, C=1, H=1, W)
                     x = self.features(x)
                     x = self.avgpool(x)
                     x = x.view(x.size(0), -1)
                     x = self.fc(x)
                     return x
 
+
             # Example model initializations (device and input_size must be defined)
             sota_models = {
-                "resnet34": SOTA_Model("resnet34", resnet34(weights=ResNet34_Weights.DEFAULT), input_size, num_classes, 512).to(
-                    device),
-                "vgg16": SOTA_Model("vgg16", vgg16(weights=VGG16_Weights.DEFAULT), input_size, num_classes, 512).to(device),
-                "alexnet": SOTA_Model("alexnet", alexnet(weights=AlexNet_Weights.DEFAULT), input_size, num_classes, 256).to(
-                    device),
-                "efficientnet_v2_s": SOTA_Model("efficientnet_v2_s", efficientnet_v2_s(weights=EfficientNet_V2_S_Weights.DEFAULT),
-                                                input_size,
-                                                num_classes, 1280).to(device),
-                "convnext_tiny": SOTA_Model("convnext_tiny", convnext_tiny(weights=ConvNeXt_Tiny_Weights.DEFAULT), input_size, num_classes, 768).to(
-                    device),
-                "swin_t": SOTA_Model("swin_t", swin_t(weights=Swin_T_Weights.DEFAULT), input_size, num_classes, 768).to(device),
-                "vit_b_16": SOTA_Model("vit_b_16", vit_b_16(weights=ViT_B_16_Weights.DEFAULT), input_size, num_classes, 768).to(device),
+                "resnet34": SOTA_Model(
+                    "resnet34",
+                    resnet34(weights=ResNet34_Weights.DEFAULT),
+                    input_size,
+                    num_classes,
+                    512
+                ).to(device),
+                "vgg16": SOTA_Model(
+                    "vgg16",
+                    vgg16(weights=VGG16_Weights.DEFAULT),
+                    input_size,
+                    num_classes,
+                    512
+                ).to(device),
+                "alexnet": SOTA_Model(
+                    "alexnet",
+                    alexnet(weights=AlexNet_Weights.DEFAULT),
+                    input_size,
+                    num_classes,
+                    256
+                ).to(device),
+                "efficientnet_v2_s": SOTA_Model(
+                    "efficientnet_v2_s",
+                    efficientnet_v2_s(weights=EfficientNet_V2_S_Weights.DEFAULT),
+                    input_size,
+                    num_classes, 1280
+                ).to(device),
+                "convnext_tiny": SOTA_Model(
+                    "convnext_tiny",
+                    convnext_tiny(weights=ConvNeXt_Tiny_Weights.DEFAULT),
+                    input_size,
+                    num_classes, 768
+                ).to(device)
+                # "swin_t": SOTA_Model("swin_t", swin_t(weights=Swin_T_Weights.DEFAULT), input_size, num_classes, 768).to(device),
+                # "vit_b_16": SOTA_Model("vit_b_16", vit_b_16(weights=ViT_B_16_Weights.DEFAULT), input_size, num_classes, 768).to(device),
             }
 
             # sota_models = {
@@ -515,7 +667,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             # Access example: sota_models["resnet34"]
 
-            exit()
+            # exit()
 
             class ResNet1D(nn.Module):
                 def __init__(self, resnet, input_size, num_classes):
@@ -573,16 +725,16 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             dict_models = {
                 # DUAL-MODELS
-                00: [cnn_lstm],
-                10: [lstm_cnn],
-                11: [cnn_lstm, lstm_cnn],
-                12: [cnn_lstm_parallel],
-                22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
-                # SIMPLE-MODELS
-                23: [simple_svm],
-                24: [simple_lstm],
-                25: [simple_cnn],
-                26: [simple_cnn, simple_lstm, simple_svm],
+                # 00: [cnn_lstm],
+                # 10: [lstm_cnn],
+                # 11: [cnn_lstm, lstm_cnn],
+                # 12: [cnn_lstm_parallel],
+                # 22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+                # # SIMPLE-MODELS
+                # 23: [simple_svm],
+                # 24: [simple_lstm],
+                # 25: [simple_cnn],
+                # 26: [simple_cnn, simple_lstm, simple_svm],
                 # SOTA-MODELS
                 28: [sota_resnet],
                 30: list(sota_models.values())
@@ -591,7 +743,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             # models = dict_models.get(00, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
             # models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
             # models = dict_models.get(28, [sota_resnet])  # if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
-            models = dict_models.get(30, list(sota_models.values()))  # if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
+            models = dict_models.get(30, list(
+                sota_models.values()))  # if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
 
             #### TRAIN ####
             num_epochs = n_epochs
