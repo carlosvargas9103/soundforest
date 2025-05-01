@@ -1,0 +1,11 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, mmm, aei",
+    "efficientnet_v2_s": {
+        "AC": 78.028472,
+        "EPOCHS": 11,
+        "FN": 13088,
+        "FP": 13088,
+        "TN": 165616,
+        "TP": 46480
+    }
+}

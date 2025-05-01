@@ -1,0 +1,10 @@
+usage: forest.py [-h] [-ts TASKS] [-p-in PATH_IN] [-p-out PATH_OUT]
+                 [-sreg SREGIONS] [-si SREGION_ITERATOR] [-sr SAMPLE_R]
+                 [-bs BANDAS] [-b-b B_BAND] [-u-b U_BAND] [-bw BANDWIDTH]
+                 [-s-s SAMPLES_SECOND] [-is-s ISAMPLES_SECOND]
+                 [-s-b SECONDS_BANDWIDTH] [-ws-m WIN_SIZE_MINS]
+                 [-w13 WINDOWS13] [-mens METRIC_NAMES] [-dev DEV_MODE]
+                 [-combi START_COMBI] [-sota MODEL_SOTA] [-vb VERBO]
+forest.py: error: argument -combi/--start-combi: expected one argument
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
