@@ -1,0 +1,44 @@
+PATH /home/vargas/repos/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 39 SBOJ-N #### ####
+#### #### HOI MODELLING #### ####
+#### INDICES => [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei] <= INDICES 16 ####
+0/68 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### COMBI 511 #### FIXED 7 VARIABLE 9
+#### #### READING DATA FILES #### ####
+1 511 #### COMBI [reg, sid, ban, sec, men, med, sum, max] METRICS ####
+('Plantation', '/home/vargas/repos/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(297840, 8) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max'], dtype='object') Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max'], dtype='object')
+#### MERGE 68 merge_data Dataframe shape: (297840, 8) #### time: 12
+#### #### SPLIT TRAIN TEST #### ####
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cuda:0 #### time: 35
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 11 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL alexnet ####
+ALWAYS PROBLEMS CUDA error: an illegal memory access was encountered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+Traceback (most recent call last):
+  File "/home/vargas/repos/forests-sounds-vargas/source/forest.py", line 540, in <module>
+    main()
+  File "/home/vargas/repos/forests-sounds-vargas/source/forest.py", line 516, in main
+    sota_train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
+  File "/home/vargas/repos/forests-sounds-vargas/source/sota_modelling.py", line 594, in sota_train_with_soundscapes
+    train(models, train_loader, epochs=num_epochs)
+  File "/home/vargas/repos/forests-sounds-vargas/source/sota_modelling.py", line 408, in train
+    loss.backward()
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/py310f/lib/python3.10/site-packages/torch/_tensor.py", line 648, in backward
+    torch.autograd.backward(
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/py310f/lib/python3.10/site-packages/torch/autograd/__init__.py", line 353, in backward
+    _engine_run_backward(
+  File "/home/vargas/repos/forests-sounds-vargas/venvs/py310f/lib/python3.10/site-packages/torch/autograd/graph.py", line 824, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+RuntimeError: CUDA error: an illegal memory access was encountered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+

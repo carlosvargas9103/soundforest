@@ -14,4 +14,4 @@ module load gcc python cuda/12.1.1
 
 source ~/repos/forests-sounds-vargas/venvs/tpy310f_i/bin/activate
 
-cd ~/repos/forests-sounds-vargas/source && python3 forest.py
+cd ~/repos/forests-sounds-vargas/source && python3 forest.py -sota 3
