@@ -1,0 +1,27 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, mmm, aei",
+    "PARA_CNN_LSTM": {
+        "AC": 87.369057,
+        "EPOCHS": 11,
+        "FN": 7524,
+        "FP": 7524,
+        "TN": 171180,
+        "TP": 52044
+    },
+    "SEQ_CNN_LSTM": {
+        "AC": 82.957293,
+        "EPOCHS": 11,
+        "FN": 10152,
+        "FP": 10152,
+        "TN": 168552,
+        "TP": 49416
+    },
+    "SEQ_LSTM_CNN": {
+        "AC": 69.18144,
+        "EPOCHS": 11,
+        "FN": 18358,
+        "FP": 18358,
+        "TN": 160346,
+        "TP": 41210
+    }
+}
