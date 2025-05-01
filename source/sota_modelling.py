@@ -96,7 +96,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                 dev_mode: bool = True,
                                 n_epochs: int = 11,
                                 df_stats: bool = False,
-                                m_sota: int = 0
+                                m_sota: int = 0,
+                                s_combi: int = 0
                                 ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
@@ -110,7 +111,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi = 0  # 424
+    start_combi = s_combi  # 424
     i_fix_metrics = 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
@@ -508,6 +509,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     512
                 ).to(device),
                 2: SOTA_Model(
+                    # RuntimeError: CUDA error: an illegal memory access was encountered
+                    # Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
                     "alexnet",
                     alexnet(weights=AlexNet_Weights.DEFAULT),
                     input_size,
@@ -581,7 +584,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             }
             # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
             models = dict_models.get(39, list(sota_models.values())) if not dev_mode else dict_models.get(00, [resnet])
-            models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
+            # models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
+            models = dict_models.get(m_sota, models) if m_sota else models
 
             #### TRAIN ####
             num_epochs = n_epochs
