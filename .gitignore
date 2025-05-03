@@ -18,6 +18,7 @@ audio_files_*.csv
 *.OLD.ipynb
 
 # PDFs
+*PROFE*
 BOOK_*.pdf
 *.doc*
 *.bib
