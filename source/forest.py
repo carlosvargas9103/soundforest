@@ -252,12 +252,21 @@ def get_args():
     )
 
     parser.add_argument(
-        "-combi",
+        "-s-combi",
         "--start-combi",
         type=int,
         default=0,
         required=False,
         help="Start position of the combination sequence",
+    )
+
+    parser.add_argument(
+        "-e-combi",
+        "--end-combi",
+        type=int,
+        default=9103,
+        required=False,
+        help="End position of the combination sequence",
     )
 
     parser.add_argument(
@@ -310,7 +319,7 @@ def main():
     # relevant for observation, extraction, and sampling
     global tasks, job_id, N_JOBS, path_data, path_out, verbo, windows_13
     global sreg, si, bandas, sr, b_band, u_band, bandwidth, samples_s, isamples_s, secs_b, w_size_mins
-    global audio_files_processed, outfile_name, metric_names, dev_mode, m_sota, s_combi
+    global audio_files_processed, outfile_name, metric_names, dev_mode, m_sota, s_combi, e_combi
     # relevant for modelling
     global file_in_pattern
 
@@ -324,7 +333,7 @@ def main():
     bandas, sr, b_band, u_band, bandwidth = args.bandas, args.sample_r, args.b_band, args.u_band, args.bandwidth
     samples_s, isamples_s, secs_b = args.samples_second, args.isamples_second, args.seconds_bandwidth
     w_size_mins, verbo, windows_13, metric_names = args.win_size_mins, args.verbo, args.windows13, args.metric_names
-    dev_mode, m_sota, s_combi = args.dev_mode, args.model_sota, args.start_combi
+    dev_mode, m_sota, s_combi, e_combi = args.dev_mode, args.model_sota, args.start_combi, args.end_combi
 
     print('#### #### HOI FOREST #### ####')
     print('#### ####', 'N-JOBS', N_JOBS, 'SBOJ-N', '#### ####')
@@ -531,7 +540,7 @@ def main():
                                                 f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
                                                 # metric_names=metric_names[:9], dev_mode=True, n_epochs=1,
                                                 metric_names=metric_names, dev_mode=dev_mode, n_epochs=11,
-                                                m_sota=m_sota, s_combi=s_combi
+                                                m_sota=m_sota, s_combi=s_combi, e_combi=e_combi
                                                 )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
                 except Exception as e:

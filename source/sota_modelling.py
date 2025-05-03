@@ -97,7 +97,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                 n_epochs: int = 11,
                                 df_stats: bool = False,
                                 m_sota: int = 0,
-                                s_combi: int = 0
+                                s_combi: int = 0,
+                                e_combi: int = 9103
                                 ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
@@ -111,7 +112,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi = s_combi  # 424
+    start_combi, end_combi = s_combi, e_combi  # 424
     i_fix_metrics = 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
@@ -125,7 +126,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     for r in range(1, len(variable_part) + 1):  # r = number of items in each combination
         for combi_metrics in combinations(variable_part, r):
             i_r_c += 1
-            if i_r_c <= start_combi:
+            if end_combi <= i_r_c <= start_combi:
                 continue
             combi_metric_names = fixed_part + list(combi_metrics)
             print('#### #### READING DATA FILES #### ####')

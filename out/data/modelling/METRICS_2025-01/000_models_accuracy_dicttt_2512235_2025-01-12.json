@@ -1,6 +1,0 @@
-{
-    "CNN_LSTM": 90.545141,
-    "LSTM_CNN": 90.060482,
-    "METRICS": "Metrics.REGION ~ Metrics.SOUNDSCAPE_ID ~ Metrics.BAND_ID ~ Metrics.SECOND ~ Metrics.MEAN ~ Metrics.MEDIAN ~ Metrics.SUM ~ Metrics.MAX ~ Metrics.ACOUSTIC_COMPLEXITY ~ Metrics.BIOACOUSTIC_INDEX_BETA ~ Metrics.TEMPORAL_MEDIAN ~ Metrics.NUMBER_PEAKS ~ Metrics.ENTROPY_FREQUENCY ~ Metrics.ENTROPY_TEMPORAL ~ Metrics.ENTROPY ~ Metrics.ACOUSTIC_EVENNESS",
-    "ParallelCNNLSTMModel": 90.736735
-}
