@@ -112,7 +112,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi, end_combi = s_combi, e_combi  # 424
+    start_combi, end_combi = s_combi-1, e_combi  # 424
     i_fix_metrics = 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
@@ -126,8 +126,10 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     for r in range(1, len(variable_part) + 1):  # r = number of items in each combination
         for combi_metrics in combinations(variable_part, r):
             i_r_c += 1
-            if end_combi <= i_r_c <= start_combi:
+            if i_r_c < start_combi:
                 continue
+            elif i_r_c > end_combi:
+                break            
             combi_metric_names = fixed_part + list(combi_metrics)
             print('#### #### READING DATA FILES #### ####')
             print(i_r_c, total_combi, '####', 'COMBI', combi_metric_names, 'METRICS', '####')
