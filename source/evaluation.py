@@ -56,7 +56,7 @@ print('PATH', cwd)
 
 
 def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
-                           job_id_in: str = '',
+                           dir_json_results_in: str = '',
                            ncols: int = 6016, *,
                            region: str = '',
                            si: int = 1964,
@@ -90,12 +90,14 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     model_names = ["COMPOSED", "SIMPLE_MODELS", "SOTA", "ALL"]
     model_name_filename = model_names[0]
 
-    job_id_in, model_name_filename = '2606033', model_names[0]
-    job_id_in, model_name_filename = '2606265', model_names[0]
-    # job_id_in, model_name_filename = '2610631', model_names[1]
-    # job_id_in, model_name_filename = '2612399', model_names[2]
+    dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2606265', model_names[0]
+    dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2616999', model_names[0]
+    dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2620555', model_names[0]
+    # dir_json_results_in, model_name_filename = 'EVAL_SIMPLE_MODELS_2610631', model_names[1]
+    # dir_json_results_in, model_name_filename = 'EVAL_ResNet1D_2616261', model_names[2]
+    # dir_json_results_in, model_name_filename = 'TESTING_EVAL_ALL', model_names[3]
 
-    path_in_evaluation = f'{cwd}/out/data/modelling/JOB_{job_id_in}/'
+    path_in_evaluation = f'{cwd}/out/data/modelling/{dir_json_results_in}/'
     path_data = path_in_evaluation
     folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
     path_data_in = path_in_evaluation # f'{path_out}data/{folders_in}/'
@@ -176,7 +178,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     print(df.head())
 
     # Export to CSV
-    df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{job_id_in}.csv", index=False, sep=';')
+    df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{dir_json_results_in}.csv", index=False, sep=';')
 
     # per feature
     sns.set_style("whitegrid")  # white background with gridlines
@@ -188,7 +190,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # ax.set_ylim(0, 100)
     ax.yaxis.grid(True)  # add horizontal grid lines
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_{job_id_in}.png")
+    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
 
     # per model
     models = sorted(df["MODEL"].unique())
@@ -201,7 +203,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     plt.xticks(rotation=45)  # rotate x labels for readability&#8203;:contentReference[oaicite:6]{index=6}
     ax.yaxis.grid(True)  # horizontal grid lines
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{job_id_in}.png")
+    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
 
     # grouped by model
     sns.set_style("whitegrid")
@@ -214,7 +216,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     ax.yaxis.grid(True)
     plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{job_id_in}.png")
+    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png")
     # plt.show()
 
     # max accuracy
@@ -229,7 +231,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     # ax.set_ylim(0, 100)
     ax.grid(True, axis="y")
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{job_id_in}.png")
+    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
     # plt.show()
 
     exit()
@@ -244,7 +246,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     plt.ylabel("MAX AC")
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{job_id_in}.png")
+    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
     # plt.show()
 
 
@@ -268,7 +270,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     grouped = df_flat.groupby("METRICS")#.agg(['count', 'mean', 'min', 'median', 'max'])
 
     # Optional: Save to LaTeX or CSV
-    grouped.to_csv(f"{path_data_in}metrics_grouped_summary_{job_id_in}.csv")
+    grouped.to_csv(f"{path_data_in}metrics_grouped_summary_{dir_json_results_in}.csv")
 
     exit()
 

@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=39
 #SBATCH --mem=192GB
-#SBATCH --time=01-11:11:10
+#SBATCH --time=00-11:11:10
 #SBATCH --gres=gpu:1
 #SBATCH --partition=gpu
 # --qos=gpu
@@ -14,4 +14,4 @@ module load gcc python cuda/12.1.1
 
 source ~/repos/forests-sounds-vargas/venvs/tpy310f_i/bin/activate
 
-cd ~/repos/forests-sounds-vargas/source && python3 forest.py -sota 22 -s-combi 411
+cd ~/repos/forests-sounds-vargas/source && python3 forest.py -sota 22 -s-combi 254 -e-combi 260
