@@ -112,7 +112,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi, end_combi = s_combi-1, e_combi  # 424
+    start_combi, end_combi = s_combi, e_combi  # 424
     i_fix_metrics = 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
