@@ -90,455 +90,472 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     model_names = ["COMPOSED", "SIMPLE_MODELS", "SOTA", "ALL"]
     model_name_filename = model_names[0]
 
-    dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2606265', model_names[0]
-    dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2616999', model_names[0]
-    dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2620555', model_names[0]
+    experiments = []
+
+    experiments.append(('EVAL_SEQ_SEQ_PARA_2606265', model_names[0]))
+    experiments.append(('EVAL_SEQ_SEQ_PARA_2616999', model_names[0]))
+    experiments.append(('EVAL_SEQ_SEQ_PARA_2620555', model_names[0]))
+    experiments.append(('EVAL_SIMPLE_MODELS_2610631', model_names[1]))
+    experiments.append(('EVAL_ResNet1D_2616261', model_names[2]))
+    experiments.append(('TESTING_EVAL_ALL', model_names[3]))
+    # dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2616999', model_names[0]
+    # dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2620555', model_names[0]
     # dir_json_results_in, model_name_filename = 'EVAL_SIMPLE_MODELS_2610631', model_names[1]
     # dir_json_results_in, model_name_filename = 'EVAL_ResNet1D_2616261', model_names[2]
     # dir_json_results_in, model_name_filename = 'TESTING_EVAL_ALL', model_names[3]
 
-    path_in_evaluation = f'{cwd}/out/data/modelling/{dir_json_results_in}/'
-    path_data = path_in_evaluation
-    folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
-    path_data_in = path_in_evaluation # f'{path_out}data/{folders_in}/'
-    # READ models_accuracy_dict to process
+    for exp in experiments:
+        print(exp)
+        # exit()
+        dir_json_results_in, model_name_filename = exp[0], exp[1]
+        print(dir_json_results_in, model_name_filename)
+        # exit()
+        # continue
 
-    # Read all JSON files from path_data_in
-    json_dicts = []
-    for dirpath, dirnames, filenames in os.walk(path_data_in):
-        for filename in filenames:
-        # for filename in os.listdir(path_data_in):
-            if filename.endswith(f_ext_in):
-                # filepath = os.path.join(path_data_in, filename)
-                filepath = os.path.join(dirpath, filename)
-                try:
-                    with open(filepath, 'r') as f:
-                        data = json.load(f)
-                        if isinstance(data, dict):
-                            json_dicts.append(data)
-                        elif isinstance(data, list):
-                            json_dicts.extend(data)  # handle list of dicts
-                except Exception as e:
-                    print(f"Error reading {filename}: {e}")
+        path_in_evaluation = f'{cwd}/out/data/modelling/{dir_json_results_in}/'
+        path_data = path_in_evaluation
+        folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
+        path_data_in = path_in_evaluation # f'{path_out}data/{folders_in}/'
+        # READ models_accuracy_dict to process
 
-    # Convert to DataFrame
-    df_json = pd.DataFrame(json_dicts)
-    print(df_json.shape)
-    print(df_json.head())
+        # Read all JSON files from path_data_in
+        json_dicts = []
+        for dirpath, dirnames, filenames in os.walk(path_data_in):
+            for filename in filenames:
+            # for filename in os.listdir(path_data_in):
+                if filename.endswith(f_ext_in):
+                    # filepath = os.path.join(path_data_in, filename)
+                    filepath = os.path.join(dirpath, filename)
+                    try:
+                        with open(filepath, 'r') as f:
+                            data = json.load(f)
+                            if isinstance(data, dict):
+                                json_dicts.append(data)
+                            elif isinstance(data, list):
+                                json_dicts.extend(data)  # handle list of dicts
+                    except Exception as e:
+                        print(f"Error reading {filename}: {e}")
 
-    # flatten the json
-    rows = []
-    for item in json_dicts:
-        metrics = item.get("METRICS", "")
-        num_metrics = int(len([m.strip() for m in metrics.split(",") if m.strip()]))
+        # Convert to DataFrame
+        df_json = pd.DataFrame(json_dicts)
+        print(df_json.shape)
+        print(df_json.head())
 
-        for model_name, values in item.items():
-            if model_name != "METRICS":
-                model_name_filename = model_name if not model_name_filename else model_name_filename
-                if isinstance(values, dict):
-                    flat_row = values.copy()
-                    flat_row["MODEL"] = model_name
-                    flat_row["INDICES"] = metrics
-                    flat_row["NUM_INDICES"] = num_metrics
-                    rows.append(flat_row)
-    df = pd.DataFrame(rows)
+        # flatten the json
+        rows = []
+        for item in json_dicts:
+            metrics = item.get("METRICS", "")
+            num_metrics = int(len([m.strip() for m in metrics.split(",") if m.strip()]))
 
-    # calculate performance scores
-    df["Precision"] = 100 * df["TP"] / (df["TP"] + df["FP"])
-    df["Recall"] = 100 * df["TP"] / (df["TP"] + df["FN"])
-    df["F1"] = 2 * (df["Precision"] * df["Recall"]) / (df["Precision"] + df["Recall"])
+            for model_name, values in item.items():
+                if model_name != "METRICS":
+                    model_name_filename = model_name if not model_name_filename else model_name_filename
+                    if isinstance(values, dict):
+                        flat_row = values.copy()
+                        flat_row["MODEL"] = model_name
+                        flat_row["INDICES"] = metrics
+                        flat_row["NUM_INDICES"] = num_metrics
+                        rows.append(flat_row)
+        df = pd.DataFrame(rows)
 
-    df["AC"] = df["AC"].round(3)
-    df["Precision"] = df["Precision"].round(3)
-    df["Recall"] = df["Recall"].round(3)
-    df["F1"] = df["F1"].round(3)
-    df["F1"] = df["F1"].fillna(0)
+        # calculate performance scores
+        df["Precision"] = 100 * df["TP"] / (df["TP"] + df["FP"])
+        df["Recall"] = 100 * df["TP"] / (df["TP"] + df["FN"])
+        df["F1"] = 2 * (df["Precision"] * df["Recall"]) / (df["Precision"] + df["Recall"])
 
-    # df = df.sort_values(by="AC", ascending=False)
-    df = df.sort_values(by="F1", ascending=False)
+        df["AC"] = df["AC"].round(3)
+        df["Precision"] = df["Precision"].round(3)
+        df["Recall"] = df["Recall"].round(3)
+        df["F1"] = df["F1"].round(3)
+        df["F1"] = df["F1"].fillna(0)
 
-    # reorder columns
-    cols = df.columns.tolist()
-    cols = [col for col in cols if col not in ["MODEL", "AC", "INDICES", "NUM_INDICES"]]
-    new_order = ["MODEL"] + cols + ["AC", "INDICES", "NUM_INDICES"]
-    df = df[new_order]
+        # df = df.sort_values(by="AC", ascending=False)
+        df = df.sort_values(by="F1", ascending=False)
 
-    for c, col in enumerate(df.columns[1:-2]):
-        if c > 4:
-            df[col] = df[col].astype(float)
-        else:
-            df[col] = df[col].astype(int)
+        # reorder columns
+        cols = df.columns.tolist()
+        cols = [col for col in cols if col not in ["MODEL", "AC", "INDICES", "NUM_INDICES"]]
+        new_order = ["MODEL"] + cols + ["AC", "INDICES", "NUM_INDICES"]
+        df = df[new_order]
 
-    # Ensure 'INDICES' is a string
-    int_fixed_indices = 8
-    df["INDICES"] = df["INDICES"].astype(str) # change name
-    df["INDICES"] = df["INDICES"].apply(lambda x: ", ".join([m.strip() for m in x.split(",")[int_fixed_indices:] if m.strip()]))
-    df["INDICES"] = df["INDICES"].astype(str).apply(lambda x: f'[{x}]')
-
-    # one-hot-encoded
-    # Clean and parse the INDICES column (convert string lists to actual lists)
-    df['INDICES'] = df['INDICES'].str.strip('[]').str.replace(' ', '').str.split(',')
-    # Extract unique indices
-    # Get all unique indices, handling empty strings
-    all_indices = sorted(set(i if i else 'fix' for sublist in df['INDICES'] for i in sublist))
-    # One-hot encode and assign AC values
-    for idx in all_indices:
-        df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
-    # all_indices = sorted(set(i for sublist in df['INDICES'] for i in sublist))
-    # Normalize empty strings to 'fix' in INDICES
-    df['INDICES'] = df['INDICES'].apply(lambda lst: ['fix' if i == '' else i for i in lst])
-
-    # Initialize the one-hot columns with 0
-    for idx in all_indices:
-        df[idx] = 0.0  # float to allow accuracy assignment
-    # Assign accuracy value to each corresponding index column
-    for i, row in df.iterrows():
-        for idx in row['INDICES']:
-            df.at[i, idx] = row['AC']
-
-
-
-    # Optional: drop INDICES and NUM_INDICES if you don't need them
-    # df.drop(columns=['INDICES', 'NUM_INDICES'], inplace=True)
-
-    # Print the updated DataFrame
-    print(df)
-
-
-    print(df.shape)
-    print(df.head())
-
-    # Export to CSV
-    df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{dir_json_results_in}.csv", index=False, sep=';')
-
-    # # Get all unique indices
-    # all_indices = sorted(set(i for sublist in df['INDICES'] for i in sublist))
-    #
-    # # One-hot encode and assign AC values
-    # for idx in all_indices:
-    #     df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
-
-    # NUM_INDICES values to include
-    subset_values = [9, 10, 11, 12, 13]
-
-    # # Function to plot 5 subplots in a single figure
-    # def plot_combined_ac_group(ac_filter, label, filename):
-    #     fig, axes = plt.subplots(1, 5, figsize=(25, 5), sharey=True)
-    #     for i, num in enumerate(subset_values):
-    #         subset = df[(df['NUM_INDICES'] == num) & ac_filter]
-    #         ax = axes[i]
-    #
-    #         if not subset.empty:
-    #             grouped = subset.groupby('MODEL')[all_indices].sum().T
-    #             grouped.plot(kind='bar', ax=ax, legend=False)
-    #             ax.set_title(f'NUM_INDICES = {num}')
-    #             ax.set_xlabel('Indices')
-    #             if i == 0:
-    #                 ax.set_ylabel('Summed Accuracy')
-    #             ax.tick_params(axis='x', rotation=45)
-    #         else:
-    #             ax.set_visible(False)
-    #
-    #     fig.suptitle(f'Index Contributions per Model ({label.upper()} 79% AC)', fontsize=16)
-    #     fig.tight_layout(rect=[0, 0, 1, 0.95])
-    #     fig.savefig(f'{path_data_in}{filename}')
-    #     plt.close(fig)
-    #     print(f"Saved: {filename}")
-
-    def plot_combined_ac_group(ac_filter, label, filename):
-        fig, axes = plt.subplots(1, 5, figsize=(25, 5), sharey=True)
-        legend_handles = None
-
-        for i, num in enumerate(subset_values):
-            subset = df[(df['NUM_INDICES'] == num) & ac_filter]
-            ax = axes[i]
-
-            if not subset.empty:
-                grouped = subset.groupby('MODEL')[all_indices].sum().T
-                plot = grouped.plot(kind='bar', ax=ax, legend=False)
-
-                if legend_handles is None:
-                    legend_handles = plot.containers  # capture legend handles
-
-                ax.set_title(f'NUM_INDICES = {num}')
-                ax.set_xlabel('Indices')
-                if i == 0:
-                    ax.set_ylabel('Summed Accuracy')
-                ax.tick_params(axis='x', rotation=45)
+        for c, col in enumerate(df.columns[1:-2]):
+            if c > 4:
+                df[col] = df[col].astype(float)
             else:
-                ax.set_visible(False)
+                df[col] = df[col].astype(int)
 
-        # Add shared legend outside the plot (if any data was plotted)
-        if legend_handles:
-            labels = grouped.columns.tolist()
-            fig.legend(legend_handles, labels, loc='center right', title='Model')
+        # Ensure 'INDICES' is a string
+        int_fixed_indices = 8
+        df["INDICES"] = df["INDICES"].astype(str) # change name
+        df["INDICES"] = df["INDICES"].apply(lambda x: ", ".join([m.strip() for m in x.split(",")[int_fixed_indices:] if m.strip()]))
+        df["INDICES"] = df["INDICES"].astype(str).apply(lambda x: f'[{x}]')
 
-        fig.suptitle(f'Index Contributions per Model ({label.upper()} 79% AC)', fontsize=16)
-        fig.tight_layout(rect=[0, 0, 0.92, 0.95])
-        fig.savefig(f'{path_data_in}{filename}')
-        plt.close(fig)
-        print(f"Saved: {filename}")
+        # one-hot-encoded
+        # Clean and parse the INDICES column (convert string lists to actual lists)
+        df['INDICES'] = df['INDICES'].str.strip('[]').str.replace(' ', '').str.split(',')
+        # Extract unique indices
+        # Get all unique indices, handling empty strings
+        all_indices = sorted(set(i if i else 'fix' for sublist in df['INDICES'] for i in sublist))
+        # One-hot encode and assign AC values
+        for idx in all_indices:
+            df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
+        # all_indices = sorted(set(i for sublist in df['INDICES'] for i in sublist))
+        # Normalize empty strings to 'fix' in INDICES
+        df['INDICES'] = df['INDICES'].apply(lambda lst: ['fix' if i == '' else i for i in lst])
 
-    # Create and save the two combined charts
-    plot_combined_ac_group(df['AC'] > 79, 'above', 'combined_chart_AC_above_79.png')
-    plot_combined_ac_group(df['AC'] <= 79, 'below', 'combined_chart_AC_below_79.png')
-
-    # per feature
-    sns.set_style("whitegrid")  # white background with gridlines
-    plt.figure(figsize=(8, 6))
-    ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df)
-    ax.set_xlabel("Number of Selected Features")
-    ax.set_ylabel("Accuracy (%)")
-    ax.set_title("Accuracy vs. Number of Selected Features")
-    # ax.set_ylim(0, 100)
-    ax.yaxis.grid(True)  # add horizontal grid lines
-    plt.tight_layout()
-    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
-
-    # per model
-    models = sorted(df["MODEL"].unique())
-    plt.figure(figsize=(10, 6))
-    ax = sns.boxplot(x="MODEL", y="AC", data=df, order=models)
-    ax.set_xlabel("Model Name")
-    ax.set_ylabel("Accuracy (%)")
-    ax.set_title("Accuracy by Model")
-    # ax.set_ylim(0, 100)
-    plt.xticks(rotation=45)  # rotate x labels for readability&#8203;:contentReference[oaicite:6]{index=6}
-    ax.yaxis.grid(True)  # horizontal grid lines
-    plt.tight_layout()
-    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
-
-    # grouped by model
-    sns.set_style("whitegrid")
-    plt.figure(figsize=(10, 6))
-    ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df)
-    ax.set_xlabel("Number of Selected Features")
-    ax.set_ylabel("Accuracy (%)")
-    ax.set_title("Accuracy by Number of Features and Model")
-    # ax.set_ylim(0, 100)
-    ax.yaxis.grid(True)
-    plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
-    plt.tight_layout()
-    plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png")
-    # plt.show()
-
-    # max accuracy
-    df_summary = df.groupby("NUM_INDICES", as_index=False)["AC"].max()
-
-    sns.set_style("whitegrid")
-    plt.figure(figsize=(10, 6))
-    ax = sns.lineplot(data=df_summary, x="NUM_INDICES", y="AC", marker="o")
-    ax.set_title("Maximum Accuracy vs. Number of Selected Features")
-    ax.set_xlabel("Number of Selected Features")
-    ax.set_ylabel("Maximum Accuracy (%)")
-    # ax.set_ylim(0, 100)
-    ax.grid(True, axis="y")
-    plt.tight_layout()
-    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
-    # plt.show()
-
-    exit()
-    # group-by for charts
-    df_summary = df.groupby("NUM_INDICES")["AC"].max().reset_index()
-
-    # plots
-    plt.figure(figsize=(10, 6))
-    plt.plot(df_summary["NUM_INDICES"], df_summary["AC"], marker='o')
-    plt.title("MAX AC vs Number of Indices")
-    plt.xlabel("Number of Indices")
-    plt.ylabel("MAX AC")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
-    # plt.show()
-
-
-    exit()
-
-    # grouped = df_json.groupby('METRICS').agg(['count', 'mean', 'std', 'min', 'median', 'max'])
-    # Flatten the model dictionary into top-level columns
-    rows = []
-    for row in df_json.to_dict(orient='records'):
-        metrics = row.get("METRICS")
-        for model_name, values in row.items():
-            if model_name != "METRICS":
-                flat_row = values.copy()
-                flat_row["MODEL"] = model_name # optional the model name here..
-                flat_row["METRICS"] = metrics
-                rows.append(flat_row)
-
-    df_flat = pd.DataFrame(rows)
-
-    # Now group by METRICS
-    grouped = df_flat.groupby("METRICS")#.agg(['count', 'mean', 'min', 'median', 'max'])
-
-    # Optional: Save to LaTeX or CSV
-    grouped.to_csv(f"{path_data_in}metrics_grouped_summary_{dir_json_results_in}.csv")
-
-    exit()
+        # Initialize the one-hot columns with 0
+        for idx in all_indices:
+            df[idx] = 0.0  # float to allow accuracy assignment
+        # Assign accuracy value to each corresponding index column
+        for i, row in df.iterrows():
+            for idx in row['INDICES']:
+                df.at[i, idx] = row['AC']
 
 
 
-    configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
-                   for dirpath, dirnames, files in os.walk(path_data_in)
-                   for f in files if f.endswith(f_ext_in)]
-    # print(path_data, path_data_in, path_out, configfiles[:3])
-    # exit()
+        # Optional: drop INDICES and NUM_INDICES if you don't need them
+        # df.drop(columns=['INDICES', 'NUM_INDICES'], inplace=True)
 
-    print('#### #### HOI FOREST - MODELLING #### ####')
-    evaluation_path = f'{path_out}data/{f_pattern_out}/'
-    t0 = time.time()
-    df_data = None
-    ncols = 6016
-    accuracy_dict, accuracy_dicttt = {}, {}
+        # Print the updated DataFrame
+        # print(df)
 
-    # SOME CONFIG ####
-    os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
-    os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
-    # Fixed part: always included
-    i_fix_metrics = 7
-    # fixed_part = metric_names[:-1]
-    fixed_part = metric_names[:i_fix_metrics]
-    # Variable part: will be combined in all possible ways
-    # variable_part = metric_names[-1:]
-    variable_part = metric_names[i_fix_metrics:]
+        print(df.shape)
+        print(df.head())
 
-    print('#### #### READING DATA FILES #### ####')
-    # # exit()
-    try:
-        print(files_path[0])
-        exit()
-        df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
-        df_data.columns = df_data.columns.map(str)
-        # include the scalar AND temporal features
-        # columns_to_train = combi_metric_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
-        # include the ONLY scalar features
-        columns_to_train = combi_metric_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
-        df_data = df_data[columns_to_train]
-        print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
-        # print(df_data.head(555))
+        # Export to CSV
+        df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{dir_json_results_in}.csv", index=False, sep=';')
+
+        # # Get all unique indices
+        # all_indices = sorted(set(i for sublist in df['INDICES'] for i in sublist))
+        #
+        # # One-hot encode and assign AC values
+        # for idx in all_indices:
+        #     df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
+
+        # NUM_INDICES values to include
+        subset_values = [9, 10, 11, 12, 13]
+
+        # # Function to plot 5 subplots in a single figure
+        # def plot_combined_ac_group(ac_filter, label, filename):
+        #     fig, axes = plt.subplots(1, 5, figsize=(25, 5), sharey=True)
+        #     for i, num in enumerate(subset_values):
+        #         subset = df[(df['NUM_INDICES'] == num) & ac_filter]
+        #         ax = axes[i]
+        #
+        #         if not subset.empty:
+        #             grouped = subset.groupby('MODEL')[all_indices].sum().T
+        #             grouped.plot(kind='bar', ax=ax, legend=False)
+        #             ax.set_title(f'NUM_INDICES = {num}')
+        #             ax.set_xlabel('Indices')
+        #             if i == 0:
+        #                 ax.set_ylabel('Summed Accuracy')
+        #             ax.tick_params(axis='x', rotation=45)
+        #         else:
+        #             ax.set_visible(False)
+        #
+        #     fig.suptitle(f'Index Contributions per Model ({label.upper()} 79% AC)', fontsize=16)
+        #     fig.tight_layout(rect=[0, 0, 1, 0.95])
+        #     fig.savefig(f'{path_data_in}{filename}')
+        #     plt.close(fig)
+        #     print(f"Saved: {filename}")
+
+        def plot_combined_ac_group(ac_filter, label, filename):
+            fig, axes = plt.subplots(1, 5, figsize=(25, 5), sharey=True)
+            legend_handles = None
+
+            for i, num in enumerate(subset_values):
+                subset = df[(df['NUM_INDICES'] == num) & ac_filter]
+                ax = axes[i]
+
+                if not subset.empty:
+                    grouped = subset.groupby('MODEL')[all_indices].sum().T
+                    plot = grouped.plot(kind='bar', ax=ax, legend=False)
+
+                    if legend_handles is None:
+                        legend_handles = plot.containers  # capture legend handles
+
+                    ax.set_title(f'NUM_INDICES = {num}')
+                    ax.set_xlabel('Indices')
+                    if i == 0:
+                        ax.set_ylabel('Summed Accuracy')
+                    ax.tick_params(axis='x', rotation=45)
+                else:
+                    ax.set_visible(False)
+
+            # Add shared legend outside the plot (if any data was plotted)
+            if legend_handles:
+                labels = grouped.columns.tolist()
+                fig.legend(legend_handles, labels, loc='center right', title='Model')
+
+            fig.suptitle(f'Index Contributions per Model ({label.upper()} 79% AC)', fontsize=16)
+            fig.tight_layout(rect=[0, 0, 0.92, 0.95])
+            fig.savefig(f'{path_data_in}{filename}')
+            plt.close(fig)
+            print(f"Saved: {filename}")
+
+        # Create and save the two combined charts
+        plot_combined_ac_group(df['AC'] > 79, 'above', 'combined_chart_AC_above_79.png')
+        plot_combined_ac_group(df['AC'] <= 79, 'below', 'combined_chart_AC_below_79.png')
+
+        # per feature
+        sns.set_style("whitegrid")  # white background with gridlines
+        plt.figure(figsize=(8, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df)
+        ax.set_xlabel("Number of Selected Features")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy vs. Number of Selected Features")
+        # ax.set_ylim(0, 100)
+        ax.yaxis.grid(True)  # add horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
+
+        # per model
+        models = sorted(df["MODEL"].unique())
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="MODEL", y="AC", data=df, order=models)
+        ax.set_xlabel("Model Name")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Model")
+        # ax.set_ylim(0, 100)
+        plt.xticks(rotation=45)  # rotate x labels for readability&#8203;:contentReference[oaicite:6]{index=6}
+        ax.yaxis.grid(True)  # horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
+
+        # grouped by model
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df)
+        ax.set_xlabel("Number of Selected Features")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Number of Features and Model")
+        # ax.set_ylim(0, 100)
+        ax.yaxis.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png")
+        # plt.show()
+
+        # max accuracy
+        df_summary = df.groupby("NUM_INDICES", as_index=False)["AC"].max()
+
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.lineplot(data=df_summary, x="NUM_INDICES", y="AC", marker="o")
+        ax.set_title("Maximum Accuracy vs. Number of Selected Features")
+        ax.set_xlabel("Number of Selected Features")
+        ax.set_ylabel("Maximum Accuracy (%)")
+        # ax.set_ylim(0, 100)
+        ax.grid(True, axis="y")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
+        # plt.show()
+
         # exit()
-    except Exception as e:
-        print('ALWAYS PROBLEMS', 'CORRUPTED DATA =>', 'EXTRACTION', '<= DATA CORRUPTED', 'ALWAYS PROBLEMS', e)
+        # group-by for charts
+        df_summary = df.groupby("NUM_INDICES")["AC"].max().reset_index()
 
-    print('####', 'MERGE', len(files_path),
-          'merge_data Dataframe shape:', df_data.shape,
-          '####', 'time:', int(time.time() - t0))
+        # plots
+        plt.figure(figsize=(10, 6))
+        plt.plot(df_summary["NUM_INDICES"], df_summary["AC"], marker='o')
+        plt.title("MAX AC vs Number of Indices")
+        plt.xlabel("Number of Indices")
+        plt.ylabel("MAX AC")
+        plt.grid(True)
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
+        # plt.show()
 
-    if df_stats:
-        # basic stats for numeric columns
-        stats_df = df_data.describe(include='all').transpose()  # .transpose() makes it more readable
-        stats_df.to_csv(f'{evaluation_path}df_statistics_{job_id}_{str(datetime.date.today())}.csv', index=True)
+        continue
+
+
         # exit()
 
-    #### MODELS ####
-    cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
-    lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-    cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+        # grouped = df_json.groupby('METRICS').agg(['count', 'mean', 'std', 'min', 'median', 'max'])
+        # Flatten the model dictionary into top-level columns
+        rows = []
+        for row in df_json.to_dict(orient='records'):
+            metrics = row.get("METRICS")
+            for model_name, values in row.items():
+                if model_name != "METRICS":
+                    flat_row = values.copy()
+                    flat_row["MODEL"] = model_name # optional the model name here..
+                    flat_row["METRICS"] = metrics
+                    rows.append(flat_row)
 
-    dict_models = {
-        0: [cnn_lstm],
-        1: [lstm_cnn],
-        11: [cnn_lstm, lstm_cnn],
-        2: [cnn_lstm_parallel],
-        22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
-    }
-    # models = dict_models.get(22, [cnn_lstm])
-    models = dict_models.get(0, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
+        df_flat = pd.DataFrame(rows)
 
-    #### TRAIN ####
-    num_epochs = n_epochs
-    # print('####', 'MODELS', dict_models, '####')
-    print('####', 'MODELS - TOTAL', len(models), '####')
-    print('####', 'EPOCHS', num_epochs, '####')
-    # exit()
+        # Now group by METRICS
+        grouped = df_flat.groupby("METRICS")#.agg(['count', 'mean', 'min', 'median', 'max'])
 
-    tt0 = time.time()
-    print('####', 'TRAINING', 'MODELS', '####')
-    train(models, train_loader, epochs=num_epochs)
-    print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
+        # Optional: Save to LaTeX or CSV
+        # grouped.to_csv(f"{path_data_in}metrics_grouped_summary_{dir_json_results_in}.csv")
 
-    # test
-    def ttest(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names])):
-        with torch.no_grad():
-            correct = 0
-            total = 0
-            accuracy_dict = {'METRICS': metric_names_str}
-            for model in models:
-                model.eval()
-                for x, y in test_loader:
-                    x = x.to(device)
-                    y = y.to(device)
-                    y_pred = model(x)
-                    _, predicted = torch.max(y_pred.data, 1)
-                    total += y.size(0)
-                    correct += (predicted == y).sum().item()
-                accuracy = round(100 * correct / total, 6)
-                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
-                accuracy_dict[model.__class__.__name__] = accuracy
-        return accuracy_dict
+        # exit()
 
-    def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names]),
-             e: int = num_epochs,
-             c: int = i_r_c
-             ) -> dict:
-        model_scores_dict = {'METRICS': metric_names_str}
-        with torch.no_grad():
-            for model in models:
-                model.eval()
-                metrics = {'TP': 0, 'TN': 0, 'FP': 0, 'FN': 0}
-                total = 0
+
+
+        configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
+                       for dirpath, dirnames, files in os.walk(path_data_in)
+                       for f in files if f.endswith(f_ext_in)]
+        # print(path_data, path_data_in, path_out, configfiles[:3])
+        # exit()
+
+        print('#### #### HOI FOREST - MODELLING #### ####')
+        evaluation_path = f'{path_out}data/{f_pattern_out}/'
+        t0 = time.time()
+        df_data = None
+        ncols = 6016
+        accuracy_dict, accuracy_dicttt = {}, {}
+
+        # SOME CONFIG ####
+        os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
+        os.environ['TORCH_USE_CUDA_DSA'] = "1"
+
+        # Fixed part: always included
+        i_fix_metrics = 7
+        # fixed_part = metric_names[:-1]
+        fixed_part = metric_names[:i_fix_metrics]
+        # Variable part: will be combined in all possible ways
+        # variable_part = metric_names[-1:]
+        variable_part = metric_names[i_fix_metrics:]
+
+        print('#### #### READING DATA FILES #### ####')
+        # # exit()
+        try:
+            print(files_path[0])
+            exit()
+            df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
+            df_data.columns = df_data.columns.map(str)
+            # include the scalar AND temporal features
+            # columns_to_train = combi_metric_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+            # include the ONLY scalar features
+            columns_to_train = combi_metric_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+            df_data = df_data[columns_to_train]
+            print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
+            # print(df_data.head(555))
+            # exit()
+        except Exception as e:
+            print('ALWAYS PROBLEMS', 'CORRUPTED DATA =>', 'EXTRACTION', '<= DATA CORRUPTED', 'ALWAYS PROBLEMS', e)
+
+        print('####', 'MERGE', len(files_path),
+              'merge_data Dataframe shape:', df_data.shape,
+              '####', 'time:', int(time.time() - t0))
+
+        if df_stats:
+            # basic stats for numeric columns
+            stats_df = df_data.describe(include='all').transpose()  # .transpose() makes it more readable
+            stats_df.to_csv(f'{evaluation_path}df_statistics_{job_id}_{str(datetime.date.today())}.csv', index=True)
+            # exit()
+
+        #### MODELS ####
+        cnn_lstm = CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+        lstm_cnn = LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
+        cnn_lstm_parallel = ParallelCNNLSTMModel(input_size, hidden_size, num_layers, num_classes).to(device)
+
+        dict_models = {
+            0: [cnn_lstm],
+            1: [lstm_cnn],
+            11: [cnn_lstm, lstm_cnn],
+            2: [cnn_lstm_parallel],
+            22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+        }
+        # models = dict_models.get(22, [cnn_lstm])
+        models = dict_models.get(0, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
+
+        #### TRAIN ####
+        num_epochs = n_epochs
+        # print('####', 'MODELS', dict_models, '####')
+        print('####', 'MODELS - TOTAL', len(models), '####')
+        print('####', 'EPOCHS', num_epochs, '####')
+        # exit()
+
+        tt0 = time.time()
+        print('####', 'TRAINING', 'MODELS', '####')
+        train(models, train_loader, epochs=num_epochs)
+        print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
+
+        # test
+        def ttest(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names])):
+            with torch.no_grad():
                 correct = 0
-                for x, y in test_loader:
-                    x = x.to(device)
-                    y = y.to(device)
-                    y_pred = model(x)
-                    _, predicted = torch.max(y_pred.data, 1)
-                    # Update total and correct predictions
-                    total += y.size(0)
-                    correct += (predicted == y).sum().item()
-                    # Compute TP, TN, FP, FN
-                    for cls in torch.unique(y):  # Iterate over unique classes
-                        cls = cls.item()
-                        cls_pred = (predicted == cls)  # Predictions for the current class
-                        cls_true = (y == cls)  # Ground truth for the current class
-                        metrics['TP'] += (cls_pred & cls_true).sum().item()
-                        metrics['FP'] += (cls_pred & ~cls_true).sum().item()
-                        metrics['FN'] += (~cls_pred & cls_true).sum().item()
-                        metrics['TN'] += ((~cls_pred) & (~cls_true)).sum().item()
-                accuracy = round(100 * correct / total, 6)
-                print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
+                total = 0
+                accuracy_dict = {'METRICS': metric_names_str}
+                for model in models:
+                    model.eval()
+                    for x, y in test_loader:
+                        x = x.to(device)
+                        y = y.to(device)
+                        y_pred = model(x)
+                        _, predicted = torch.max(y_pred.data, 1)
+                        total += y.size(0)
+                        correct += (predicted == y).sum().item()
+                    accuracy = round(100 * correct / total, 6)
+                    print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
+                    accuracy_dict[model.__class__.__name__] = accuracy
+            return accuracy_dict
 
-                model_scores_dict[model.__class__.__name__] = {
-                    'EPOCHS': e,
-                    'AC': accuracy,
-                    'TP': metrics['TP'],
-                    'TN': metrics['TN'],
-                    'FP': metrics['FP'],
-                    'FN': metrics['FN'],
-                }
-        return model_scores_dict
+        def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names]),
+                 e: int = num_epochs,
+                 c: int = i_r_c
+                 ) -> dict:
+            model_scores_dict = {'METRICS': metric_names_str}
+            with torch.no_grad():
+                for model in models:
+                    model.eval()
+                    metrics = {'TP': 0, 'TN': 0, 'FP': 0, 'FN': 0}
+                    total = 0
+                    correct = 0
+                    for x, y in test_loader:
+                        x = x.to(device)
+                        y = y.to(device)
+                        y_pred = model(x)
+                        _, predicted = torch.max(y_pred.data, 1)
+                        # Update total and correct predictions
+                        total += y.size(0)
+                        correct += (predicted == y).sum().item()
+                        # Compute TP, TN, FP, FN
+                        for cls in torch.unique(y):  # Iterate over unique classes
+                            cls = cls.item()
+                            cls_pred = (predicted == cls)  # Predictions for the current class
+                            cls_true = (y == cls)  # Ground truth for the current class
+                            metrics['TP'] += (cls_pred & cls_true).sum().item()
+                            metrics['FP'] += (cls_pred & ~cls_true).sum().item()
+                            metrics['FN'] += (~cls_pred & cls_true).sum().item()
+                            metrics['TN'] += ((~cls_pred) & (~cls_true)).sum().item()
+                    accuracy = round(100 * correct / total, 6)
+                    print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
 
-    tt0 = time.time()
-    accuracy_dict = test(models, test_loader, e=n_epochs, c=i_r_c)
-    # accuracy_dicttt = ttest(models, test_loader)
-    print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
+                    model_scores_dict[model.__class__.__name__] = {
+                        'EPOCHS': e,
+                        'AC': accuracy,
+                        'TP': metrics['TP'],
+                        'TN': metrics['TN'],
+                        'FP': metrics['FP'],
+                        'FN': metrics['FN'],
+                    }
+            return model_scores_dict
 
-    # plot bar chart with the accuracy of each model
-    # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
+        tt0 = time.time()
+        accuracy_dict = test(models, test_loader, e=n_epochs, c=i_r_c)
+        # accuracy_dicttt = ttest(models, test_loader)
+        print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
-    with open(f'{evaluation_path}000_evaluation_dict_EPOCHS_{num_epochs}_COMBI_{i_r_c}_'
-              f'JOBID_{job_id}_{str(datetime.date.today())}.json',
-              'w') as fp:
-        json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
+        # plot bar chart with the accuracy of each model
+        # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
 
-    # with open(f'{evaluation_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
-    #    json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
+        with open(f'{evaluation_path}000_evaluation_dict_EPOCHS_{num_epochs}_COMBI_{i_r_c}_'
+                  f'JOBID_{job_id}_{str(datetime.date.today())}.json',
+                  'w') as fp:
+            json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
 
-    print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
-    print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
-    print('#### TIMES #### modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3))
+        # with open(f'{evaluation_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
+        #    json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
+
+        print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
+        print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
+        print('#### TIMES #### modelling TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
 
 if __name__ == '__main__':
