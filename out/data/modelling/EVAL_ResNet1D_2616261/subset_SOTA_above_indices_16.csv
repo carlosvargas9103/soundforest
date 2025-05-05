@@ -1,0 +1,2 @@
+MODEL;EPOCHS;FN;FP;TN;TP;Precision;Recall;F1;AC;INDICES;NUM_INDICES;aci;aei;bet;fix;hfq;hhh;htp;mmm;npp
+ResNet1D;11;6130;6130;172574;53438;89.709;89.709;89.709;89.709;['aci', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei'];16;89.709;89.709;89.709;0.0;89.709;89.709;89.709;89.709;89.709

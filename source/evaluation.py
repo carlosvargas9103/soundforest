@@ -194,31 +194,18 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         # Clean and parse the INDICES column (convert string lists to actual lists)
         df['INDICES'] = df['INDICES'].str.strip('[]').str.replace(' ', '').str.split(',')
         # Extract unique indices
-        # Get all unique indices, handling empty strings
         all_indices = sorted(set(i if i else 'fix' for sublist in df['INDICES'] for i in sublist))
         # One-hot encode and assign AC values
         for idx in all_indices:
             df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
-        # all_indices = sorted(set(i for sublist in df['INDICES'] for i in sublist))
-        # Normalize empty strings to 'fix' in INDICES
         df['INDICES'] = df['INDICES'].apply(lambda lst: ['fix' if i == '' else i for i in lst])
+        print(all_indices)
 
-        # Initialize the one-hot columns with 0
         for idx in all_indices:
             df[idx] = 0.0  # float to allow accuracy assignment
-        # Assign accuracy value to each corresponding index column
         for i, row in df.iterrows():
             for idx in row['INDICES']:
                 df.at[i, idx] = row['AC']
-
-
-
-        # Optional: drop INDICES and NUM_INDICES if you don't need them
-        # df.drop(columns=['INDICES', 'NUM_INDICES'], inplace=True)
-
-        # Print the updated DataFrame
-        # print(df)
-
 
         print(df.shape)
         print(df.head())
@@ -226,69 +213,51 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         # Export to CSV
         df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{dir_json_results_in}.csv", index=False, sep=';')
 
-        # # Get all unique indices
-        # all_indices = sorted(set(i for sublist in df['INDICES'] for i in sublist))
-        #
-        # # One-hot encode and assign AC values
-        # for idx in all_indices:
-        #     df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
+        import math
 
-        # NUM_INDICES values to include
-        subset_values = [9, 10, 11, 12, 13]
-
-        # # Function to plot 5 subplots in a single figure
-        # def plot_combined_ac_group(ac_filter, label, filename):
-        #     fig, axes = plt.subplots(1, 5, figsize=(25, 5), sharey=True)
-        #     for i, num in enumerate(subset_values):
-        #         subset = df[(df['NUM_INDICES'] == num) & ac_filter]
-        #         ax = axes[i]
-        #
-        #         if not subset.empty:
-        #             grouped = subset.groupby('MODEL')[all_indices].sum().T
-        #             grouped.plot(kind='bar', ax=ax, legend=False)
-        #             ax.set_title(f'NUM_INDICES = {num}')
-        #             ax.set_xlabel('Indices')
-        #             if i == 0:
-        #                 ax.set_ylabel('Summed Accuracy')
-        #             ax.tick_params(axis='x', rotation=45)
-        #         else:
-        #             ax.set_visible(False)
-        #
-        #     fig.suptitle(f'Index Contributions per Model ({label.upper()} 79% AC)', fontsize=16)
-        #     fig.tight_layout(rect=[0, 0, 1, 0.95])
-        #     fig.savefig(f'{path_data_in}{filename}')
-        #     plt.close(fig)
-        #     print(f"Saved: {filename}")
+        subset_values = [9, 10, 11, 12, 13, 14, 15, 16]  # Any length list
 
         def plot_combined_ac_group(ac_filter, label, filename):
-            fig, axes = plt.subplots(1, 5, figsize=(25, 5), sharey=True)
+            n = len(subset_values)
+            ncols = 4
+            nrows = math.ceil(n / ncols)
+
+            fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 5 * nrows), sharey=True)
+            axes = axes.flatten()  # Flatten 2D axes array for easy indexing
+
             legend_handles = None
 
             for i, num in enumerate(subset_values):
                 subset = df[(df['NUM_INDICES'] == num) & ac_filter]
+                subset.to_csv(f"{path_data_in}subset_{model_name_filename}_{label}_indices_{num}.csv", index=False, sep=';')
                 ax = axes[i]
 
                 if not subset.empty:
-                    grouped = subset.groupby('MODEL')[all_indices].sum().T
+                    plot_indices = [idx for idx in all_indices if idx != 'fix']
+                    grouped = subset.groupby('MODEL')[plot_indices].mean().T
                     plot = grouped.plot(kind='bar', ax=ax, legend=False)
 
                     if legend_handles is None:
                         legend_handles = plot.containers  # capture legend handles
 
                     ax.set_title(f'NUM_INDICES = {num}')
-                    ax.set_xlabel('Indices')
-                    if i == 0:
-                        ax.set_ylabel('Summed Accuracy')
+                    ax.set_xlabel('indices')
+                    if i % ncols == 0:
+                        ax.set_ylabel('accuracy (mean)')
                     ax.tick_params(axis='x', rotation=45)
                 else:
                     ax.set_visible(False)
+
+            # Hide unused subplots
+            for j in range(len(subset_values), len(axes)):
+                axes[j].set_visible(False)
 
             # Add shared legend outside the plot (if any data was plotted)
             if legend_handles:
                 labels = grouped.columns.tolist()
                 fig.legend(legend_handles, labels, loc='center right', title='Model')
 
-            fig.suptitle(f'Index Contributions per Model ({label.upper()} 79% AC)', fontsize=16)
+            fig.suptitle(f"indices contributions per model ({label.lower()} 79% ac)", fontsize=16)
             fig.tight_layout(rect=[0, 0, 0.92, 0.95])
             fig.savefig(f'{path_data_in}{filename}')
             plt.close(fig)

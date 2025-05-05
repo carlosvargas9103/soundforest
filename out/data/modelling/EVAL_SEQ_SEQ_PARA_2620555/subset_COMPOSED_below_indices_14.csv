@@ -1,0 +1,2 @@
+MODEL;EPOCHS;FN;FP;TN;TP;Precision;Recall;F1;AC;INDICES;NUM_INDICES;aci;aei;bet;fix;hfq;hhh;htp;mmm;npp
+SEQ_CNN_LSTM;11;16489;16489;162215;43079;72.319;72.319;72.319;72.319;['aci', 'mmm', 'hfq', 'htp', 'hhh', 'aei'];14;72.319;72.319;0.0;0.0;72.319;72.319;72.319;72.319;0.0
