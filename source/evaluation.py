@@ -234,7 +234,12 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
                 if not subset.empty:
                     plot_indices = [idx for idx in all_indices if idx != 'fix']
-                    grouped = subset.groupby('MODEL')[plot_indices].mean().T
+                    normalized = subset[plot_indices].div(subset['NUM_INDICES'], axis=0)
+                    grouped = normalized.groupby(subset['MODEL']).sum().T
+                    # grouped = normalized.groupby(subset['MODEL']).mean().T
+                    # grouped = subset.groupby('MODEL')[plot_indices].mean().T
+                    # Step 3: Normalize each value in grouped to 0–100 range
+                    grouped = grouped.apply(lambda x: 100 * (x - x.min()) / (x.max() - x.min()) if x.max() != x.min() else x * 0, axis=0)
                     plot = grouped.plot(kind='bar', ax=ax, legend=False)
 
                     if legend_handles is None:
