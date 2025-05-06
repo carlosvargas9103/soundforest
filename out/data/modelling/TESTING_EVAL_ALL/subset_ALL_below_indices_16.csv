@@ -1,2 +1,2 @@
-MODEL;EPOCHS;FN;FP;TN;TP;Precision;Recall;F1;AC;INDICES;NUM_INDICES;aci;aei;bet;fix;hfq;hhh;htp;mmm;npp
-Simple_SVM;11;39862;39862;138842;19706;33.082;33.082;33.082;33.082;['aci', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei'];16;33.082;33.082;33.082;0.0;33.082;33.082;33.082;33.082;33.082
+MODEL;EPOCHS;FN;FP;TN;TP;Precision;Recall;F1;AC;INDICES;NUM_INDICES;aci;aei;bet;control;hfq;hhh;htp;mmm;npp
+Simple_SVM;11;39862;39862;138842;19706;33.082;33.082;33.082;33.082;['control', 'aci', 'bet', 'mmm', 'npp', 'hfq', 'htp', 'hhh', 'aei'];16;33.082;33.082;33.082;33.082;33.082;33.082;33.082;33.082;33.082

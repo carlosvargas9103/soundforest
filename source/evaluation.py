@@ -5,6 +5,7 @@ gc.collect()
 import os
 import io
 import time
+import math
 import json
 import random
 import joblib
@@ -98,33 +99,23 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
     experiments.append(('EVAL_SIMPLE_MODELS_2610631', model_names[1]))
     experiments.append(('EVAL_ResNet1D_2616261', model_names[2]))
     experiments.append(('TESTING_EVAL_ALL', model_names[3]))
-    # dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2616999', model_names[0]
-    # dir_json_results_in, model_name_filename = 'EVAL_SEQ_SEQ_PARA_2620555', model_names[0]
-    # dir_json_results_in, model_name_filename = 'EVAL_SIMPLE_MODELS_2610631', model_names[1]
-    # dir_json_results_in, model_name_filename = 'EVAL_ResNet1D_2616261', model_names[2]
-    # dir_json_results_in, model_name_filename = 'TESTING_EVAL_ALL', model_names[3]
 
     for exp in experiments:
         print(exp)
         # exit()
         dir_json_results_in, model_name_filename = exp[0], exp[1]
         print(dir_json_results_in, model_name_filename)
-        # exit()
-        # continue
 
         path_in_evaluation = f'{cwd}/out/data/modelling/{dir_json_results_in}/'
         path_data = path_in_evaluation
         folders_in, f_pattern_out, f_ext_in = 'modelling', 'evaluation', '.json'
-        path_data_in = path_in_evaluation # f'{path_out}data/{folders_in}/'
-        # READ models_accuracy_dict to process
+        path_data_in = path_in_evaluation  # f'{path_out}data/{folders_in}/'
 
         # Read all JSON files from path_data_in
         json_dicts = []
         for dirpath, dirnames, filenames in os.walk(path_data_in):
             for filename in filenames:
-            # for filename in os.listdir(path_data_in):
                 if filename.endswith(f_ext_in):
-                    # filepath = os.path.join(path_data_in, filename)
                     filepath = os.path.join(dirpath, filename)
                     try:
                         with open(filepath, 'r') as f:
@@ -132,11 +123,10 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                             if isinstance(data, dict):
                                 json_dicts.append(data)
                             elif isinstance(data, list):
-                                json_dicts.extend(data)  # handle list of dicts
+                                json_dicts.extend(data)
                     except Exception as e:
                         print(f"Error reading {filename}: {e}")
 
-        # Convert to DataFrame
         df_json = pd.DataFrame(json_dicts)
         print(df_json.shape)
         print(df_json.head())
@@ -169,8 +159,8 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         df["F1"] = df["F1"].round(3)
         df["F1"] = df["F1"].fillna(0)
 
-        # df = df.sort_values(by="AC", ascending=False)
-        df = df.sort_values(by="F1", ascending=False)
+        df = df.sort_values(by="AC", ascending=False)
+        # df = df.sort_values(by="F1", ascending=False)
 
         # reorder columns
         cols = df.columns.tolist()
@@ -185,71 +175,98 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                 df[col] = df[col].astype(int)
 
         # Ensure 'INDICES' is a string
-        int_fixed_indices = 8
-        df["INDICES"] = df["INDICES"].astype(str) # change name
-        df["INDICES"] = df["INDICES"].apply(lambda x: ", ".join([m.strip() for m in x.split(",")[int_fixed_indices:] if m.strip()]))
+        int_fixed_indices = 7
+        df["INDICES"] = df["INDICES"].astype(str)  # change name
+        # df["INDICES"] = df["INDICES"].apply(
+        #     lambda x: ", ".join([m.strip() for m in x.split(",")[int_fixed_indices:] if m.strip()])
+        # )
+        df["INDICES"] = df["INDICES"].apply(
+            lambda x: ", ".join(
+                ['control' if m.strip() in ('', 'max') else m.strip()
+                 for m in x.split(",")[int_fixed_indices:]
+                 if m.strip()]
+            )
+        )
         df["INDICES"] = df["INDICES"].astype(str).apply(lambda x: f'[{x}]')
 
         # one-hot-encoded
-        # Clean and parse the INDICES column (convert string lists to actual lists)
+        # clean and parse the INDICES column (convert string lists to actual lists)
         df['INDICES'] = df['INDICES'].str.strip('[]').str.replace(' ', '').str.split(',')
         # Extract unique indices
         all_indices = sorted(set(i if i else 'fix' for sublist in df['INDICES'] for i in sublist))
-        # One-hot encode and assign AC values
+        # one-hot encode and assign AC values
         for idx in all_indices:
             df[idx] = df.apply(lambda row: row['AC'] if idx in row['INDICES'] else 0.0, axis=1)
         df['INDICES'] = df['INDICES'].apply(lambda lst: ['fix' if i == '' else i for i in lst])
         print(all_indices)
 
         for idx in all_indices:
-            df[idx] = 0.0  # float to allow accuracy assignment
+            df[idx] = 0.0  # float to allow accuracy assignment or zero
         for i, row in df.iterrows():
             for idx in row['INDICES']:
                 df.at[i, idx] = row['AC']
 
         print(df.shape)
         print(df.head())
-
-        # Export to CSV
         df.to_csv(f"{path_data_in}model_{model_name_filename}_performance_summary_{dir_json_results_in}.csv", index=False, sep=';')
 
-        import math
+        subset_values = [8, 9, 10, 11, 12, 13, 14, 15, 16]  # num_indices
 
-        subset_values = [9, 10, 11, 12, 13, 14, 15, 16]  # Any length list
-
-        def plot_combined_ac_group(ac_filter, label, filename):
+        def plot_combined_ac_group(ac_filter, label, filename, *, int_fixed_indices: int = int_fixed_indices):
             n = len(subset_values)
-            ncols = 4
-            nrows = math.ceil(n / ncols)
+            # ncols = 5
+            # nrows = math.ceil(n / ncols)
 
-            fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 5 * nrows), sharey=True)
+            nrows = 3
+            ncols = 3
+            fig, axes = plt.subplots(nrows, ncols, figsize=(6 * ncols, 5.5 * nrows), sharey=True)
+            # fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 5 * nrows), sharey=True)
             axes = axes.flatten()  # Flatten 2D axes array for easy indexing
+
+            # fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 5 * nrows), sharey=True)
+            # axes = axes.flatten()  # Flatten 2D axes array for easy indexing
 
             legend_handles = None
 
             for i, num in enumerate(subset_values):
                 subset = df[(df['NUM_INDICES'] == num) & ac_filter]
+                num_models = subset['MODEL'].nunique()
                 subset.to_csv(f"{path_data_in}subset_{model_name_filename}_{label}_indices_{num}.csv", index=False, sep=';')
                 ax = axes[i]
 
                 if not subset.empty:
                     plot_indices = [idx for idx in all_indices if idx != 'fix']
-                    normalized = subset[plot_indices].div(subset['NUM_INDICES'], axis=0)
-                    grouped = normalized.groupby(subset['MODEL']).sum().T
+                    # normalized = subset[plot_indices].div(subset['NUM_INDICES'], axis=0)
+                    # normalized = subset[plot_indices].div(subset['NUM_INDICES'], axis=0)
                     # grouped = normalized.groupby(subset['MODEL']).mean().T
                     # grouped = subset.groupby('MODEL')[plot_indices].mean().T
+                    # subset['MODEL'] = subset['MODEL'].replace({'max': 'fix'})
+                    grouped = subset.groupby('MODEL')[plot_indices].sum().T
                     # Step 3: Normalize each value in grouped to 0–100 range
-                    grouped = grouped.apply(lambda x: 100 * (x - x.min()) / (x.max() - x.min()) if x.max() != x.min() else x * 0, axis=0)
+                    if num == subset_values[-1]:
+                        grouped = grouped.apply(
+                            lambda x: 100 * (x - x.min()) / (x.max() - x.min()) if x.max() != x.min() else pd.Series(
+                                [100] * len(x), index=x.index
+                            ), axis=0
+                        )
+                    else:
+                        grouped = grouped.apply(
+                            lambda x: 100 * (x - x.min()) / (x.max() - x.min()) if x.max() != x.min() else x * 0, axis=0
+                        )
+                        # print(num, plot_indices)
+                        # print(num, grouped)
+                    # grouped.rename(columns={"max": "fix"}, inplace=True)
                     plot = grouped.plot(kind='bar', ax=ax, legend=False)
 
                     if legend_handles is None:
                         legend_handles = plot.containers  # capture legend handles
 
-                    ax.set_title(f'NUM_INDICES = {num}')
-                    ax.set_xlabel('indices')
+                    ax.set_title(f'Total Features = {num - int_fixed_indices} \n'
+                                 f'Combinations per Model = {int(len(subset) / num_models)}')
+                    # ax.set_xlabel('Ecological Acoustic Indices (EAI)')
                     if i % ncols == 0:
-                        ax.set_ylabel('accuracy (mean)')
-                    ax.tick_params(axis='x', rotation=45)
+                        ax.set_ylabel('Normalised Frequency-Weighted Accuracy')
+                    ax.tick_params(axis='x', rotation=55)
                 else:
                     ax.set_visible(False)
 
@@ -262,15 +279,20 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                 labels = grouped.columns.tolist()
                 fig.legend(legend_handles, labels, loc='center right', title='Model')
 
-            fig.suptitle(f"indices contributions per model ({label.lower()} 79% ac)", fontsize=16)
-            fig.tight_layout(rect=[0, 0, 0.92, 0.95])
-            fig.savefig(f'{path_data_in}{filename}')
+            if label.lower() != 'all':
+                fig.suptitle(f"Individual Feature Contribution to Models' Performance ({label.upper()} 79% AC)", fontsize=16)
+            else:
+                fig.suptitle(f"Individual Feature Contribution to Models Performance", fontsize=16)
+            fig.tight_layout(rect=[0, 0, 0.91, 0.92], pad=1.3)
+            # fig.tight_layout(rect=[0, 0, 0.92, 0.95])
+            fig.savefig(f'{path_data_in}{filename}', dpi=369)
             plt.close(fig)
             print(f"Saved: {filename}")
 
         # Create and save the two combined charts
         plot_combined_ac_group(df['AC'] > 79, 'above', 'combined_chart_AC_above_79.png')
         plot_combined_ac_group(df['AC'] <= 79, 'below', 'combined_chart_AC_below_79.png')
+        plot_combined_ac_group(df['AC'] > 0, 'all', 'combined_chart_AC_all.png')
 
         # per feature
         sns.set_style("whitegrid")  # white background with gridlines
@@ -292,7 +314,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         ax.set_ylabel("Accuracy (%)")
         ax.set_title("Accuracy by Model")
         # ax.set_ylim(0, 100)
-        plt.xticks(rotation=45)  # rotate x labels for readability&#8203;:contentReference[oaicite:6]{index=6}
+        plt.xticks(rotation=45)
         ax.yaxis.grid(True)  # horizontal grid lines
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
@@ -303,7 +325,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df)
         ax.set_xlabel("Number of Selected Features")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy by Number of Features and Model")
+        ax.set_title("Accuracy by Number of Features per Model")
         # ax.set_ylim(0, 100)
         ax.yaxis.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
@@ -343,7 +365,6 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
         continue
 
-
         # exit()
 
         # grouped = df_json.groupby('METRICS').agg(['count', 'mean', 'std', 'min', 'median', 'max'])
@@ -354,21 +375,18 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
             for model_name, values in row.items():
                 if model_name != "METRICS":
                     flat_row = values.copy()
-                    flat_row["MODEL"] = model_name # optional the model name here..
+                    flat_row["MODEL"] = model_name  # optional the model name here..
                     flat_row["METRICS"] = metrics
                     rows.append(flat_row)
 
         df_flat = pd.DataFrame(rows)
 
         # Now group by METRICS
-        grouped = df_flat.groupby("METRICS")#.agg(['count', 'mean', 'min', 'median', 'max'])
-
+        grouped = df_flat.groupby("METRICS")  # .agg(['count', 'mean', 'min', 'median', 'max'])
         # Optional: Save to LaTeX or CSV
         # grouped.to_csv(f"{path_data_in}metrics_grouped_summary_{dir_json_results_in}.csv")
 
         # exit()
-
-
 
         configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                        for dirpath, dirnames, files in os.walk(path_data_in)
