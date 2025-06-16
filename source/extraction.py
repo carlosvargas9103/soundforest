@@ -133,6 +133,7 @@ def get_audio_indices(s=None, fs: int = 0,
 
     # Calculate acoustic indices
     ACIft_ = indices.ACIft(Sxx)
+    _, _, ACI = features.acoustic_complexity_index(Sxx) # TODO: Include this into the return
     BETA = features.bioacoustics_index(Sxx, fn, flim=(2000, 8000))
     # M = features.temporal_median(s[0, :], mode='hilbert')
     M = features.temporal_median(s, mode='hilbert')
@@ -184,6 +185,7 @@ def bootstrap_soundscape(audio_file: str = '',
     y, y_c = None, None
     y, sr = librosa.load(audio_file, sr=None)  # , duration=1800)
     print("SAMPLE RATE => ", sr)
+    # y = 86400000, sr = 48000
     y_c = copy.deepcopy(y)
     tt = int(len(y_c) / sr)
     # print(f'y: {y_c[:3]}')
@@ -208,7 +210,7 @@ def bootstrap_soundscape(audio_file: str = '',
     def hanning(y: np.array = None, frame_size: int = frame_size, hop_size: int = hop_size, hanning: bool = True):
         signal = np.array(y)
         # num_frames = 1 + (len(signal) - frame_size) // hop_size
-        # print(num_frames) # 449
+        # print(num_frames) # 438 or 449
         if hanning:
             hanning_window = np.hanning(frame_size)
             return [signal[i:i + frame_size] * hanning_window for i in range(0, len(signal) - frame_size + 1, hop_size)]
@@ -216,6 +218,7 @@ def bootstrap_soundscape(audio_file: str = '',
 
     split_y = hanning(y_c, frame_size, hop_size, hanning)
 
+    # TODO: Place this print in code.
     print('####', 'HANNING Y_C',
           f'total_chunks: {len(split_y)}',
           f'chunk_size first: {len(split_y[0])}',
@@ -314,7 +317,7 @@ def bootstrap_soundscape(audio_file: str = '',
 
     # exit()
 
-    def acift(s):
+    def band_acift(s):
         intensity_vector = np.array(s)
         # Avoid division by zero
         if np.sum(intensity_vector) == 0:
@@ -339,8 +342,8 @@ def bootstrap_soundscape(audio_file: str = '',
             Metrics.SUM: np.sum(f),  # SUM of the VECTOR (float)
             Metrics.MAX: np.max(f),  # MAX of the VECTOR (float)
             Metrics.MIN: np.min(f),  # MIN of the VECTOR (float)
-            Metrics.ACOUSTIC_COMPLEXITY: acift(f),  # Acoustic Complexity Index (float)
-            Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE: split_y_indices[s, 0],
+            Metrics.ACOUSTIC_COMPLEXITY: band_acift(f),  # Acoustic Complexity Index per band-split (float)
+            Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE: split_y_indices[s, 0], # TODO: Check for the alternative
             Metrics.ACOUSTIC_DIVERSITY: split_y_indices[s, 1],
             Metrics.BIOACOUSTIC_INDEX_BETA: split_y_indices[s, 2],
             Metrics.TEMPORAL_MEDIAN: split_y_indices[s, 3],
@@ -390,17 +393,12 @@ def bootstrap_soundscape(audio_file: str = '',
     #   4.1. These transformations need to be included here in the extraction module - MONDAY (20.01.25)!
     # TODO: Activation function (Sigmoid) - MONDAY (20.01.25)!
     # #### # ####
-    # TODO: Extract the Benchmark from Giacomo - MONDAY (20.01.25)!
-    #   6. PLOTS the distribution or each frequency against a metric per region - MONDAY (20.01.25)!
+    # TODO: Extract the Benchmark from Giacomo => SVM - DONE!
+    #   6. PLOTS the distribution or each frequency against a metric per region - DONE!
     # TODO: Evaluation Metrics for classification => Table & Matrix - DONE!
     # TODO: Reduce the time of the samples - DONE!
-    # TODO: Next meeting => 22.01.2025.
-    # TODO: Methodology PDFs FOLDER on Git?
-    #
-    # TODO: Pipeline (12-24-07-31.01.25):
-    #       4. Transform the data => filters, envelope, pitch, etc.. - 3h
-    #       6. Plot the distribution or each frequency against a metric per region. - 2h
-    #       7. Save the plots.. - 1h
+    # TODO: Next meeting => 24.06.2025!
+
     file_name_name = os.path.splitext(os.path.basename(audio_file))[0]
     df_m.to_pickle(
         f'{path_out}data/{f_pattern_out}/{region}/{file_name_name}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
