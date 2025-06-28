@@ -1,0 +1,18 @@
+TY  - JOUR
+AU  - Shi, Junwei
+AU  - Wang, Shiqi
+AU  - Qu, Pengfei
+AU  - Shao, Jianli
+PY  - 2024
+DA  - 2024/08/07
+TI  - Time series prediction model using LSTM-Transformer neural network for mine water inflow
+JO  - Scientific Reports
+SP  - 18284
+VL  - 14
+IS  - 1
+AB  - Mine flooding accidents have occurred frequently in recent years, and the predicting of mine water inflow is one of the most crucial flood warning indicators. Further, the mine water inflow is characterized by non-linearity and instability, making it difficult to predict. Accordingly, we propose a time series prediction model based on the fusion of the Transformer algorithm, which relies on self-attention, and the LSTM algorithm, which captures long-term dependencies. In this paper, Baotailong mine water inflow in Heilongjiang Province is used as sample data, and the sample data is divided into different ratios of the training set and test set in order to obtain optimal prediction results. In this study, we demonstrate that the LSTM-Transformer model exhibits the highest training accuracy when the ratio is 7:3. To improve the efficiency of search, the combination of random search and Bayesian optimization is used to determine the network model parameters and regularization parameters. Finally, in order to verify the accuracy of the LSTM-Transformer model, the LSTM-Transformer model is compared with LSTM, CNN, Transformer and CNN–LSTM models. The results prove that LSTM-Transformer has the highest prediction accuracy, and all the indicators of its model are well improved.
+SN  - 2045-2322
+UR  - https://doi.org/10.1038/s41598-024-69418-z
+DO  - 10.1038/s41598-024-69418-z
+ID  - Shi2024
+ER  - 

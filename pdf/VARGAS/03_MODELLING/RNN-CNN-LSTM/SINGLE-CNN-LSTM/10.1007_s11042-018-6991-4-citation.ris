@@ -1,0 +1,20 @@
+TY  - JOUR
+AU  - Tang, Guichen
+AU  - Liang, Ruiyu
+AU  - Xie, Yue
+AU  - Bao, Yongqiang
+AU  - Wang, Shijia
+PY  - 2019
+DA  - 2019/06/01
+TI  - Improved Convolutional Neural Networks for Acoustic Event Classification
+JO  - Multimedia Tools and Applications
+SP  - 15801
+EP  - 15816
+VL  - 78
+IS  - 12
+AB  - To further exploit the potential performance of convolutional neural networks in acoustic event classification, an improved convolutional neural network called AecNet (Acoustic event classification net) is proposed. For traditional convolutional neural network lacks the representation of low-level features, the proposed model includes more feature layers to reserve the information of low-level and high-level features of the input. In order to extract the features of different level effectively, 1 × 1 convolutions are adopted to compress the feature maps of all convolutional layers except the top convolutional layer. Then the condensed features are concatenated into one layer, which contains all features in different levels. So, the feature learning is enhanced and multi-scale convolutional neural network is constructed. In order to extract the dynamic features of the sound clip better, multi-channels spectrogram features comprised of mel-spectrogram, its first order delta along frequency and time, second order delta along frequency and time are adopted. In experiment, point of FFT, number of mel-bands and type of mel-spectrogram deltas are detailedly discussed and reasonable choice are suggested in practice. Experiments results on datasets ESC-10, ESC-50 and DCASE show that the proposed method yields improvements of recognition accuracy in various degrees compared with some state-of-art results on standard benchmark.
+SN  - 1573-7721
+UR  - https://doi.org/10.1007/s11042-018-6991-4
+DO  - 10.1007/s11042-018-6991-4
+ID  - Tang2019
+ER  - 

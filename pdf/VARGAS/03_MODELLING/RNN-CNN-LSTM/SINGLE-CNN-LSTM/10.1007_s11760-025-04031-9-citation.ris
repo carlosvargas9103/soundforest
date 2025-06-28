@@ -1,0 +1,17 @@
+TY  - JOUR
+AU  - Singh, Vikash Kumar
+AU  - Sharma, Kalpana
+AU  - Sur, Samarendra Nath
+PY  - 2025
+DA  - 2025/04/02
+TI  - Impact of various continuous wavelet transforms for acoustic scene classification with DCASE dataset
+JO  - Signal, Image and Video Processing
+SP  - 440
+VL  - 19
+IS  - 6
+AB  - Acoustic scenes can occur in various environments, such as metro stations, buses, parks, airports etc. The chaos can arise during these acoustic scenes. Therefore, to manage the chaos during an acoustic scene, it is essential to identify each specific sound class in the environment. The present research paper introduces a model for classifying acoustic scenes using Dynamic Time Warping and various Continuous Wavelet Transform (CWT) variations. The model’s development follows general steps, including sourcing the audio dataset, generating reference audio, extracting wavelet features, computing normalized alignment cost and comparing the classes of audio from the training and testing datasets based on alignment cost. The audio dataset, comprising 23,035 audio files used for model development, is sourced from the Detection and Classification of Acoustic Scenes and Events (DCASE). The proposed model uses Morlet, Shannon, Mexican Hat, Gaussian Derivative, and Complex Morlet wavelets for the Acoustic Scenes Classification (ASC) task. With more neighbors, Morlet, Shannon, Mexican Hat, and Complex Morlet show higher accuracy. The Morlet is the best CWT, achieving 70.1056% accuracy for ASC task. The proposed model surpasses the DCASE 2021 Challenge Task 1-Subtask A baseline model, which has an accuracy of 47.7%, as well as other models from DCASE in the same year.
+SN  - 1863-1711
+UR  - https://doi.org/10.1007/s11760-025-04031-9
+DO  - 10.1007/s11760-025-04031-9
+ID  - Singh2025
+ER  - 

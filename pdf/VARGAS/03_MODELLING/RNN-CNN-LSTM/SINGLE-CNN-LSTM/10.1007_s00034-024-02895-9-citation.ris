@@ -1,0 +1,18 @@
+TY  - JOUR
+AU  - Singh, Vikash Kumar
+AU  - Sharma, Kalpana
+AU  - Sur, Samarendra Nath
+PY  - 2025
+DA  - 2025/03/01
+TI  - Acoustic Scene Classification using Dynamic Time Warping Technique based on Short Time Fourier Transform and Discrete Wavelet Transforms
+JO  - Circuits, Systems, and Signal Processing
+SP  - 1887
+EP  - 1913
+VL  - 44
+IS  - 3
+AB  - Unwanted sound in the environment can create complex acoustic scenes, making the recognition of individual sound classes and activities crucial for managing the resulting chaos. This paper presents the development of a model for Acoustic Scenes Classification (ASC) using reference audio and Dynamic Time Warping (DTW), aimed at accurately identifying diverse environments such as airports, shopping malls, metro stations, parks, etc. based on their unique audio signals. The model leverages DTW and Fast DTW (FastDTW) techniques to effectively find similarities among a vast dataset of 23,035 audio samples collected from the Detection and Classification of Acoustic Scenes and Events (DCASE) 2021 Challenge Task 1, Sub-Task A. By integrating reference audio, the model streamlines computational complexity, enabling efficient similarity analysis. Additionally, the model explores the use of Short Time Fourier Transform (STFT) and various Discrete Wavelet Transforms, providing insights into their optimal application for enhanced classification accuracy. The results demonstrate that the proposed model achieves an accuracy of 89.97% with STFT features. A more detailed comparison with the DCASE 2021 baseline model, relevant technical literature, and cross-correlation methods reveals that the proposed model using DTW not only significantly outperforms cross-correlation in computational efficiency but also surpasses other models in overall performance. Finally, the paper outlines potential avenues for further improvement in classification techniques in the field of acoustic scenes analysis.
+SN  - 1531-5878
+UR  - https://doi.org/10.1007/s00034-024-02895-9
+DO  - 10.1007/s00034-024-02895-9
+ID  - Singh2025
+ER  - 
