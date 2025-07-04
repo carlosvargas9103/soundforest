@@ -93,11 +93,11 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     experiments = []
 
-    experiments.append(('EVAL_SEQ_SEQ_PARA_2606265', model_names[0]))
-    experiments.append(('EVAL_SEQ_SEQ_PARA_2616999', model_names[0]))
-    experiments.append(('EVAL_SEQ_SEQ_PARA_2620555', model_names[0]))
-    experiments.append(('EVAL_SIMPLE_MODELS_2610631', model_names[1]))
-    experiments.append(('EVAL_ResNet1D_2616261', model_names[2]))
+    # experiments.append(('EVAL_SEQ_SEQ_PARA_2606265', model_names[0]))
+    # experiments.append(('EVAL_SEQ_SEQ_PARA_2616999', model_names[0]))
+    # experiments.append(('EVAL_SEQ_SEQ_PARA_2620555', model_names[0]))
+    # experiments.append(('EVAL_SIMPLE_MODELS_2610631', model_names[1]))
+    # experiments.append(('EVAL_ResNet1D_2616261', model_names[2]))
     experiments.append(('TESTING_EVAL_ALL', model_names[3]))
 
     for exp in experiments:
@@ -261,7 +261,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                     if legend_handles is None:
                         legend_handles = plot.containers  # capture legend handles
 
-                    ax.set_title(f'Total Features = {num - int_fixed_indices} \n'
+                    ax.set_title(f'Total EAI = {num - int_fixed_indices} \n'
                                  f'Combinations per Model = {int(len(subset) / num_models)}')
                     # ax.set_xlabel('Ecological Acoustic Indices (EAI)')
                     if i % ncols == 0:
@@ -298,9 +298,9 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         sns.set_style("whitegrid")  # white background with gridlines
         plt.figure(figsize=(8, 6))
         ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df)
-        ax.set_xlabel("Number of Selected Features")
+        ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy vs. Number of Selected Features")
+        ax.set_title("Accuracy vs. Number of EAI")
         # ax.set_ylim(0, 100)
         ax.yaxis.grid(True)  # add horizontal grid lines
         plt.tight_layout()
@@ -319,18 +319,78 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
 
+
         # grouped by model
         sns.set_style("whitegrid")
         plt.figure(figsize=(10, 6))
         ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df)
-        ax.set_xlabel("Number of Selected Features")
+        ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy by Number of Features per Model")
+        ax.set_title("Accuracy by Number of EAI per Model")
         # ax.set_ylim(0, 100)
         ax.yaxis.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png")
+        # plt.show()
+
+        # filter out Simple_SVM and ResNet1D
+        exclude_models = ["Simple_SVM", "ResNet1D"]
+        df_no_svm_no_resnet = df[~df["MODEL"].isin(exclude_models)]
+
+        # grouped by model
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_no_svm_no_resnet)
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Number of EAI per Model (Excl. Simple_SVM & ResNet1D)")
+        # ax.set_ylim(0, 100)
+        ax.yaxis.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # grouped by model
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_no_svm_no_resnet)
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy (50-100%) by Number of EAI per Model (Excl. Simple_SVM & ResNet1D)")
+        ax.set_ylim(50, 100)
+        ax.yaxis.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # per feature
+        sns.set_style("whitegrid")  # white background with gridlines
+        plt.figure(figsize=(8, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df_no_svm_no_resnet)
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Number of EAI (Excl. Simple_SVM & ResNet1D)")
+        # ax.set_ylim(0, 100)
+        ax.yaxis.grid(True)  # add horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # max accuracy
+        df_summary = df_no_svm_no_resnet.groupby("NUM_INDICES", as_index=False)["AC"].max()
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.lineplot(data=df_summary, x="NUM_INDICES", y="AC", marker="o")
+        ax.set_title("Maximum Accuracy vs. Number of EAI (Excl. Simple_SVM & ResNet1D)")
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Maximum Accuracy (%)")
+        # ax.set_ylim(0, 100)
+        ax.grid(True, axis="y")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}MAX_EXCL_{model_name_filename}_ac_vs_num_features_{dir_json_results_in}.png")
         # plt.show()
 
         # max accuracy
@@ -339,28 +399,205 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         sns.set_style("whitegrid")
         plt.figure(figsize=(10, 6))
         ax = sns.lineplot(data=df_summary, x="NUM_INDICES", y="AC", marker="o")
-        ax.set_title("Maximum Accuracy vs. Number of Selected Features")
-        ax.set_xlabel("Number of Selected Features")
+        ax.set_title("Maximum Accuracy vs. Number of EAI")
+        ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Maximum Accuracy (%)")
         # ax.set_ylim(0, 100)
         ax.grid(True, axis="y")
         plt.tight_layout()
-        plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
+        plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_features_{dir_json_results_in}.png")
+        # plt.show()
+
+        # aggregate AC using multiple statistics
+        df_summary = df.groupby("NUM_INDICES")["AC"].agg(["max", "mean", "median"]).reset_index()
+
+        # plot
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        plt.plot(df_summary["NUM_INDICES"], df_summary["max"], marker="o", label="Max AC")
+        plt.plot(df_summary["NUM_INDICES"], df_summary["mean"], marker="s", label="Mean AC")
+        plt.plot(df_summary["NUM_INDICES"], df_summary["median"], marker="^", label="Median AC")
+
+        # styling
+        plt.title("Accuracy (Max, Mean, Median) vs. Number of EAI")
+        plt.xlabel("Number of EAI")
+        plt.ylabel("Accuracy (%)")
+        plt.grid(True, axis="y")
+        plt.legend(title="Aggregation")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}AGGREGATED_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
         # exit()
         # group-by for charts
         df_summary = df.groupby("NUM_INDICES")["AC"].max().reset_index()
 
+
+        # THIS CHART IS DUPLICATED
         # plots
         plt.figure(figsize=(10, 6))
         plt.plot(df_summary["NUM_INDICES"], df_summary["AC"], marker='o')
-        plt.title("MAX AC vs Number of Indices")
-        plt.xlabel("Number of Indices")
+        plt.title("MAX AC vs Number of EAI")
+        plt.xlabel("Number of EAI")
         plt.ylabel("MAX AC")
         plt.grid(True)
         plt.tight_layout()
         plt.savefig(f"{path_data_in}MAX_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png")
+        # plt.show()
+
+        # group by MODEL and NUM_INDICES, then take the max AC for each group
+        df_lineplot = df.groupby(["MODEL", "NUM_INDICES"], as_index=False)["AC"].max()
+
+        # plot
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        sns.lineplot(
+            data=df_lineplot,
+            x="NUM_INDICES",
+            y="AC",
+            hue="MODEL",
+            marker="o",
+            linewidth=2
+        )
+
+        plt.title("Max Accuracy vs Number of EAI per Model")
+        plt.xlabel("Number of EAI")
+        plt.ylabel("Max Accuracy (%)")
+        plt.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}LINEPLOT_{model_name_filename}_max_ac_vs_num_indices_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # # filter out Simple_SVM
+        # exclude_model = "Simple_SVM"
+        # df_filtered = df[df["MODEL"] != exclude_model]
+
+        # filter out Simple_SVM and ResNet1D
+        exclude_models = ["Simple_SVM", "ResNet1D"]
+        df_filtered = df[~df["MODEL"].isin(exclude_models)]
+
+        # group by MODEL and NUM_INDICES, then take the max AC for each group
+        df_lineplot = df_filtered.groupby(["MODEL", "NUM_INDICES"], as_index=False)["AC"].max()
+
+        # plot
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        sns.lineplot(
+            data=df_lineplot,
+            x="NUM_INDICES",
+            y="AC",
+            hue="MODEL",
+            marker="o",
+            linewidth=2
+        )
+
+        plt.title("Max Accuracy vs Number of EAI per Model (Excl. Simple_SVM & ResNet1D)")
+        plt.xlabel("Number of EAI")
+        plt.ylabel("Max Accuracy (%)")
+        plt.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}LINEPLOT_EXCL_{model_name_filename}_max_ac_vs_num_indices_per_model{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # aggregate AC using multiple statistics
+        df_summary = df_filtered.groupby("NUM_INDICES")["AC"].agg(["max", "mean", "median"]).reset_index()
+
+        # plot
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        plt.plot(df_summary["NUM_INDICES"], df_summary["max"], marker="o", label="Max AC")
+        plt.plot(df_summary["NUM_INDICES"], df_summary["mean"], marker="s", label="Mean AC")
+        plt.plot(df_summary["NUM_INDICES"], df_summary["median"], marker="^", label="Median AC")
+
+        # styling
+        plt.title("Accuracy (Max, Mean, Median) vs. Number of EAI")
+        plt.xlabel("Number of EAI")
+        plt.ylabel("Accuracy (%)")
+        plt.grid(True, axis="y")
+        plt.legend(title="Aggregation")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}AGGREGATED_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        ### CLOSE-UP ###
+        # per model
+        models = sorted(df_filtered["MODEL"].unique())
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="MODEL", y="AC", data=df_filtered, order=models)
+        ax.set_xlabel("Model Name")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Model")
+        ax.set_ylim(50, 100)
+        plt.xticks(rotation=45)
+        ax.yaxis.grid(True)  # horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
+
+        # filter for specific NUM_INDICES
+        selected_indices = [10, 11, 12, 13]
+        df_filtered_indices = df_filtered[df_filtered["NUM_INDICES"].isin(selected_indices)]
+
+        ### CLOSE-UP ###
+        # per model
+        models = sorted(df_filtered_indices["MODEL"].unique())
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="MODEL", y="AC", data=df_filtered_indices, order=models)
+        ax.set_xlabel("Model Name")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Model (EAI 10–13)")
+        ax.set_ylim(50, 100)
+        plt.xticks(rotation=45)
+        ax.yaxis.grid(True)  # horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_INDICES_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
+
+        # grouped by model
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_filtered_indices)
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy (50-100%) by Number of EAI (10-13) per Model (Excl. Simple_SVM & ResNet1D)")
+        ax.set_ylim(50, 100)
+        ax.yaxis.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_num_indices_10_13_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # filter for specific NUM_INDICES
+        selected_indices = [10, 11, 12, 13, 14, 15, 16]
+        df_filtered_indices = df_filtered[df_filtered["NUM_INDICES"].isin(selected_indices)]
+
+        ### CLOSE-UP ###
+        # per model
+        models = sorted(df_filtered_indices["MODEL"].unique())
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="MODEL", y="AC", data=df_filtered_indices, order=models)
+        ax.set_xlabel("Model Name")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Model (EAI 10–16)")
+        ax.set_ylim(50, 100)
+        plt.xticks(rotation=45)
+        ax.yaxis.grid(True)  # horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_INDICES_10_16_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
+
+
+        # grouped by model
+        sns.set_style("whitegrid")
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_filtered_indices)
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy (50-100%) by Number of EAI (10-16) per Model (Excl. Simple_SVM & ResNet1D)")
+        ax.set_ylim(50, 100)
+        ax.yaxis.grid(True)
+        plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_num_indices_10_16_per_model_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
         continue
