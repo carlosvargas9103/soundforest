@@ -290,8 +290,8 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
             print(f"Saved: {filename}")
 
         # Create and save the two combined charts
-        plot_combined_ac_group(df['AC'] > 79, 'above', 'combined_chart_AC_above_79.png')
-        plot_combined_ac_group(df['AC'] <= 79, 'below', 'combined_chart_AC_below_79.png')
+        # plot_combined_ac_group(df['AC'] > 79, 'above', 'combined_chart_AC_above_79.png')
+        # plot_combined_ac_group(df['AC'] <= 79, 'below', 'combined_chart_AC_below_79.png')
         plot_combined_ac_group(df['AC'] > 0, 'all', 'combined_chart_AC_all.png')
 
         # per feature
@@ -318,7 +318,6 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         ax.yaxis.grid(True)  # horizontal grid lines
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
-
 
         # grouped by model
         sns.set_style("whitegrid")
@@ -498,7 +497,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         plt.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
         plt.tight_layout()
-        plt.savefig(f"{path_data_in}LINEPLOT_EXCL_{model_name_filename}_max_ac_vs_num_indices_per_model{dir_json_results_in}.png", dpi=369)
+        plt.savefig(f"{path_data_in}LINEPLOT_EXCL_{model_name_filename}_max_ac_vs_num_indices_per_model_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
         # aggregate AC using multiple statistics
@@ -598,6 +597,143 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_num_indices_10_16_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        #### #### ####
+        #### #### ####
+        #### #### ####
+
+        # q3_ac = df.groupby("MODEL")["AC"].quantile(0.75)
+        # model_order = q3_ac.sort_values(ascending=False).index.tolist()
+        # palette = dict(zip(model_order, sns.color_palette("husl", n_colors=len(model_order))))
+        # sum_ac = df.groupby("MODEL")["AC"].sum()
+        # # sum_ac_normalized = 100 * (sum_ac - sum_ac.min()) / (sum_ac.max() - sum_ac.min())
+        # sum_ac_normalized = sum_ac # 100 * (sum_ac - sum_ac.min()) / (sum_ac.max() - sum_ac.min())
+        # plt.figure(figsize=(10, 6))
+        # bars = plt.bar(
+        #     [model for model in model_order],
+        #     [sum_ac_normalized[model] for model in model_order],
+        #     color=[palette[model] for model in model_order]
+        # )
+        # plt.xlabel("Model")
+        # # plt.ylabel("Normalised Sum of Accuracy (0–100)")
+        # plt.ylabel("SUM of Accuracy")
+        # # plt.title("Normalised Sum of Accuracy per Model")
+        # plt.title("SUM of Accuracy per Model")
+        # plt.xticks(rotation=45)
+        # plt.grid(axis="y")
+        # plt.tight_layout()
+        # plt.savefig(f"{path_data_in}BARPLOT_Q3_{model_name_filename}_ac_per_model_{dir_json_results_in}.png", dpi=369)
+        # # plt.show()
+
+        # 4. BARPLOT: Raw sum of AC (not normalized this time, since you want y-limit up to 51100)
+        q3_ac = df.groupby("MODEL")["AC"].quantile(0.75)
+        sum_ac = df.groupby("MODEL")["AC"].sum()
+        model_order = q3_ac.sort_values(ascending=False).index.tolist()  # Ensure sorting still by Q3
+        # https://seaborn.pydata.org/tutorial/color_palettes.html
+        palette = dict(zip(model_order, sns.color_palette("husl", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("Set2", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("tab10", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("colorblind", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("Paired", n_colors=len(model_order))))
+        # palette = dict(zip(model_order, sns.color_palette("muted", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("deep", n_colors=len(model_order))))
+        # palette = dict(zip(model_order, sns.color_palette(None, n_colors=len(model_order))))
+
+        fig, ax = plt.subplots(figsize=(10, 6))
+        bars = ax.bar(
+            [model for model in model_order],
+            [sum_ac[model] for model in model_order],
+            color=[palette[model] for model in model_order]
+        )
+        ax.set_xlabel("Model Name")
+        ax.set_ylabel("SUM of Accuracy")
+        ax.set_title("Total Accuracy per Model")
+        ax.set_ylim(0, 50000) # ~= 50000 <= 51100 <= 511 experiments * 100 max score
+        # ax.set_xticklabels(model_order, rotation=45)
+        plt.xticks(rotation=45)
+        ax.grid(axis="x")
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BARPLOT_Q3_RAW_SUM_{model_name_filename}_ac_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        # 5. BOXPLOT: Accuracy distribution
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(
+            x="MODEL",
+            y="AC",
+            hue="MODEL",  # Required to apply custom palette
+            data=df,
+            order=model_order,
+            palette=palette,
+            dodge=False,
+            legend=False
+        )
+        ax.set_xlabel("Model")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Model")
+        plt.xticks(rotation=45)
+        # ax.yaxis.grid(True)
+        ax.xaxis.grid(True)
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_Q3_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        #### #### ####
+        #### #### ####
+        continue
+        #### #### ####
+        #### #### ####
+
+        sum_ac = df.groupby("MODEL")["AC"].sum()
+        sum_ac_normalized = 100 * (sum_ac - sum_ac.min()) / (sum_ac.max() - sum_ac.min())
+        # sum_ac_normalized = sum_ac
+        model_order = sum_ac_normalized.sort_values(ascending=False).index.tolist()
+        palette = dict(zip(model_order, sns.color_palette("husl", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("Set2", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("tab10", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("colorblind", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("Paired", n_colors=len(model_order))))
+        palette = dict(zip(model_order, sns.color_palette("muted", n_colors=len(model_order))))
+        # palette = dict(zip(model_order, sns.color_palette("deep", n_colors=len(model_order))))
+        # palette = dict(zip(model_order, sns.color_palette(None, n_colors=len(model_order))))
+
+        plt.figure(figsize=(10, 6))
+        bars = plt.bar(
+            sum_ac_normalized.loc[model_order].index,
+            sum_ac_normalized.loc[model_order].values,
+            color=[palette[model] for model in model_order]
+        )
+        plt.xlabel("Model Name")
+        plt.ylabel("Normalized Sum of Accuracy (0–100)")
+        plt.title("Normalized Sum of Accuracy per Model")
+        plt.xticks(rotation=45)
+        plt.grid(axis="y")
+        plt.tight_layout()
+        # plt.savefig(f"{path_data_in}BARPLOT_SUM_NORM_0_100_{model_name_filename}_ac_per_model_{dir_json_results_in}.png", dpi=369)
+        plt.savefig(f"{path_data_in}BARPLOT_SUM_{model_name_filename}_ac_per_model_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
+        #### #### ####
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(
+            x="MODEL",
+            y="AC",
+            hue="MODEL",  # <-- Explicitly set hue
+            data=df,
+            order=model_order,
+            palette=palette,
+            dodge=False,  # <-- Keep boxes centered (important when hue=x)
+            legend=False  # <-- Avoid duplicate legend
+        )
+        ax.set_xlabel("Model Name")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Model (Consistent Colors from Normalized Sum Plot)")
+        # ax.set_ylim(0, 100)
+        plt.xticks(rotation=45)
+        ax.yaxis.grid(True)
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_SUM_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
         continue
