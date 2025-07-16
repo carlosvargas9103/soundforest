@@ -319,31 +319,51 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
 
-        # grouped by model
+        #### #### ####
+        #### #### ####
+
+        # Step 1: Prepare model order and custom palette (based on Q3 accuracy)
+        q3_ac = df.groupby("MODEL")["AC"].quantile(0.75)
+        model_order = q3_ac.sort_values(ascending=False).index.tolist()
+        palette = dict(zip(model_order, sns.color_palette("deep", n_colors=len(model_order))))
+
+        # Step 2: Plot the boxplot using the custom palette
         sns.set_style("whitegrid")
         plt.figure(figsize=(10, 6))
-        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df)
+        ax = sns.boxplot(
+            x="NUM_INDICES",
+            y="AC",
+            hue="MODEL",
+            data=df,
+            palette=palette,
+            hue_order=model_order  # Ensure consistent order
+        )
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
         ax.set_title("Accuracy by Number of EAI per Model")
-        # ax.set_ylim(0, 100)
         ax.yaxis.grid(True)
+
+        # Adjust legend position
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
+
+        # Save and tidy up
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_{model_name_filename}_ac_vs_num_indices_per_model_{dir_json_results_in}.png")
         # plt.show()
 
         # filter out Simple_SVM and ResNet1D
-        exclude_models = ["Simple_SVM", "ResNet1D"]
-        df_no_svm_no_resnet = df[~df["MODEL"].isin(exclude_models)]
+        exclude_models = ["Simple_LSTM", "Simple_SVM", "ResNet1D"]
+        df_excluded_models = df[~df["MODEL"].isin(exclude_models)]
+
+        
 
         # grouped by model
         sns.set_style("whitegrid")
         plt.figure(figsize=(10, 6))
-        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_no_svm_no_resnet)
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_excluded_models)
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy by Number of EAI per Model (Excl. Simple_SVM & ResNet1D)")
+        ax.set_title("Accuracy by Number of EAI per Model (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
         # ax.set_ylim(0, 100)
         ax.yaxis.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
@@ -354,10 +374,10 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         # grouped by model
         sns.set_style("whitegrid")
         plt.figure(figsize=(10, 6))
-        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_no_svm_no_resnet)
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_excluded_models)
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy (50-100%) by Number of EAI per Model (Excl. Simple_SVM & ResNet1D)")
+        ax.set_title("Accuracy (50-100%) by Number of EAI per Model (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
         ax.set_ylim(50, 100)
         ax.yaxis.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
@@ -368,22 +388,35 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         # per feature
         sns.set_style("whitegrid")  # white background with gridlines
         plt.figure(figsize=(8, 6))
-        ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df_no_svm_no_resnet)
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df_excluded_models)
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy by Number of EAI (Excl. Simple_SVM & ResNet1D)")
-        # ax.set_ylim(0, 100)
+        ax.set_title("Accuracy by Number of EAI (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
+        # ax.set_ylim(60, 100)
         ax.yaxis.grid(True)  # add horizontal grid lines
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_EXCL_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
+        # per feature
+        sns.set_style("whitegrid")  # white background with gridlines
+        plt.figure(figsize=(8, 6))
+        ax = sns.boxplot(x="NUM_INDICES", y="AC", data=df_excluded_models)
+        ax.set_xlabel("Number of EAI")
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_title("Accuracy by Number of EAI (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
+        ax.set_ylim(60, 100)
+        ax.yaxis.grid(True)  # add horizontal grid lines
+        plt.tight_layout()
+        plt.savefig(f"{path_data_in}BOXPLOT_EXCL_60_{model_name_filename}_ac_vs_num_indices_{dir_json_results_in}.png", dpi=369)
+        # plt.show()
+
         # max accuracy
-        df_summary = df_no_svm_no_resnet.groupby("NUM_INDICES", as_index=False)["AC"].max()
+        df_summary = df_excluded_models.groupby("NUM_INDICES", as_index=False)["AC"].max()
         sns.set_style("whitegrid")
         plt.figure(figsize=(10, 6))
         ax = sns.lineplot(data=df_summary, x="NUM_INDICES", y="AC", marker="o")
-        ax.set_title("Maximum Accuracy vs. Number of EAI (Excl. Simple_SVM & ResNet1D)")
+        ax.set_title("Maximum Accuracy vs. Number of EAI (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Maximum Accuracy (%)")
         # ax.set_ylim(0, 100)
@@ -473,7 +506,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         # df_filtered = df[df["MODEL"] != exclude_model]
 
         # filter out Simple_SVM and ResNet1D
-        exclude_models = ["Simple_SVM", "ResNet1D"]
+        exclude_models = ["Simple_LSTM", "Simple_SVM", "ResNet1D"]
         df_filtered = df[~df["MODEL"].isin(exclude_models)]
 
         # group by MODEL and NUM_INDICES, then take the max AC for each group
@@ -491,7 +524,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
             linewidth=2
         )
 
-        plt.title("Max Accuracy vs Number of EAI per Model (Excl. Simple_SVM & ResNet1D)")
+        plt.title("Max Accuracy vs Number of EAI per Model (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
         plt.xlabel("Number of EAI")
         plt.ylabel("Max Accuracy (%)")
         plt.grid(True)
@@ -535,7 +568,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png")
 
         # filter for specific NUM_INDICES
-        selected_indices = [10, 11, 12, 13]
+        selected_indices = [10, 11, 12, 13, 14]
         df_filtered_indices = df_filtered[df_filtered["NUM_INDICES"].isin(selected_indices)]
 
         ### CLOSE-UP ###
@@ -545,7 +578,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         ax = sns.boxplot(x="MODEL", y="AC", data=df_filtered_indices, order=models)
         ax.set_xlabel("Model Name")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy by Model (EAI 10–13)")
+        ax.set_title("Accuracy by Model (EAI 10–14)")
         ax.set_ylim(50, 100)
         plt.xticks(rotation=45)
         ax.yaxis.grid(True)  # horizontal grid lines
@@ -558,7 +591,7 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_filtered_indices)
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy (50-100%) by Number of EAI (10-13) per Model (Excl. Simple_SVM & ResNet1D)")
+        ax.set_title("Accuracy (50-100%) by Number of EAI (10-14) per Model (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
         ax.set_ylim(50, 100)
         ax.yaxis.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
@@ -591,46 +624,20 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         ax = sns.boxplot(x="NUM_INDICES", y="AC", hue="MODEL", data=df_filtered_indices)
         ax.set_xlabel("Number of EAI")
         ax.set_ylabel("Accuracy (%)")
-        ax.set_title("Accuracy (50-100%) by Number of EAI (10-16) per Model (Excl. Simple_SVM & ResNet1D)")
-        ax.set_ylim(50, 100)
+        ax.set_title("Accuracy (50-100%) by Number of EAI (10-16) per Model (Excl. Simple_LSTM, ResNet1D, and Simple_SVM)")
         ax.yaxis.grid(True)
         plt.legend(title="Model", bbox_to_anchor=(1.05, 1), loc="upper left")
         plt.tight_layout()
         plt.savefig(f"{path_data_in}BOXPLOT_EXCL_50_{model_name_filename}_ac_vs_num_indices_10_16_per_model_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
-        #### #### ####
-        #### #### ####
-        #### #### ####
-
-        # q3_ac = df.groupby("MODEL")["AC"].quantile(0.75)
-        # model_order = q3_ac.sort_values(ascending=False).index.tolist()
-        # palette = dict(zip(model_order, sns.color_palette("husl", n_colors=len(model_order))))
-        # sum_ac = df.groupby("MODEL")["AC"].sum()
-        # # sum_ac_normalized = 100 * (sum_ac - sum_ac.min()) / (sum_ac.max() - sum_ac.min())
-        # sum_ac_normalized = sum_ac # 100 * (sum_ac - sum_ac.min()) / (sum_ac.max() - sum_ac.min())
-        # plt.figure(figsize=(10, 6))
-        # bars = plt.bar(
-        #     [model for model in model_order],
-        #     [sum_ac_normalized[model] for model in model_order],
-        #     color=[palette[model] for model in model_order]
-        # )
-        # plt.xlabel("Model")
-        # # plt.ylabel("Normalised Sum of Accuracy (0–100)")
-        # plt.ylabel("SUM of Accuracy")
-        # # plt.title("Normalised Sum of Accuracy per Model")
-        # plt.title("SUM of Accuracy per Model")
-        # plt.xticks(rotation=45)
-        # plt.grid(axis="y")
-        # plt.tight_layout()
-        # plt.savefig(f"{path_data_in}BARPLOT_Q3_{model_name_filename}_ac_per_model_{dir_json_results_in}.png", dpi=369)
-        # # plt.show()
 
         # 4. BARPLOT: Raw sum of AC (not normalized this time, since you want y-limit up to 51100)
         q3_ac = df.groupby("MODEL")["AC"].quantile(0.75)
         sum_ac = df.groupby("MODEL")["AC"].sum()
         model_order = q3_ac.sort_values(ascending=False).index.tolist()  # Ensure sorting still by Q3
         # https://seaborn.pydata.org/tutorial/color_palettes.html
+        # https://r02b.github.io/seaborn_palettes/
         palette = dict(zip(model_order, sns.color_palette("husl", n_colors=len(model_order))))
         palette = dict(zip(model_order, sns.color_palette("Set2", n_colors=len(model_order))))
         palette = dict(zip(model_order, sns.color_palette("tab10", n_colors=len(model_order))))
@@ -679,11 +686,14 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         plt.savefig(f"{path_data_in}BOXPLOT_Q3_{model_name_filename}_ac_vs_model_{dir_json_results_in}.png", dpi=369)
         # plt.show()
 
-        #### #### ####
-        #### #### ####
+        #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+        #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
         continue
-        #### #### ####
-        #### #### ####
+        continue
+        continue
+        continue
+        #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
+        #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### #### ####
 
         sum_ac = df.groupby("MODEL")["AC"].sum()
         sum_ac_normalized = 100 * (sum_ac - sum_ac.min()) / (sum_ac.max() - sum_ac.min())
