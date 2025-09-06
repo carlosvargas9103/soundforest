@@ -357,17 +357,6 @@ def bootstrap_soundscape(audio_file: str = '',
          } for s in range(0, len(split_y_split_bands)) for b in range(0, bandas)
     ]
 
-    # print('####', 'DICT_VECTOR',
-    #       len(metrics_y_seconds_bandas), list(metrics_y_seconds_bandas[0].keys()),
-    #       # metrics_y_seconds_bandas[0],
-    #       # metrics_y_seconds_bandas[0].get("vec", [])[:3]
-    #       # metrics_y_seconds_bandas[0],
-    #       # metrics_y_seconds_bandas[1],
-    #       # metrics_y_seconds_bandas[10],
-    #       # metrics_y_seconds_bandas[11],
-    #       # metrics_y_seconds_bandas[100],
-    #       # len(metrics_y_seconds_bandas[0].get("vec", []))
-    #       )
     print('####', 'TIMES', '####', 'DICT_VECTOR:', round(time.time() - t1, 3))
 
     # exit()
@@ -384,24 +373,25 @@ def bootstrap_soundscape(audio_file: str = '',
     # print(df_m.head(3), df_m.shape)
     # exit()
 
-    # TODO: Pipeline (12-24-07-31.01.25):
+    # TODO: Pipeline DONE!
     # TODO: MODELLING - DONE!
     # TODO: Continuing with the pre-processing - - DONE!
     #   3. Compute the mean, medium, max, min, distance, etc.. - DONE!
     #   3.6. Compute the BIO-ACOUSTIC indexes, etc.. - DONE!
-    #   4. Transform the data => filters, envelope, pitch, etc.. - MONDAY (20.01.25)!
-    #   4.1. These transformations need to be included here in the extraction module - MONDAY (20.01.25)!
-    # TODO: Activation function (Sigmoid) - MONDAY (20.01.25)!
+    #   4. Transform the data => filters, envelope, pitch, etc.. - DONE!
+    #   4.1. These transformations need to be included here in the extraction module - DONE!
+    # TODO: Activation function (Sigmoid) - DONE!
     # #### # ####
     # TODO: Extract the Benchmark from Giacomo => SVM - DONE!
     #   6. PLOTS the distribution or each frequency against a metric per region - DONE!
     # TODO: Evaluation Metrics for classification => Table & Matrix - DONE!
     # TODO: Reduce the time of the samples - DONE!
-    # TODO: Next meeting => 24.06.2025!
+    # TODO: Next meeting => 09.09.2025!
 
     file_name_name = os.path.splitext(os.path.basename(audio_file))[0]
     df_m.to_pickle(
-        f'{path_out}data/{f_pattern_out}/{region}/{file_name_name}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl')
+        f'{path_out}data/{f_pattern_out}/{region}/{file_name_name}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl'
+    )
 
     # df_m.to_csv(
     #     f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv',
