@@ -159,7 +159,7 @@ def visualisation_regions(files_path: List[Tuple[str, str]] = [],
         values += values[:1]
         ax.plot(angles, values, color=color, linewidth=2, linestyle='solid')
         ax.fill(angles, values, color=color, alpha=0.4)
-        plt.title(title, size=13, color=color, y=1.09103, weight='bold')
+        plt.title(title, size=13, color=color, y=1.09103)#, weight='bold')
     # initialize the figure
     my_dpi = 96
     plt.figure(figsize=(1000 / my_dpi, 1000 / my_dpi), dpi=my_dpi)
@@ -175,8 +175,8 @@ def visualisation_regions(files_path: List[Tuple[str, str]] = [],
     for row in range(0, len(df_spider.index)):
         make_spider(df=df_spider, row=row, title=df_spider['group'][row], color=my_palette(row))
 
-    plt.suptitle("SpiderNet Chart of Ecological Acoustic Indices (EAIs) by Region", fontsize=19, y=0.98)
-    plt.savefig(f'{path_out_visual_region}/visual_regions_spider.png', dpi=693, bbox_inches="tight")
+    # plt.suptitle("SpiderNet Chart of Ecological Acoustic Indices (EAIs) by Region", fontsize=13, y=0.98)
+    plt.savefig(f'{path_out_visual_region}/visual_regions_spider.png', dpi=369, bbox_inches="tight")
     plt.close()
     # exit()
     print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
