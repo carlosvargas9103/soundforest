@@ -90,6 +90,39 @@ def visualisation_regions(files_path: List[Tuple[str, str]] = [],
                 if filename.endswith(f_ext_in):
                     filepath = os.path.join(dirpath, filename)
                     region_filepaths[region_name].append(filepath)
+    # just describe
+    frames = []
+    expected_cols = {'aca', 'adi', 'dsi'}
+    for region, files in region_filepaths.items():
+        for fp in files:
+            try:
+                df_i = pd.read_pickle(fp)
+                missing = expected_cols - set(df_i.columns)
+                if missing:
+                    print(f"Warning: {os.path.basename(fp)} missing columns {sorted(missing)} — skipping")
+                    continue
+                df_i = df_i[['aca', 'adi', 'dsi']].copy()
+                df_i['region'] = region
+                frames.append(df_i)
+            except Exception as e:
+                print(f"Error reading {fp}: {e}")
+
+    if not frames:
+        raise RuntimeError("No valid data loaded. Check input paths and column names: 'aca', 'adi', 'dsi'.")
+
+    df_data_d = pd.concat(frames, ignore_index=True)
+
+    # Print overall describe (only numeric cols)
+    print("#### Overall describe (aca, adi, dsi) ####")
+    print(df_data_d[['aca', 'adi', 'dsi']].describe())
+
+    # Print per-region describe
+    print("\n#### Per-region describe (aca, adi, dsi) ####")
+    for region, df_r in df_data_d.groupby('region'):
+        print(f"\n-- {region} --")
+        print(df_r[['aca', 'adi', 'dsi']].describe())
+
+    exit()
 
     # for region, files in region_filepaths.items():
     #     print(f'Region: {region}, Files: {files}')
