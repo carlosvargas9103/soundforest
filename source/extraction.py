@@ -337,11 +337,11 @@ def bootstrap_soundscape(audio_file: str = '',
             Metrics.SOUNDSCAPE_ID: si,  # audio_file_id
             Metrics.SECOND: s,  # TIME (int) 0 - 6 => DONT NEED!?? - SUNDAY (05.01.25)!
             Metrics.BAND_ID: b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once - MONDAY (22.01.25)!
-            Metrics.MEAN: np.mean(f := split_y_split_bands[s, b, :].flatten()),  # MEAN of the VECTOR (float)
-            Metrics.MEDIAN: np.median(f),  # MEDIAN of the VECTOR (float)
-            Metrics.SUM: np.sum(f),  # SUM of the VECTOR (float)
-            Metrics.MAX: np.max(f),  # MAX of the VECTOR (float)
-            Metrics.MIN: np.min(f),  # MIN of the VECTOR (float)
+            Metrics.MEAN: np.mean(f := split_y_split_bands[s, b, :].flatten()),  # MEAN of the FRAME (float)
+            Metrics.MEDIAN: np.median(f),  # MEDIAN of the FRAME (float)
+            Metrics.SUM: np.sum(f),  # SUM of the FRAME (float)
+            Metrics.MAX: np.max(f),  # MAX of the FRAME (float)
+            Metrics.MIN: np.min(f),  # MIN of the FRAME (float)
             Metrics.ACOUSTIC_COMPLEXITY: band_acift(f),  # Acoustic Complexity Index per band-split (float)
             Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE: split_y_indices[s, 0], # TODO: Check for the alternative
             Metrics.ACOUSTIC_DIVERSITY: split_y_indices[s, 1],
@@ -353,7 +353,7 @@ def bootstrap_soundscape(audio_file: str = '',
             Metrics.ENTROPY: split_y_indices[s, 7],
             Metrics.ACOUSTIC_EVENNESS: split_y_indices[s, 8],
             Metrics.SOUNDSCAPE_INDEX: split_y_indices[s, 9],
-            Metrics.VECTOR_VEC: f  # VECTOR (npArray[float]) 438 x 10 bands => 6000 each vec => 6 secs x 1000 samples_sec
+            Metrics.VECTOR_VEC: f  # FRAME (npArray[float]) 438 x 10 bands => 6000 each vec => 6 secs x 1000 samples_sec
          } for s in range(0, len(split_y_split_bands)) for b in range(0, bandas)
     ]
 
