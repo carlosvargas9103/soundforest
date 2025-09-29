@@ -1,37 +1,11 @@
-import os, time
+import os, time, json, re
 from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from math import pi
 
-def visualisation_regions(files_path: list[tuple[str,str]] = [],
-                          dir_json_results_in: str = '',
-                          ncols: int = 6016, *,
-                          si: int = 1964,
-                          sr: int = 48000,
-                          b_band: int = 0,
-                          u_band: int = 10000,
-                          bandas: int = 10,
-                          bandwidth: int = 1000,
-                          path_data: str = '',
-                          path_out: str = '',
-                          samples_s: int = 1800,
-                          isamples_s: int = 3,
-                          secs_b: int = 6,
-                          secs_o: int = 1.9,
-                          hanning: bool = True,
-                          w_size_mins: float = 0.06,
-                          n_jobs: int = 1,
-                          job_id: str = 'NULL',
-                          verbose: bool = False,
-                          f_pattern_out: str = 'visual_regions',
-                          windows_13: bool = True,
-                          horas: int = 30,
-                          metric_names: list[str] = None,
-                          dev_mode: bool = True,
-                          n_epochs: int = 11,
-                          df_stats: bool = False) -> None:
+def visualisation_regions():
     t0 = time.time()
     cwd = os.getcwd()
     cwd = str(Path(cwd).parents[0]) if cwd.endswith('/source') else cwd
@@ -39,6 +13,29 @@ def visualisation_regions(files_path: list[tuple[str,str]] = [],
     path_in = f'{cwd}/out/data/extraction/'
     path_out_visual = f'{cwd}/out/data/visual_regions/'
     os.makedirs(path_out_visual, exist_ok=True)
+
+    cols = ['npp', 'bet', 'htp', 'hfq', 'aei']
+
+    sid_json_path = f'{path_out_visual}/sid_index.json'
+    sid_map = {}
+    if os.path.exists(sid_json_path):
+        with open(sid_json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        for k, v in data.items():
+            try:
+                sid = int(k)
+            except:
+                continue
+            fn = v.get('filename', '')
+            rg = v.get('region', '')
+            sid_map[sid] = {'region': rg, 'filename': fn}
+    else:
+        print(f'[warn] sid_index.json not found at {sid_json_path}')
+
+    def safe_stem(name):
+        stem = Path(name).stem
+        stem = re.sub(r'[^\w\-.]+', '_', stem).strip('_')
+        return stem or f'sid'
 
     region_filepaths = {r: [] for r in regions}
     for dirpath, _, filenames in os.walk(path_in):
@@ -64,43 +61,41 @@ def visualisation_regions(files_path: list[tuple[str,str]] = [],
                 df_i['sid'] = idx
             df_i['region'] = region
             frames.append(df_i)
-
         if not frames:
             continue
+
         df_r = pd.concat(frames, ignore_index=True)
-
-        exclude = {'region', 'sid'}
-        metrics = [c for c in df_r.columns
-                   if c not in exclude
-                   and not str(c).startswith('vec_')
-                   and pd.api.types.is_numeric_dtype(df_r[c])]
-
-        if not metrics:
-            print(f'[warn] No numeric metrics in {region}')
+        missing = [c for c in cols if c not in df_r.columns]
+        if missing:
+            print(f'[warn] {region}: missing columns {missing}, skipping region')
             continue
 
-        g = df_r.groupby('sid', as_index=False)[metrics].mean()
+        df_r = df_r[['sid', 'region'] + cols].copy()
+        g = df_r.groupby('sid', as_index=False)[cols].mean()
 
-        # normalize per-region to 10..50 (like your earlier scaling)
         df_norm = g.copy()
-        for col in metrics:
-            minv = g[col].min()
-            maxv = g[col].max()
-            if pd.isna(minv) or pd.isna(maxv) or maxv == minv:
-                df_norm[col] = 30.0
+        for c in cols:
+            mn, mx = g[c].min(), g[c].max()
+            if pd.isna(mn) or pd.isna(mx) or mx == mn:
+                df_norm[c] = 30.0
             else:
-                df_norm[col] = 10 + (g[col] - minv) * (50 - 10) / (maxv - minv)
+                df_norm[c] = 10 + (g[c] - mn) * 40.0 / (mx - mn)
 
         out_dir = Path(path_out_visual) / region
         out_dir.mkdir(parents=True, exist_ok=True)
 
         def plot_spider(row):
-            cats = metrics
+            cats = cols
             N = len(cats)
             angles = [n / float(N) * 2 * pi for n in range(N)]
             angles += angles[:1]
             vals = df_norm.loc[row, cats].values.tolist()
             vals += vals[:1]
+
+            sid_val = int(g.loc[row, 'sid'])
+            mp3_name = sid_map.get(sid_val, {}).get('filename', f'sid_{sid_val}.mp3')
+            title_name = Path(mp3_name).name
+            file_stem = safe_stem(title_name)
 
             plt.figure(figsize=(5,5), dpi=200)
             ax = plt.subplot(111, polar=True)
@@ -112,9 +107,8 @@ def visualisation_regions(files_path: list[tuple[str,str]] = [],
             plt.ylim(0, 51)
             ax.plot(angles, vals, linewidth=2)
             ax.fill(angles, vals, alpha=0.35)
-            sid_val = int(g.loc[row, 'sid'])
-            plt.title(f'{region} · sid {sid_val}', size=11, y=1.08)
-            fp = out_dir / f'spider_sid_{sid_val}.png'
+            plt.title(f'{region} · {title_name}', size=11, y=1.08)
+            fp = out_dir / f'{file_stem}.png'
             plt.savefig(fp, bbox_inches='tight')
             plt.close()
 
