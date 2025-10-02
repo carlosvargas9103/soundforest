@@ -10,7 +10,7 @@
 #--cpus-per-task=32
 #SBATCH --exclusive
 #--mem=0
-#SBATCH --time=00-09:11:90
+#--time=00-09:11:90
 #SBATCH --hint=nomultithread
 
 module load gcc cuda miniconda3
