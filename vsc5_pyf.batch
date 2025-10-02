@@ -1,10 +1,11 @@
 #!/bin/bash
 # Set the allocation to be charged for this job
 # not required if you have set a default allocation
-#SBATCH -A forest(72552)
+# -A forest(72552)
+# -A 72552
 # The name of the job
 # -J jobname
-#SBATCH --job-name=forest_e11
+#SBATCH --job-name=f-e90-0
 # The number of nodes
 # -N 1
 #SBATCH --nodes=1
@@ -14,7 +15,7 @@
 #SBATCH --mem=192GB
 # The requested time, in this example is 10 minutes
 # -t 00:10:00
-#SBATCH --time=00-01:11:10
+#SBATCH --time=00-00:11:10
 # The partition
 #SBATCH --partition=zen3_0512
 #The quality of service (QOS)
