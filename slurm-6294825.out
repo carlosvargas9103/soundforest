@@ -1,0 +1,109 @@
+/home/fs72552/vargas/.local/lib/python3.12/site-packages/tslearn/bases/bases.py:15: UserWarning: h5py not installed, hdf5 features will not be supported.
+Install h5py to use hdf5 features: http://docs.h5py.org/
+  warn(h5py_msg)
+PATH /home/fs72552/vargas/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 2 SBOJ-N #### ####
+#### #### HOI MODELLING #### ####
+#### INDICES => [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei] <= INDICES 13 ####
+0/57 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### COMBI 1 #### FIXED 12 VARIABLE 1
+#### #### READING DATA FILES #### ####
+1 1 #### COMBI [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei] METRICS ####
+('Plantation', '/home/fs72552/vargas/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(249660, 13) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'bet', 'npp',
+       'hfq'],
+      dtype='object') Index(['ban', 'sec', 'men', 'med', 'sum', 'max', 'bet', 'npp', 'hfq', 'htp',
+       'aei'],
+      dtype='object')
+#### MERGE 57 merge_data Dataframe shape: (249660, 13) #### time: 6
+#### #### SPLIT TRAIN TEST #### ####
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cpu #### time: 74
+#### MODELS - TOTAL 1 ####
+#### EPOCHS 11 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL Simple_LSTM ####
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [33/1041] Loss: 0.1478 Time: 366.789
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [66/1041] Loss: 0.1227 Time: 368.074
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [99/1041] Loss: 0.2896 Time: 369.358
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [132/1041] Loss: 0.2076 Time: 370.643
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [165/1041] Loss: 0.1644 Time: 371.928
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [198/1041] Loss: 0.1025 Time: 373.213
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [231/1041] Loss: 0.1338 Time: 374.497
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [264/1041] Loss: 0.1808 Time: 375.782
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [297/1041] Loss: 0.1819 Time: 377.068
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [330/1041] Loss: 0.2220 Time: 378.353
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [363/1041] Loss: 0.1387 Time: 379.64
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [396/1041] Loss: 0.1817 Time: 380.925
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [429/1041] Loss: 0.1257 Time: 382.209
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [462/1041] Loss: 0.1960 Time: 383.495
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [495/1041] Loss: 0.1845 Time: 384.782
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [528/1041] Loss: 0.1169 Time: 386.067
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [561/1041] Loss: 0.2200 Time: 387.354
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [594/1041] Loss: 0.1416 Time: 388.641
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [627/1041] Loss: 0.1747 Time: 389.925
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [660/1041] Loss: 0.1279 Time: 391.209
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [693/1041] Loss: 0.1395 Time: 392.595
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [726/1041] Loss: 0.1530 Time: 393.88
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [759/1041] Loss: 0.1544 Time: 395.165
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [792/1041] Loss: 0.1374 Time: 396.45
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [825/1041] Loss: 0.1274 Time: 397.736
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [858/1041] Loss: 0.1390 Time: 399.02
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [891/1041] Loss: 0.1203 Time: 400.305
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [924/1041] Loss: 0.2679 Time: 401.591
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [957/1041] Loss: 0.2106 Time: 402.876
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [990/1041] Loss: 0.1660 Time: 404.161
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [1023/1041] Loss: 0.1879 Time: 405.444
+#### TRAINED MODEL Simple_LSTM model training time: 446.648 total training time: 449.074 ####
+#### TRAINING TOTAL TIME: 446.648 ####
+Accuracy of the Simple_LSTM model on the test set: 93.413042 %
+#### TESTING TOTAL TIME: 3.924 ####
+#### TIME #### TERMINO #### 533.689 ####
+#### FINITO #### TERMINO #### NO-VA-MAS ####
+#### TIMES #### modelling TOTAL TOTAL ==>> 533.689 seconds
+0 #### TIMES #### Modelling #### PARTIAL FILE ==>> 533.681 seconds
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+#### TIMES #### Modelling TOTAL TOTAL ==>> 533.688 seconds
+#### #### NO DA MAS #### TERMINO #### FINITO #### ####
+#### #### 
+ TOTAL_TIME: 533.694 
+ TOTAL_JOBS: 2 
+ JOB_ID: 6294825 
+ #### ####
+#### SLEEPING TIME: 533.694 seconds ####
+All gürkel parcero, aller!

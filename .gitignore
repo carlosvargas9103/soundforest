@@ -8,6 +8,7 @@ __pycache__/
 
 #models
 *.model
+*.pth
 
 #data
 ./data/
