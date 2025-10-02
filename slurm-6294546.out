@@ -1,0 +1,9 @@
+/home/fs72552/vargas/.local/lib/python3.12/site-packages/tslearn/bases/bases.py:15: UserWarning: h5py not installed, hdf5 features will not be supported.
+Install h5py to use hdf5 features: http://docs.h5py.org/
+  warn(h5py_msg)
+Traceback (most recent call last):
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/forest.py", line 34, in <module>
+    from sota_modelling import sota_train_with_soundscapes
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/sota_modelling.py", line 44, in <module>
+    from torchvision.models import (
+ModuleNotFoundError: No module named 'torchvision'

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/forest.py", line 31, in <module>
+    from visualisation import visualise_soundscape, visualise_distribution
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/visualisation.py", line 26, in <module>
+    import seaborn as sns
+ModuleNotFoundError: No module named 'seaborn'
