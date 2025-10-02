@@ -427,7 +427,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     # models sizes are ~200-500 MB
                     torch.save(
                         model.state_dict(),
-                        f'{model_path}{job_id}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_{model.__class__.__name__}.model'
+                        f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.pth'
                     )
                     print('####',
                           'TRAINED MODEL',
