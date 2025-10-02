@@ -113,7 +113,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Fixed part: always included
     start_combi, end_combi = s_combi, e_combi  # 424
-    i_fix_metrics = 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
+    i_fix_metrics = 12 # 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
@@ -425,7 +425,10 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                           f'Loss: {loss.item():.4f}',
                                           f'Time: {round(time.time() - t1, 3)}')
                     # models sizes are ~200-500 MB
-                    # torch.save(model.state_dict(), f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.model')
+                    torch.save(
+                        model.state_dict(),
+                        f'{model_path}{job_id}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_{model.__class__.__name__}.model'
+                    )
                     print('####',
                           'TRAINED MODEL',
                           model_name,
@@ -583,12 +586,14 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 32: [sota_models.get(1)],
                 33: [sota_models.get(2)],
                 34: [sota_models.get(3)],
-                35: [sota_models.get(4)]
+                35: [sota_models.get(4)],
+                # ALL-MODELS
+                36: [cnn_lstm, lstm_cnn, para_cnn_lstm, simple_cnn, simple_lstm, simple_svm, sota_models.get(0)]
             }
             # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
-            models = dict_models.get(39, list(sota_models.values())) if not dev_mode else dict_models.get(00, [resnet])
+            models = dict_models.get(36, [para_cnn_lstm]) if not dev_mode else dict_models.get(00, [resnet])
             # models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
-            models = dict_models.get(m_sota, models) if m_sota else models
+            # models = dict_models.get(m_sota, models) if m_sota else models
 
             #### TRAIN ####
             num_epochs = n_epochs
