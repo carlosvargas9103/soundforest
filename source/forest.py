@@ -538,8 +538,8 @@ def main():
                                                 secs_b=secs_b, w_size_mins=w_size_mins,
                                                 verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                                 f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
-                                                # metric_names=metric_names[:9], dev_mode=True, n_epochs=1,
-                                                metric_names=metric_names, dev_mode=dev_mode, n_epochs=11,
+                                                metric_names=metric_names[:9], dev_mode=True, n_epochs=1,
+                                                # metric_names=metric_names, dev_mode=dev_mode, n_epochs=11,
                                                 m_sota=m_sota, s_combi=s_combi, e_combi=e_combi
                                                 )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')

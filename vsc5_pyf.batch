@@ -1,0 +1,29 @@
+#!/bin/bash
+# Set the allocation to be charged for this job
+# not required if you have set a default allocation
+#SBATCH -A forest(72552)
+# The name of the job
+# -J jobname
+#SBATCH --job-name=forest_e11
+# The number of nodes
+# -N 1
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=39
+#SBATCH --mem=192GB
+# The requested time, in this example is 10 minutes
+# -t 00:10:00
+#SBATCH --time=00-01:11:10
+# The partition
+#SBATCH --partition=zen3_0512
+#The quality of service (QOS)
+#SBATCH --qos=zen3_0512
+# --gres=gpu:1
+
+# see "Setup Conda" above or consult "module avail miniconda3" to get the right package name
+module load gcc cuda miniconda3
+eval "$(conda shell.bash hook)"
+conda activate py311f
+
+cd ~/forests-sounds-vargas/source && python3 forest.py -sota 22 -s-combi 254 -e-combi 255
