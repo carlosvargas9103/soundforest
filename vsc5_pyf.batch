@@ -1,30 +1,26 @@
 #!/bin/bash
-# Set the allocation to be charged for this job
-# not required if you have set a default allocation
-# -A forest(72552)
-# -A 72552
-# The name of the job
-# -J jobname
-#SBATCH --job-name=f-e90-0
-# The number of nodes
-# -N 1
+#SBATCH --job-name=f-e90-1
+#SBATCH --partition=zen3_0512
+#--partition=zen3_0512_a100
+#SBATCH --qos=zen3_0512
+#--qos=zen3_0512_a100
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=39
-#SBATCH --mem=192GB
-# The requested time, in this example is 10 minutes
-# -t 00:10:00
-#SBATCH --time=00-00:11:10
-# The partition
-#SBATCH --partition=zen3_0512
-#The quality of service (QOS)
-#SBATCH --qos=zen3_0512
-# --gres=gpu:1
+#SBATCH --cpus-per-task=128
+#--cpus-per-task=32
+#SBATCH --exclusive
+#--mem=0
+#SBATCH --time=00-09:11:90
+#SBATCH --hint=nomultithread
 
-# see "Setup Conda" above or consult "module avail miniconda3" to get the right package name
 module load gcc cuda miniconda3
 eval "$(conda shell.bash hook)"
 conda activate py311f
 
-cd ~/forests-sounds-vargas/source && python3 forest.py
+# Force libraries to stay single-threaded
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+
+cd ~/forests-sounds-vargas/source && srun --cpu-bind=cores python3 forest.py
