@@ -1,3 +1,6 @@
-cwd: /home/fs72552/vargas/forests-sounds-vargas file: /home/fs72552/vargas/forests-sounds-vargas/out/cities_1484541.txt time: 0.30416417121887207 job_id: 1484541
-Sleeping time: 0.304
-Alles gut parcero, let's aller!
+/home/fs72552/vargas/.conda/envs/py311f/bin/python
+Thu Oct  2 16:23:10 CEST 2025
+n3504-048
+Python 3.11.9
+0
+this is the content of the host machines file
