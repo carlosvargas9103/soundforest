@@ -1,0 +1,105 @@
+/home/fs72552/vargas/.local/lib/python3.12/site-packages/tslearn/bases/bases.py:15: UserWarning: h5py not installed, hdf5 features will not be supported.
+Install h5py to use hdf5 features: http://docs.h5py.org/
+  warn(h5py_msg)
+PATH /home/fs72552/vargas/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 2 SBOJ-N #### ####
+#### #### HOI MODELLING #### ####
+#### INDICES => [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei] <= INDICES 13 ####
+0/57 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### COMBI 1 #### FIXED 12 VARIABLE 1
+#### #### READING DATA FILES #### ####
+1 1 #### COMBI [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei] METRICS ####
+('Plantation', '/home/fs72552/vargas/forests-sounds-vargas/out/data/extraction/Plantation/2_00_PSA0010-2010_dict_y_split_7_2512283_1736694580.pkl')
+(249660, 13) Index(['reg', 'sid', 'ban', 'sec', 'men', 'med', 'sum', 'max', 'bet', 'npp',
+       'hfq'],
+      dtype='object') Index(['ban', 'sec', 'men', 'med', 'sum', 'max', 'bet', 'npp', 'hfq', 'htp',
+       'aei'],
+      dtype='object')
+#### MERGE 57 merge_data Dataframe shape: (249660, 13) #### time: 5
+#### #### SPLIT TRAIN TEST #### ####
+#### CLASSES: [0 1 2 3] TOTAL 4
+#### SPLIT train_test_split and CUDA: ??? cpu #### time: 74
+#### MODELS - TOTAL 7 ####
+#### EPOCHS 11 ####
+#### TRAINING MODELS ####
+#### TRAINING MODEL SEQ_CNN_LSTM ####
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [33/1041] Loss: 0.1343 Time: 180.925
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [66/1041] Loss: 0.0996 Time: 181.557
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [99/1041] Loss: 0.1630 Time: 182.189
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [132/1041] Loss: 0.1366 Time: 182.821
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [165/1041] Loss: 0.1683 Time: 183.452
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [198/1041] Loss: 0.1011 Time: 184.084
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [231/1041] Loss: 0.1254 Time: 184.717
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [264/1041] Loss: 0.1266 Time: 185.35
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [297/1041] Loss: 0.1242 Time: 185.982
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [330/1041] Loss: 0.2170 Time: 186.614
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [363/1041] Loss: 0.1307 Time: 187.266
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [396/1041] Loss: 0.1795 Time: 187.903
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [429/1041] Loss: 0.1192 Time: 188.535
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [462/1041] Loss: 0.1616 Time: 189.168
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [495/1041] Loss: 0.1554 Time: 189.8
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [528/1041] Loss: 0.1118 Time: 190.432
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [561/1041] Loss: 0.1664 Time: 191.064
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [594/1041] Loss: 0.1206 Time: 191.795
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [627/1041] Loss: 0.1495 Time: 192.427
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [660/1041] Loss: 0.1244 Time: 193.06
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [693/1041] Loss: 0.1191 Time: 193.692
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [726/1041] Loss: 0.1279 Time: 194.324
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [759/1041] Loss: 0.1557 Time: 194.957
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [792/1041] Loss: 0.1141 Time: 195.589
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [825/1041] Loss: 0.1166 Time: 196.221
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [858/1041] Loss: 0.1421 Time: 196.854
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [891/1041] Loss: 0.1267 Time: 197.486
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [924/1041] Loss: 0.2033 Time: 198.118
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [957/1041] Loss: 0.1982 Time: 198.75
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [990/1041] Loss: 0.1556 Time: 199.382
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [1023/1041] Loss: 0.1830 Time: 200.015
+ALWAYS PROBLEMS module 'datetime' has no attribute 'now'
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+Traceback (most recent call last):
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/forest.py", line 559, in <module>
+    main()
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/forest.py", line 534, in main
+    sota_train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/sota_modelling.py", line 606, in sota_train_with_soundscapes
+    train(models, train_loader, epochs=num_epochs)
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/sota_modelling.py", line 430, in train
+    f'{model_path}{job_id}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_{model.__class__.__name__}.model'
+                            ^^^^^^^^^^^^
+AttributeError: module 'datetime' has no attribute 'now'
+srun: error: n3508-036: task 0: Exited with exit code 1
