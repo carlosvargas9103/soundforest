@@ -171,3 +171,176 @@ Epoch [10/11] Step [198/1041] Loss: 0.1802 Time: 445.81
 Epoch [10/11] Step [231/1041] Loss: 0.1050 Time: 447.346
 #### prediction torch.Size([192, 4])
 Epoch [10/11] Step [264/1041] Loss: 0.1363 Time: 448.883
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [297/1041] Loss: 0.1257 Time: 450.419
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [330/1041] Loss: 0.1627 Time: 451.957
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [363/1041] Loss: 0.1011 Time: 453.493
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [396/1041] Loss: 0.1193 Time: 455.03
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [429/1041] Loss: 0.1503 Time: 456.569
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [462/1041] Loss: 0.1844 Time: 458.107
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [495/1041] Loss: 0.1175 Time: 459.641
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [528/1041] Loss: 0.0950 Time: 461.178
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [561/1041] Loss: 0.1963 Time: 462.715
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [594/1041] Loss: 0.1787 Time: 464.253
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [627/1041] Loss: 0.1239 Time: 465.788
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [660/1041] Loss: 0.0976 Time: 467.326
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [693/1041] Loss: 0.1593 Time: 468.864
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [726/1041] Loss: 0.1300 Time: 470.402
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [759/1041] Loss: 0.1190 Time: 471.938
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [792/1041] Loss: 0.1260 Time: 473.473
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [825/1041] Loss: 0.1438 Time: 475.011
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [858/1041] Loss: 0.1240 Time: 476.546
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [891/1041] Loss: 0.1810 Time: 478.079
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [924/1041] Loss: 0.1160 Time: 479.613
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [957/1041] Loss: 0.1161 Time: 481.147
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [990/1041] Loss: 0.1493 Time: 482.681
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [1023/1041] Loss: 0.1846 Time: 484.217
+#### TRAINED MODEL PARA_CNN_LSTM model training time: 533.621 total training time: 1363.579 ####
+#### TRAINING MODEL Simple_CNN ####
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [33/1041] Loss: 0.1009 Time: 79.121
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [66/1041] Loss: 0.0963 Time: 79.396
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [99/1041] Loss: 0.1376 Time: 79.672
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [132/1041] Loss: 0.1537 Time: 79.948
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [165/1041] Loss: 0.1491 Time: 80.224
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [198/1041] Loss: 0.0952 Time: 80.5
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [231/1041] Loss: 0.1352 Time: 80.776
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [264/1041] Loss: 0.1431 Time: 81.052
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [297/1041] Loss: 0.1694 Time: 81.328
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [330/1041] Loss: 0.1210 Time: 81.603
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [363/1041] Loss: 0.1478 Time: 81.879
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [396/1041] Loss: 0.1226 Time: 82.155
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [429/1041] Loss: 0.1642 Time: 82.431
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [462/1041] Loss: 0.1403 Time: 82.707
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [495/1041] Loss: 0.1322 Time: 82.983
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [528/1041] Loss: 0.1162 Time: 83.259
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [561/1041] Loss: 0.1353 Time: 83.534
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [594/1041] Loss: 0.1150 Time: 83.81
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [627/1041] Loss: 0.1045 Time: 84.185
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [660/1041] Loss: 0.1584 Time: 84.461
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [693/1041] Loss: 0.1233 Time: 84.737
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [726/1041] Loss: 0.0844 Time: 85.013
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [759/1041] Loss: 0.1328 Time: 85.289
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [792/1041] Loss: 0.1401 Time: 85.565
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [825/1041] Loss: 0.1522 Time: 85.841
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [858/1041] Loss: 0.1805 Time: 86.117
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [891/1041] Loss: 0.1441 Time: 86.394
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [924/1041] Loss: 0.1292 Time: 86.67
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [957/1041] Loss: 0.1637 Time: 86.946
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [990/1041] Loss: 0.1205 Time: 87.222
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [1023/1041] Loss: 0.1054 Time: 87.498
+#### TRAINED MODEL Simple_CNN model training time: 96.364 total training time: 1459.943 ####
+#### TRAINING MODEL Simple_LSTM ####
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [33/1041] Loss: 0.1050 Time: 364.968
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [66/1041] Loss: 0.2251 Time: 366.247
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [99/1041] Loss: 0.1639 Time: 367.528
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [132/1041] Loss: 0.1583 Time: 368.807
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [165/1041] Loss: 0.1694 Time: 370.089
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [198/1041] Loss: 0.1980 Time: 371.47
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [231/1041] Loss: 0.1637 Time: 372.751
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [264/1041] Loss: 0.2200 Time: 374.033
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [297/1041] Loss: 0.1745 Time: 375.314
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [330/1041] Loss: 0.1889 Time: 376.594
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [363/1041] Loss: 0.1476 Time: 377.876
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [396/1041] Loss: 0.1413 Time: 379.156
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [429/1041] Loss: 0.1810 Time: 380.437
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [462/1041] Loss: 0.1906 Time: 381.718
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [495/1041] Loss: 0.1570 Time: 382.998
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [528/1041] Loss: 0.0946 Time: 384.278
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [561/1041] Loss: 0.1750 Time: 385.558
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [594/1041] Loss: 0.1683 Time: 386.841
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [627/1041] Loss: 0.1944 Time: 388.119
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [660/1041] Loss: 0.1885 Time: 389.401
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [693/1041] Loss: 0.2015 Time: 390.685
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [726/1041] Loss: 0.2233 Time: 391.966
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [759/1041] Loss: 0.1235 Time: 393.248
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [792/1041] Loss: 0.1329 Time: 394.529
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [825/1041] Loss: 0.1842 Time: 395.81
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [858/1041] Loss: 0.1382 Time: 397.09
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [891/1041] Loss: 0.1787 Time: 398.372
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [924/1041] Loss: 0.1043 Time: 399.653
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [957/1041] Loss: 0.1704 Time: 400.934
+#### prediction torch.Size([192, 4])
+Epoch [10/11] Step [990/1041] Loss: 0.1896 Time: 402.216
+#### prediction torch.Size([192, 4])
