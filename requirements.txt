@@ -1,11 +1,13 @@
+torch==2.7.1+cu118 --find-links https://download.pytorch.org/whl/torch_stable.html
+torchvision==0.22.1+cu118 --find-links https://download.pytorch.org/whl/torch_stable.html
+torchaudio==2.7.1+cu118 --find-links https://download.pytorch.org/whl/torch_stable.html
+joblib
 pandas
 numpy
-matplotlib
-seaborn
-joblib
-torch
 scikit-learn
 tslearn
+scikit-maad
+matplotlib
+seaborn
 librosa
 noisereduce
-scikit-maad
