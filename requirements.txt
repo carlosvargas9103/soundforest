@@ -1,11 +1,20 @@
-torch==2.7.1+cu118 --find-links https://download.pytorch.org/whl/torch_stable.html
-torchvision==0.22.1+cu118 --find-links https://download.pytorch.org/whl/torch_stable.html
-torchaudio==2.7.1+cu118 --find-links https://download.pytorch.org/whl/torch_stable.html
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cu118
+
+# PyTorch CUDA 11.8
+torch==2.7.1
+torchvision==0.22.1
+torchaudio==2.7.1
+
+# tslearn (PyPI)
+tslearn==0.6.3
+
+# everything else..
 joblib
 pandas
 numpy
+scipy
 scikit-learn
-tslearn
 scikit-maad
 matplotlib
 seaborn
