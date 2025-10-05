@@ -14,8 +14,9 @@
 # --ntasks-per-node=2
 # --gres=gpu:1
 
-module load gcc python
+module purge
+module load gcc cuda miniconda3
+eval "$(conda shell.bash hook)"
+conda activate py311f
 
-source ~/repos/forests-sounds-vargas/venvs/py310f/bin/activate
-
-cd ~/repos/forests-sounds-vargas/source && python3 check_gpu.py
+cd ~/forests-sounds-vargas && python3 check_gpu.py
