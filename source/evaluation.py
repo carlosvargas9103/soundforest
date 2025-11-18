@@ -309,11 +309,14 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
         def plot_combined_ac_group_models(ac_filter, label, filename, *, int_fixed_indices: int = int_fixed_indices,
                                           models_to_include=None):
             subset_values = [10, 11, 12, 13]  # num_indices
+            subset_values = [12]  # num_indices
             n = len(subset_values)
             nrows, ncols = 2, 2
+            nrows, ncols = 1, 1
             # nrows, ncols = 3, 3
             fig, axes = plt.subplots(nrows, ncols, figsize=(6 * ncols, 5.5 * nrows), sharey=True)
-            axes = axes.flatten()
+            # axes = axes.flatten()
+            axes = np.array([axes]).flatten()
 
             legend_handles = None
 
@@ -380,7 +383,9 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
                     bbox_to_anchor=(0.5, 0.01),  # Adjust vertical position as needed
                     ncol=len(labels),
                     title='Model',
-                    frameon=False
+                    frameon=False,
+                    fontsize=9,  # <-- smaller text
+                    title_fontsize=10
                 )
 
             # ax.yaxis.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
@@ -388,14 +393,16 @@ def evaluation_soundscapes(files_path: List[Tuple[str, str]] = [],
             if label.lower() != 'all':
                 fig.suptitle(f"Individual Contribution of Each EAI to Model Performance ({label.upper()} 79% AC)", fontsize=16)
             else:
-                fig.suptitle("Individual Contribution of Each EAI to Model Performance", fontsize=16)
+                fig.suptitle("Contribution of Each EAI to Model Performance", fontsize=16)
 
-            fig.savefig(f'{path_data_in}{filename}', dpi=369)
+            fig.savefig(f'{path_data_in}{filename}', dpi=963)
             plt.close(fig)
             print(f"Saved: {filename}")
 
         selected_models = ["PARA_CNN_LSTM", "Simple_CNN", "SEQ_CNN_LSTM", "SEQ_LSTM_CNN"]
-        plot_combined_ac_group_models(df['AC'] > 0, 'all', 'combined_chart_AC_all_selected_models_10_13.png',
+        # plot_combined_ac_group_models(df['AC'] > 0, 'all', 'combined_chart_AC_all_selected_models_10_13.png',
+                                      # models_to_include=selected_models)
+        plot_combined_ac_group_models(df['AC'] > 0, 'all', 'combined_chart_AC_all_selected_models_12.png',
                                       models_to_include=selected_models)
 
         def plot_grouped_per_eai_per_model(ac_filter, label, filename, *, int_fixed_indices: int = int_fixed_indices,
