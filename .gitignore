@@ -19,6 +19,7 @@ audio_files_*.csv
 *.pkl
 *.OLD.ipynb
 *.zip
+*.gz
 
 # PDFs
 *PROFE*
