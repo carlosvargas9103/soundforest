@@ -67,9 +67,9 @@ print('PATH', cwd)
 # TASKS = [Task.MODELLING]
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION, Task.MODELLING]
-# TASKS = [Task.EXTRACTION]
+TASKS = [Task.EXTRACTION]
 # TASKS = [Task.EXTRACTION, Task.MODELLING]
-TASKS = [Task.MODELLING]
+# TASKS = [Task.MODELLING]
 
 METRIC_NAMES = [
     Metrics.REGION,  # mandatory
@@ -462,7 +462,8 @@ def main():
                 # READ audio_files to process
                 configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                                for dirpath, dirnames, files in os.walk(path_data)
-                               for f in files if f.endswith('.mp3')]
+                               for f in files if f.lower().endswith(('.wav'))]
+                               # for f in files if f.lower().endswith(('.mp3', '.wav'))]
                 print(path_data, path_out, configfiles[:3])
                 audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
                 audio_files = audio_files.assign(processed=False)
@@ -483,7 +484,7 @@ def main():
                 try:
                     for i, f in audio_files.iterrows():
                         if bool(f.processed):
-                            print('ALREADY PROCESED:', f.filename)
+                            print('ALREADY PROCESSED:', f.filename)
                             continue
                         t11 = time.time()
                         print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
