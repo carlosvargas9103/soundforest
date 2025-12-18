@@ -68,7 +68,7 @@ print('PATH', cwd)
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION, Task.MODELLING]
 TASKS = [Task.EXTRACTION]
-# TASKS = [Task.EXTRACTION, Task.MODELLING]
+TASKS = [Task.EXTRACTION, Task.MODELLING]
 # TASKS = [Task.MODELLING]
 
 METRIC_NAMES = [
@@ -274,7 +274,7 @@ def get_args():
         "-sota",
         "--model-sota",
         type=int,
-        default=0,
+        default=00,
         required=False,
         help="SOTA model to train",
     )
@@ -458,11 +458,12 @@ def main():
                       len(Metrics.list()), '####')
                 t00 = time.time()
                 path_data = args.path_in
-                folders_in, f_pattern_out, f_ext_in = 'files_in', 'extraction', ''
+                # folders_in, f_pattern_out, f_ext_in = 'files_in', 'extraction', '.mp3'
+                folders_in, f_pattern_out, f_ext_in = 'files_in', 'extraction', '.wav'
                 # READ audio_files to process
                 configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
                                for dirpath, dirnames, files in os.walk(path_data)
-                               for f in files if f.lower().endswith(('.wav'))]
+                               for f in files if f.lower().endswith((f_ext_in))]
                                # for f in files if f.lower().endswith(('.mp3', '.wav'))]
                 print(path_data, path_out, configfiles[:3])
                 audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)

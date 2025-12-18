@@ -411,20 +411,23 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             dict_models = {
                 # DUAL-MODELS
-                00: [cnn_lstm],
-                10: [lstm_cnn],
-                11: [cnn_lstm, lstm_cnn],
-                12: [cnn_lstm_parallel],
-                22: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
+                11: [cnn_lstm],
+                12: [lstm_cnn],
+                13: [cnn_lstm_parallel],
+                # MULTIPLE MODELS PER JOB
+                14: [cnn_lstm, lstm_cnn],
+                15: [cnn_lstm, cnn_lstm_parallel],
+                16: [lstm_cnn, cnn_lstm_parallel],
+                17: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
                 # SIMPLE-MODELS
-                23: [simple_svm],
-                24: [simple_lstm],
-                25: [simple_cnn],
-                26: [simple_cnn, simple_lstm, simple_svm]
+                22: [simple_svm],
+                23: [simple_lstm],
+                24: [simple_cnn],
+                25: [simple_cnn, simple_lstm, simple_svm]
             }
             # models = dict_models.get(22, [cnn_lstm])
-            # models = dict_models.get(00, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
-            models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(26, [simple_cnn, simple_lstm, simple_svm])
+            # models = dict_models.get(11, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
+            models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(00, [cnn_lstm])
 
             #### TRAIN ####
             num_epochs = n_epochs

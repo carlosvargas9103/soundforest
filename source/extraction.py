@@ -165,7 +165,7 @@ def bootstrap_soundscape(audio_file: str = '',
                          bandwidth: int = 1000,
                          path_data: str = '',
                          path_out: str = '',
-                         samples_s: int = 1800,
+                         samples_s: int = 1800, # this needs to be self-calculated
                          isamples_s: int = 3,
                          secs_b: int = 6,
                          secs_o: int = 1.9,
@@ -195,14 +195,14 @@ def bootstrap_soundscape(audio_file: str = '',
     # [1800 / 1 => per 1 sec, 1800 / 3 => per 3 sec, 1800 / 30 => per 30 sec, 1800 / 60 => per 60 sec]
     # NUMBERS 48000 3 1800 6
     # print('NUMBERS', sr, isamples_s, samples_s, secs_b)
-    my_chunks = samples_s / secs_b
-    split_y = np.hsplit(y_c, my_chunks)
-
-    print('####', 'CHUNKS Y_C',
-          f'total_chunks: {len(split_y)}',
-          f'chunk_size: {len(split_y[0])}',
-          type(split_y), type(split_y[0])
-          )
+    # my_chunks = samples_s / secs_b
+    # split_y = np.hsplit(y_c, my_chunks)
+    #
+    # print('####', 'CHUNKS Y_C',
+    #       f'total_chunks: {len(split_y)}',
+    #       f'chunk_size: {len(split_y[0])}',
+    #       type(split_y), type(split_y[0])
+    #       )
 
     # secs_b: int = 6, secs_o: int = 1.9,
     frame_size, hop_size = sr * secs_b, int(sr * (secs_b - secs_o))
@@ -373,32 +373,12 @@ def bootstrap_soundscape(audio_file: str = '',
     # print(df_m.head(3), df_m.shape)
     # exit()
 
-    # TODO: Pipeline DONE!
-    # TODO: MODELLING - DONE!
-    # TODO: Continuing with the pre-processing - - DONE!
-    #   3. Compute the mean, medium, max, min, distance, etc.. - DONE!
-    #   3.6. Compute the BIO-ACOUSTIC indexes, etc.. - DONE!
-    #   4. Transform the data => filters, envelope, pitch, etc.. - DONE!
-    #   4.1. These transformations need to be included here in the extraction module - DONE!
-    # TODO: Activation function (Sigmoid) - DONE!
-    # #### # ####
-    # TODO: Extract the Benchmark from Giacomo => SVM - DONE!
-    #   6. PLOTS the distribution or each frequency against a metric per region - DONE!
-    # TODO: Evaluation Metrics for classification => Table & Matrix - DONE!
-    # TODO: Reduce the time of the samples - DONE!
-    # TODO: Next meeting => 09.09.2025!
+    # TODO: Confusion Matrix for classification => Table & Matrix - Pending!
 
     file_name_name = os.path.splitext(os.path.basename(audio_file))[0]
     df_m.to_pickle(
         f'{path_out}data/{f_pattern_out}/{region}/{file_name_name}_dict_y_split_{si}_{job_id}_{int(time.time())}.pkl'
     )
-
-    # df_m.to_csv(
-    #     f'{path_out}data/{f_pattern_out}/{region}/{audio_file.split("/")[-1][:-4]}_dict_y_split_{si}_{job_id}_{int(time.time())}.csv',
-    #     sep=';')
-
-    # exit()
-
     print('#### TIMES #### extraction TOTAL TOTAL ==>>', round(time.time() - t00, 3))
 
 

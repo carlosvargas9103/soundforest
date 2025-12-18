@@ -113,7 +113,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Fixed part: always included
     start_combi, end_combi = s_combi, e_combi  # 424
-    i_fix_metrics = 12 # 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
+    i_fix_metrics = 15 # 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
@@ -231,21 +231,6 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             # exit()
 
             t0 = time.time()
-
-            #### MODELS ####
-            # model 1: SEQ => CNN >> LSTM
-            # model 2: SEQ => LSTM >> CNN
-            # model 3: PARALLEL => CNN || LSTM
-            #### SIMPLE MODELS ####
-            # model 4: Simple CNN
-            # model 5: Simple LSTM
-            # model 6: Simple SVM
-            #### SIMPLE MODELS ####
-            # model 7:
-            # model 8:
-            # model 9:
-            # model 10:
-            # model 11:
 
             # model 1: SEQ => CNN >> LSTM
             class SEQ_CNN_LSTM(nn.Module):
