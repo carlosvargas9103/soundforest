@@ -80,18 +80,18 @@ METRIC_NAMES = [
     Metrics.MEDIAN,
     Metrics.SUM,
     Metrics.MAX,
-    # Metrics.MIN,
-    # Metrics.ACOUSTIC_COMPLEXITY,
-    # Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
-    # Metrics.ACOUSTIC_DIVERSITY,
+    Metrics.MIN,
+    Metrics.ACOUSTIC_COMPLEXITY,
+    Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
+    Metrics.ACOUSTIC_DIVERSITY,
     Metrics.BIOACOUSTIC_INDEX_BETA,
-    # Metrics.TEMPORAL_MEDIAN,
+    Metrics.TEMPORAL_MEDIAN,
     Metrics.NUMBER_PEAKS,
     Metrics.ENTROPY_FREQUENCY,
     Metrics.ENTROPY_TEMPORAL,
-    # Metrics.ENTROPY,
-    Metrics.ACOUSTIC_EVENNESS
-    # Metrics.SOUNDSCAPE_INDEX
+    Metrics.ENTROPY,
+    Metrics.ACOUSTIC_EVENNESS,
+    Metrics.SOUNDSCAPE_INDEX
 ]
 
 
