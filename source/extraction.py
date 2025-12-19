@@ -23,6 +23,61 @@ import numpy as np
 
 from enum import Enum, unique
 
+
+@unique
+class SoundscapeRegion(Enum):
+    Unknown = 0
+    Noise = 1
+    Engine = 2
+    MachineryImpact = 3
+    NonMachineryImpact = 4
+    PoweredSaw = 5
+    AlertSignal = 6
+    Music = 7
+    HumanVoice = 8
+    Dog = 9
+    Plantation = 10
+    Pasture = 11
+    NaturalRegeneration = 12
+    RefForest = 13
+
+    def __repr__(self):
+        return str(self._value_)
+
+    def __str__(self):
+        return str(self._value_)
+
+    def __hash__(self):
+        return hash(self._value_)
+
+    def __eq__(self, other):
+        if isinstance(other, SoundscapeRegion):
+            return self._value_ == other._value_
+        return self._value_ == other
+
+    @classmethod
+    def list(cls):
+        return [c.value for c in cls]
+
+    @classmethod
+    def get(cls, value: str, default: "SoundscapeRegion" = None) -> int:
+        if default is None:
+            default = cls.Unknown
+
+        if not isinstance(value, str):
+            return default.value
+
+        key = value.strip()
+        if key in cls.__members__:
+            return cls[key].value
+
+        key = value.strip().lower()
+        mapping = {k.lower(): v.value for k, v in cls.__members__.items()}
+        return mapping.get(key, cls.Unknown.value)
+
+        return default.value
+
+
 @unique
 class Metrics(Enum):  # The metrics to train the predictive models
     REGION = 'reg'
@@ -57,7 +112,7 @@ class Metrics(Enum):  # The metrics to train the predictive models
         return hash(self._value_)
 
     def __eq__(self, other):
-        return self._value_==other._value_ if isinstance(other, Metrics) else self._value_==other.__str__()
+        return self._value_ == other._value_ if isinstance(other, Metrics) else self._value_ == other.__str__()
 
     @classmethod
     def list(cls):
@@ -86,34 +141,13 @@ random.seed("9103")
 def get_audio_indices(s=None, fs: int = 0,
                       apply_filter: bool = False, start_freqs: int = 0, end_freqs: int = 10000
                       ) -> Tuple[float]:
-    """
-    Load an audio file, optionally apply a bandstop filter, and calculate various acoustic indices.
-
-    Parameters:
-    - file_name: string, path to the audio file.
-    - apply_filter: boolean, indicates if a bandstop filter should be applied.
-    - start_freqs: list of floats, start frequencies for the bandstop filters, used if apply_filter is True.
-    - end_freqs: list of floats, end frequencies for the bandstop filters, used if apply_filter is True.
-
-    Returns:
-    - indices: list, containing the file name and computed acoustic indices or np.nan in case of an error.
-    """
-
-    # Load the audio file and compute the spectrogram
-    # s, fs = torchaudio.load(str(file_name))
-    # s, fs = torchaudio.load(str(file_name))
-    # if s.size()[0] != 1:
-    #     s = torch.unsqueeze(s[0, :], 0)
-
     # If filtering is applied, filter the signal before computing the spectrogram
     if apply_filter and start_freqs is not None and end_freqs is not None:
         s_filtered = butter_bandstop_filter(s.numpy()[0, :], start_freqs, end_freqs, fs)
         s = torch.tensor(s_filtered.copy()[None, :])  # Add a new axis to make it 2D again
         rms = np.sqrt(np.mean(np.square(s.numpy()[0, :])))
         s = s / rms  # Normalize the signal
-        # Sxx, tn, fn, ext = sound.spectrogram(s[0, :], fs, mode='amplitude')
         Sxx, tn, fn, ext = sound.spectrogram(s, fs, mode='amplitude')
-        # Sxx_power, _, _, _ = sound.spectrogram(s[0, :], fs)
         Sxx_power, _, _, _ = sound.spectrogram(s, fs)
         ADI = 0
         AEI = 0
@@ -123,36 +157,24 @@ def get_audio_indices(s=None, fs: int = 0,
 
     # Compute the spectrogram
     if apply_filter == False:
-        # Sxx, tn, fn, ext = sound.spectrogram(s[0, :], fs, mode='amplitude')
         Sxx, tn, fn, ext = sound.spectrogram(s, fs, mode='amplitude')
-        # Sxx_power, _, _, _ = sound.spectrogram(s[0, :], fs)
         Sxx_power, _, _, _ = sound.spectrogram(s, fs)
         ADI = features.acoustic_diversity_index(Sxx, fn)  # , fmax=int(fs / 2), dB_threshold=-40)
         AEI = features.acoustic_eveness_index(Sxx, fn)  # , fmax=int(fs / 2), dB_threshold=-40)
-        # maad.features.acoustic_richness_index (PENDING)
+        # maad.features.acoustic_richness_index (PENDING) # TODO: Calculate maad.features.acoustic_richness_index
 
     # Calculate acoustic indices
     ACIft_ = indices.ACIft(Sxx)
-    _, _, ACI = features.acoustic_complexity_index(Sxx) # TODO: Include this into the return
+    _, _, ACI = features.acoustic_complexity_index(Sxx)  # TODO: Include this into the return
     BETA = features.bioacoustics_index(Sxx, fn, flim=(2000, 8000))
-    # M = features.temporal_median(s[0, :], mode='hilbert')
     M = features.temporal_median(s, mode='hilbert')
     NP = features.number_of_peaks(Sxx_power, fn)  # , slopes=6, min_freq_dist=100, display=False)
     Hf, _ = features.frequency_entropy(Sxx_power)
-    # Ht = features.temporal_entropy(s.numpy()[0, :], mode='hilbert')
-    # Ht = features.temporal_entropy(s.numpy()[:], mode='hilbert')
     Ht = features.temporal_entropy(s, mode='hilbert')
     H = Ht * Hf
     NDSI, _, _, _ = features.soundscape_index(Sxx_power, fn, flim_bioPh=(0, 10000), flim_antroPh=(0, 1000))
 
-    # Compile all indices into a list
-    # acoustic_indices = [ACIft_, ADI, BETA, M, NP, H, AEI, NDSI]
-    # print('INDICES', ACIft_, ADI, BETA, M, NP, H, AEI, NDSI)
     return (ACIft_, ADI, BETA, M, NP, Hf, Ht, H, AEI, NDSI)
-
-    # Include file name information in the indices list
-    # file_info = [str(file_name).split('/')[-1], str(file_name).split('/')[-2]]
-    # return file_info + acoustic_indices
 
 
 def bootstrap_soundscape(audio_file: str = '',
@@ -165,7 +187,7 @@ def bootstrap_soundscape(audio_file: str = '',
                          bandwidth: int = 1000,
                          path_data: str = '',
                          path_out: str = '',
-                         samples_s: int = 1800, # this needs to be self-calculated
+                         samples_s: int = 1800,  # this needs to be self-calculated
                          isamples_s: int = 3,
                          secs_b: int = 6,
                          secs_o: int = 1.9,
@@ -179,7 +201,7 @@ def bootstrap_soundscape(audio_file: str = '',
                          horas: int = 30,
                          metric_names: List[str] = Metrics.list()
                          ) -> None:
-    d_re = {'NaturalRegeneration': 0, 'Pasture': 1, 'Plantation': 2, 'RefForest': 3}
+    # d_re = {'NaturalRegeneration': 0, 'Pasture': 1, 'Plantation': 2, 'RefForest': 3}
     # print(f'{si} - audio_file: {audio_file} - region: {region}')
     # PARALLEL JOBS PER FILE
     y, y_c = None, None
@@ -333,7 +355,7 @@ def bootstrap_soundscape(audio_file: str = '',
     # NOTE: Calculate ALL THE POSSIBLE INDICES. Then, subsample in MODELLING!!!!
     metrics_y_seconds_bandas = [
         {
-            Metrics.REGION: d_re.get(region, 0),  # CLASS (INT) 4
+            Metrics.REGION: SoundscapeRegion.get(region),  # d_re.get(region, 0),  # CLASS (INT) 4
             Metrics.SOUNDSCAPE_ID: si,  # audio_file_id
             Metrics.SECOND: s,  # TIME (int) 0 - 6 => DONT NEED!?? - SUNDAY (05.01.25)!
             Metrics.BAND_ID: b,  # BAND (int) 0 - 9  => TODO: Consider 10-bands at once - MONDAY (22.01.25)!
@@ -343,7 +365,7 @@ def bootstrap_soundscape(audio_file: str = '',
             Metrics.MAX: np.max(f),  # MAX of the FRAME (float)
             Metrics.MIN: np.min(f),  # MIN of the FRAME (float)
             Metrics.ACOUSTIC_COMPLEXITY: band_acift(f),  # Acoustic Complexity Index per band-split (float)
-            Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE: split_y_indices[s, 0], # TODO: Check for the alternative
+            Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE: split_y_indices[s, 0],  # TODO: Check for the alternative
             Metrics.ACOUSTIC_DIVERSITY: split_y_indices[s, 1],
             Metrics.BIOACOUSTIC_INDEX_BETA: split_y_indices[s, 2],
             Metrics.TEMPORAL_MEDIAN: split_y_indices[s, 3],
@@ -354,13 +376,12 @@ def bootstrap_soundscape(audio_file: str = '',
             Metrics.ACOUSTIC_EVENNESS: split_y_indices[s, 8],
             Metrics.SOUNDSCAPE_INDEX: split_y_indices[s, 9],
             Metrics.VECTOR_VEC: f  # FRAME (npArray[float]) 438 x 10 bands => 6000 each vec => 6 secs x 1000 samples_sec
-         } for s in range(0, len(split_y_split_bands)) for b in range(0, bandas)
+        } for s in range(0, len(split_y_split_bands)) for b in range(0, bandas)
     ]
 
     print('####', 'TIMES', '####', 'DICT_VECTOR:', round(time.time() - t1, 3))
 
     # exit()
-
     # <class 'numpy.ndarray'> 10
     # <class 'numpy.ndarray'> 484 => 1800 (30min) / 10x484 = ~3.6 seconds
     df = pd.DataFrame(metrics_y_seconds_bandas)

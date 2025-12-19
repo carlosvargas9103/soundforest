@@ -104,7 +104,7 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     model_path = f'{path_out}data/{f_pattern_out}/'
     t0 = time.time()
     df_data = None
-    ncols = 6016
+    # ncols = 6016
     accuracy_dict = {}
 
     # SOME CONFIG ####
@@ -113,7 +113,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
     # Fixed part: always included
     start_combi, end_combi = s_combi, e_combi  # 424
-    i_fix_metrics = 15 # 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
+    #### INDICES 20 => [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi]
+    i_fix_metrics = 21 # 7  # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
@@ -212,7 +213,8 @@ def sota_train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             num_layers = 2
             # label_column = df_data.columns[0]  # target label
             unique_classes = np.unique(np.concatenate((y_train, y_test)))
-            num_classes = 4 if len(unique_classes) <= 4 else len(unique_classes)
+
+            num_classes = 4 if (len(unique_classes) <= 4) else len(unique_classes)
             # num_classes = num_classes if num_classes >= 4 else num_classes + 1
             print('####', 'CLASSES:', unique_classes, 'TOTAL', num_classes)
 
