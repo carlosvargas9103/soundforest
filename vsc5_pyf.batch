@@ -26,4 +26,4 @@ export NUMEXPR_NUM_THREADS=1
 
 srun --cpu-bind=cores pip install -r requirements.txt
 
-cd ~/forests-sounds-vargas/source && srun --cpu-bind=cores python3 forest.py
+cd ~/forests-sounds-vargas/source && srun --cpu-bind=cores python3 forest.py -sota 00
