@@ -1,5 +1,5 @@
 ;region;filename;processed
-0;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/32_009482.wav;False
+0;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/32_009482.wav;True
 1;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/41_010965.wav;True
 2;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/29_009703.wav;True
 3;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/34_020906.wav;True
@@ -5650,7 +5650,7 @@
 5648;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/31_010385.wav;True
 5649;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/15_003461.wav;True
 5650;Engine;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Engine/06_016840.wav;True
-5651;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3;False
+5651;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_06_PSA0087-2013.mp3;True
 5652;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_14_PSA0289-2012.mp3;True
 5653;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_04_PSA0078-2013.mp3;True
 5654;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_10_PSA0189-2007.mp3;True
@@ -5672,7 +5672,7 @@
 5670;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_09_PSA0096-2013.mp3;True
 5671;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_08_PSA0095-2013.mp3;True
 5672;Plantation;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Plantation/2_05_PSA0093-2010.mp3;True
-5673;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3;False
+5673;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_08_PSA0132-2013.mp3;True
 5674;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_03_PSA0042-2017.mp3;True
 5675;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_01_PSA0009-2018.mp3;True
 5676;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_04_PSA0051-2018.mp3;True
@@ -5693,7 +5693,7 @@
 5691;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_11_PSA0159-2020.mp3;True
 5692;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_18_PSA0341-2012.mp3;True
 5693;NaturalRegeneration;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NaturalRegeneration/1_19_PSA0418-2013.mp3;True
-5694;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/07_005896.wav;False
+5694;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/07_005896.wav;True
 5695;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/29_005975.wav;True
 5696;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/04_011148.wav;True
 5697;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/27_001359.wav;True
@@ -6810,7 +6810,7 @@
 6808;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/25_007807.wav;True
 6809;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/37_001552.wav;True
 6810;PoweredSaw;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/PoweredSaw/02_003782.wav;True
-6811;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/24_016311.wav;False
+6811;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/24_016311.wav;True
 6812;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/06_017844.wav;True
 6813;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/31_018499.wav;True
 6814;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/32_016887.wav;True
@@ -7655,10 +7655,10 @@
 7653;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/05_008055.wav;True
 7654;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/05_004275.wav;True
 7655;Music;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Music/05_026915.wav;True
-7656;RefForest;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3;False
+7656;RefForest;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/RefForest/0_01_RefForest4.mp3;True
 7657;RefForest;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/RefForest/0_00_RefForest1.mp3;True
 7658;RefForest;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/RefForest/0_02_RefForest5.mp3;True
-7659;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/07_017361.wav;False
+7659;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/07_017361.wav;True
 7660;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/39_005195.wav;True
 7661;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/18_017930.wav;True
 7662;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/34_005944.wav;True
@@ -10103,7 +10103,7 @@
 10101;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/04_005807.wav;True
 10102;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/00_017736.wav;True
 10103;AlertSignal;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/AlertSignal/29_012164.wav;True
-10104;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/40_001780.wav;False
+10104;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/40_001780.wav;True
 10105;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/37_011024.wav;True
 10106;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/09_001321.wav;True
 10107;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/40_011870.wav;True
@@ -11940,7 +11940,7 @@
 11938;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/06_018945.wav;True
 11939;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/40_011388.wav;True
 11940;MachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/MachineryImpact/37_002037.wav;True
-11941;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3;False
+11941;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_10_Pasture9.mp3;True
 11942;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_03_Pasture2.mp3;True
 11943;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_08_Pasture6.mp3;True
 11944;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_04_Pasture3.mp3;True
@@ -11951,7 +11951,7 @@
 11949;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_05_Pasture4.mp3;True
 11950;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_07_Pasture5.mp3;True
 11951;Pasture;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Pasture/3_06_Pasture5.mp3;True
-11952;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/29_008005.wav;False
+11952;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/29_008005.wav;True
 11953;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/35_001875.wav;True
 11954;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/37_004440.wav;True
 11955;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/37_002497.wav;True
@@ -13234,7 +13234,7 @@
 13232;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/11_005979.wav;True
 13233;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/06_008120.wav;True
 13234;Noise;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Noise/34_019214.wav;True
-13235;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/03_011267.wav;False
+13235;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/03_011267.wav;True
 13236;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/01_011111.wav;True
 13237;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/04_005263.wav;True
 13238;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/08_017618.wav;True
@@ -17141,7 +17141,7 @@
 17139;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/04_001241.wav;True
 17140;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/25_011610.wav;True
 17141;HumanVoice;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/HumanVoice/06_003588.wav;True
-17142;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/07_001232.wav;False
+17142;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/07_001232.wav;True
 17143;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/13_001340.wav;True
 17144;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/27_017322.wav;True
 17145;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/27_012430.wav;True
@@ -17878,7 +17878,7 @@
 17876;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/03_016391.wav;True
 17877;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/24_027705.wav;True
 17878;NonMachineryImpact;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/NonMachineryImpact/05_013093.wav;True
-17879;Dog;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Dog/01_007987.wav;False
+17879;Dog;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Dog/01_007987.wav;True
 17880;Dog;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Dog/01_011159.wav;True
 17881;Dog;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Dog/01_009119.wav;True
 17882;Dog;/home/cvargas/repos/epfl/thesis-epfl-ethz-tuwien/forests-sounds-vargas/data/Dog/01_010512.wav;True

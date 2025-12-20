@@ -22,7 +22,10 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 
-from extraction import Metrics as M
+from extraction import (
+    Metrics as M,
+    SoundscapeRegion as Region
+)
 
 import torch
 from torch.utils.data import DataLoader
@@ -211,17 +214,13 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             hidden_size = 128
             num_layers = 2
             # label_column = df_data.columns[0]  # target label
-            unique_classes = np.unique(np.concatenate((y_train, y_test)))
-
+            unique_classes = np.unique(np.concatenate(([Region.Unknown.value], y_train, y_test)))
             num_classes = 4 if (len(unique_classes) <= 4) else len(unique_classes)
-            print('####', 'CLASSES:', unique_classes, 'TOTAL', num_classes)
+            print('####', 'CLASSES', unique_classes, 'TOTAL', num_classes)
 
-            # batch_s = 64 if windows_13 else 128
             batch_s = 64 if windows_13 else 64
-            # batch_s = 32 if windows_13 else 32
-            # batch_s = 128 if windows_13 else 128
             batch_s = 192 if windows_13 else 192
-            # batch_s = 128 if windows_13 else 64
+
             train_loader = DataLoader(train_dataset, batch_size=batch_s, shuffle=True)
             test_loader = DataLoader(test_dataset, batch_size=batch_s, shuffle=False)
 
@@ -409,7 +408,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                           f'Step [{i + 1}/{len(train_loader)}]',
                                           f'Loss: {loss.item():.4f}',
                                           f'Time: {round(time.time() - t1, 3)}')
-                    # models sizes are ~200-500 MB
+                    # model serialisation
                     torch.save(
                         model.state_dict(),
                         f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.pth'
@@ -640,16 +639,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             accuracy_dict = test(models, test_loader, e=n_epochs, c=i_r_c)
             print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
-            # plot bar chart with the accuracy of each model
-            # sns.barplot(x=list(model_scores_dict.keys()), y=list(model_scores_dict.values()))
-
             with open(f'{model_path}000_models_accuracy_dict_EPOCHS_{num_epochs}_COMBI_{i_r_c}_'
                       f'JOBID_{job_id}_{str(datetime.date.today())}.json',
                       'w') as fp:
                 json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
-
-            # with open(f'{model_path}000_models_accuracy_dicttt_{job_id}_{str(datetime.date.today())}.json', 'w') as fp:
-            #    json.dump(accuracy_dicttt, fp, sort_keys=True, indent=4)
 
             print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
             print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
