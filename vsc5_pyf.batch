@@ -16,7 +16,7 @@
 module purge
 module load gcc cuda miniconda3
 eval "$(conda shell.bash hook)"
-conda activate py311f
+conda activate py311tf
 
 # Force libraries to stay single-threaded
 export OMP_NUM_THREADS=1
@@ -24,6 +24,7 @@ export MKL_NUM_THREADS=1
 export OPENBLAS_NUM_THREADS=1
 export NUMEXPR_NUM_THREADS=1
 
+srun --cpu-bind=cores pip install -U pip
 srun --cpu-bind=cores pip install -r requirements.txt
 
 cd ~/forests-sounds-vargas/source && srun --cpu-bind=cores python3 forest.py -sota 00
