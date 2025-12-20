@@ -31,7 +31,6 @@ from observation import process_soundscape
 from visualisation import visualise_soundscape, visualise_distribution
 from extraction import Metrics, bootstrap_soundscape
 from modelling import train_with_soundscapes
-from sota_modelling import sota_train_with_soundscapes
 
 
 # {'FOREST': 'FramewORk for Extraction, ViSualisation, and classificaTion of Soundscapes'}
@@ -91,7 +90,8 @@ METRIC_NAMES = [
     Metrics.ENTROPY_TEMPORAL,
     Metrics.ENTROPY,
     Metrics.ACOUSTIC_EVENNESS,
-    Metrics.SOUNDSCAPE_INDEX
+    Metrics.SOUNDSCAPE_INDEX,
+    Metrics.ACOUSTIC_RICHNESS
 ]
 
 
@@ -535,7 +535,7 @@ def main():
                     print(f'{i}/{len(configfiles)}', '########', '################', '################', '########')
                     print(i, '#### MODELLING ####', 'REGION:', '==>>', 'f.region', '<<==', 'DATA', '==>>',
                           "f.filename.split('/')[-1]")
-                    sota_train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
+                    train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
                                                 bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
                                                 path_data=path_data, path_out=path_out,
                                                 samples_s=samples_s, isamples_s=isamples_s,

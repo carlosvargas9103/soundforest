@@ -1,5 +1,4 @@
 import gc
-
 gc.collect()
 
 import os
@@ -25,15 +24,32 @@ import seaborn as sns
 
 from extraction import Metrics as M
 
-# >>>> import libraries for CNN >>>>
 import torch
-import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.optim import Adam
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
+
+# >>>> import libraries for SOTA >>>>
+
+# Create a CNN object designed to recognize 3-second samples
+# from opensoundscape import CNN
+import torch.nn as nn
+import torch.nn.functional as F
+from torchvision.models import (
+    resnet34, ResNet34_Weights,
+    vgg16, VGG16_Weights,
+    alexnet, AlexNet_Weights,
+    efficientnet_v2_s, EfficientNet_V2_S_Weights,
+    vit_b_16, ViT_B_16_Weights,
+    convnext_tiny, ConvNeXt_Tiny_Weights,
+    swin_t, Swin_T_Weights
+)
+
+# import torchvision.models as pymodels
+
 
 # <<< import libraries for CNN <<<<
 # primary source: https://github.com/mijanr/TimeSeries/blob/master/Time_Series_Classification/cnn_plus_lstm.ipynb
@@ -51,64 +67,72 @@ t00 = time.time()
 
 
 def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
-                           ncols: int = 6016, *,
-                           region: str = '',
-                           si: int = 1964,
-                           sr: int = 48000,
-                           b_band: int = 0,
-                           u_band: int = 10000,
-                           bandas: int = 10,
-                           bandwidth: int = 1000,
-                           path_data: str = '',
-                           path_out: str = '',
-                           samples_s: int = 1800,
-                           isamples_s: int = 3,
-                           secs_b: int = 6,
-                           secs_o: int = 1.9,
-                           hanning: bool = True,
-                           w_size_mins: float = 0.06,
-                           n_jobs: int = 1,
-                           job_id: str = 'NULL',
-                           verbose: bool = False,
-                           f_pattern_out: str = 'modelling',
-                           windows_13: bool = True,
-                           horas: int = 30,
-                           metric_names: List[str] = M.list(),
-                           dev_mode: bool = True,
-                           n_epochs: int = 11,
-                           df_stats: bool = False
-                           ) -> None:
+                                ncols: int = 6016, *,
+                                region: str = '',
+                                si: int = 1964,
+                                sr: int = 48000,
+                                b_band: int = 0,
+                                u_band: int = 10000,
+                                bandas: int = 10,
+                                bandwidth: int = 1000,
+                                path_data: str = '',
+                                path_out: str = '',
+                                samples_s: int = 1800,
+                                isamples_s: int = 3,
+                                secs_b: int = 6,
+                                secs_o: int = 1.9,
+                                hanning: bool = True,
+                                w_size_mins: float = 0.06,
+                                n_jobs: int = 1,
+                                job_id: str = 'NULL',
+                                verbose: bool = False,
+                                f_pattern_out: str = 'modelling',
+                                windows_13: bool = True,
+                                horas: int = 30,
+                                metric_names: List[str] = M.list(),
+                                dev_mode: bool = True,
+                                n_epochs: int = 11,
+                                df_stats: bool = False,
+                                m_sota: int = 0,
+                                s_combi: int = 0,
+                                e_combi: int = 9103
+                                ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
     t0 = time.time()
     df_data = None
-    ncols = 6016
-    accuracy_dict, accuracy_dicttt = {}, {}
+    # ncols = 6016
+    accuracy_dict = {}
 
     # SOME CONFIG ####
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
     os.environ['TORCH_USE_CUDA_DSA'] = "1"
 
     # Fixed part: always included
-    start_combi = 0 # 424
-    i_fix_metrics = 7 # [reg, sid, ban, sec, men, med, sum, max, aci, bet, mmm, npp, hfq, htp, hhh, aei]
+    start_combi, end_combi = s_combi, e_combi  # 424
+    #### INDICES 21 => [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr]
+    i_fix_metrics = 21 # [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr]
     fixed_part = metric_names[:i_fix_metrics]
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
     # Count total combinations
-    total_combi = sum(1 for r in range(1, len(variable_part) + 1) for _ in combinations(variable_part, r))
+    total_combi = sum(1 for r in range(1, len(variable_part) + 1) for _ in combinations(variable_part, r)) if variable_part else 1
     print('####', "COMBI", total_combi, '####', 'FIXED', len(fixed_part), 'VARIABLE', len(variable_part))
+
     # TOTAL combinations: 511
     # exit()
     i_r_c = 0
-    for r in range(1, len(variable_part) + 1):  # r = number of items in each combination
-        for combi_metrics in combinations(variable_part, r):
+    for r in range(len(variable_part) + 1):  # r = number of items in each combination
+        for indices_combination in combinations(variable_part, r):
             i_r_c += 1
-            if i_r_c <= start_combi:
+            if i_r_c < start_combi:
                 continue
-            combi_metric_names = fixed_part + list(combi_metrics)
+            elif i_r_c > end_combi:
+                break
+
+            all_indices_names = fixed_part + list(indices_combination)
             print('#### #### READING DATA FILES #### ####')
-            print(i_r_c, total_combi, '####', 'COMBI', combi_metric_names, 'METRICS', '####')
+            print(i_r_c, total_combi, '####', 'COMBI', all_indices_names, 'METRICS', '####')
             # continue
             # exit()
             try:
@@ -116,9 +140,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
                 df_data.columns = df_data.columns.map(str)
                 # include the scalar AND temporal features
-                # columns_to_train = combi_metric_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+                # columns_to_train = all_indices_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 # include the ONLY scalar features
-                columns_to_train = combi_metric_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
+                columns_to_train = all_indices_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 df_data = df_data[columns_to_train]
                 print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
                 # print(df_data.head(555))
@@ -145,9 +169,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 label_column = df_data.columns[0]  # target label
                 df_data_sampled, _ = train_test_split(
                     df_data,
-                    train_size=0.09103,
+                    train_size=semilla * 0.00001,
                     stratify=df_data[label_column],
-                    random_state=9103
+                    random_state=semilla
                 )
                 print('####', 'REDUCED subsampled shape:', df_data_sampled.shape)
                 X_train, X_test, y_train, y_test = train_test_split(
@@ -155,7 +179,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     df_data_sampled.iloc[:, 0],
                     test_size=0.2,
                     stratify=df_data_sampled.iloc[:, 0],  # to handle unbalanced classes
-                    random_state=9103
+                    random_state=semilla
                 )
             else:
                 X_train, X_test, y_train, y_test = train_test_split(
@@ -163,7 +187,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     df_data.iloc[:, 0],
                     test_size=0.2,
                     stratify=df_data.iloc[:, 0],  # to handle unbalanced classes
-                    random_state=9103
+                    random_state=semilla
                 )
 
             # exit()
@@ -186,9 +210,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             input_size = X_train.shape[-1]
             hidden_size = 128
             num_layers = 2
+            # label_column = df_data.columns[0]  # target label
             unique_classes = np.unique(np.concatenate((y_train, y_test)))
-            num_classes = 4 if len(unique_classes) <= 4 else len(unique_classes)
-            # num_classes = num_classes if num_classes >= 4 else num_classes + 1
+
+            num_classes = 4 if (len(unique_classes) <= 4) else len(unique_classes)
             print('####', 'CLASSES:', unique_classes, 'TOTAL', num_classes)
 
             # batch_s = 64 if windows_13 else 128
@@ -206,15 +231,6 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             # exit()
 
             t0 = time.time()
-
-            #### MODELS ####
-            # model 1: SEQ => CNN >> LSTM
-            # model 2: SEQ => LSTM >> CNN
-            # model 3: PARALLEL => CNN || LSTM
-            # model 4: Simple CNN
-            # model 5: Simple LSTM
-            # model 6: Simple SVM
-            #### MODELS ####
 
             # model 1: SEQ => CNN >> LSTM
             class SEQ_CNN_LSTM(nn.Module):
@@ -359,12 +375,15 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 criterion = nn.CrossEntropyLoss()
                 # PARALLEL ??
                 for model in models:
-                    if model.__class__.__name__ == "Simple_SVM":
+                    model_name = model.__class__.__name__
+                    if model_name == "SOTA_Model":
+                        model_name = model.backbone_name
+                    if model_name == "Simple_SVM":
                         criterion = nn.MultiMarginLoss()
                     t1 = time.time()
                     print('####',
                           'TRAINING MODEL',
-                          model.__class__.__name__,
+                          model_name,
                           '####')
                     model.train()
                     optimizer = Adam(model.parameters(), lr=0.001)
@@ -391,47 +410,178 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                           f'Loss: {loss.item():.4f}',
                                           f'Time: {round(time.time() - t1, 3)}')
                     # models sizes are ~200-500 MB
-                    # torch.save(model.state_dict(), f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.model')
+                    torch.save(
+                        model.state_dict(),
+                        f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.pth'
+                    )
                     print('####',
                           'TRAINED MODEL',
-                          model.__class__.__name__,
+                          model_name,
                           'model training time:', round(time.time() - t1, 3),
                           'total training time:', round(time.time() - t0, 3),
                           '####')
 
+            class SOTA_Model(nn.Module):
+                def __init__(self, backbone_name, base_model, input_size, num_classes, output_dim):
+                    super(SOTA_Model, self).__init__()
+                    self.backbone_name = backbone_name
+
+                    # Modify input conv layer depending on backbone
+                    if backbone_name.startswith("resnet") or backbone_name.startswith("resnext") or backbone_name.startswith(
+                            "regnet"):
+                        base_model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
+
+                    elif backbone_name.startswith("vgg") or backbone_name.startswith("alexnet"):
+                        features = list(base_model.features)
+                        if isinstance(features[0], nn.Conv2d) and features[0].in_channels == 3:
+                            features[0] = nn.Conv2d(1, features[0].out_channels,
+                                                    kernel_size=features[0].kernel_size,
+                                                    stride=features[0].stride,
+                                                    padding=features[0].padding)
+                            base_model.features = nn.Sequential(*features)
+
+                    elif backbone_name.startswith("efficientnet"):
+                        conv_stem = base_model.features[0][0]
+                        base_model.features[0][0] = nn.Conv2d(1, conv_stem.out_channels,
+                                                              kernel_size=conv_stem.kernel_size,
+                                                              stride=conv_stem.stride,
+                                                              padding=conv_stem.padding,
+                                                              bias=False)
+
+                    elif backbone_name.startswith("convnext"):
+                        conv_stem = base_model.features[0][0]
+                        base_model.features[0][0] = nn.Conv2d(1, conv_stem.out_channels,
+                                                              kernel_size=conv_stem.kernel_size,
+                                                              stride=conv_stem.stride,
+                                                              padding=conv_stem.padding,
+                                                              bias=False)
+
+                    else:
+                        raise NotImplementedError(f"{backbone_name} not yet supported.")
+
+                    # Extract features and custom classifier
+                    self.features = nn.Sequential(*list(base_model.children())[:-2])
+                    self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+                    self.fc = nn.Linear(output_dim, num_classes)
+
+                def forward(self, x):
+
+                    if self.backbone_name.startswith(("vgg", "resnet", "alexnet", "convnext_tiny")):
+                        # Convert to (B, C=1, H, W) if input is (B, T, F)
+                        if x.ndim == 3:
+                            x = x.permute(0, 2, 1).unsqueeze(1)  # e.g., (B, 1, F, T)
+                        # Resize to standard input size
+                        x = F.interpolate(x, size=(224, 224), mode='bilinear', align_corners=False)
+                    else:
+                        # Custom case, adjust as needed
+                        x = x.permute(0, 2, 1).unsqueeze(2)  # e.g., (B, C=1, 1, W)
+
+                    # x = x.permute(0, 2, 1).unsqueeze(3)  # (B, C=1, H=1, W)
+                    x = self.features(x)
+                    x = self.avgpool(x)
+                    x = x.view(x.size(0), -1)
+                    x = self.fc(x)
+                    return x
+
+            # Example model initializations (device and input_size must be defined)
+            sota_models = {
+                0: SOTA_Model(
+                    "resnet34",
+                    resnet34(weights=ResNet34_Weights.DEFAULT),
+                    input_size,
+                    num_classes,
+                    512
+                ).to(device),
+                1: SOTA_Model(
+                    "vgg16",
+                    vgg16(weights=VGG16_Weights.DEFAULT),
+                    input_size,
+                    num_classes,
+                    512
+                ).to(device),
+                2: SOTA_Model(
+                    # RuntimeError: CUDA error: an illegal memory access was encountered
+                    # Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+                    "alexnet",
+                    alexnet(weights=AlexNet_Weights.DEFAULT),
+                    input_size,
+                    num_classes,
+                    256
+                ).to(device),
+                3: SOTA_Model(
+                    "efficientnet_v2_s",
+                    efficientnet_v2_s(weights=EfficientNet_V2_S_Weights.DEFAULT),
+                    input_size,
+                    num_classes, 1280
+                ).to(device),
+                4: SOTA_Model(
+                    "convnext_tiny",
+                    convnext_tiny(weights=ConvNeXt_Tiny_Weights.DEFAULT),
+                    input_size,
+                    num_classes, 768
+                ).to(device)
+                # 5: SOTA_Model("swin_t", swin_t(weights=Swin_T_Weights.DEFAULT), input_size, num_classes, 768).to(device),
+                # 6: SOTA_Model("vit_b_16", vit_b_16(weights=ViT_B_16_Weights.DEFAULT), input_size, num_classes, 768).to(device),
+            }
+
+            class ResNet1D(nn.Module):
+                def __init__(self, resnet, input_size, num_classes):
+                    super(ResNet1D, self).__init__()
+                    self.resnet = resnet  # models.resnet34(pretrained=False)
+                    resnet.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 1), stride=(2, 1), padding=(3, 0), bias=False)
+                    self.features = nn.Sequential(*list(resnet.children())[:-2])
+                    self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+                    self.fc = nn.Linear(512, num_classes)  # 512 is output channels for resnet34
+
+                def forward(self, x):
+                    x = x.permute(0, 2, 1).unsqueeze(2)  # (batch_size, channels, 1, seq_len)
+                    x = self.features(x)
+                    x = self.avgpool(x)
+                    x = x.view(x.size(0), -1)
+                    x = self.fc(x)
+                    return x
+
             #### PROPOSED MODELS ####
             cnn_lstm = SEQ_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
             lstm_cnn = SEQ_LSTM_CNN(input_size, hidden_size, num_layers, num_classes).to(device)
-            cnn_lstm_parallel = PARA_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
+            para_cnn_lstm = PARA_CNN_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
             #### BASE-LINE MODELS ####
             simple_cnn = Simple_CNN(input_size, num_classes).to(device)
             simple_lstm = Simple_LSTM(input_size, hidden_size, num_layers, num_classes).to(device)
             simple_svm = Simple_SVM(input_size, num_classes).to(device)
-
+            #### SOTA-MODELS ####
+            resnet = ResNet1D(resnet34(weights=ResNet34_Weights.DEFAULT), input_size, num_classes).to(device)
 
             dict_models = {
                 # DUAL-MODELS
-                11: [cnn_lstm],
-                12: [lstm_cnn],
-                13: [cnn_lstm_parallel],
-                # MULTIPLE MODELS PER JOB
-                14: [cnn_lstm, lstm_cnn],
-                15: [cnn_lstm, cnn_lstm_parallel],
-                16: [lstm_cnn, cnn_lstm_parallel],
-                17: [cnn_lstm, lstm_cnn, cnn_lstm_parallel],
-                # SIMPLE-MODELS
-                22: [simple_svm],
-                23: [simple_lstm],
-                24: [simple_cnn],
-                25: [simple_cnn, simple_lstm, simple_svm]
+                00: [cnn_lstm],
+                10: [lstm_cnn],
+                11: [cnn_lstm, lstm_cnn],
+                12: [para_cnn_lstm],
+                22: [cnn_lstm, lstm_cnn, para_cnn_lstm],
+                # # SIMPLE-MODELS
+                23: [simple_svm],
+                24: [simple_lstm],
+                25: [simple_cnn],
+                26: [simple_cnn, simple_lstm, simple_svm],
+                # SOTA-MODELS
+                28: [resnet],
+                30: list(sota_models.values()),
+                31: [sota_models.get(0)],
+                32: [sota_models.get(1)],
+                33: [sota_models.get(2)],
+                34: [sota_models.get(3)],
+                35: [sota_models.get(4)],
+                # ALL-MODELS
+                36: [cnn_lstm, lstm_cnn, para_cnn_lstm, simple_cnn, simple_lstm, simple_svm, sota_models.get(0)]
             }
-            # models = dict_models.get(22, [cnn_lstm])
-            # models = dict_models.get(11, [cnn_lstm]) if dev_mode else dict_models.get(22, [cnn_lstm])
-            models = dict_models.get(25, [simple_cnn]) if dev_mode else dict_models.get(00, [cnn_lstm])
+            # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
+            models = dict_models.get(36, [para_cnn_lstm]) if not dev_mode else dict_models.get(00, [resnet])
+            # models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
+            models = dict_models.get(m_sota, models) if m_sota else models
 
             #### TRAIN ####
             num_epochs = n_epochs
-            # print('####', 'MODELS', dict_models, '####')
             print('####', 'MODELS - TOTAL', len(models), '####')
             print('####', 'EPOCHS', num_epochs, '####')
             # exit()
@@ -442,26 +592,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
             # test
-            def ttest(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names])):
-                with torch.no_grad():
-                    correct = 0
-                    total = 0
-                    accuracy_dict = {'METRICS': metric_names_str}
-                    for model in models:
-                        model.eval()
-                        for x, y in test_loader:
-                            x = x.to(device)
-                            y = y.to(device)
-                            y_pred = model(x)
-                            _, predicted = torch.max(y_pred.data, 1)
-                            total += y.size(0)
-                            correct += (predicted == y).sum().item()
-                        accuracy = round(100 * correct / total, 6)
-                        print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
-                        accuracy_dict[model.__class__.__name__] = accuracy
-                return accuracy_dict
-
-            def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in combi_metric_names]),
+            def test(models, test_loader, metric_names_str: str = ", ".join([str(m) for m in all_indices_names]),
                      e: int = num_epochs,
                      c: int = i_r_c
                      ) -> dict:
@@ -490,9 +621,12 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                 metrics['FN'] += (~cls_pred & cls_true).sum().item()
                                 metrics['TN'] += ((~cls_pred) & (~cls_true)).sum().item()
                         accuracy = round(100 * correct / total, 6)
-                        print(f'Accuracy of the {model.__class__.__name__} model on the test set: {accuracy} %')
+                        model_name = model.__class__.__name__
+                        if model_name == "SOTA_Model":
+                            model_name = model.backbone_name
+                        print(f'Accuracy of the {model_name} model on the test set: {accuracy} %')
 
-                        model_scores_dict[model.__class__.__name__] = {
+                        model_scores_dict[model_name] = {
                             'EPOCHS': e,
                             'AC': accuracy,
                             'TP': metrics['TP'],
@@ -504,7 +638,6 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             tt0 = time.time()
             accuracy_dict = test(models, test_loader, e=n_epochs, c=i_r_c)
-            # accuracy_dicttt = ttest(models, test_loader)
             print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
             # plot bar chart with the accuracy of each model
