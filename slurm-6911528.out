@@ -205345,3 +205345,6 @@ Epoch [10/11] Step [2508/2609] Loss: 0.5018 Time: 27.615
 #### prediction torch.Size([192, 14])
 Epoch [10/11] Step [2541/2609] Loss: 0.5011 Time: 27.648
 #### prediction torch.Size([192, 14])
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 6911528.1 ON n3506-021 CANCELLED AT 2025-12-22T02:22:39 DUE TO TIME LIMIT ***
+slurmstepd: error: *** JOB 6911528 ON n3506-021 CANCELLED AT 2025-12-22T02:22:39 DUE TO TIME LIMIT ***
