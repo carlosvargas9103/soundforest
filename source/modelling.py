@@ -553,10 +553,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             dict_models = {
                 # DUAL-MODELS
-                00: [cnn_lstm],
-                10: [lstm_cnn],
-                11: [cnn_lstm, lstm_cnn],
-                12: [para_cnn_lstm],
+                10: [cnn_lstm],
+                11: [lstm_cnn],
+                12: [cnn_lstm, lstm_cnn],
+                13: [para_cnn_lstm],
                 22: [cnn_lstm, lstm_cnn, para_cnn_lstm],
                 # # SIMPLE-MODELS
                 23: [simple_svm],
@@ -575,7 +575,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 36: [cnn_lstm, lstm_cnn, para_cnn_lstm, simple_cnn, simple_lstm, simple_svm, sota_models.get(0)]
             }
             # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
-            models = dict_models.get(36, [para_cnn_lstm]) if not dev_mode else dict_models.get(00, [resnet])
+            models = dict_models.get(10, [cnn_lstm]) # if not dev_mode else dict_models.get(10, [cnn_lstm])
             # models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
             models = dict_models.get(m_sota, models) if m_sota else models
 
