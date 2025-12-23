@@ -27,8 +27,8 @@ import numpy as np
 
 from enum import Enum
 
-from observation import process_soundscape
-from visualisation import visualise_soundscape, visualise_distribution
+# from observation import process_soundscape
+# from visualisation import visualise_soundscape, visualise_distribution
 from extraction import Metrics, bootstrap_soundscape
 from modelling import train_with_soundscapes
 
@@ -340,117 +340,117 @@ def main():
     print('#### ####', 'N-JOBS', N_JOBS, 'SBOJ-N', '#### ####')
     for task in tasks:
         match task:
-            case Task.OBSERVATION:
-                print('#### #### HOI OBSERVATION #### ####')
-                t00 = time.time()
-                folders_in, f_pattern_out, f_ext_in = 'files_in', 'observation', ''
-                # READ audio_files to process
-                configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
-                               for dirpath, dirnames, files in os.walk(path_data)
-                               for f in files if f.endswith('.mp3')]
-                print(path_data, path_out, configfiles[:3])
-                audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
-                audio_files = audio_files.assign(processed=False)
-                audio_files.to_csv(f'{path_out}audio_{folders_in}_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                                   index=True)
-                try:
-                    audio_files_processed = pd.read_csv(
-                        f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';').astype(str)
-                except Exception as e:
-                    print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
-                    audio_files_processed = None
-                audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
-                f_progress = copy.deepcopy(audio_files)
-                outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
-                # PREPROCESS the soundscapes
-                # TODO: This function is meant to be used in a parallel fashion
-                print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
-                try:
-                    for i, f in audio_files.iterrows():
-                        if bool(f.processed):
-                            # print(f)
-                            continue
-                        t11 = time.time()
-                        print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
-                        print(i, '#### OBSERVATION ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO', '==>>',
-                              f.filename.split('/')[-1])
-
-                        process_soundscape(audio_file=f.filename, region=f.region, si=i,
-                                           bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
-                                           path_data=path_data, path_out=path_out,
-                                           samples_s=samples_s, isamples_s=isamples_s,
-                                           secs_b=secs_b, w_size_mins=w_size_mins,
-                                           verbose=verbo, n_jobs=N_JOBS, job_id=job_id)
-                        print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
-                        f_progress.at[i, 'processed'] = True
-                        f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                                          index=True)
-                        break
-                except Exception as e:
-                    print('ALWAYS PROBLEMS', e)
-                    raise
-                finally:
-                    print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
-                    f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                                      index=True)
-                print('#### TIMES #### observation TOTAL TOTAL ==>>', time.time() - t00)
-
-            case Task.VISUALISATION:
-                print('#### #### HOI VISUALISATION #### ####')
-                t00 = time.time()
-                # LOAD preprocessed n-dimensional arrays to plot
-                folders_in, f_pattern_out, f_ext_in = 'data/observation/', 'visualisation', '.npy'
-                path_data = f'{path_out}{folders_in}'
-                configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
-                               for dirpath, dirnames, files in os.walk(path_data)
-                               for f in files if f.endswith(f_ext_in)]
-                # print(path_data, path_out, configfiles[:3])
-                audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
-                audio_files = audio_files.assign(processed=False)
-                audio_files.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                                   index=True)
-                try:
-                    audio_files_processed = pd.read_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv',
-                                                        sep=';').astype(str)
-                except Exception as e:
-                    print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
-                    audio_files_processed = None
-                audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
-                f_progress = copy.deepcopy(audio_files)
-                outfile_name = f'f_visual_{job_id}_{int(time.time())}.txt'
-                # PREPROCESS the soundscapes
-                # TODO: This function is meant to be used in a parallel fashion!!!
-                print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
-                try:
-                    for i, f in audio_files.iterrows():
-                        if bool(f.processed):
-                            # print(f)
-                            continue
-                        t11 = time.time()
-                        print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
-                        print(i, '#### VISUALISATION ####', 'REGION:', '==>>', f.region, '<<==', 'DATA', '==>>',
-                              f.filename.split('/')[-1])
-                        visualise_soundscape(audio_file=f.filename, region=f.region, si=i, sr=sr,
-                                             bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
-                                             path_data=path_data, path_out=path_out,
-                                             samples_s=samples_s, isamples_s=isamples_s,
-                                             secs_b=secs_b, w_size_mins=w_size_mins,
-                                             verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
-                                             f_pattern_out=f_pattern_out)
-                        print(i, '#### TIMES #### visualisation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
-                        f_progress.at[i, 'processed'] = True
-                        f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                                          index=True)
-                    #     break
-                    # exit()
-                except Exception as e:
-                    print('ALWAYS PROBLEMS', e)
-                    raise
-                finally:
-                    print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
-                    f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
-                                      index=True)
-                print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
+            # case Task.OBSERVATION:
+            #     print('#### #### HOI OBSERVATION #### ####')
+            #     t00 = time.time()
+            #     folders_in, f_pattern_out, f_ext_in = 'files_in', 'observation', ''
+            #     # READ audio_files to process
+            #     configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
+            #                    for dirpath, dirnames, files in os.walk(path_data)
+            #                    for f in files if f.endswith('.mp3')]
+            #     print(path_data, path_out, configfiles[:3])
+            #     audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
+            #     audio_files = audio_files.assign(processed=False)
+            #     audio_files.to_csv(f'{path_out}audio_{folders_in}_{job_id}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+            #                        index=True)
+            #     try:
+            #         audio_files_processed = pd.read_csv(
+            #             f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';').astype(str)
+            #     except Exception as e:
+            #         print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
+            #         audio_files_processed = None
+            #     audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
+            #     f_progress = copy.deepcopy(audio_files)
+            #     outfile_name = f'f_progress_{job_id}_{int(time.time())}.txt'
+            #     # PREPROCESS the soundscapes
+            #     # TODO: This function is meant to be used in a parallel fashion
+            #     print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
+            #     try:
+            #         for i, f in audio_files.iterrows():
+            #             if bool(f.processed):
+            #                 # print(f)
+            #                 continue
+            #             t11 = time.time()
+            #             print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
+            #             print(i, '#### OBSERVATION ####', 'REGION:', '==>>', f.region, '<<==', 'AUDIO', '==>>',
+            #                   f.filename.split('/')[-1])
+            #
+            #             process_soundscape(audio_file=f.filename, region=f.region, si=i,
+            #                                bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
+            #                                path_data=path_data, path_out=path_out,
+            #                                samples_s=samples_s, isamples_s=isamples_s,
+            #                                secs_b=secs_b, w_size_mins=w_size_mins,
+            #                                verbose=verbo, n_jobs=N_JOBS, job_id=job_id)
+            #             print(i, '#### TIMES #### observation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
+            #             f_progress.at[i, 'processed'] = True
+            #             f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+            #                               index=True)
+            #             break
+            #     except Exception as e:
+            #         print('ALWAYS PROBLEMS', e)
+            #         raise
+            #     finally:
+            #         print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
+            #         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+            #                           index=True)
+            #     print('#### TIMES #### observation TOTAL TOTAL ==>>', time.time() - t00)
+            #
+            # case Task.VISUALISATION:
+            #     print('#### #### HOI VISUALISATION #### ####')
+            #     t00 = time.time()
+            #     # LOAD preprocessed n-dimensional arrays to plot
+            #     folders_in, f_pattern_out, f_ext_in = 'data/observation/', 'visualisation', '.npy'
+            #     path_data = f'{path_out}{folders_in}'
+            #     configfiles = [(dirpath.split('/')[-1], os.path.join(dirpath, f))
+            #                    for dirpath, dirnames, files in os.walk(path_data)
+            #                    for f in files if f.endswith(f_ext_in)]
+            #     # print(path_data, path_out, configfiles[:3])
+            #     audio_files = pd.DataFrame.from_records(configfiles, columns=['region', 'filename']).astype(str)
+            #     audio_files = audio_files.assign(processed=False)
+            #     audio_files.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+            #                        index=True)
+            #     try:
+            #         audio_files_processed = pd.read_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv',
+            #                                             sep=';').astype(str)
+            #     except Exception as e:
+            #         print('ALWAYS PROBLEMS => Dónde están los Kuschifiles?', e)
+            #         audio_files_processed = None
+            #     audio_files = update_progress(audio_files_in=audio_files, audio_files_processed=audio_files_processed)
+            #     f_progress = copy.deepcopy(audio_files)
+            #     outfile_name = f'f_visual_{job_id}_{int(time.time())}.txt'
+            #     # PREPROCESS the soundscapes
+            #     # TODO: This function is meant to be used in a parallel fashion!!!
+            #     print(f'starting with => {len(audio_files)} soundscapes => now {int(time.time())}')
+            #     try:
+            #         for i, f in audio_files.iterrows():
+            #             if bool(f.processed):
+            #                 # print(f)
+            #                 continue
+            #             t11 = time.time()
+            #             print(f'{i}/{len(audio_files)}', '########', '################', '################', '########')
+            #             print(i, '#### VISUALISATION ####', 'REGION:', '==>>', f.region, '<<==', 'DATA', '==>>',
+            #                   f.filename.split('/')[-1])
+            #             visualise_soundscape(audio_file=f.filename, region=f.region, si=i, sr=sr,
+            #                                  bandas=bandas, b_band=b_band, u_band=u_band, bandwidth=bandwidth,
+            #                                  path_data=path_data, path_out=path_out,
+            #                                  samples_s=samples_s, isamples_s=isamples_s,
+            #                                  secs_b=secs_b, w_size_mins=w_size_mins,
+            #                                  verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
+            #                                  f_pattern_out=f_pattern_out)
+            #             print(i, '#### TIMES #### visualisation #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
+            #             f_progress.at[i, 'processed'] = True
+            #             f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+            #                               index=True)
+            #         #     break
+            #         # exit()
+            #     except Exception as e:
+            #         print('ALWAYS PROBLEMS', e)
+            #         raise
+            #     finally:
+            #         print('SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)')
+            #         f_progress.to_csv(f'{path_out}audio_{f_pattern_out}_{str(datetime.date.today())[:-3]}.csv', sep=';',
+            #                           index=True)
+            #     print('#### TIMES #### visualisation TOTAL TOTAL ==>>', time.time() - t00)
 
             case Task.EXTRACTION:
                 print('#### #### HOI EXTRACTION #### ####')

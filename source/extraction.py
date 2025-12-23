@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 
 import librosa
-import noisereduce as nr
+# import noisereduce as nr
 
 import indices
 from maad import sound, features
@@ -262,26 +262,26 @@ def bootstrap_soundscape(audio_file: str = '',
     # TODO: ATM, WE DO NOT CALL AMPLITUDE ENVELOPE
     # wrap methods audio_denoise with parameters
     # def audio_denoise_st(y=None, sr: int = 48000):
-    def audio_denoise_st(y=None, sr: int = sr):
-        return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.9, stationary=True)
-
-    # def audio_denoise_ns(y=None, sr: int = 48000):
-    def audio_denoise_ns(y=None, sr: int = sr):
-        return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.6, stationary=False)
-
-    denoise = False
-    if denoise:
-        # PARALLEL split_freq_band => ~6sec
-        print('####', 'PARALLEL audio_denoise')
-        t1 = time.time()
-        split_y_st = np.array(
-            Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(audio_denoise_st)(y_i) for y_i in split_y)
-        )
-        split_y_ns = np.array(
-            Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(audio_denoise_ns)(y_i) for y_i in split_y)
-        )
-        # 438 288000 [2.19772187e-26 1.05804673e-26 5.78876953e-27] 18.265
-        print('####', 'PARALLEL DENOISE Y_C', len(split_y_st), len(split_y_st[0]), split_y_st[0][:3], round(time.time() - t1, 3))
+    # def audio_denoise_st(y=None, sr: int = sr):
+    #     return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.9, stationary=True)
+    #
+    # # def audio_denoise_ns(y=None, sr: int = 48000):
+    # def audio_denoise_ns(y=None, sr: int = sr):
+    #     return nr.reduce_noise(y=y, sr=sr, n_std_thresh_stationary=1.6, stationary=False)
+    #
+    # denoise = False
+    # if denoise:
+    #     # PARALLEL split_freq_band => ~6sec
+    #     print('####', 'PARALLEL audio_denoise')
+    #     t1 = time.time()
+    #     split_y_st = np.array(
+    #         Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(audio_denoise_st)(y_i) for y_i in split_y)
+    #     )
+    #     split_y_ns = np.array(
+    #         Parallel(n_jobs=n_jobs, verbose=verbose)(delayed(audio_denoise_ns)(y_i) for y_i in split_y)
+    #     )
+    #     # 438 288000 [2.19772187e-26 1.05804673e-26 5.78876953e-27] 18.265
+    #     print('####', 'PARALLEL DENOISE Y_C', len(split_y_st), len(split_y_st[0]), split_y_st[0][:3], round(time.time() - t1, 3))
 
     def split_freq_band_per_frame(s: np.memmap = None,
                                   sr: int = sr,
