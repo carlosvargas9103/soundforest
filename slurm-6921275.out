@@ -1,0 +1,26 @@
+PATH /home/fs72552/vargas/forests-sounds-vargas
+Hablámelo maniño, alles gut oder was??
+#### #### HOI FOREST #### ####
+#### #### N-JOBS 2 SBOJ-N #### ####
+#### #### HOI MODELLING #### ####
+#### INDICES => [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr] <= INDICES 21 ####
+0/18567 ######## ################ ################ ########
+0 #### MODELLING #### REGION: ==>> f.region <<== DATA ==>> f.filename.split('/')[-1]
+#### #### HOI FOREST - MODELLING #### ####
+#### COMBI 1 #### FIXED 21 VARIABLE 0
+#### #### READING DATA FILES #### ####
+1 1 #### COMBI [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr] METRICS ####
+('Engine', '/home/fs72552/vargas/forests-sounds-vargas/out/data/extraction/Engine/27_002777_dict_y_split_423_6911528_1766280426.pkl')
+ALWAYS PROBLEMS CORRUPTED DATA => EXTRACTION <= DATA CORRUPTED ALWAYS PROBLEMS No module named 'numpy._core.numeric'
+ALWAYS PROBLEMS 'NoneType' object has no attribute 'shape'
+SE ME CUIDA MIJO, AHÍ LE DEJO PA` QUE NO TRASNOCHE TANTO ;)
+Traceback (most recent call last):
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/forest.py", line 563, in <module>
+    main()
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/forest.py", line 538, in main
+    train_with_soundscapes(files_path=configfiles,  # region=f.region, si=i, sr=sr,
+  File "/home/fs72552/vargas/forests-sounds-vargas/source/modelling.py", line 157, in train_with_soundscapes
+    'merge_data Dataframe shape:', df_data.shape,
+                                   ^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'shape'
+srun: error: n3506-067: task 0: Exited with exit code 1
