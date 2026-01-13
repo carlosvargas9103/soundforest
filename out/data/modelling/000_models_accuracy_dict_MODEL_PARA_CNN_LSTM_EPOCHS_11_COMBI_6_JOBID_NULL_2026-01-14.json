@@ -1,0 +1,11 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei, dsi, amr",
+    "PARA_CNN_LSTM": {
+        "AC": 74.91731,
+        "EPOCHS": 11,
+        "FN": 910,
+        "FP": 910,
+        "TN": 16674,
+        "TP": 2718
+    }
+}
