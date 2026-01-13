@@ -1,0 +1,6 @@
+/home/fs72552/vargas/.conda/envs/py311tf/lib/python3.11/site-packages/torch/cuda/__init__.py:827: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+2.9.1+cu128
+Is available: False
+Current Devices: Torch is not compiled for GPU or No GPU
+No. of GPUs: 0
