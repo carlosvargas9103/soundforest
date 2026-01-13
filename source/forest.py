@@ -103,7 +103,7 @@ METRIC_NAMES = [
     Metrics.MEDIAN,
     Metrics.SUM,
     Metrics.MAX,
-    # Metrics.MIN,
+    Metrics.MIN,
     # Metrics.ACOUSTIC_COMPLEXITY,
     # Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
     Metrics.BIOACOUSTIC_INDEX_BETA,
@@ -114,6 +114,31 @@ METRIC_NAMES = [
     # Metrics.ENTROPY,
     Metrics.ACOUSTIC_EVENNESS,
     ### 14 ###
+    Metrics.ACOUSTIC_DIVERSITY,
+    Metrics.SOUNDSCAPE_INDEX,
+    Metrics.ACOUSTIC_RICHNESS
+]
+
+METRIC_NAMES = [
+    Metrics.REGION,  # mandatory
+    Metrics.SOUNDSCAPE_ID,  # mandatory
+    Metrics.BAND_ID,  # mandatory
+    Metrics.SECOND,  # mandatory
+    Metrics.MEAN,
+    Metrics.MEDIAN,
+    Metrics.SUM,
+    Metrics.MAX,
+    # Metrics.MIN,
+    # Metrics.ACOUSTIC_COMPLEXITY,
+    # Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
+    Metrics.BIOACOUSTIC_INDEX_BETA,
+    # Metrics.TEMPORAL_MEDIAN,
+    Metrics.NUMBER_PEAKS,
+    Metrics.ENTROPY_FREQUENCY,
+    Metrics.ENTROPY_TEMPORAL,
+    # Metrics.ENTROPY,
+    Metrics.ACOUSTIC_EVENNESS,
+    ### 13 ###
     Metrics.ACOUSTIC_DIVERSITY,
     Metrics.SOUNDSCAPE_INDEX,
     Metrics.ACOUSTIC_RICHNESS
