@@ -1,15 +1,14 @@
 #!/bin/bash
-#SBATCH --job-name=f-e90-1
-#SBATCH --partition=zen3_0512
-#--partition=zen3_0512_a100
-#SBATCH --qos=zen3_0512
-#--qos=zen3_0512_a100
+#SBATCH --job-name=model-e91
+#SBATCH --partition=zen3_0512_a100x2
+#SBATCH --qos=zen3_0512_a100x2
+#SBATCH --gres=gpu:2 #or --gres=gpu:1 for half a node
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=128
+#--cpus-per-task=128
 #--cpus-per-task=32
-#SBATCH --exclusive
-#--mem=0
+#--exclusive
+#SBATCH --mem=512G
 #--time=00-09:11:90
 #SBATCH --hint=nomultithread
 
@@ -27,4 +26,4 @@ export NUMEXPR_NUM_THREADS=1
 #srun --cpu-bind=cores pip install -U pip
 #srun --cpu-bind=cores pip install -r requirements.txt
 
-cd ~/forests-sounds-vargas/source && srun --cpu-bind=cores python3 forest.py -sota 28
+cd ~/forests-sounds-vargas/source && srun --cpu-bind=cores python3 forest.py -sota 10

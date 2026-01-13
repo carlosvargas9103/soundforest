@@ -1,0 +1,11 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, min, bet, npp, hfq, htp, aei, adi",
+    "Simple_CNN": {
+        "AC": 42.116869,
+        "EPOCHS": 11,
+        "FN": 2100,
+        "FP": 2100,
+        "TN": 15484,
+        "TP": 1528
+    }
+}

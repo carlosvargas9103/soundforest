@@ -80,16 +80,41 @@ METRIC_NAMES = [
     Metrics.SUM,
     Metrics.MAX,
     Metrics.MIN,
-    Metrics.ACOUSTIC_COMPLEXITY,
-    Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
+    # Metrics.ACOUSTIC_COMPLEXITY,
+    # Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
     Metrics.ACOUSTIC_DIVERSITY,
     Metrics.BIOACOUSTIC_INDEX_BETA,
-    Metrics.TEMPORAL_MEDIAN,
+    # Metrics.TEMPORAL_MEDIAN,
     Metrics.NUMBER_PEAKS,
     Metrics.ENTROPY_FREQUENCY,
     Metrics.ENTROPY_TEMPORAL,
     Metrics.ENTROPY,
     Metrics.ACOUSTIC_EVENNESS,
+    Metrics.SOUNDSCAPE_INDEX,
+    Metrics.ACOUSTIC_RICHNESS
+]
+
+METRIC_NAMES = [
+    Metrics.REGION,  # mandatory
+    Metrics.SOUNDSCAPE_ID,  # mandatory
+    Metrics.BAND_ID,  # mandatory
+    Metrics.SECOND,  # mandatory
+    Metrics.MEAN,
+    Metrics.MEDIAN,
+    Metrics.SUM,
+    Metrics.MAX,
+    # Metrics.MIN,
+    # Metrics.ACOUSTIC_COMPLEXITY,
+    # Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE,
+    Metrics.BIOACOUSTIC_INDEX_BETA,
+    # Metrics.TEMPORAL_MEDIAN,
+    Metrics.NUMBER_PEAKS,
+    Metrics.ENTROPY_FREQUENCY,
+    Metrics.ENTROPY_TEMPORAL,
+    # Metrics.ENTROPY,
+    Metrics.ACOUSTIC_EVENNESS,
+    ### 14 ###
+    Metrics.ACOUSTIC_DIVERSITY,
     Metrics.SOUNDSCAPE_INDEX,
     Metrics.ACOUSTIC_RICHNESS
 ]
@@ -542,7 +567,7 @@ def main():
                                                 secs_b=secs_b, w_size_mins=w_size_mins,
                                                 verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                                 f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
-                                                # metric_names=metric_names[:9], dev_mode=True, n_epochs=1,
+                                                # metric_names=met+ric_names[:9], dev_mode=True, n_epochs=1,
                                                 metric_names=metric_names, dev_mode=dev_mode, n_epochs=11,
                                                 m_sota=m_sota, s_combi=s_combi, e_combi=e_combi
                                                 )

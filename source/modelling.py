@@ -1,4 +1,5 @@
 import gc
+
 gc.collect()
 
 import os
@@ -70,36 +71,36 @@ t00 = time.time()
 
 
 def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
-                                ncols: int = 6016, *,
-                                region: str = '',
-                                si: int = 1964,
-                                sr: int = 48000,
-                                b_band: int = 0,
-                                u_band: int = 10000,
-                                bandas: int = 10,
-                                bandwidth: int = 1000,
-                                path_data: str = '',
-                                path_out: str = '',
-                                samples_s: int = 1800,
-                                isamples_s: int = 3,
-                                secs_b: int = 6,
-                                secs_o: int = 1.9,
-                                hanning: bool = True,
-                                w_size_mins: float = 0.06,
-                                n_jobs: int = 1,
-                                job_id: str = 'NULL',
-                                verbose: bool = False,
-                                f_pattern_out: str = 'modelling',
-                                windows_13: bool = True,
-                                horas: int = 30,
-                                metric_names: List[str] = M.list(),
-                                dev_mode: bool = True,
-                                n_epochs: int = 11,
-                                df_stats: bool = False,
-                                m_sota: int = 0,
-                                s_combi: int = 0,
-                                e_combi: int = 9103
-                                ) -> None:
+                           ncols: int = 6016, *,
+                           region: str = '',
+                           si: int = 1964,
+                           sr: int = 48000,
+                           b_band: int = 0,
+                           u_band: int = 10000,
+                           bandas: int = 10,
+                           bandwidth: int = 1000,
+                           path_data: str = '',
+                           path_out: str = '',
+                           samples_s: int = 1800,
+                           isamples_s: int = 3,
+                           secs_b: int = 6,
+                           secs_o: int = 1.9,
+                           hanning: bool = True,
+                           w_size_mins: float = 0.06,
+                           n_jobs: int = 1,
+                           job_id: str = 'NULL',
+                           verbose: bool = False,
+                           f_pattern_out: str = 'modelling',
+                           windows_13: bool = True,
+                           horas: int = 30,
+                           metric_names: List[str] = M.list(),
+                           dev_mode: bool = True,
+                           n_epochs: int = 11,
+                           df_stats: bool = False,
+                           m_sota: int = 0,
+                           s_combi: int = 0,
+                           e_combi: int = 9103
+                           ) -> None:
     print('#### #### HOI FOREST - MODELLING #### ####')
     model_path = f'{path_out}data/{f_pattern_out}/'
     t0 = time.time()
@@ -114,8 +115,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     # Fixed part: always included
     start_combi, end_combi = s_combi, e_combi  # 424
     #### INDICES 21 => [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr]
-    i_fix_metrics = 21 # [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr]
-    fixed_part = metric_names[:i_fix_metrics]
+    i_fix_metrics = 21  # [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr]
+    i_fix_metrics = 14  # [reg, sid, ban, sec, men, med, sum, max, min, bet, npp, hfq, htp, aei, adi, dsi, amr]
+    i_fix_metrics = 13  # [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei, adi, dsi, amr]
+    fixed_part = metric_names[:i_fix_metrics]  # having 14 elements => the total combinations among [adi, dsi, amr] is seven (7)
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
     # Count total combinations
@@ -135,7 +138,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             all_indices_names = fixed_part + list(indices_combination)
             print('#### #### READING DATA FILES #### ####')
-            print(i_r_c, total_combi, '####', 'COMBI', all_indices_names, 'METRICS', '####')
+            print(i_r_c - 1, total_combi, '####', 'COMBI', all_indices_names, 'METRICS', '####')
             # continue
             # exit()
             try:
@@ -572,10 +575,11 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 34: [sota_models.get(3)],
                 35: [sota_models.get(4)],
                 # ALL-MODELS
-                36: [cnn_lstm, lstm_cnn, para_cnn_lstm, simple_cnn, simple_lstm, simple_svm, sota_models.get(0)]
+                36: [cnn_lstm, lstm_cnn, para_cnn_lstm, simple_cnn, simple_lstm, simple_svm, sota_models.get(0)],
+                37: [cnn_lstm, para_cnn_lstm, simple_cnn]
             }
             # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
-            models = dict_models.get(10, [cnn_lstm]) # if not dev_mode else dict_models.get(10, [cnn_lstm])
+            models = dict_models.get(10, [cnn_lstm])  # if not dev_mode else dict_models.get(10, [cnn_lstm])
             # models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
             models = dict_models.get(m_sota, models) if m_sota else models
 
@@ -639,10 +643,33 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             accuracy_dict = test(models, test_loader, e=n_epochs, c=i_r_c)
             print('####', 'TESTING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
-            with open(f'{model_path}000_models_accuracy_dict_EPOCHS_{num_epochs}_COMBI_{i_r_c}_'
-                      f'JOBID_{job_id}_{str(datetime.date.today())}.json',
-                      'w') as fp:
-                json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
+            metrics_dict = accuracy_dict.get('METRICS')
+
+            for model_name, model_data in accuracy_dict.items():
+                if model_name == "METRICS":
+                    continue
+
+                model_dict = {
+                    'METRICS': metrics_dict,
+                    model_name: model_data
+                }
+
+                output_file = (
+                    f"{model_path}000_models_accuracy_dict_"
+                    f"MODEL_{model_name}_"
+                    f"EPOCHS_{num_epochs}_"
+                    f"COMBI_{i_r_c - 1}_"
+                    f"JOBID_{job_id}_"
+                    f"{datetime.date.today()}.json"
+                )
+
+                with open(output_file, "w") as fp:
+                    json.dump(model_dict, fp, sort_keys=True, indent=4)
+
+            # with open(f'{model_path}000_models_accuracy_dict_MODEL{model_name}_EPOCHS_{num_epochs}_COMBI_{i_r_c}_'
+            #           f'JOBID_{job_id}_{str(datetime.date.today())}.json',
+            #           'w') as fp:
+            #     json.dump(accuracy_dict, fp, sort_keys=True, indent=4)
 
             print('####', 'TIME', '####', 'TERMINO', '####', round(time.time() - t00, 3), '####')
             print('####', 'FINITO', '####', 'TERMINO', '####', 'NO-VA-MAS', '####')
