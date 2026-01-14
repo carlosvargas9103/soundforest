@@ -414,7 +414,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     # model serialisation
                     torch.save(
                         model.state_dict(),
-                        f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}.pth'
+                        f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}_COMBI_{i_r_c - 1}.pth'
                     )
                     print('####',
                           'TRAINED MODEL',
