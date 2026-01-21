@@ -21,7 +21,7 @@ from multiprocessing import Pool
 
 import pandas as pd
 import numpy as np
-import seaborn as sns
+# import seaborn as sns
 
 from extraction import (
     Metrics as M,
@@ -33,7 +33,7 @@ from torch.utils.data import DataLoader
 from torch.optim import Adam
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+# from sklearn.metrics import accuracy_score
 from tslearn.preprocessing import TimeSeriesScalerMeanVariance, TimeSeriesResampler, TimeSeriesScalerMinMax
 
 # >>>> import libraries for SOTA >>>>
@@ -107,6 +107,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     df_data = None
     # ncols = 6016
     accuracy_dict = {}
+    model_config = {}
+    all_indices_names = None
+
 
     # SOME CONFIG ####
     os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
@@ -118,6 +121,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
     i_fix_metrics = 21  # [reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr]
     i_fix_metrics = 14  # [reg, sid, ban, sec, men, med, sum, max, min, bet, npp, hfq, htp, aei, adi, dsi, amr]
     i_fix_metrics = 13  # [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei, adi, dsi, amr]
+    i_fix_metrics = 13  # [reg, sid, ban, sec, men, med, sum, max, bet, npp, hfq, htp, aei]
     fixed_part = metric_names[:i_fix_metrics]  # having 14 elements => the total combinations among [adi, dsi, amr] is seven (7)
     # Variable part: will be combined in all possible ways
     variable_part = metric_names[i_fix_metrics:]
@@ -142,19 +146,24 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             # continue
             # exit()
             try:
+                # TODO: Maybe read less files here if dev_mode
                 print(files_path[0])
+                print('### ###', 'SOY YO')
                 df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
+                print('### ###', 'SOY YO', type(df_data))
                 df_data.columns = df_data.columns.map(str)
+                # print('### ###', df_data.shape)
                 # include the scalar AND temporal features
                 # columns_to_train = all_indices_names + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 # include the ONLY scalar features
                 columns_to_train = all_indices_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 df_data = df_data[columns_to_train]
-                print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
+                print(df_data.shape, df_data.columns[:11], df_data.columdev_modens[-11:])
                 # print(df_data.head(555))
                 # exit()
             except Exception as e:
                 print('ALWAYS PROBLEMS', 'CORRUPTED DATA =>', 'EXTRACTION', '<= DATA CORRUPTED', 'ALWAYS PROBLEMS', e)
+                raise
 
             print('####', 'MERGE', len(files_path),
                   'merge_data Dataframe shape:', df_data.shape,
@@ -366,6 +375,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     out = self.fc(x)
                     return out
 
+            # MODEL CONFIG
+            model_config = dict(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, num_classes=num_classes)
+
             # TRAIN
             def train(models: List,
                       train_loader: DataLoader,
@@ -412,10 +424,35 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                                           f'Loss: {loss.item():.4f}',
                                           f'Time: {round(time.time() - t1, 3)}')
                     # model serialisation
-                    torch.save(
-                        model.state_dict(),
-                        f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}_COMBI_{i_r_c - 1}.pth'
+                    # torch.save(
+                    #     model.state_dict(),
+                    #     f'{model_path}{job_id}_{str(datetime.date.today())}_{model.__class__.__name__}_COMBI_{i_r_c - 1}.pth'
+                    # )
+                    today = datetime.date.today()
+                    model_name = model.__class__.__name__
+                    checkpoint_path = (
+                        f"{model_path}"
+                        f"{job_id}_{today}_{model_name}_COMBI_{i_r_c - 1}.pth"
                     )
+                    checkpoint = {
+                        "model_class": model_name,
+                        "model_config": model_config,
+                        "metrics": all_indices_names,
+                        "epoch": epoch,
+                        "model_state_dict": model.state_dict(),
+                        "optimizer_state_dict": optimizer.state_dict(),
+                        "torch_version": torch.__version__
+                    }
+                    torch.save(checkpoint, checkpoint_path)
+
+                    model.eval()
+                    scripted_model = torch.jit.script(model)
+                    scripted_path = (
+                        f"{model_path}"
+                        f"{job_id}_{today}_{model_name}_COMBI_{i_r_c - 1}.pt"
+                    )
+                    scripted_model.save(scripted_path)
+
                     print('####',
                           'TRAINED MODEL',
                           model_name,

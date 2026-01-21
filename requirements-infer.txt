@@ -11,6 +11,7 @@ tslearn==0.6.3
 # everything else..
 joblib==1.5.3
 pandas==2.2.2
+#numpy>=1.22,<2.1
 numpy==1.26.4
 scipy==1.16.3
 scikit-learn==1.5.1

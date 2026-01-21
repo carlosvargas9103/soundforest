@@ -116,7 +116,7 @@ class Metrics(Enum):  # The metrics to train the predictive models
     def list(cls):
         return list(map(lambda c: c.value, cls))
 
-
+# not used
 DICT_BANDAS = {
     0: (0, 1000),
     1: (1000, 2000),
