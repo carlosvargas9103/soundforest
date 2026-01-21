@@ -1,6 +1,6 @@
 --index-url https://pypi.org/simple
---extra-index-url https://download.pytorch.org/whl/cu126
-# PyTorch CUDA Version: 12.6 or 12.8 - maybe CUDA 11.8
+--extra-index-url https://download.pytorch.org/whl/cu118
+# PyTorch CUDA 11.8 - maybe CUDA Version: 12.3
 #torch==2.9.1
 torch==2.7.1
 #torchvision==0.24.1

@@ -67,8 +67,8 @@ print('PATH', cwd)
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION]
 # TASKS = [Task.OBSERVATION, Task.VISUALISATION, Task.EXTRACTION, Task.MODELLING]
 # TASKS = [Task.EXTRACTION]
-TASKS = [Task.EXTRACTION, Task.MODELLING]
-# TASKS = [Task.MODELLING]
+# TASKS = [Task.EXTRACTION, Task.MODELLING]
+TASKS = [Task.MODELLING]
 
 METRIC_NAMES = [
     Metrics.REGION,  # mandatory
@@ -137,12 +137,11 @@ METRIC_NAMES = [
     Metrics.ENTROPY_FREQUENCY,
     Metrics.ENTROPY_TEMPORAL,
     # Metrics.ENTROPY,
-    # Metrics.ACOUSTIC_EVENNESS,
-    Metrics.ACOUSTIC_EVENNESS
+    Metrics.ACOUSTIC_EVENNESS,
     ### 13 ###
-    # Metrics.ACOUSTIC_DIVERSITY,
-    # Metrics.SOUNDSCAPE_INDEX,
-    # Metrics.ACOUSTIC_RICHNESS
+    Metrics.ACOUSTIC_DIVERSITY,
+    Metrics.SOUNDSCAPE_INDEX,
+    Metrics.ACOUSTIC_RICHNESS
 ]
 
 
@@ -594,8 +593,7 @@ def main():
                                                 verbose=verbo, n_jobs=N_JOBS, job_id=job_id,
                                                 f_pattern_out=f_pattern_out, windows_13=windows_13, horas=30,
                                                 # metric_names=met+ric_names[:9], dev_mode=True, n_epochs=1,
-                                                # metric_names=metric_names, dev_mode=dev_mode, n_epochs=11,
-                                                metric_names=metric_names, dev_mode=True, n_epochs=3,
+                                                metric_names=metric_names, dev_mode=dev_mode, n_epochs=11,
                                                 m_sota=m_sota, s_combi=s_combi, e_combi=e_combi
                                                 )
                     print(i, '#### TIMES #### Modelling #### PARTIAL FILE ==>>', round(time.time() - t11, 3), 'seconds')
