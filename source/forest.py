@@ -139,9 +139,9 @@ METRIC_NAMES = [
     # Metrics.ENTROPY,
     Metrics.ACOUSTIC_EVENNESS,
     ### 13 ###
-    Metrics.ACOUSTIC_DIVERSITY,
-    Metrics.SOUNDSCAPE_INDEX,
-    Metrics.ACOUSTIC_RICHNESS
+    # Metrics.ACOUSTIC_DIVERSITY,
+    # Metrics.SOUNDSCAPE_INDEX,
+    # Metrics.ACOUSTIC_RICHNESS
 ]
 
 
