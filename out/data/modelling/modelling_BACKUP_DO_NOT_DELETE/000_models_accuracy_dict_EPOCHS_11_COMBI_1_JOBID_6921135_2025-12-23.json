@@ -1,0 +1,11 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, min, aci, aca, adi, bet, mmm, npp, hfq, htp, hhh, aei, dsi, amr",
+    "SEQ_LSTM_CNN": {
+        "AC": 71.630492,
+        "EPOCHS": 11,
+        "FN": 35526,
+        "FP": 35472,
+        "TN": 1461588,
+        "TP": 89700
+    }
+}

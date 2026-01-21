@@ -1,0 +1,27 @@
+{
+    "CNN_LSTM": {
+        "AC": 83.833602,
+        "EPOCHS": 1,
+        "FN": 9630,
+        "FP": 9630,
+        "TN": 169074,
+        "TP": 49938
+    },
+    "LSTM_CNN": {
+        "AC": 70.240733,
+        "EPOCHS": 1,
+        "FN": 17727,
+        "FP": 17727,
+        "TN": 160977,
+        "TP": 41841
+    },
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, aci, npp, htp, hhh, aei",
+    "ParallelCNNLSTMModel": {
+        "AC": 87.677948,
+        "EPOCHS": 1,
+        "FN": 7340,
+        "FP": 7340,
+        "TN": 171364,
+        "TP": 52228
+    }
+}

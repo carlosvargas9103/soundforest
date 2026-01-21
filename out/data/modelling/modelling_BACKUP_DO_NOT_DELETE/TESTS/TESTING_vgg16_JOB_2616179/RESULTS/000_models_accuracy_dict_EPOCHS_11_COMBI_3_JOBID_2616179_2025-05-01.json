@@ -1,0 +1,11 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, bet",
+    "vgg16": {
+        "AC": 79.666935,
+        "EPOCHS": 11,
+        "FN": 12112,
+        "FP": 12112,
+        "TN": 166592,
+        "TP": 47456
+    }
+}

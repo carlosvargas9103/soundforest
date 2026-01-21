@@ -1,0 +1,11 @@
+{
+    "METRICS": "reg, sid, ban, sec, men, med, sum, max, npp, hhh",
+    "ResNet1D": {
+        "AC": 83.637188,
+        "EPOCHS": 11,
+        "FN": 9747,
+        "FP": 9747,
+        "TN": 168957,
+        "TP": 49821
+    }
+}
