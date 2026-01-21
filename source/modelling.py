@@ -13,6 +13,7 @@ import datetime
 from glob import glob
 from pathlib import Path
 from typing import List, Tuple
+from collections import defaultdict
 
 from joblib import Parallel, delayed
 from joblib import effective_n_jobs
@@ -91,6 +92,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                            job_id: str = 'NULL',
                            verbose: bool = False,
                            f_pattern_out: str = 'modelling',
+                           f_pattern_models_out: str = 'models',
                            windows_13: bool = True,
                            horas: int = 30,
                            metric_names: List[str] = M.list(),
@@ -145,10 +147,30 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             print(i_r_c - 1, total_combi, '####', 'COMBI', all_indices_names, 'METRICS', '####')
             # continue
             # exit()
+
             try:
                 # TODO: Maybe read less files here if dev_mode
                 print(files_path[0])
-                print('### ###', 'SOY YO')
+                # if dev_mode:
+                #     files_sample = files_path.copy()
+                #     n_files_sample = max(1, int(len(files_sample) * 0.11))
+                #     files_path = random.sample(files_sample, n_files_sample)
+
+                if dev_mode:
+                    random.seed(42)
+
+                    files_by_class = defaultdict(list)
+                    for cls, path in files_path:
+                        files_by_class[cls].append((cls, path))
+
+                    sampled_files = []
+
+                    for cls, files in files_by_class.items():
+                        n = max(1, int(len(files) * 0.01))  # 1% per class
+                        sampled_files.extend(random.sample(files, n))
+
+                    files_path = sampled_files
+                # LOAD FILES
                 df_data = pd.concat((pd.read_pickle(f[1]) for f in files_path), ignore_index=True)
                 print('### ###', 'SOY YO', type(df_data))
                 df_data.columns = df_data.columns.map(str)
@@ -158,7 +180,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 # include the ONLY scalar features
                 columns_to_train = all_indices_names  # + [col for col in df_data.columns if col.startswith(str(M.VECTOR_VEC))]
                 df_data = df_data[columns_to_train]
-                print(df_data.shape, df_data.columns[:11], df_data.columdev_modens[-11:])
+                print(df_data.shape, df_data.columns[:11], df_data.columns[-11:])
                 # print(df_data.head(555))
                 # exit()
             except Exception as e:
@@ -179,7 +201,8 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
             print('#### #### SPLIT TRAIN TEST #### ####')
             t0 = time.time()
             X_train, X_test, y_train, y_test = None, None, None, None
-            if dev_mode:
+            # if dev_mode:
+            if False:
                 # subsample 1% for dev_mode
                 label_column = df_data.columns[0]  # target label
                 df_data_sampled, _ = train_test_split(
@@ -384,7 +407,9 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                       epochs: int = 1,
                       t0: int = time.time(),
                       verbose: bool = verbose or False,
-                      model_path: str = f'{path_out}data/{f_pattern_out}/'
+                      model_path: str = f'{path_out}data/{f_pattern_models_out}/',
+                      *,
+                      model_config: None = model_config
                       ) -> None:
                 criterion = nn.CrossEntropyLoss()
                 # PARALLEL ??
@@ -430,10 +455,10 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                     # )
                     today = datetime.date.today()
                     model_name = model.__class__.__name__
-                    checkpoint_path = (
+                    checkpoint_path = Path((
                         f"{model_path}"
                         f"{job_id}_{today}_{model_name}_COMBI_{i_r_c - 1}.pth"
-                    )
+                    ))
                     checkpoint = {
                         "model_class": model_name,
                         "model_config": model_config,
@@ -443,15 +468,27 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                         "optimizer_state_dict": optimizer.state_dict(),
                         "torch_version": torch.__version__
                     }
-                    torch.save(checkpoint, checkpoint_path)
+                    print('### ###', 'CHECK-MEINE-PUNTO', checkpoint.get('model_class'))
+                    checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+                    tmp_path = checkpoint_path.with_suffix(".tmp")
+                    torch.save(checkpoint, tmp_path)
+                    tmp_path.rename(checkpoint_path)
+                    # torch.save(checkpoint, checkpoint_path)
+                    # torch.save(checkpoint, tmp_path)
+                    # tmp_path.rename(checkpoint_path)
 
+                    ### ### NOW THE MODEL ### ###
                     model.eval()
                     scripted_model = torch.jit.script(model)
-                    scripted_path = (
+                    scripted_path = Path((
                         f"{model_path}"
                         f"{job_id}_{today}_{model_name}_COMBI_{i_r_c - 1}.pt"
-                    )
-                    scripted_model.save(scripted_path)
+                    ))
+                    print('### ###', 'CHECK-MEINE-PUNTO', checkpoint.get('model_class'))
+                    scripted_path.parent.mkdir(parents=True, exist_ok=True)
+                    tmp_path = scripted_path.with_suffix(".tmp")
+                    torch.save(scripted_model, tmp_path)
+                    tmp_path.rename(scripted_path)
 
                     print('####',
                           'TRAINED MODEL',
@@ -617,7 +654,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
                 37: [cnn_lstm, para_cnn_lstm, simple_cnn]
             }
             # models = dict_models.get(39, list(sota_models.values())) if dev_mode else dict_models.get(00, [sota_resnet])
-            models = dict_models.get(10, [cnn_lstm])  # if not dev_mode else dict_models.get(10, [cnn_lstm])
+            models = dict_models.get(25, [cnn_lstm])  # if not dev_mode else dict_models.get(10, [cnn_lstm])
             # models = dict_models.get(30 + m_sota, []) if 0 < m_sota < 6 else models
             models = dict_models.get(m_sota, models) if m_sota else models
 
@@ -629,7 +666,7 @@ def train_with_soundscapes(files_path: List[Tuple[str, str]] = [],
 
             tt0 = time.time()
             print('####', 'TRAINING', 'MODELS', '####')
-            train(models, train_loader, epochs=num_epochs)
+            train(models, train_loader, epochs=num_epochs, model_config=model_config)
             print('####', 'TRAINING', 'TOTAL TIME:', round(time.time() - tt0, 3), '####')
 
             # test
