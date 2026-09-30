@@ -74,6 +74,73 @@ FRAME_LITERAL_PROPS = [
     "soundscapeIndex", "acousticRichness", "second",
 ]
 PROP_TO_COL = {p: i for i, p in enumerate(FRAME_LITERAL_PROPS)}
+SEED_DIM = 8  # dim of the deliberately-uninformative Sound/Sensor/Band seed features
+
+# Fixed relation set (+ their auto-added reverse, via T.ToUndirected()) --
+# hardcoded here (not read off a live HeteroData.edge_types) so this module
+# can build a fresh, empty skeleton graph and a matching model without any
+# training data on hand, e.g. for inference on one new recording.
+BASE_EDGE_TYPES = [
+    ("sound", "hasFrame", "frame"),
+    ("frame", "hasBand", "band"),
+    ("sound", "recordedBy", "sensor"),
+]
+
+
+def empty_hetero_skeleton():
+    """A HeteroData with all 4 node types (0 nodes each) and all 3 base
+    edge types (0 edges each), then made undirected -- gives a canonical
+    edge_types list (base + reverse) without depending on real data."""
+    from torch_geometric.data import HeteroData
+    import torch_geometric.transforms as T
+
+    data = HeteroData()
+    for node_type, dim in [("sound", SEED_DIM), ("frame", len(FRAME_LITERAL_PROPS)),
+                            ("sensor", SEED_DIM), ("band", SEED_DIM)]:
+        data[node_type].x = torch.zeros((0, dim), dtype=torch.float32)
+    for src, rel, dst in BASE_EDGE_TYPES:
+        data[src, rel, dst].edge_index = torch.zeros((2, 0), dtype=torch.long)
+    return T.ToUndirected()(data)
+
+
+class GNN(torch.nn.Module):
+    """2-layer heterogeneous GraphSAGE + two classification heads (primary
+    AcousticContext 13-way, secondary SoundType 2-way) reading off Sound's
+    final representation. See module docstring for the design rationale
+    (Frame carries real features, Sound/Sensor/Band start uninformative)."""
+
+    def __init__(self, hidden_dim, edge_types):
+        super().__init__()
+        from torch_geometric.nn import HeteroConv, SAGEConv
+
+        self.hidden_dim = hidden_dim
+        self.lin_in = torch.nn.ModuleDict({
+            "sound": torch.nn.Linear(SEED_DIM, hidden_dim),
+            "frame": torch.nn.Linear(len(FRAME_LITERAL_PROPS), hidden_dim),
+            "sensor": torch.nn.Linear(SEED_DIM, hidden_dim),
+            "band": torch.nn.Linear(SEED_DIM, hidden_dim),
+        })
+        # Explicit (not lazy (-1,-1)) in/out dims: every node type is
+        # projected to hidden_dim by lin_in first, so every conv layer's
+        # input is uniformly hidden_dim -- and explicit shapes mean a saved
+        # state_dict can be loaded straight away, no dummy forward pass
+        # needed first to materialize lazy parameters.
+        self.conv1 = HeteroConv({
+            et: SAGEConv((hidden_dim, hidden_dim), hidden_dim) for et in edge_types
+        }, aggr="mean")
+        self.conv2 = HeteroConv({
+            et: SAGEConv((hidden_dim, hidden_dim), hidden_dim) for et in edge_types
+        }, aggr="mean")
+        self.head_primary = torch.nn.Linear(hidden_dim, len(CONTEXT_LIST))
+        self.head_secondary = torch.nn.Linear(hidden_dim, 2)
+
+    def forward(self, x_dict, edge_index_dict):
+        x_dict = {k: self.lin_in[k](v).relu() for k, v in x_dict.items()}
+        x_dict = self.conv1(x_dict, edge_index_dict)
+        x_dict = {k: v.relu() for k, v in x_dict.items()}
+        x_dict = self.conv2(x_dict, edge_index_dict)
+        sound_repr = x_dict["sound"]
+        return self.head_primary(sound_repr), self.head_secondary(sound_repr)
 
 
 def sound_type_for(context: str) -> str:
@@ -253,7 +320,6 @@ def main():
         sys.exit(f"Triples file not found: {args.triples}")
 
     from torch_geometric.data import HeteroData
-    from torch_geometric.nn import HeteroConv, SAGEConv
     import torch_geometric.transforms as T
 
     if args.sample_fraction is not None:
@@ -288,11 +354,10 @@ def main():
     # ---- Sound/Sensor/Band: deliberately uninformative seed features (see
     # module docstring) -- classification skill must come from Frame
     # message passing, not a memorized per-node embedding. ----
-    seed_dim = 8
     g_torch = torch.Generator().manual_seed(args.seed)
-    sound_x = torch.randn(n_sound, seed_dim, generator=g_torch) * 0.01
-    sensor_x = torch.randn(n_sensor, seed_dim, generator=g_torch) * 0.01
-    band_x = torch.randn(n_band, seed_dim, generator=g_torch) * 0.01
+    sound_x = torch.randn(n_sound, SEED_DIM, generator=g_torch) * 0.01
+    sensor_x = torch.randn(n_sensor, SEED_DIM, generator=g_torch) * 0.01
+    band_x = torch.randn(n_band, SEED_DIM, generator=g_torch) * 0.01
 
     data = HeteroData()
     data["sound"].x = sound_x
@@ -327,35 +392,7 @@ def main():
     print(f"Sound={n_sound:,} Frame={n_frame:,} Sensor={n_sensor:,} Band={n_band:,}  "
           f"train={int(train_mask.sum())}  test={int(test_mask.sum())}")
 
-    class GNN(torch.nn.Module):
-        def __init__(self, hidden_dim):
-            super().__init__()
-            self.lin_in = torch.nn.ModuleDict({
-                "sound": torch.nn.Linear(seed_dim, hidden_dim),
-                "frame": torch.nn.Linear(len(FRAME_LITERAL_PROPS), hidden_dim),
-                "sensor": torch.nn.Linear(seed_dim, hidden_dim),
-                "band": torch.nn.Linear(seed_dim, hidden_dim),
-            })
-            self.conv1 = HeteroConv({
-                edge_type: SAGEConv((-1, -1), hidden_dim)
-                for edge_type in data.edge_types
-            }, aggr="mean")
-            self.conv2 = HeteroConv({
-                edge_type: SAGEConv((-1, -1), hidden_dim)
-                for edge_type in data.edge_types
-            }, aggr="mean")
-            self.head_primary = torch.nn.Linear(hidden_dim, len(CONTEXT_LIST))
-            self.head_secondary = torch.nn.Linear(hidden_dim, 2)
-
-        def forward(self, x_dict, edge_index_dict):
-            x_dict = {k: self.lin_in[k](v).relu() for k, v in x_dict.items()}
-            x_dict = self.conv1(x_dict, edge_index_dict)
-            x_dict = {k: v.relu() for k, v in x_dict.items()}
-            x_dict = self.conv2(x_dict, edge_index_dict)
-            sound_repr = x_dict["sound"]
-            return self.head_primary(sound_repr), self.head_secondary(sound_repr)
-
-    model = GNN(args.hidden_dim)
+    model = GNN(args.hidden_dim, data.edge_types)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
     t0 = time.time()
@@ -401,7 +438,21 @@ def main():
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), args.output_dir / "model_state.pt")
+
+    # Everything scripts/gnn_inference.py needs to rebuild this exact model
+    # and preprocess a brand-new recording's features the same way training
+    # did -- without this, inference on new audio would silently use the
+    # wrong normalization (different mean/std) and get nonsense scores.
     import json
+    with open(args.output_dir / "model_meta.json", "w") as fh:
+        json.dump({
+            "hidden_dim": args.hidden_dim,
+            "frame_literal_props": FRAME_LITERAL_PROPS,
+            "context_list": CONTEXT_LIST,
+            "col_mean": col_mean.tolist(),
+            "col_std": col_std.tolist(),
+        }, fh, indent=2)
+
     with open(args.output_dir / "summary.json", "w") as fh:
         json.dump({
             "train_seconds": elapsed,
@@ -409,7 +460,7 @@ def main():
             "primary_acc": acc_p, "primary_top3_acc": acc_p_top3,
             "secondary_acc": acc_s,
         }, fh, indent=2)
-    print(f"Wrote {args.output_dir / 'summary.json'}")
+    print(f"Wrote {args.output_dir / 'summary.json'} and model_meta.json")
 
 
 if __name__ == "__main__":
