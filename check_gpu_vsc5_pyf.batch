@@ -2,15 +2,16 @@
 #SBATCH --job-name=check-gpu-91
 #--partition=zen3_0512
 #--partition=zen3_0512_a100x2
-#SBATCH --partition=zen3_0512_a100x2
-#SBATCH --qos=zen3_0512_a100x2
+##SBATCH --partition=zen3_0512_a100x2
+##SBATCH --qos=zen3_0512_a100x2
 #--qos=zen3_0512_a100
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #--cpus-per-task=128
 #--cpus-per-task=32
 #--exclusive
-#SBATCH --mem=512G
+#--mem=512G
+###SBATCH --mem=512G
 #--time=00-09:11:90
 #SBATCH --hint=nomultithread
 
