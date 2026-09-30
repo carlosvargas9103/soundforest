@@ -50,7 +50,19 @@ fkg:hasSoundClass a owl:ObjectProperty ;
     rdfs:label "has sound class" ;
     rdfs:domain fkg:Region ;
     rdfs:range fkg:SoundClass ;
-    rdfs:comment "Asserted once per Region individual (schema-level, not per Sound): which upper class the region belongs to, Urban or Environmental. A rule-based reasoner can derive Sound -> hasSoundClass -> SoundClass by chaining through hasRegion (LO2)." .
+    rdfs:comment "Asserted once per Region individual (schema-level, not per Sound): which upper class the region belongs to, Urban or Environmental." .
+
+fkg:inferredSoundClass a owl:ObjectProperty ;
+    rdfs:label "inferred sound class" ;
+    rdfs:domain fkg:Sound ;
+    rdfs:range fkg:SoundClass ;
+    rdfs:comment "Never asserted by scripts/build_kg_triples.py. Materialized by scripts/kg_rules.py: Sound hasRegion Region hasSoundClass SoundClass => Sound inferredSoundClass SoundClass. Kept distinct from fkg:hasSoundClass (whose domain is Region, not Sound) rather than overloading one property across two domains." .
+
+fkg:inMunicipality a owl:DatatypeProperty ;
+    rdfs:label "in municipality" ;
+    rdfs:domain fkg:Sound ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Never asserted by scripts/build_kg_triples.py. Materialized by scripts/kg_rules.py: Sound recordedBy Sensor municipality M => Sound inMunicipality M." .
 
 # ================= Datatype properties: Sensor =================
 
