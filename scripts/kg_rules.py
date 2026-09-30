@@ -7,13 +7,13 @@ built-in reasoner is intentionally left off, see scripts/load_kg.py).
 Two rules, each a SPARQL 1.1 Update INSERT...WHERE, idempotent via
 FILTER NOT EXISTS so re-running never duplicates triples:
 
-  R1  Sound hasRegion Region hasSoundClass SoundClass
-      => Sound inferredSoundClass SoundClass
+  R1  Sound hasAcousticContext AcousticContext hasSoundType SoundType
+      => Sound inferredSoundType SoundType
 
   R2  Sound recordedBy Sensor municipality M
       => Sound inMunicipality M
 
-New properties (fkg:inferredSoundClass, fkg:inMunicipality) are declared
+New properties (fkg:inferredSoundType, fkg:inMunicipality) are declared
 in scripts/kg_ontology.ttl and never asserted by scripts/build_kg_triples.py
 -- only by this script, so a triple on either property is, by construction,
 a materialized fact rather than raw extracted data.
@@ -32,13 +32,13 @@ import sys
 import requests
 
 RULES = {
-    "R1: Sound inferredSoundClass (via hasRegion -> hasSoundClass)": """
+    "R1: Sound inferredSoundType (via hasAcousticContext -> hasSoundType)": """
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
-        INSERT { ?sound fkg:inferredSoundClass ?class }
+        INSERT { ?sound fkg:inferredSoundType ?type }
         WHERE {
-            ?sound a fkg:Sound ; fkg:hasRegion ?region .
-            ?region fkg:hasSoundClass ?class .
-            FILTER NOT EXISTS { ?sound fkg:inferredSoundClass ?class }
+            ?sound a fkg:Sound ; fkg:hasAcousticContext ?ctx .
+            ?ctx fkg:hasSoundType ?type .
+            FILTER NOT EXISTS { ?sound fkg:inferredSoundType ?type }
         }
     """,
     "R2: Sound inMunicipality (via recordedBy -> municipality)": """
@@ -53,19 +53,19 @@ RULES = {
 }
 
 SANITY_QUERIES = {
-    "inferredSoundClass count": """
+    "inferredSoundType count": """
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
-        SELECT (COUNT(*) AS ?n) WHERE { ?s fkg:inferredSoundClass ?c }
+        SELECT (COUNT(*) AS ?n) WHERE { ?s fkg:inferredSoundType ?c }
     """,
     "inMunicipality count": """
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
         SELECT (COUNT(*) AS ?n) WHERE { ?s fkg:inMunicipality ?m }
     """,
-    "Sound with no inferredSoundClass (should be 0)": """
+    "Sound with no inferredSoundType (should be 0)": """
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
         SELECT (COUNT(?s) AS ?n) WHERE {
             ?s a fkg:Sound .
-            FILTER NOT EXISTS { ?s fkg:inferredSoundClass ?c }
+            FILTER NOT EXISTS { ?s fkg:inferredSoundType ?c }
         }
     """,
 }

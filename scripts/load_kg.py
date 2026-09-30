@@ -67,22 +67,22 @@ SANITY_QUERIES = {
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
         SELECT (COUNT(?s) AS ?n) WHERE { ?s a fkg:Sound }
     """,
-    "Sound count per Region": """
+    "Sound count per AcousticContext": """
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?region (COUNT(?s) AS ?n) WHERE {
-            ?s a fkg:Sound ; fkg:hasRegion ?r .
-            ?r rdfs:label ?region .
-        } GROUP BY ?region ORDER BY DESC(?n)
+        SELECT ?context (COUNT(?s) AS ?n) WHERE {
+            ?s a fkg:Sound ; fkg:hasAcousticContext ?c .
+            ?c rdfs:label ?context .
+        } GROUP BY ?context ORDER BY DESC(?n)
     """,
-    "Sound count per SoundClass (via hasRegion -> hasSoundClass)": """
+    "Sound count per SoundType (via hasAcousticContext -> hasSoundType)": """
         PREFIX fkg: <https://forest-kg.example.org/ontology#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?class (COUNT(?s) AS ?n) WHERE {
-            ?s a fkg:Sound ; fkg:hasRegion ?r .
-            ?r fkg:hasSoundClass ?sc .
-            ?sc rdfs:label ?class .
-        } GROUP BY ?class
+        SELECT ?type (COUNT(?s) AS ?n) WHERE {
+            ?s a fkg:Sound ; fkg:hasAcousticContext ?c .
+            ?c fkg:hasSoundType ?st .
+            ?st rdfs:label ?type .
+        } GROUP BY ?type
     """,
 }
 

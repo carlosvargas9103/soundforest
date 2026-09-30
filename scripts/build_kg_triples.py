@@ -2,17 +2,28 @@
 """
 Map out/data/extraction/*.pkl into FOREST-KG triples (N-Triples).
 
-For every source audio file's feature DataFrame (one row per second x band,
-see scripts/read_extraction_stats.py for the column layout) this emits one
-fkg:Sound individual with:
-  - acoustic index properties = the mean of each scalar Metrics column
-    across the file's rows (aci, adi, entropy, ... -- see kg_ontology.ttl)
-  - fkg:hasRegion  -> a fkg:Region individual: one of all 13
+Each row of a source file's feature DataFrame is one (second, frequency
+-band) frame -- see scripts/read_extraction_stats.py for the column
+layout -- and becomes ONE fkg:Sound individual (NOT one Sound per file:
+a 449s FOREST recording is 449 seconds x 10 bands = 4490 Sound frames;
+across the full dataset that's ~626,130 Sound nodes, not ~18,567). Each
+Sound frame gets:
+  - acoustic index properties = that row's own values, unaggregated
+    (aci, adi, entropy, ... -- see kg_ontology.ttl)
+  - fkg:second, fkg:hasBand -> which frame of the source recording this is
+  - fkg:hasAcousticContext -> a fkg:AcousticContext individual: one of all 13
     source/extraction.py:SoundscapeRegion categories (the 9 SONYC-UST
-    event classes and the 4 FOREST land-use classes alike)
-  - fkg:recordedBy -> a fkg:Sensor individual, shared across all files from
-    the same sensor_id, with a fixed lat/lon/municipality per group (see
-    LOCATION_BY_GROUP below -- we don't have per-sensor GPS for most sounds)
+    event classes and the 4 FOREST land-use classes alike) -- shared by
+    every frame of the same source file. Primary link-prediction target
+    (commit 5, LO1); fkg:hasSoundType (via kg_rules.py's inferredSoundType)
+    is the secondary, coarser target.
+  - fkg:recordedBy -> a fkg:Sensor individual, shared across every frame
+    (and every file) from the same sensor_id, with a fixed lat/lon/
+    municipality per group (see LOCATION_BY_GROUP below -- we don't have
+    per-sensor GPS for most sounds)
+  - fkg:soundscapeId/fkg:sourceFile/fkg:pklPath -> constant across every
+    frame of the same source file, so frames can be grouped back into a
+    recording via SPARQL without a separate Recording class
 
 Schema: scripts/kg_ontology.ttl
 Pipeline diagram: scripts/kg_pipeline_plan.html
@@ -56,10 +67,11 @@ FKG = "https://forest-kg.example.org/ontology#"
 RES = "https://forest-kg.example.org/resource/"
 RDF_TYPE = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"
 
-# Every Sound gets fkg:hasRegion -> Region_<folder name>, all 13 alike (see
-# scripts/kg_ontology.ttl). This set is only used to pick the Sensor's fixed
-# location group (Nicoya Peninsula vs NYC) and to parse the sensor/site id.
-FOREST_REGIONS = {"Plantation", "Pasture", "NaturalRegeneration", "RefForest"}
+# Every Sound gets fkg:hasAcousticContext -> AcousticContext_<folder name>,
+# all 13 alike (see scripts/kg_ontology.ttl). This set is only used to pick
+# the Sensor's fixed location group (Nicoya Peninsula vs NYC) and to parse
+# the sensor/site id.
+FOREST_CONTEXTS = {"Plantation", "Pasture", "NaturalRegeneration", "RefForest"}
 
 # Sound (Metrics value -> ontology property). Excludes reg/sid/sec/ban
 # (structural, not acoustic) and vec_* (kept out of the KG, see pklPath).
@@ -92,7 +104,7 @@ LOCATION_BY_GROUP = {
 
 
 def group_for_region(region: str) -> str:
-    return "nicoya" if region in FOREST_REGIONS else "nyc"
+    return "nicoya" if region in FOREST_CONTEXTS else "nyc"
 
 
 def source_stem(pkl_path: Path) -> str:
@@ -103,7 +115,7 @@ def source_stem(pkl_path: Path) -> str:
 
 
 def sensor_id_for(region: str, stem: str) -> str:
-    if region in FOREST_REGIONS:
+    if region in FOREST_CONTEXTS:
         # '3_01_Pasture11' -> 'Pasture11' (site code is everything after the
         # 2nd underscore; the leading two fields are a local region/index
         # counter, not identifying information).
@@ -169,14 +181,17 @@ def main():
     t0 = time.time()
 
     with open(args.output, "w", encoding="utf-8") as out:
-        # ---- Region individuals are declared in kg_ontology.ttl; only
-        #      fkg:Sound and fkg:Sensor individuals are emitted here. ----
+        # ---- AcousticContext individuals are declared in kg_ontology.ttl;
+        #      only fkg:Sound and fkg:Sensor individuals are emitted here. ----
         for region_dir in region_dirs:
             region = region_dir.name
             group = group_for_region(region)
             files = sorted(region_dir.glob("*.pkl"))
             if args.limit_per_region is not None:
                 files = files[: args.limit_per_region]
+
+            region_uri = uri("AcousticContext_" + region)
+            n_frames_region = 0
 
             for fp in files:
                 try:
@@ -187,32 +202,19 @@ def main():
                     continue
 
                 col_names = [str(c) for c in df.columns]
+                required = ["sec", "ban", "sid"]
+                if not all(c in col_names for c in required):
+                    print(f"  [WARN] {fp} missing {required}, skipping", file=sys.stderr)
+                    n_errors += 1
+                    continue
+
                 stem = source_stem(fp)
                 sensor_id = sensor_id_for(region, stem)
-                sound_local = f"Sound_{sanitize_id(region)}_{sanitize_id(stem)}"
                 sensor_local = f"Sensor_{group}_{sanitize_id(sensor_id)}"
-                sound = uri(sound_local)
                 sensor = uri(sensor_local)
-
-                out.write(f"{sound} {RDF_TYPE} <{FKG}Sound> .\n")
-                out.write(f"{sound} <{FKG}hasRegion> {uri('Region_' + region)} .\n")
-                out.write(f"{sound} <{FKG}recordedBy> {sensor} .\n")
-                out.write(f"{sound} <{FKG}sourceFile> {lit_str(fp.name)} .\n")
-                out.write(f"{sound} <{FKG}pklPath> {lit_str(str(fp.relative_to(args.extraction_dir)))} .\n")
-                out.write(f"{sound} <{FKG}nRows> {lit_int(len(df))} .\n")
-
-                if "sec" in col_names:
-                    sec_col = df.columns[col_names.index("sec")]
-                    out.write(f"{sound} <{FKG}durationSeconds> {lit_int(int(df[sec_col].max()) + 1)} .\n")
-                if "sid" in col_names:
-                    sid_col = df.columns[col_names.index("sid")]
-                    out.write(f"{sound} <{FKG}soundscapeId> {lit_int(int(df[sid_col].iloc[0]))} .\n")
-
-                for metric_value, prop in INDEX_PROPERTY.items():
-                    if metric_value in col_names:
-                        col = df.columns[col_names.index(metric_value)]
-                        mean_val = float(df[col].mean())
-                        out.write(f"{sound} <{FKG}{prop}> {lit_float(mean_val)} .\n")
+                sound_prefix = f"Sound_{sanitize_id(region)}_{sanitize_id(stem)}"
+                source_file_lit = lit_str(fp.name)
+                pkl_path_lit = lit_str(str(fp.relative_to(args.extraction_dir)))
 
                 if sensor_local not in seen_sensors:
                     seen_sensors.add(sensor_local)
@@ -223,9 +225,32 @@ def main():
                     out.write(f"{sensor} <{FKG}longitude> {lit_float(loc['longitude'])} .\n")
                     out.write(f"{sensor} <{FKG}municipality> {lit_str(loc['municipality'])} .\n")
 
-                n_sounds += 1
+                idx_cols = [
+                    (prop, col_names.index(metric_value))
+                    for metric_value, prop in INDEX_PROPERTY.items()
+                    if metric_value in col_names
+                ]
+                sec_i, ban_i, sid_i = (col_names.index(c) for c in required)
 
-            print(f"  {region:20s} -> {len(files)} Sound nodes ({group})")
+                for row in df.itertuples(index=False, name=None):
+                    sec, ban, sid = int(row[sec_i]), int(row[ban_i]), int(row[sid_i])
+                    sound = uri(f"{sound_prefix}_s{sec}_b{ban}")
+
+                    out.write(f"{sound} {RDF_TYPE} <{FKG}Sound> .\n")
+                    out.write(f"{sound} <{FKG}hasAcousticContext> {region_uri} .\n")
+                    out.write(f"{sound} <{FKG}recordedBy> {sensor} .\n")
+                    out.write(f"{sound} <{FKG}hasBand> {uri('Band_' + str(ban))} .\n")
+                    out.write(f"{sound} <{FKG}second> {lit_int(sec)} .\n")
+                    out.write(f"{sound} <{FKG}soundscapeId> {lit_int(sid)} .\n")
+                    out.write(f"{sound} <{FKG}sourceFile> {source_file_lit} .\n")
+                    out.write(f"{sound} <{FKG}pklPath> {pkl_path_lit} .\n")
+                    for prop, col_i in idx_cols:
+                        out.write(f"{sound} <{FKG}{prop}> {lit_float(float(row[col_i]))} .\n")
+
+                    n_sounds += 1
+                    n_frames_region += 1
+
+            print(f"  {region:20s} -> {len(files)} files, {n_frames_region} Sound frames ({group})")
 
     elapsed = time.time() - t0
     print(f"\n{n_sounds} Sound nodes, {len(seen_sensors)} distinct Sensor nodes, "
