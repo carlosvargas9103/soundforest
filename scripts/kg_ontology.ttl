@@ -13,9 +13,17 @@
 # end-to-end pipeline diagram and scripts/kg_schema_diagram.html for this
 # schema's class diagram.
 #
-# Link-prediction targets (commit 5, LO1): fkg:hasAcousticContext is the
-# primary target (13 fine-grained classes); fkg:hasSoundType is a secondary
-# target (2 coarse classes) -- the plan is to infer both, not just one.
+# Sound = one audio RECORDING (one .pkl file, one per source/data_exploration
+# row: 18,567 total). Frame = one (second, frequency-band) window within
+# that recording (626,130 total). A Sound owns its Frames via fkg:hasFrame;
+# the acoustic index values live on Frame, not Sound, so link prediction on
+# a Sound's target relations has real per-recording structure to learn from
+# (a forest Sound has up to 4490 Frame neighbors) instead of each frame
+# being an almost-featureless individual.
+#
+# Link-prediction targets (commit 5, LO1), both now per-RECORDING:
+# fkg:hasAcousticContext is the primary target (13 fine-grained classes);
+# fkg:hasSoundType is a secondary target (2 coarse classes) -- infer both.
 
 <https://forest-kg.example.org/ontology> a owl:Ontology ;
     rdfs:label "FOREST-KG Ontology" .
@@ -24,7 +32,11 @@
 
 fkg:Sound a owl:Class ;
     rdfs:label "Sound" ;
-    rdfs:comment "One (second, frequency-band) frame: one row of a .pkl feature table in out/data/extraction/<AcousticContext>/. Acoustic index properties are that row's own values (no aggregation). Many Sound frames share one source file (same fkg:sourceFile/fkg:pklPath/fkg:soundscapeId, same fkg:hasAcousticContext/fkg:recordedBy) -- e.g. one 449s FOREST recording is 449 seconds x 10 bands = 4490 Sound frames." .
+    rdfs:comment "One audio recording: one .pkl feature file in out/data/extraction/<AcousticContext>/ (18,567 total). Owns its (second, band) windows via fkg:hasFrame -- a forest recording (449s) has 4490 Frames, a SONYC clip (2s) has 20." .
+
+fkg:Frame a owl:Class ;
+    rdfs:label "Frame" ;
+    rdfs:comment "One (second, frequency-band) window within a Sound's feature table (626,130 total across the dataset). Carries that row's own acoustic index values (no aggregation) plus fkg:second and fkg:hasBand. Reached only via its owning Sound's fkg:hasFrame -- a Frame has no fkg:hasAcousticContext/fkg:recordedBy of its own." .
 
 fkg:Band a owl:Class ;
     rdfs:label "Frequency Band" ;
@@ -32,7 +44,7 @@ fkg:Band a owl:Class ;
 
 fkg:AcousticContext a owl:Class ;
     rdfs:label "Acoustic Context" ;
-    rdfs:comment "The 13 source/extraction.py:SoundscapeRegion categories a recording is drawn from (values 1-13): the 9 SONYC-UST urban sound-event classes (Noise, Engine, MachineryImpact, NonMachineryImpact, PoweredSaw, AlertSignal, Music, HumanVoice, Dog) and the 4 FOREST land-use classes (Plantation, Pasture, NaturalRegeneration, RefForest). This is the PRIMARY link-prediction target -- fine-grained, 13-way." .
+    rdfs:comment "The 13 source/extraction.py:SoundscapeRegion categories a recording is drawn from (values 1-13): the 9 SONYC-UST urban sound-event classes (Noise, Engine, MachineryImpact, NonMachineryImpact, PoweredSaw, AlertSignal, Music, HumanVoice, Dog) and the 4 FOREST land-use classes (Plantation, Pasture, NaturalRegeneration, RefForest). This is the PRIMARY link-prediction target -- fine-grained, 13-way, one per Sound (recording)." .
 
 fkg:Sensor a owl:Class ;
     rdfs:label "Sensor" ;
@@ -40,15 +52,21 @@ fkg:Sensor a owl:Class ;
 
 fkg:SoundType a owl:Class ;
     rdfs:label "Sound Type" ;
-    rdfs:comment "Upper-level grouping of fkg:AcousticContext: Urban (the 9 SONYC-UST categories) or Environmental (the 4 FOREST categories). Two fixed individuals, res:SoundType_Urban and res:SoundType_Environmental -- see fkg:hasSoundType. This is the SECONDARY link-prediction target -- coarse, 2-way." .
+    rdfs:comment "Upper-level grouping of fkg:AcousticContext: Urban (the 9 SONYC-UST categories) or Environmental (the 4 FOREST categories). Two fixed individuals, res:SoundType_Urban and res:SoundType_Environmental -- see fkg:hasSoundType. This is the SECONDARY link-prediction target -- coarse, 2-way, one per Sound (recording)." .
 
 # ================= Object properties =================
+
+fkg:hasFrame a owl:ObjectProperty ;
+    rdfs:label "has frame" ;
+    rdfs:domain fkg:Sound ;
+    rdfs:range fkg:Frame ;
+    rdfs:comment "A Sound's (second, band) windows. One Sound has many Frames (20 for a 2s SONYC clip, 4490 for a 449s FOREST recording) -- this is the structure a link-prediction model has to learn an AcousticContext/SoundType from, since the raw acoustic index values sit on Frame, not on Sound." .
 
 fkg:hasAcousticContext a owl:ObjectProperty ;
     rdfs:label "has acoustic context" ;
     rdfs:domain fkg:Sound ;
     rdfs:range fkg:AcousticContext ;
-    rdfs:comment "Asserted for every frame. Today: functional (1 Sound -> 1 AcousticContext); planned to relax to 1 Sound -> N AcousticContext. Primary link-prediction target." .
+    rdfs:comment "Asserted once per Sound (recording). Today: functional (1 Sound -> 1 AcousticContext); planned to relax to 1 Sound -> N AcousticContext. Primary link-prediction target." .
 
 fkg:recordedBy a owl:ObjectProperty ;
     rdfs:label "recorded by" ;
@@ -57,9 +75,9 @@ fkg:recordedBy a owl:ObjectProperty ;
 
 fkg:hasBand a owl:ObjectProperty ;
     rdfs:label "has frequency band" ;
-    rdfs:domain fkg:Sound ;
+    rdfs:domain fkg:Frame ;
     rdfs:range fkg:Band ;
-    rdfs:comment "Which of the 10 fixed 1kHz bands this frame's indices were computed over." .
+    rdfs:comment "Which of the 10 fixed 1kHz bands this Frame's indices were computed over." .
 
 fkg:hasSoundType a owl:ObjectProperty ;
     rdfs:label "has sound type" ;
@@ -91,33 +109,38 @@ fkg:municipality a owl:DatatypeProperty ; rdfs:domain fkg:Sensor ; rdfs:range xs
 fkg:lowerBoundHz a owl:DatatypeProperty ; rdfs:domain fkg:Band ; rdfs:range xsd:integer ; rdfs:label "lower bound (Hz)" .
 fkg:upperBoundHz a owl:DatatypeProperty ; rdfs:domain fkg:Band ; rdfs:range xsd:integer ; rdfs:label "upper bound (Hz)" .
 
-# ================= Datatype properties: Sound -- acoustic indices =================
+# ================= Datatype properties: Frame -- acoustic indices =================
 # Property names mirror source/extraction.py:Metrics values.
 
-fkg:meanEnergy       a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.MEAN ('men')" .
-fkg:medianEnergy     a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.MEDIAN ('med')" .
-fkg:sumEnergy        a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.SUM ('sum')" .
-fkg:maxEnergy        a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.MAX ('max')" .
-fkg:minEnergy        a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.MIN ('min')" .
-fkg:aci              a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_COMPLEXITY" .
-fkg:aca              a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE" .
-fkg:adi              a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_DIVERSITY" .
-fkg:bioacousticIndex a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.BIOACOUSTIC_INDEX_BETA ('bet')" .
-fkg:temporalMedian   a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.TEMPORAL_MEDIAN ('mmm')" .
-fkg:numberPeaks      a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.NUMBER_PEAKS ('npp')" .
-fkg:entropyFrequency a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ENTROPY_FREQUENCY ('hfq')" .
-fkg:entropyTemporal  a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ENTROPY_TEMPORAL ('htp')" .
-fkg:entropy          a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ENTROPY ('hhh')" .
-fkg:acousticEvenness a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_EVENNESS ('aei')" .
-fkg:soundscapeIndex  a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.SOUNDSCAPE_INDEX ('dsi')" .
-fkg:acousticRichness a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_RICHNESS ('amr')" .
+fkg:meanEnergy       a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.MEAN ('men')" .
+fkg:medianEnergy     a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.MEDIAN ('med')" .
+fkg:sumEnergy        a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.SUM ('sum')" .
+fkg:maxEnergy        a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.MAX ('max')" .
+fkg:minEnergy        a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.MIN ('min')" .
+fkg:aci              a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_COMPLEXITY" .
+fkg:aca              a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_COMPLEXITY_ALTERNATIVE" .
+fkg:adi              a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_DIVERSITY" .
+fkg:bioacousticIndex a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.BIOACOUSTIC_INDEX_BETA ('bet')" .
+fkg:temporalMedian   a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.TEMPORAL_MEDIAN ('mmm')" .
+fkg:numberPeaks      a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.NUMBER_PEAKS ('npp')" .
+fkg:entropyFrequency a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ENTROPY_FREQUENCY ('hfq')" .
+fkg:entropyTemporal  a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ENTROPY_TEMPORAL ('htp')" .
+fkg:entropy          a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ENTROPY ('hhh')" .
+fkg:acousticEvenness a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_EVENNESS ('aei')" .
+fkg:soundscapeIndex  a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.SOUNDSCAPE_INDEX ('dsi')" .
+fkg:acousticRichness a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:float ; rdfs:comment "Metrics.ACOUSTIC_RICHNESS ('amr')" .
+
+# ================= Datatype properties: Frame -- provenance =================
+
+fkg:second a owl:DatatypeProperty ; rdfs:domain fkg:Frame ; rdfs:range xsd:integer ; rdfs:comment "Metrics.SECOND ('sec'): which second of the source recording this frame covers." .
 
 # ================= Datatype properties: Sound -- provenance =================
 
-fkg:second        a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:integer ; rdfs:comment "Metrics.SECOND ('sec'): which second of the source recording this frame covers." .
-fkg:soundscapeId  a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:integer ; rdfs:comment "Metrics.SOUNDSCAPE_ID ('sid'), constant across all frames of one source file -- groups frames back into a recording without a separate Recording class." .
-fkg:sourceFile    a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:string ; rdfs:comment "original audio file name (no directory), constant across all frames of one source file" .
-fkg:pklPath       a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:string ; rdfs:comment "path to the extraction .pkl, relative to out/data/extraction/, constant across all frames of one source file" .
+fkg:soundscapeId    a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:integer ; rdfs:comment "Metrics.SOUNDSCAPE_ID ('sid')." .
+fkg:sourceFile       a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:string ; rdfs:comment "original audio file name (no directory)." .
+fkg:pklPath           a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:string ; rdfs:comment "path to the extraction .pkl, relative to out/data/extraction/." .
+fkg:nFrames           a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:integer ; rdfs:comment "count of this Sound's Frames (= row count of the source DataFrame)." .
+fkg:durationSeconds   a owl:DatatypeProperty ; rdfs:domain fkg:Sound ; rdfs:range xsd:integer ; rdfs:comment "max(sec) + 1 across this Sound's Frames." .
 
 # ================= Controlled vocabulary: SoundType individuals (2) =================
 

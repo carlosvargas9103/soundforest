@@ -2,34 +2,43 @@
 """
 Map out/data/extraction/*.pkl into FOREST-KG triples (N-Triples).
 
-Each row of a source file's feature DataFrame is one (second, frequency
--band) frame -- see scripts/read_extraction_stats.py for the column
-layout -- and becomes ONE fkg:Sound individual (NOT one Sound per file:
-a 449s FOREST recording is 449 seconds x 10 bands = 4490 Sound frames;
-across the full dataset that's ~626,130 Sound nodes, not ~18,567). Each
-Sound frame gets:
-  - acoustic index properties = that row's own values, unaggregated
-    (aci, adi, entropy, ... -- see kg_ontology.ttl)
-  - fkg:second, fkg:hasBand -> which frame of the source recording this is
-  - fkg:hasAcousticContext -> a fkg:AcousticContext individual: one of all 13
-    source/extraction.py:SoundscapeRegion categories (the 9 SONYC-UST
-    event classes and the 4 FOREST land-use classes alike) -- shared by
-    every frame of the same source file. Primary link-prediction target
-    (commit 5, LO1); fkg:hasSoundType (via kg_rules.py's inferredSoundType)
-    is the secondary, coarser target.
-  - fkg:recordedBy -> a fkg:Sensor individual, shared across every frame
-    (and every file) from the same sensor_id, with a fixed lat/lon/
-    municipality per group (see LOCATION_BY_GROUP below -- we don't have
-    per-sensor GPS for most sounds)
-  - fkg:soundscapeId/fkg:sourceFile/fkg:pklPath -> constant across every
-    frame of the same source file, so frames can be grouped back into a
-    recording via SPARQL without a separate Recording class
+One Sound per source RECORDING (one .pkl file, 18,567 total), owning its
+per-(second, band) Frames via fkg:hasFrame (626,130 total). The acoustic
+index values live on Frame; the link-prediction targets (hasAcousticContext,
+recordedBy) live on Sound. This gives a Sound a rich neighborhood to learn
+a link-prediction embedding from (up to 4490 Frame neighbors for a forest
+recording) instead of each frame being a near-featureless individual.
+
+  Sound:
+    - fkg:hasFrame -> Frame, one per row of the source DataFrame
+    - fkg:hasAcousticContext -> AcousticContext (primary link-prediction
+      target, commit 5/LO1); fkg:hasSoundType (via kg_rules.py's
+      inferredSoundType) is the secondary target
+    - fkg:recordedBy -> Sensor, fixed lat/lon/municipality per group (see
+      LOCATION_BY_GROUP -- we don't have per-sensor GPS for most sounds)
+    - fkg:soundscapeId/fkg:sourceFile/fkg:pklPath/fkg:nFrames/
+      fkg:durationSeconds -> recording-level provenance
+
+  Frame:
+    - fkg:second, fkg:hasBand -> which window of the recording this is
+    - the 17 acoustic index properties (aci, adi, entropy, ... -- see
+      kg_ontology.ttl), that row's own values, unaggregated
+
+Parallel by file across worker processes (unpickling + per-row triple
+formatting is CPU-bound, not disk-bound -- a single-threaded run leaves an
+NVMe mostly idle). Each worker writes its own Sensor triples for whatever
+sensor_ids it touches; workers never coordinate on Sensor dedup, because
+duplicate IDENTICAL triples across workers are harmless (RDF triples are a
+set -- loading the same triple twice, e.g. via scripts/load_kg.py, is a
+no-op, verified empirically). Final output is the plain concatenation of
+each worker's part file.
 
 Schema: scripts/kg_ontology.ttl
 Pipeline diagram: scripts/kg_pipeline_plan.html
 
 Usage:
     python scripts/build_kg_triples.py
+    python scripts/build_kg_triples.py --workers 19
     python scripts/build_kg_triples.py --extraction-dir out/data/extraction-data
     python scripts/build_kg_triples.py --limit-per-region 50   # smoke test
     python scripts/build_kg_triples.py --output out/data/kg/triples.nt
@@ -39,6 +48,8 @@ source/extraction.py importable (joblib/pandas/numpy/scikit-maad), e.g.:
     /home/cvargas/miniconda3/envs/tpyforest/bin/python scripts/build_kg_triples.py
 """
 import argparse
+import multiprocessing as mp
+import os
 import pickle
 import sys
 import time
@@ -73,7 +84,7 @@ RDF_TYPE = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"
 # the sensor/site id.
 FOREST_CONTEXTS = {"Plantation", "Pasture", "NaturalRegeneration", "RefForest"}
 
-# Sound (Metrics value -> ontology property). Excludes reg/sid/sec/ban
+# Frame (Metrics value -> ontology property). Excludes reg/sid/sec/ban
 # (structural, not acoustic) and vec_* (kept out of the KG, see pklPath).
 INDEX_PROPERTY = {
     Metrics.MEAN.value: "meanEnergy",
@@ -154,6 +165,101 @@ def load_pkl(path: Path) -> pd.DataFrame:
         return pickle.load(fh)
 
 
+def process_files(worker_id, file_list, extraction_dir: Path, out_path: Path, stats_queue):
+    """file_list: list of (region, Path) tuples. Writes triples for exactly
+    these files to out_path. Sensor dedup is LOCAL to this worker (see
+    module docstring -- cross-worker duplicate Sensor triples are harmless).
+    """
+    seen_sensors = set()
+    n_sounds = 0
+    n_frames = 0
+    n_errors = 0
+    per_region = {}
+
+    with open(out_path, "w", encoding="utf-8") as out:
+        for region, fp in file_list:
+            group = group_for_region(region)
+            region_uri = uri("AcousticContext_" + region)
+
+            try:
+                df = load_pkl(fp)
+            except Exception as e:
+                print(f"  [WARN][w{worker_id}] could not read {fp}: {e}", file=sys.stderr)
+                n_errors += 1
+                continue
+
+            col_names = [str(c) for c in df.columns]
+            required = ["sec", "ban", "sid"]
+            if not all(c in col_names for c in required):
+                print(f"  [WARN][w{worker_id}] {fp} missing {required}, skipping", file=sys.stderr)
+                n_errors += 1
+                continue
+
+            stem = source_stem(fp)
+            sensor_id = sensor_id_for(region, stem)
+            sensor_local = f"Sensor_{group}_{sanitize_id(sensor_id)}"
+            sensor = uri(sensor_local)
+            sound_local = f"Sound_{sanitize_id(region)}_{sanitize_id(stem)}"
+            sound = uri(sound_local)
+            frame_prefix = f"Frame_{sanitize_id(region)}_{sanitize_id(stem)}"
+            source_file_lit = lit_str(fp.name)
+            pkl_path_lit = lit_str(str(fp.relative_to(extraction_dir)))
+
+            if sensor_local not in seen_sensors:
+                seen_sensors.add(sensor_local)
+                loc = LOCATION_BY_GROUP[group]
+                out.write(f"{sensor} {RDF_TYPE} <{FKG}Sensor> .\n")
+                out.write(f"{sensor} <{FKG}sensorId> {lit_str(sensor_id)} .\n")
+                out.write(f"{sensor} <{FKG}latitude> {lit_float(loc['latitude'])} .\n")
+                out.write(f"{sensor} <{FKG}longitude> {lit_float(loc['longitude'])} .\n")
+                out.write(f"{sensor} <{FKG}municipality> {lit_str(loc['municipality'])} .\n")
+
+            idx_cols = [
+                (prop, col_names.index(metric_value))
+                for metric_value, prop in INDEX_PROPERTY.items()
+                if metric_value in col_names
+            ]
+            sec_i, ban_i, sid_i = (col_names.index(c) for c in required)
+
+            n_rows = len(df)
+            max_sec = -1
+            sid_value = None
+
+            out.write(f"{sound} {RDF_TYPE} <{FKG}Sound> .\n")
+            out.write(f"{sound} <{FKG}hasAcousticContext> {region_uri} .\n")
+            out.write(f"{sound} <{FKG}recordedBy> {sensor} .\n")
+            out.write(f"{sound} <{FKG}sourceFile> {source_file_lit} .\n")
+            out.write(f"{sound} <{FKG}pklPath> {pkl_path_lit} .\n")
+            out.write(f"{sound} <{FKG}nFrames> {lit_int(n_rows)} .\n")
+
+            for row in df.itertuples(index=False, name=None):
+                sec, ban, sid = int(row[sec_i]), int(row[ban_i]), int(row[sid_i])
+                max_sec = max(max_sec, sec)
+                sid_value = sid
+                frame = uri(f"{frame_prefix}_s{sec}_b{ban}")
+
+                out.write(f"{sound} <{FKG}hasFrame> {frame} .\n")
+                out.write(f"{frame} {RDF_TYPE} <{FKG}Frame> .\n")
+                out.write(f"{frame} <{FKG}hasBand> {uri('Band_' + str(ban))} .\n")
+                out.write(f"{frame} <{FKG}second> {lit_int(sec)} .\n")
+                for prop, col_i in idx_cols:
+                    out.write(f"{frame} <{FKG}{prop}> {lit_float(float(row[col_i]))} .\n")
+
+                n_frames += 1
+
+            out.write(f"{sound} <{FKG}durationSeconds> {lit_int(max_sec + 1)} .\n")
+            if sid_value is not None:
+                out.write(f"{sound} <{FKG}soundscapeId> {lit_int(sid_value)} .\n")
+
+            n_sounds += 1
+            per_region[region] = per_region.get(region, 0) + 1
+
+    stats_queue.put({
+        "worker_id": worker_id, "n_sounds": n_sounds, "n_frames": n_frames,
+        "n_errors": n_errors, "per_region": per_region, "n_sensors": len(seen_sensors),
+    })
+
+
 def main():
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -163,6 +269,10 @@ def main():
     parser.add_argument(
         "--limit-per-region", type=int, default=None,
         help="Only process the first N files per region (smoke test). Default: all files.",
+    )
+    parser.add_argument(
+        "--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1),
+        help="Parallel worker processes (default: cpu_count - 1).",
     )
     args = parser.parse_args()
 
@@ -175,87 +285,55 @@ def main():
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
-    seen_sensors = set()
-    n_sounds = 0
-    n_errors = 0
+    # Flat (region, file) list, largest files first so slow forest files
+    # start early and don't straggle at the end of a run.
+    all_files = []
+    for region_dir in region_dirs:
+        region = region_dir.name
+        files = sorted(region_dir.glob("*.pkl"))
+        if args.limit_per_region is not None:
+            files = files[: args.limit_per_region]
+        all_files.extend((region, fp) for fp in files)
+    all_files.sort(key=lambda rf: rf[1].stat().st_size, reverse=True)
+
+    n_workers = max(1, min(args.workers, len(all_files)))
+    chunks = [all_files[i::n_workers] for i in range(n_workers)]  # round-robin
+    print(f"{len(all_files)} files across {len(region_dirs)} regions, "
+          f"{n_workers} workers ({sum(len(c) for c in chunks)} files assigned)")
+
+    part_paths = [args.output.with_suffix(f".part{i}.nt") for i in range(n_workers)]
+    stats_queue = mp.Queue()
+    procs = []
     t0 = time.time()
+    for i, (chunk, part_path) in enumerate(zip(chunks, part_paths)):
+        p = mp.Process(target=process_files, args=(i, chunk, args.extraction_dir, part_path, stats_queue))
+        p.start()
+        procs.append(p)
 
-    with open(args.output, "w", encoding="utf-8") as out:
-        # ---- AcousticContext individuals are declared in kg_ontology.ttl;
-        #      only fkg:Sound and fkg:Sensor individuals are emitted here. ----
-        for region_dir in region_dirs:
-            region = region_dir.name
-            group = group_for_region(region)
-            files = sorted(region_dir.glob("*.pkl"))
-            if args.limit_per_region is not None:
-                files = files[: args.limit_per_region]
-
-            region_uri = uri("AcousticContext_" + region)
-            n_frames_region = 0
-
-            for fp in files:
-                try:
-                    df = load_pkl(fp)
-                except Exception as e:
-                    print(f"  [WARN] could not read {fp}: {e}", file=sys.stderr)
-                    n_errors += 1
-                    continue
-
-                col_names = [str(c) for c in df.columns]
-                required = ["sec", "ban", "sid"]
-                if not all(c in col_names for c in required):
-                    print(f"  [WARN] {fp} missing {required}, skipping", file=sys.stderr)
-                    n_errors += 1
-                    continue
-
-                stem = source_stem(fp)
-                sensor_id = sensor_id_for(region, stem)
-                sensor_local = f"Sensor_{group}_{sanitize_id(sensor_id)}"
-                sensor = uri(sensor_local)
-                sound_prefix = f"Sound_{sanitize_id(region)}_{sanitize_id(stem)}"
-                source_file_lit = lit_str(fp.name)
-                pkl_path_lit = lit_str(str(fp.relative_to(args.extraction_dir)))
-
-                if sensor_local not in seen_sensors:
-                    seen_sensors.add(sensor_local)
-                    loc = LOCATION_BY_GROUP[group]
-                    out.write(f"{sensor} {RDF_TYPE} <{FKG}Sensor> .\n")
-                    out.write(f"{sensor} <{FKG}sensorId> {lit_str(sensor_id)} .\n")
-                    out.write(f"{sensor} <{FKG}latitude> {lit_float(loc['latitude'])} .\n")
-                    out.write(f"{sensor} <{FKG}longitude> {lit_float(loc['longitude'])} .\n")
-                    out.write(f"{sensor} <{FKG}municipality> {lit_str(loc['municipality'])} .\n")
-
-                idx_cols = [
-                    (prop, col_names.index(metric_value))
-                    for metric_value, prop in INDEX_PROPERTY.items()
-                    if metric_value in col_names
-                ]
-                sec_i, ban_i, sid_i = (col_names.index(c) for c in required)
-
-                for row in df.itertuples(index=False, name=None):
-                    sec, ban, sid = int(row[sec_i]), int(row[ban_i]), int(row[sid_i])
-                    sound = uri(f"{sound_prefix}_s{sec}_b{ban}")
-
-                    out.write(f"{sound} {RDF_TYPE} <{FKG}Sound> .\n")
-                    out.write(f"{sound} <{FKG}hasAcousticContext> {region_uri} .\n")
-                    out.write(f"{sound} <{FKG}recordedBy> {sensor} .\n")
-                    out.write(f"{sound} <{FKG}hasBand> {uri('Band_' + str(ban))} .\n")
-                    out.write(f"{sound} <{FKG}second> {lit_int(sec)} .\n")
-                    out.write(f"{sound} <{FKG}soundscapeId> {lit_int(sid)} .\n")
-                    out.write(f"{sound} <{FKG}sourceFile> {source_file_lit} .\n")
-                    out.write(f"{sound} <{FKG}pklPath> {pkl_path_lit} .\n")
-                    for prop, col_i in idx_cols:
-                        out.write(f"{sound} <{FKG}{prop}> {lit_float(float(row[col_i]))} .\n")
-
-                    n_sounds += 1
-                    n_frames_region += 1
-
-            print(f"  {region:20s} -> {len(files)} files, {n_frames_region} Sound frames ({group})")
-
+    all_stats = [stats_queue.get() for _ in procs]
+    for p in procs:
+        p.join()
     elapsed = time.time() - t0
-    print(f"\n{n_sounds} Sound nodes, {len(seen_sensors)} distinct Sensor nodes, "
-          f"{n_errors} files skipped on error.")
-    print(f"Wrote {args.output} in {elapsed:.1f}s")
+
+    n_sounds = sum(s["n_sounds"] for s in all_stats)
+    n_frames = sum(s["n_frames"] for s in all_stats)
+    n_errors = sum(s["n_errors"] for s in all_stats)
+    per_region = {}
+    for s in all_stats:
+        for region, n in s["per_region"].items():
+            per_region[region] = per_region.get(region, 0) + n
+    for region in sorted(per_region):
+        print(f"  {region:20s} -> {per_region[region]} Sound recordings")
+
+    print(f"\nConcatenating {n_workers} part files...")
+    with open(args.output, "wb") as out:
+        for part_path in part_paths:
+            with open(part_path, "rb") as fh:
+                out.write(fh.read())
+            part_path.unlink()
+
+    print(f"\n{n_sounds} Sound recordings, {n_frames} Frame nodes, {n_errors} files skipped on error.")
+    print(f"Wrote {args.output} in {elapsed:.1f}s ({n_workers} workers)")
     print(f"Load alongside scripts/kg_ontology.ttl (schema) into the graph DB.")
 
 
