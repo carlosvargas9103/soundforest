@@ -1,0 +1,14 @@
+region,n_entries,n_sampled,rows_per_file_min,rows_per_file_median,rows_per_file_max,n_cols_min,n_cols_median,n_cols_max,same_shape_in_region,same_columns_in_region,duration_sec_min,duration_sec_median,duration_sec_max,avg_file_size_kb
+AlertSignal,2445,2445,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+Dog,688,688,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+Engine,5651,5651,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+HumanVoice,3907,3907,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+MachineryImpact,1837,1837,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+Music,845,845,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+NaturalRegeneration,21,21,4490,4490.0,4490,6021,6021.0,6021,True,True,449,449.0,449,211269.9
+Noise,1283,1283,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+NonMachineryImpact,737,737,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+Pasture,11,11,4490,4490.0,4490,6021,6021.0,6021,True,True,449,449.0,449,211269.9
+Plantation,22,22,4490,4490.0,4490,6021,6021.0,6021,True,True,449,449.0,449,211269.9
+PoweredSaw,1117,1117,20,20.0,20,6021,6021.0,6021,True,True,2,2.0,2,1005.2
+RefForest,3,3,4490,4490.0,4490,6021,6021.0,6021,True,True,449,449.0,449,211269.9
