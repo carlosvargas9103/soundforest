@@ -1,0 +1,38 @@
+#!/bin/bash
+#SBATCH --job-name=kg-gnn-full
+#SBATCH --partition=zen3_0512_a100x2
+#SBATCH --qos=zen3_0512_a100x2
+#SBATCH --gres=gpu:1
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --mem=128G
+#SBATCH --time=04:00:00
+#SBATCH --hint=nomultithread
+#SBATCH --output=logs/kg-gnn-full_%j.out
+
+module purge
+module load gcc cuda miniconda3
+eval "$(conda shell.bash hook)"
+conda activate py311tf
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+
+cd ~/forests-sounds-vargas
+
+# One-time only, if torch_geometric isn't already in py311tf -- uncomment
+# for the first run on this env:
+# pip install -U torch_geometric
+
+mkdir -p logs
+
+# Full data, full-batch (no neighbor sampling -- the whole graph is small
+# enough to sit on one A100). Same architecture as the validated 10% run
+# (hidden_dim=32); epochs bumped up since full data has ~10x the Sound
+# nodes per class and will likely need more passes to converge.
+srun --cpu-bind=cores python3 scripts/train_gnn.py \
+    --hidden-dim 32 \
+    --epochs 300 \
+    --output-dir out/data/kg/gnn_full

@@ -392,7 +392,15 @@ def main():
     print(f"Sound={n_sound:,} Frame={n_frame:,} Sensor={n_sensor:,} Band={n_band:,}  "
           f"train={int(train_mask.sum())}  test={int(test_mask.sum())}")
 
-    model = GNN(args.hidden_dim, data.edge_types)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Device: {device}")
+    data = data.to(device)
+    train_mask = train_mask.to(device)
+    test_mask = test_mask.to(device)
+    y_primary = y_primary.to(device)
+    y_secondary = y_secondary.to(device)
+
+    model = GNN(args.hidden_dim, data.edge_types).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
     t0 = time.time()

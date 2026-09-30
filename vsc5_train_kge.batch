@@ -1,0 +1,39 @@
+#!/bin/bash
+#SBATCH --job-name=kg-kge-full
+#SBATCH --partition=zen3_0512_a100x2
+#SBATCH --qos=zen3_0512_a100x2
+#SBATCH --gres=gpu:1
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --mem=128G
+#SBATCH --time=12:00:00
+#SBATCH --hint=nomultithread
+#SBATCH --output=logs/kg-kge-full_%j.out
+
+module purge
+module load gcc cuda miniconda3
+eval "$(conda shell.bash hook)"
+conda activate py311tf
+
+# Force CPU-side libraries to stay single-threaded (GPU does the real work)
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
+
+cd ~/forests-sounds-vargas
+
+# One-time only, if pykeen isn't already in py311tf -- uncomment for the
+# first run on this env:
+# pip install -U pykeen
+
+mkdir -p logs
+
+# Full data (no --sample-fraction): both KGE models, same hyperparameters
+# as the validated 10% smoke runs (dim=64, epochs=20) -- only the data
+# scale changes. Increase --epochs if loss is still falling at the end.
+srun --cpu-bind=cores python3 scripts/train_kge.py \
+    --models transe complex \
+    --embedding-dim 64 \
+    --epochs 20 \
+    --output-dir out/data/kg/kge_full
