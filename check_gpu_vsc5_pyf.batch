@@ -5,6 +5,7 @@
 ##SBATCH --partition=zen3_0512_a100x2
 ##SBATCH --qos=zen3_0512_a100x2
 #--qos=zen3_0512_a100
+#SBATCH --gres=gpu:1
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #--cpus-per-task=128
@@ -18,6 +19,16 @@
 module purge
 module load gcc cuda miniconda3
 eval "$(conda shell.bash hook)"
+
+# py311tf under this account was a broken copy of a DIFFERENT account's env
+# (hardcoded shebang paths back to that other home dir -- not executable
+# here). Rebuild it clean under this account instead of activating it.
+if [ -d ~/.conda/envs/py311tf ] && ! ~/.conda/envs/py311tf/bin/python3.11 --version >/dev/null 2>&1; then
+    mv ~/.conda/envs/py311tf ~/.conda/envs/py311tf.broken_bak_$(date +%s)
+fi
+if [ ! -d ~/.conda/envs/py311tf ]; then
+    conda create -n py311tf python=3.11 -y
+fi
 conda activate py311tf
 
 # Force libraries to stay single-threaded
@@ -26,7 +37,8 @@ export MKL_NUM_THREADS=1
 export OPENBLAS_NUM_THREADS=1
 export NUMEXPR_NUM_THREADS=1
 
-#srun --cpu-bind=cores pip install -U pip
-#srun --cpu-bind=cores pip install -r requirements.txt
+srun --cpu-bind=cores pip install -U pip
+srun --cpu-bind=cores pip install -r requirements.txt
 
 srun --cpu-bind=cores python3 check_gpu.py
+srun --cpu-bind=cores python3 -c "import pykeen, torch_geometric; print('pykeen + torch_geometric OK')"
