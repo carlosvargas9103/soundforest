@@ -1,44 +1,14 @@
 #!/usr/bin/env python3
 """
-Train a heterogeneous GNN (PyTorch Geometric) on FOREST-KG for node
-classification, evaluating on BOTH targets (LO3, commit 6), one prediction
-per RECORDING (same task as scripts/train_kge.py's LO1/commit 5):
-  - primary:   Sound.hasAcousticContext  (13-way)
-  - secondary: Sound.hasSoundType (via inferredSoundType) (2-way)
-
-Unlike train_kge.py (structure only: recordedBy/hasFrame/hasBand, no
-acoustic values), this script gives Frame nodes their real 17 acoustic
-index values (standardized) as node features. Message passing propagates
-that signal from a Sound's Frame neighbors (up to 4490 for a forest
-recording) into the Sound's own representation, which a classification
-head reads off. This is the natural LO12 comparison: KGE (structure-only)
-vs. GNN (structure + real content features) on the identical task and
-split methodology.
-
-Graph (heterogeneous, PyG HeteroData):
-    Sound  --hasFrame-->   Frame   (+ reverse edge, auto-added)
-    Frame  --hasBand-->    Band    (+ reverse edge)
-    Sound  --recordedBy--> Sensor  (+ reverse edge)
-  Frame.x = the 17 acoustic indices + second, standardized (z-score).
-  Sound/Sensor/Band.x = small constant seed vectors -- deliberately
-  uninformative, so any classification skill has to come from message
-  passing over Frame features, not from a memorized per-node embedding.
-
-Split: same as train_kge.py -- stratified by AcousticContext, split by
-RECORDING (a Sound's Frames always travel with it, never separately
-train/test -- there's no frame-level split to leak across here since
-Frame nodes carry no target label of their own).
-
-Reads straight from out/data/kg/triples.nt (object AND literal triples),
-not GraphDB -- same reasoning as train_kge.py: local parsing is much
-faster than a SPARQL round trip for this volume.
+Heterogeneous GNN (PyTorch Geometric) on FOREST-KG: node classification
+for Sound.hasAcousticContext (13-way) and Sound.hasSoundType (2-way),
+one prediction per recording. Frame nodes carry real acoustic-index
+features; Sound/Sensor/Band start from uninformative seed vectors, so
+classification skill must come from message passing over Frames.
 
 Usage:
-    python scripts/train_gnn.py --sample-fraction 0.10   # recommended first
-    python scripts/train_gnn.py                            # full data (CPU: slow, see notes.md)
+    python scripts/train_gnn.py --sample-fraction 0.10
     python scripts/train_gnn.py --epochs 50 --hidden-dim 64
-
-Environment: needs torch_geometric (installed this session) + torch.
 """
 import argparse
 import random
@@ -74,12 +44,10 @@ FRAME_LITERAL_PROPS = [
     "soundscapeIndex", "acousticRichness", "second",
 ]
 PROP_TO_COL = {p: i for i, p in enumerate(FRAME_LITERAL_PROPS)}
-SEED_DIM = 8  # dim of the deliberately-uninformative Sound/Sensor/Band seed features
+SEED_DIM = 8
 
-# Fixed relation set (+ their auto-added reverse, via T.ToUndirected()) --
-# hardcoded here (not read off a live HeteroData.edge_types) so this module
-# can build a fresh, empty skeleton graph and a matching model without any
-# training data on hand, e.g. for inference on one new recording.
+# Hardcoded rather than read off a live HeteroData, so a skeleton graph/model
+# can be built without any training data on hand (e.g. for inference).
 BASE_EDGE_TYPES = [
     ("sound", "hasFrame", "frame"),
     ("frame", "hasBand", "band"),
@@ -88,9 +56,7 @@ BASE_EDGE_TYPES = [
 
 
 def empty_hetero_skeleton():
-    """A HeteroData with all 4 node types (0 nodes each) and all 3 base
-    edge types (0 edges each), then made undirected -- gives a canonical
-    edge_types list (base + reverse) without depending on real data."""
+    """Empty HeteroData (0 nodes/edges) with a canonical edge_types list."""
     from torch_geometric.data import HeteroData
     import torch_geometric.transforms as T
 
@@ -104,10 +70,8 @@ def empty_hetero_skeleton():
 
 
 class GNN(torch.nn.Module):
-    """2-layer heterogeneous GraphSAGE + two classification heads (primary
-    AcousticContext 13-way, secondary SoundType 2-way) reading off Sound's
-    final representation. See module docstring for the design rationale
-    (Frame carries real features, Sound/Sensor/Band start uninformative)."""
+    """2-layer heterogeneous GraphSAGE + two classification heads reading
+    off Sound's final representation."""
 
     def __init__(self, hidden_dim, edge_types):
         super().__init__()
@@ -120,11 +84,8 @@ class GNN(torch.nn.Module):
             "sensor": torch.nn.Linear(SEED_DIM, hidden_dim),
             "band": torch.nn.Linear(SEED_DIM, hidden_dim),
         })
-        # Explicit (not lazy (-1,-1)) in/out dims: every node type is
-        # projected to hidden_dim by lin_in first, so every conv layer's
-        # input is uniformly hidden_dim -- and explicit shapes mean a saved
-        # state_dict can be loaded straight away, no dummy forward pass
-        # needed first to materialize lazy parameters.
+        # Explicit (not lazy) dims so a saved state_dict loads without a
+        # dummy forward pass first.
         self.conv1 = HeteroConv({
             et: SAGEConv((hidden_dim, hidden_dim), hidden_dim) for et in edge_types
         }, aggr="mean")
@@ -199,19 +160,16 @@ class IdMap:
 
 
 def build_graph(path: Path, per_context_cap: dict | None):
-    """Single streaming pass over triples.nt. Keeps only Sound recordings
-    within per_context_cap (and their Frames/Sensor). Returns a dict with
-    edge index lists, Frame feature rows, Sound context labels, and id maps.
-    """
+    """Single streaming pass over triples.nt, optionally capped per context."""
     sound_ids, frame_ids, sensor_ids, band_ids = IdMap(), IdMap(), IdMap(), IdMap()
     kept_groups, skipped_groups = set(), set()
     per_context_files = defaultdict(set)
 
-    hasframe_edges = []   # (sound_idx, frame_idx)
-    hasband_edges = []    # (frame_idx, band_idx)
-    recordedby_edges = [] # (sound_idx, sensor_idx)
-    frame_feat_rows = {}  # frame_idx -> list[18] (filled in, may stay partially NaN if a prop is absent)
-    sound_context = {}    # sound_idx -> context label (string)
+    hasframe_edges = []
+    hasband_edges = []
+    recordedby_edges = []
+    frame_feat_rows = {}
+    sound_context = {}
 
     t0 = time.time()
     n_lines = 0
@@ -338,9 +296,6 @@ def main():
         len(g["sound_ids"]), len(g["frame_ids"]), len(g["sensor_ids"]), len(g["band_ids"])
     )
 
-    # ---- Frame features: 18-d (17 indices + second), z-score standardized,
-    # any missing value (shouldn't happen, but be safe) filled with 0 after
-    # standardization. ----
     frame_x = np.zeros((n_frame, len(FRAME_LITERAL_PROPS)), dtype=np.float32)
     for fi, row in g["frame_feat_rows"].items():
         frame_x[fi] = row
@@ -351,9 +306,6 @@ def main():
     frame_x = np.nan_to_num(frame_x, nan=0.0)
     frame_x = torch.tensor(frame_x, dtype=torch.float32)
 
-    # ---- Sound/Sensor/Band: deliberately uninformative seed features (see
-    # module docstring) -- classification skill must come from Frame
-    # message passing, not a memorized per-node embedding. ----
     g_torch = torch.Generator().manual_seed(args.seed)
     sound_x = torch.randn(n_sound, SEED_DIM, generator=g_torch) * 0.01
     sensor_x = torch.randn(n_sensor, SEED_DIM, generator=g_torch) * 0.01
@@ -376,7 +328,6 @@ def main():
     data["sound", "recordedBy", "sensor"].edge_index = edge_tensor(g["recordedby_edges"])
     data = T.ToUndirected()(data)
 
-    # ---- Labels + train/test masks, Sound nodes only ----
     y_primary = torch.full((n_sound,), -1, dtype=torch.long)
     y_secondary = torch.full((n_sound,), -1, dtype=torch.long)
     train_mask = torch.zeros(n_sound, dtype=torch.bool)
@@ -436,7 +387,6 @@ def main():
         acc_p = (pred_p == y_primary[test_mask]).float().mean().item()
         acc_s = (pred_s == y_secondary[test_mask]).float().mean().item()
 
-        # top-3 accuracy for the 13-way primary target, comparable to KGE's hits@3
         top3 = out_primary[test_mask].topk(3, dim=1).indices
         acc_p_top3 = (top3 == y_primary[test_mask].unsqueeze(1)).any(dim=1).float().mean().item()
 
@@ -447,10 +397,6 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), args.output_dir / "model_state.pt")
 
-    # Everything scripts/gnn_inference.py needs to rebuild this exact model
-    # and preprocess a brand-new recording's features the same way training
-    # did -- without this, inference on new audio would silently use the
-    # wrong normalization (different mean/std) and get nonsense scores.
     import json
     with open(args.output_dir / "model_meta.json", "w") as fh:
         json.dump({

@@ -1,48 +1,14 @@
 #!/usr/bin/env python3
 """
-Train KG embeddings (TransE, ComplEx) on FOREST-KG and evaluate link
-prediction on BOTH targets (LO1, commit 5), one prediction per RECORDING:
-  - primary:   Sound -[hasAcousticContext]-> AcousticContext  (13-way)
-  - secondary: Sound -[inferredSoundType]-> SoundType         (2-way)
-
-Sound = one recording (18,567 total); it owns its (second, band) Frames via
-hasFrame (626,130 total, Frame carries the acoustic index values). A Sound's
-link-prediction embedding is learned from its whole Frame neighborhood (up
-to 4490 Frame neighbors for a forest recording), not from a single Sensor +
-Band edge the way a per-frame node would have -- see scripts/kg_ontology.ttl
-and the "Correction" note in .carlos/notes.md for why this replaced the
-earlier one-Sound-per-frame design (it scored at chance level: predicting a
-content-based label from almost-featureless per-frame structure alone).
-
-Reads relational (object-property) triples directly from
-out/data/kg/triples.nt -- NOT from GraphDB -- since that file already has
-everything needed and parsing it locally is far faster than a SPARQL round
-trip. inferredSoundType is derived here the same way scripts/kg_rules.py's
-R1 derives it in the graph (AcousticContext -> SoundType is a fixed
-13-entry lookup, hardcoded below to match scripts/kg_ontology.ttl) -- so
-this script needs GraphDB loaded for nothing; it only needs the .nt file.
-
-Relations used: hasFrame, hasBand, hasAcousticContext, recordedBy,
-hasSoundType (13 fixed AcousticContext->SoundType edges), inferredSoundType
-(derived). Datatype properties (the 17 float indices, second, soundscapeId,
-...) are NOT part of this relational graph -- TransE/ComplEx model
-structure, not literals; a GNN (commit 6) is what uses them as features.
-
-Split: train/test only (no validation split -- nothing here does early
-stopping or model selection), stratified by AcousticContext so each class
-is proportionally represented. Only the two per-Sound target relations
-(hasAcousticContext, inferredSoundType) are split; hasFrame, hasBand,
-recordedBy and the 13 hasSoundType schema edges always stay in the
-training graph (structural context, not a target).
+KG embeddings (TransE, ComplEx) on FOREST-KG: link prediction for
+Sound.hasAcousticContext (13-way) and Sound.inferredSoundType (2-way),
+one prediction per recording. Reads relational triples directly from
+out/data/kg/triples.nt (not GraphDB).
 
 Usage:
-    python scripts/train_kge.py                       # both models, full data
-    python scripts/train_kge.py --sample-fraction 0.10 # ~10% of EACH context's recordings (stratified)
-    python scripts/train_kge.py --max-files-per-context 50   # flat cap (smoke test only)
-    python scripts/train_kge.py --models transe        # one model only
-    python scripts/train_kge.py --epochs 50 --embedding-dim 128
-
-Environment: needs pykeen + torch (in tpyforest; installed this session).
+    python scripts/train_kge.py
+    python scripts/train_kge.py --sample-fraction 0.10
+    python scripts/train_kge.py --models transe --epochs 50 --embedding-dim 128
 """
 import argparse
 import json
@@ -62,8 +28,6 @@ DEFAULT_OUTPUT_DIR = REPO_ROOT / "out" / "data" / "kg" / "kge"
 FKG = "https://forest-kg.example.org/ontology#"
 RES = "https://forest-kg.example.org/resource/"
 
-# Mirrors kg_ontology.ttl's res:AcousticContext_* -- fkg:hasSoundType -- res:SoundType_*
-# individuals exactly. Keep in sync if the ontology's vocabulary changes.
 FOREST_CONTEXTS = {"Plantation", "Pasture", "NaturalRegeneration", "RefForest"}
 ALL_CONTEXTS = FOREST_CONTEXTS | {
     "Noise", "Engine", "MachineryImpact", "NonMachineryImpact", "PoweredSaw",
@@ -79,9 +43,6 @@ FRAME_SUFFIX_RE = re.compile(r"_s\d+_b\d+$")
 
 
 def parent_sound_of(local_name: str) -> str:
-    """Group key for capping/splitting: a Sound's own name is already the
-    group; a Frame's parent Sound is its name with the _sN_bN suffix
-    stripped and the Frame_ prefix swapped for Sound_."""
     if local_name.startswith("Sound_"):
         return local_name
     if local_name.startswith("Frame_"):
@@ -91,7 +52,6 @@ def parent_sound_of(local_name: str) -> str:
 
 
 def context_of_sound(sound_local: str) -> str:
-    """'Sound_RefForest_0_00_RefForest1' -> 'RefForest'"""
     rest = sound_local[len("Sound_"):]
     for ctx in sorted(ALL_CONTEXTS, key=len, reverse=True):
         if rest.startswith(ctx + "_"):
@@ -105,10 +65,6 @@ NT_LINE_RE = re.compile(
 
 
 def count_files_per_context(extraction_dir: Path) -> dict:
-    """Cheap directory glob (no unpickling) -- exact source file count per
-    AcousticContext, used to turn --sample-fraction into a per-context cap
-    so a flat percentage doesn't get skewed by forest files being ~225x
-    denser in frames than SONYC files (4490 rows vs 20)."""
     counts = {}
     for ctx in ALL_CONTEXTS:
         d = extraction_dir / ctx
@@ -117,9 +73,6 @@ def count_files_per_context(extraction_dir: Path) -> dict:
 
 
 def parse_object_triples(path: Path, wanted_predicates: set, per_context_cap: dict | None):
-    """Stream triples.nt, keep only object-property triples on wanted predicates.
-    per_context_cap: {context: max_recordings} or None for no cap.
-    Returns (triples: list[(s,p,o)], kept_sound_groups: set[str])."""
     triples = []
     per_context_files = defaultdict(set)
     kept_groups = set()
@@ -163,10 +116,8 @@ def parse_object_triples(path: Path, wanted_predicates: set, per_context_cap: di
 
 
 def add_schema_and_derived(triples):
-    """Add the 13 fixed hasSoundType schema edges (always in train) plus one
-    inferredSoundType triple per Sound, derived from its hasAcousticContext
-    triple -- mirrors kg_rules.py's R1, computed locally instead of via
-    GraphDB."""
+    """Adds the 13 hasSoundType schema edges plus inferredSoundType per
+    Sound, mirroring kg_rules.py's R1 locally instead of via GraphDB."""
     out = list(triples)
     for ctx in ALL_CONTEXTS:
         out.append((f"AcousticContext_{ctx}", "hasSoundType", f"SoundType_{sound_type_for(ctx)}"))
@@ -178,11 +129,6 @@ def add_schema_and_derived(triples):
 
 
 def stratified_group_split(kept_groups, seed, train_frac):
-    """Split Sound recordings into train/test, stratified by AcousticContext.
-    No validation split: nothing here does early stopping or model
-    selection, so a 3-way split would just be dead weight (and would crash
-    TriplesFactory on tiny per-context counts -- e.g. RefForest has only 3
-    recordings, leaving 0 for a separate valid slice)."""
     by_context = defaultdict(list)
     for g in kept_groups:
         by_context[context_of_sound(g)].append(g)
@@ -255,7 +201,7 @@ def main():
     def split_for_triple(s, p, o):
         if p in ("hasAcousticContext", "inferredSoundType") and s.startswith("Sound_"):
             return split_of[s]
-        return "train"  # hasFrame, hasBand, recordedBy, hasSoundType: always visible
+        return "train"
 
     train, test = [], []
     for s, p, o in triples:
@@ -281,13 +227,9 @@ def main():
     print(f"Device: {device}")
 
     def closed_set_eval(model, mapped_triples, relation_label, candidate_prefix, label):
-        """Rank the true tail against ONLY the real candidate set (the 13
-        AcousticContext individuals, or the 2 SoundType individuals) -- NOT
-        PyKEEN's default full-vocabulary corruption (which would rank
-        against all entities, including Sound/Frame/Sensor/Band entities
-        that could never legitimately be the answer, making MRR meaningless
-        for this closed-world, fixed-cardinality target).
-        """
+        """Ranks the true tail against only the real candidate set, not
+        PyKEEN's default full-vocabulary corruption (meaningless here since
+        the target is closed-world, fixed-cardinality)."""
         rel_id = r2id[relation_label]
         mask = mapped_triples[:, 1] == rel_id
         subset = mapped_triples[mask].cpu().numpy()
@@ -302,13 +244,13 @@ def main():
         hr = torch.tensor(subset[:, [0, 1]], dtype=torch.long, device=model.device)
         tails = torch.tensor(candidate_ids, dtype=torch.long, device=model.device)
         with torch.no_grad():
-            scores = model.score_t(hr, tails=tails)  # (N, n_candidates); higher = better (PyKEEN convention)
+            scores = model.score_t(hr, tails=tails)
 
         true_pos = torch.tensor(
             [candidate_pos[t] for t in subset[:, 2]], device=model.device
         )
         true_scores = scores.gather(1, true_pos.unsqueeze(1))
-        ranks = (scores > true_scores).sum(dim=1).cpu().numpy() + 1  # 1-indexed
+        ranks = (scores > true_scores).sum(dim=1).cpu().numpy() + 1
 
         metrics = {
             "n_triples": int(len(subset)),
@@ -332,11 +274,8 @@ def main():
         if device == "cuda":
             model = model.to("cuda")
 
-        # Low-level training loop, NOT pykeen.pipeline.pipeline(): the
-        # pipeline() convenience function always runs its own evaluation
-        # pass with full-vocabulary corruption (rank each test triple's
-        # tail against ALL entities), which is pure wasted cost here since
-        # we only ever use closed_set_eval below. Training only, no eval.
+        # Low-level loop, not pykeen.pipeline(): that always runs its own
+        # full-vocabulary evaluation, wasted cost since we use closed_set_eval.
         training_loop = SLCWATrainingLoop(model=model, triples_factory=train_tf, optimizer="adam")
         training_loop.train(
             triples_factory=train_tf, num_epochs=args.epochs, use_tqdm=True,

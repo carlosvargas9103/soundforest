@@ -1,26 +1,13 @@
 #!/usr/bin/env python3
 """
-Load FOREST-KG (scripts/kg_ontology.ttl + out/data/kg/triples.nt, from
-scripts/build_kg_triples.py) into a GraphDB repository.
+Loads FOREST-KG (kg/kg_ontology.ttl + out/data/kg/triples.nt) into a GraphDB repository.
+Loads the ontology and triples and runs sanity SPARQL queries.
+Note: Empty ruleset for inference is handled explicitly by kg/kg_rules.py instead.
 
-Creates the repository if it doesn't exist yet (empty ruleset -- inference
-is handled explicitly by a later rule-based-reasoning step, not by
-GraphDB's built-in reasoner), then loads the ontology and the generated
-triples, then runs a couple of sanity SPARQL queries.
-
-GraphDB itself: scripts/graphdb-docker-compose.yml
-    docker compose -f scripts/graphdb-docker-compose.yml up -d
-
-The endpoint is read from --graphdb-url / $GRAPHDB_URL rather than
-hardcoded, since the eventual Gradio app (on Hugging Face) needs to reach
-GraphDB wherever it ends up running, not just localhost.
+GraphDB: docker compose -f kg/graphdb-docker-compose.yml up -d
 
 Usage:
-    python scripts/load_kg.py
-    python scripts/load_kg.py --graphdb-url http://localhost:7200 --repo forest-kg
-    GRAPHDB_URL=https://my-graphdb.example.org python scripts/load_kg.py
-
-Environment: only needs `requests` (present in the tpyforest conda env).
+    python kg/load_kg.py --graphdb-url http://localhost:7200 --repo forest-kg
 """
 import argparse
 import os
@@ -30,7 +17,7 @@ from pathlib import Path
 import requests
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_ONTOLOGY = REPO_ROOT / "scripts" / "kg_ontology.ttl"
+DEFAULT_ONTOLOGY = REPO_ROOT / "kg" / "kg_ontology.ttl"
 DEFAULT_TRIPLES = REPO_ROOT / "out" / "data" / "kg" / "triples.nt"
 
 REPO_CONFIG_TEMPLATE = """\
@@ -146,14 +133,14 @@ def main():
     if not args.ontology.exists():
         sys.exit(f"Ontology not found: {args.ontology}")
     if not args.triples.exists():
-        sys.exit(f"Triples not found: {args.triples} (run scripts/build_kg_triples.py first)")
+        sys.exit(f"Triples not found: {args.triples} (run kg/build_kg_triples.py first)")
 
     try:
         requests.get(args.graphdb_url, timeout=5)
     except requests.exceptions.ConnectionError:
         sys.exit(
             f"Could not reach GraphDB at {args.graphdb_url}.\n"
-            f"Start it with: docker compose -f scripts/graphdb-docker-compose.yml up -d"
+            f"Start it with: docker compose -f kg/graphdb-docker-compose.yml up -d"
         )
 
     exists = repo_exists(args.graphdb_url, args.repo)

@@ -32,7 +32,7 @@ mkdir -p logs
 # Full data (no --sample-fraction): both KGE models, same hyperparameters
 # as the validated 10% smoke runs (dim=64, epochs=20) -- only the data
 # scale changes. Increase --epochs if loss is still falling at the end.
-srun --cpu-bind=cores python3 scripts/train_kge.py \
+srun --cpu-bind=cores python3 kg/train_kge.py \
     --models transe complex \
     --embedding-dim 64 \
     --epochs 20 \

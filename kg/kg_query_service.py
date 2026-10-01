@@ -1,36 +1,18 @@
 #!/usr/bin/env python3
 """
-SPARQL query / analytics service over FOREST-KG (LO11, commit 7).
-
-A small set of named analytic queries answering real questions about the
-graph (region composition, per-context acoustic-index averages, sensor
-ambiguity, rule-derived municipality breakdown, ...), plus a read-only
-raw-SPARQL passthrough -- as either a CLI or a tiny Flask HTTP service.
+SPARQL query / analytics service over FOREST-KG: named analytic queries
+plus a read-only raw-SPARQL passthrough, as a CLI or Flask HTTP service.
 
 Usage:
     python scripts/kg_query_service.py --list
     python scripts/kg_query_service.py --run context_counts
-    python scripts/kg_query_service.py --query "SELECT (COUNT(*) AS ?n) WHERE { ?s ?p ?o }"
     python scripts/kg_query_service.py --serve --port 5057
-
-HTTP service, once --serve is running:
-    GET  /                        list of named queries (JSON)
-    GET  /analytics/<name>        run a named query, JSON results
-    POST /sparql   {"query": "..."} run a raw read-only SPARQL query
-
-Environment: needs `requests` (+ `flask` for --serve; installed this
-session). Requires the KG already loaded -- see scripts/load_kg.py.
 """
 import argparse
 import os
 import sys
 
 import requests
-
-# ================= Named analytic queries =================
-# Each answers a real question this project has actually asked in the
-# course of building FOREST-KG -- see .carlos/notes.md for the narrative
-# each of these ties back to.
 
 QUERIES = {
     "context_counts": {
@@ -142,11 +124,7 @@ def bindings_to_rows(sparql_json: dict) -> list:
 
 
 def is_read_only(query: str) -> bool:
-    """Reject anything that isn't a SELECT/ASK/CONSTRUCT/DESCRIBE -- this
-    service is read-only, mutations go through scripts/load_kg.py or
-    scripts/kg_rules.py, never through a query passthrough."""
     q = query.strip().upper()
-    # Strip leading PREFIX/BASE lines before checking the query form.
     lines = [l for l in q.splitlines() if not l.strip().startswith(("PREFIX", "BASE"))]
     q = " ".join(lines).strip()
     return q.startswith(("SELECT", "ASK", "CONSTRUCT", "DESCRIBE"))

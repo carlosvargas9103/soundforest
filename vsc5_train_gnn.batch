@@ -32,7 +32,7 @@ mkdir -p logs
 # enough to sit on one A100). Same architecture as the validated 10% run
 # (hidden_dim=32); epochs bumped up since full data has ~10x the Sound
 # nodes per class and will likely need more passes to converge.
-srun --cpu-bind=cores python3 scripts/train_gnn.py \
+srun --cpu-bind=cores python3 kg/train_gnn.py \
     --hidden-dim 32 \
     --epochs 300 \
     --output-dir out/data/kg/gnn_full

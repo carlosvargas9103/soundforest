@@ -1,53 +1,15 @@
 #!/usr/bin/env python3
 """
-Inference on ONE new audio recording using the trained GNN (scripts/
-train_gnn.py) -- shared by app/app.py and this file's own CLI.
+Inference on one new audio recording using the trained GNN (train_gnn.py).
 
-Extraction: reuses source/extraction.py's get_audio_indices() directly (so
-the 11 whole-window indices -- aca, adi, bioacousticIndex, temporalMedian,
-numberPeaks, entropyFrequency, entropyTemporal, entropy, acousticEvenness,
-soundscapeIndex, acousticRichness -- match training exactly), plus a small
-duplicate of bootstrap_soundscape's band-splitting/band_acift logic for the
-6 per-band values (meanEnergy, medianEnergy, sumEnergy, maxEnergy,
-minEnergy, aci). Verified against a real extracted file: the 11 whole-
-window indices are IDENTICAL across all 10 bands of the same second in the
-training data (spot-checked directly against out/data/extraction/), which
-is exactly what this reproduces.
-
-Windowing -- KNOWN APPROXIMATION, measured not just suspected: this uses
-1-second non-overlapping windows (matching the training data's observed
-row structure: exactly duration_seconds rows per band, one per integer
-second), NOT bootstrap_soundscape's 6-second/1.9s-hop scheme. The index
-FORMULAS are identical (same get_audio_indices() call, same band-split +
-band_acift), but the actual VALUES measurably differ from the stored
-training features for the same source file -- spot-checked directly:
-data/Engine/00_000066.wav vs out/data/extraction/Engine/00_000066_..._.pkl,
-same order of magnitude but not equal (e.g. aca 72830 (stored) vs 12000
-(here), dsi 0.0061 vs 0.0042). bootstrap_soundscape's own 6s/1.9s-hop
-parameters don't reproduce the stored row counts either when checked by
-hand (see .carlos/notes.md), so the exact historical windowing is unclear
-without deeper archaeology -- not attempted here given the time cost vs.
-payoff. This affects prediction ACCURACY on new audio (the model sees
-features from a slightly different distribution than it trained on), not
-the pipeline's correctness -- extraction, graph-building, and GNN
-inference all run and produce a valid, well-formed prediction. Closing
-this gap (either reverse-engineering the real historical parameters, or
-switching this function to call bootstrap_soundscape directly) is a
-worthwhile follow-up, not a blocker for the demo.
-
-Inference is INDUCTIVE and LOCAL: this only ever builds a tiny graph (one
-new Sound + its own new Frames + one placeholder Sensor) and runs the
-2-layer GNN's message passing on just that -- it never needs the full
-626,130-Frame training graph or a live GraphDB connection. That's a direct
-consequence of the Sound/Frame design (LO3): a Sound's embedding is built
-from its own Frame neighborhood, not a memorized per-node lookup.
+Superseded by soundforest/kg_inference.py, which calls the real
+bootstrap_soundscape() instead of this file's reimplemented 1-second
+windowing. That reimplementation is a known approximation: formulas match
+training exactly, but values measurably differ since the real training
+windowing isn't reproduced here (see .carlos/notes.md). Kept for reference.
 
 Usage:
-    python scripts/gnn_inference.py path/to/audio.wav
     python scripts/gnn_inference.py path/to/audio.wav --model-dir out/data/kg/gnn
-
-Environment: needs torch, torch_geometric, librosa, scikit-maad (all in
-tpyforest; same env as the rest of the KG pipeline).
 """
 import argparse
 import sys
@@ -70,8 +32,6 @@ from train_gnn import (  # noqa: E402
 
 
 def band_acift(f: np.ndarray) -> float:
-    """Exact duplicate of bootstrap_soundscape's nested band_acift (source/
-    extraction.py) -- kept in sync manually, see module docstring."""
     total = np.sum(f)
     if total == 0:
         return 0.0
@@ -79,7 +39,6 @@ def band_acift(f: np.ndarray) -> float:
 
 
 def split_freq_band_per_frame(s: np.ndarray, sr: int, b_band=0, u_band=10000, bandwidth=1000):
-    """Exact duplicate of bootstrap_soundscape's nested split_freq_band_per_frame."""
     y_fft = np.fft.fft(s)
     fft_freq = np.fft.fftfreq(len(s), 1.0 / sr)
     bands = []
@@ -92,8 +51,6 @@ def split_freq_band_per_frame(s: np.ndarray, sr: int, b_band=0, u_band=10000, ba
 
 def extract_frame_features(audio_path: Path, sr: int = 48000, bandas: int = 10,
                             b_band: int = 0, u_band: int = 10000, bandwidth: int = 1000):
-    """Returns an (n_seconds * bandas, len(FRAME_LITERAL_PROPS)) array, row
-    order matching FRAME_LITERAL_PROPS, one row per (second, band)."""
     import librosa
     from extraction import get_audio_indices
 
@@ -162,7 +119,7 @@ def predict(audio_path: Path, model_dir: Path = DEFAULT_MODEL_DIR, seed: int = 9
     data = HeteroData()
     data["sound"].x = torch.randn(1, SEED_DIM, generator=g) * 0.01
     data["frame"].x = frame_x
-    data["sensor"].x = torch.randn(1, SEED_DIM, generator=g) * 0.01  # one placeholder "unknown sensor"
+    data["sensor"].x = torch.randn(1, SEED_DIM, generator=g) * 0.01
     data["band"].x = torch.randn(10, SEED_DIM, generator=g) * 0.01
 
     hasframe = torch.tensor([[0] * n_frames, list(range(n_frames))], dtype=torch.long)
@@ -187,8 +144,8 @@ def predict(audio_path: Path, model_dir: Path = DEFAULT_MODEL_DIR, seed: int = 9
     return {
         "n_frames": n_frames,
         "duration_seconds": n_frames // 10,
-        "primary": primary_ranked,   # list of (AcousticContext, prob), best first
-        "secondary": secondary_ranked,  # list of (SoundType, prob), best first
+        "primary": primary_ranked,
+        "secondary": secondary_ranked,
     }
 
 

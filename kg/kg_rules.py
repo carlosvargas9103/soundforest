@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 """
-Rule-based inference over FOREST-KG (LO2, basic proficiency: simple
-non-recursive property-chain rules, not a full reasoner -- GraphDB's
-built-in reasoner is intentionally left off, see scripts/load_kg.py).
-
-Two rules, each a SPARQL 1.1 Update INSERT...WHERE, idempotent via
-FILTER NOT EXISTS so re-running never duplicates triples:
+Rule-based inference over FOREST-KG: two non-recursive SPARQL 1.1 Update
+rules, idempotent via FILTER NOT EXISTS.
 
   R1  Sound hasAcousticContext AcousticContext hasSoundType SoundType
       => Sound inferredSoundType SoundType
@@ -13,17 +9,8 @@ FILTER NOT EXISTS so re-running never duplicates triples:
   R2  Sound recordedBy Sensor municipality M
       => Sound inMunicipality M
 
-New properties (fkg:inferredSoundType, fkg:inMunicipality) are declared
-in scripts/kg_ontology.ttl and never asserted by scripts/build_kg_triples.py
--- only by this script, so a triple on either property is, by construction,
-a materialized fact rather than raw extracted data.
-
 Usage:
-    python scripts/kg_rules.py
     python scripts/kg_rules.py --graphdb-url http://localhost:7200 --repo forest-kg
-
-Environment: only needs `requests` (present in the tpyforest conda env).
-Requires the KG already loaded -- see scripts/load_kg.py.
 """
 import argparse
 import os

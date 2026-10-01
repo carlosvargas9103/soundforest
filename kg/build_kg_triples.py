@@ -1,51 +1,14 @@
 #!/usr/bin/env python3
 """
 Map out/data/extraction/*.pkl into FOREST-KG triples (N-Triples).
-
-One Sound per source RECORDING (one .pkl file, 18,567 total), owning its
-per-(second, band) Frames via fkg:hasFrame (626,130 total). The acoustic
-index values live on Frame; the link-prediction targets (hasAcousticContext,
-recordedBy) live on Sound. This gives a Sound a rich neighborhood to learn
-a link-prediction embedding from (up to 4490 Frame neighbors for a forest
-recording) instead of each frame being a near-featureless individual.
-
-  Sound:
-    - fkg:hasFrame -> Frame, one per row of the source DataFrame
-    - fkg:hasAcousticContext -> AcousticContext (primary link-prediction
-      target, commit 5/LO1); fkg:hasSoundType (via kg_rules.py's
-      inferredSoundType) is the secondary target
-    - fkg:recordedBy -> Sensor, fixed lat/lon/municipality per group (see
-      LOCATION_BY_GROUP -- we don't have per-sensor GPS for most sounds)
-    - fkg:soundscapeId/fkg:sourceFile/fkg:pklPath/fkg:nFrames/
-      fkg:durationSeconds -> recording-level provenance
-
-  Frame:
-    - fkg:second, fkg:hasBand -> which window of the recording this is
-    - the 17 acoustic index properties (aci, adi, entropy, ... -- see
-      kg_ontology.ttl), that row's own values, unaggregated
-
-Parallel by file across worker processes (unpickling + per-row triple
-formatting is CPU-bound, not disk-bound -- a single-threaded run leaves an
-NVMe mostly idle). Each worker writes its own Sensor triples for whatever
-sensor_ids it touches; workers never coordinate on Sensor dedup, because
-duplicate IDENTICAL triples across workers are harmless (RDF triples are a
-set -- loading the same triple twice, e.g. via scripts/load_kg.py, is a
-no-op, verified empirically). Final output is the plain concatenation of
-each worker's part file.
+One Sound per recording, owning its per-(second, band) Frames via
+fkg:hasFrame. Parallel by file across worker processes.
 
 Schema: scripts/kg_ontology.ttl
-Pipeline diagram: scripts/kg_pipeline_plan.html
 
 Usage:
-    python scripts/build_kg_triples.py
     python scripts/build_kg_triples.py --workers 19
-    python scripts/build_kg_triples.py --extraction-dir out/data/extraction-data
     python scripts/build_kg_triples.py --limit-per-region 50   # smoke test
-    python scripts/build_kg_triples.py --output out/data/kg/triples.nt
-
-Environment: same as read_extraction_stats.py -- unpickling needs
-source/extraction.py importable (joblib/pandas/numpy/scikit-maad), e.g.:
-    /home/cvargas/miniconda3/envs/tpyforest/bin/python scripts/build_kg_triples.py
 """
 import argparse
 import multiprocessing as mp
@@ -78,14 +41,8 @@ FKG = "https://forest-kg.example.org/ontology#"
 RES = "https://forest-kg.example.org/resource/"
 RDF_TYPE = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"
 
-# Every Sound gets fkg:hasAcousticContext -> AcousticContext_<folder name>,
-# all 13 alike (see scripts/kg_ontology.ttl). This set is only used to pick
-# the Sensor's fixed location group (Nicoya Peninsula vs NYC) and to parse
-# the sensor/site id.
 FOREST_CONTEXTS = {"Plantation", "Pasture", "NaturalRegeneration", "RefForest"}
 
-# Frame (Metrics value -> ontology property). Excludes reg/sid/sec/ban
-# (structural, not acoustic) and vec_* (kept out of the KG, see pklPath).
 INDEX_PROPERTY = {
     Metrics.MEAN.value: "meanEnergy",
     Metrics.MEDIAN.value: "medianEnergy",
@@ -106,8 +63,7 @@ INDEX_PROPERTY = {
     Metrics.ACOUSTIC_RICHNESS.value: "acousticRichness",
 }
 
-# Fixed centroid per recording group -- we don't have per-sensor GPS for
-# most sounds, so every sensor in a group shares its group's coordinates.
+# No per-sensor GPS available; every sensor in a group shares one centroid.
 LOCATION_BY_GROUP = {
     "nicoya": {"latitude": 10.000, "longitude": -85.417, "municipality": "Nicoya Peninsula"},
     "nyc": {"latitude": 40.7128, "longitude": -74.0060, "municipality": "New York City"},
@@ -119,7 +75,6 @@ def group_for_region(region: str) -> str:
 
 
 def source_stem(pkl_path: Path) -> str:
-    """'3_01_Pasture11_dict_y_split_11945_NULL_1769012640.pkl' -> '3_01_Pasture11'"""
     name = pkl_path.stem
     marker = "_dict_y_split_"
     return name.split(marker)[0] if marker in name else name
@@ -127,12 +82,8 @@ def source_stem(pkl_path: Path) -> str:
 
 def sensor_id_for(region: str, stem: str) -> str:
     if region in FOREST_CONTEXTS:
-        # '3_01_Pasture11' -> 'Pasture11' (site code is everything after the
-        # 2nd underscore; the leading two fields are a local region/index
-        # counter, not identifying information).
         parts = stem.split("_")
         return "_".join(parts[2:]) if len(parts) > 2 else stem
-    # SONYC: '40_010020' -> '40' (matches annotations.csv sensor_id).
     return stem.split("_")[0]
 
 
@@ -166,10 +117,6 @@ def load_pkl(path: Path) -> pd.DataFrame:
 
 
 def process_files(worker_id, file_list, extraction_dir: Path, out_path: Path, stats_queue):
-    """file_list: list of (region, Path) tuples. Writes triples for exactly
-    these files to out_path. Sensor dedup is LOCAL to this worker (see
-    module docstring -- cross-worker duplicate Sensor triples are harmless).
-    """
     seen_sensors = set()
     n_sounds = 0
     n_frames = 0
@@ -285,8 +232,6 @@ def main():
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
-    # Flat (region, file) list, largest files first so slow forest files
-    # start early and don't straggle at the end of a run.
     all_files = []
     for region_dir in region_dirs:
         region = region_dir.name
@@ -297,7 +242,7 @@ def main():
     all_files.sort(key=lambda rf: rf[1].stat().st_size, reverse=True)
 
     n_workers = max(1, min(args.workers, len(all_files)))
-    chunks = [all_files[i::n_workers] for i in range(n_workers)]  # round-robin
+    chunks = [all_files[i::n_workers] for i in range(n_workers)]
     print(f"{len(all_files)} files across {len(region_dirs)} regions, "
           f"{n_workers} workers ({sum(len(c) for c in chunks)} files assigned)")
 

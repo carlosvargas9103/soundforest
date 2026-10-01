@@ -1,32 +1,10 @@
 #!/usr/bin/env python3
 """
-Statistics reader for the acoustic feature extraction output.
-
-Each region folder under `out/data/extraction/` (e.g. Engine, Dog, Pasture, ...)
-contains one .pkl file per source audio file. Every .pkl holds a pandas
-DataFrame with one row per (second, frequency-band) window and:
-  - scalar acoustic-index columns (reg, sid, sec, ban, men, aci, ...)
-  - a flattened feature vector per row (vec_0 ... vec_N)
-
-This script scans those folders and reports, per region:
-  - number of entries (i.e. number of source audio files / .pkl files)
-  - "length" of each file: rows per DataFrame and derived duration in seconds
-  - the columns/variables present (scalar acoustic indices + vector size)
+Statistics reader for out/data/extraction/*.pkl: per-region row counts, duration, and column layout.
 
 Usage:
-    python scripts/read_extraction_stats.py
-    python scripts/read_extraction_stats.py --extraction-dir out/data/extraction-data
-    python scripts/read_extraction_stats.py --sample-per-region 50
-    python scripts/read_extraction_stats.py --full                 # read every file (slow, ~30GB)
     python scripts/read_extraction_stats.py --csv out/extraction_stats_summary.csv
-
-Environment:
-    The .pkl files use `Metrics` enum members (source/extraction.py) as column
-    labels, so unpickling needs that module importable, which in turn needs
-    joblib / pandas / numpy / scikit-maad. The repo's own venvs/ (tpy310f_h,
-    tpy310f_i) are broken symlinks outside the cluster; use a working env
-    instead, e.g.:
-        /home/cvargas/miniconda3/envs/tpyforest/bin/python scripts/read_extraction_stats.py
+    python scripts/read_extraction_stats.py --full   # read every file, slow
 """
 import argparse
 import pickle

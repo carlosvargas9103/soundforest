@@ -1,0 +1,21 @@
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cu118
+
+# PyTorch, CUDA 11.8 build (falls back to CPU automatically if no GPU)
+torch==2.3.0.post101
+
+# Knowledge graph: KGE (train_kge.py) + GNN (train_gnn.py)
+pykeen==1.11.1
+torch_geometric==2.8.0.post1
+
+# Data + audio feature extraction (build_kg_triples.py, read_extraction_stats.py,
+# gnn_inference.py -- all import source/extraction.py)
+pandas==2.2.2
+numpy==1.26.4
+joblib==1.4.2
+librosa==0.10.2.post1
+scikit-maad==1.4.2
+
+# GraphDB / SPARQL service (load_kg.py, kg_rules.py, kg_query_service.py)
+requests==2.32.3
+flask==3.1.3
