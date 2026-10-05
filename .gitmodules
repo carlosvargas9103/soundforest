@@ -1,0 +1,3 @@
+[submodule "soundforest"]
+	path = soundforest
+	url = https://huggingface.co/spaces/carlosvargas9103/soundforest

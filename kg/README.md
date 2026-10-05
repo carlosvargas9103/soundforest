@@ -158,10 +158,6 @@ FOREST-only vs. 13-way Urban-AcousticContext).
 
 ## Data & Model Availability
 
-This git-repo: [github.com/carlosvargas9103/soundforest](https://github.com/carlosvargas9103/soundforest) · Demo: [www.soundforest.app](https://www.soundforest.app/)
-
-Zenodo: [Vargas Rivera, Carlos Alberto](https://zenodo.org/search?q=metadata.creators.person_or_org.name:%22Vargas%20Rivera,%20Carlos%20Alberto%22) · ORCID: [0000-0002-1757-3249](https://orcid.org/0000-0002-1757-3249)
-
 | Artifact | Size | Status | Link |
 |---|---|---|---|
 | `out/data/kg/triples.nt` | 2.4 GB | Zenodo | [FOREST-KG Triples Curated Dataset](https://zenodo.org/records/23105337) |
@@ -171,3 +167,9 @@ Zenodo: [Vargas Rivera, Carlos Alberto](https://zenodo.org/search?q=metadata.cre
 | Raw SONYC-UST audio | 18 GB | Zenodo<br/>(New York University) | [FOREST-KG Raw SONYC-UST Audios](https://zenodo.org/records/3966543) |
 | Raw PSA forest recordings | 6.1 TB | Zenodo<br/>(ETH Zürich) | [Costa Rica Acoustic Monitoring Dataset – Nicoya](https://www.research-collection.ethz.ch/entities/researchdata/e25c4a99-6df8-493c-8df3-9141027b4f63) |
 | Further audio integration (planned) | -- | Nature | [Acoustic measurements from soundscapes collected worldwide during the COVID-19 pandemic](https://www.nature.com/articles/s41597-024-03611-7) |
+
+---
+
+This git-repo: [github.com/carlosvargas9103/soundforest](https://github.com/carlosvargas9103/soundforest) · Demo: [www.soundforest.app](https://www.soundforest.app/)
+
+Zenodo: [Vargas Rivera, Carlos Alberto](https://zenodo.org/search?q=metadata.creators.person_or_org.name:%22Vargas%20Rivera,%20Carlos%20Alberto%22) · ORCID: [0000-0002-1757-3249](https://orcid.org/0000-0002-1757-3249)
